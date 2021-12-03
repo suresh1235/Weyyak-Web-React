@@ -80,8 +80,14 @@
   -o-transition-property: transform;
   transition-property: transform;
   transition-property: transform, -webkit-transform;
+  
 }
-
+// .Continue_watching{
+// .swiper-slide:hover{
+//   transform: scale(1.0333) !important;
+//    transition: all .3s ease-in-out;
+// }
+// }
 .swiper-slide-invisible-blank {
   visibility: hidden;
 }

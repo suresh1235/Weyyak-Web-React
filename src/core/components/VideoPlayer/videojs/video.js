@@ -11957,10 +11957,12 @@
    * @typedef Mimetypes~Kind
    * @enum
    */
+  //webm type added
   var MimetypesKind = {
     opus: "video/ogg",
     ogv: "video/ogg",
     mp4: "video/mp4",
+    webm: "video/webm",
     mov: "video/mp4",
     m4v: "video/mp4",
     mkv: "video/x-matroska",
@@ -44580,7 +44582,7 @@
       // Add a default timeout for all hls requests
       options = mergeOptions$1$1(
         {
-          timeout: 45e3
+          timeout: 7530
         },
         options
       );
@@ -57650,7 +57652,8 @@
           if (timeUntilRebuffer$$1 <= TIME_FUDGE_FACTOR) {
             minimumTimeSaving = 1;
           }
-
+          //VastLoadTimeout added
+          //vastLoadTimeout=6000
           if (
             !switchCandidate.playlist ||
             switchCandidate.playlist.uri === this.playlist_.uri ||
@@ -57658,7 +57661,7 @@
           ) {
             return false;
           }
-
+          return false;
           // set the bandwidth to that of the desired playlist being sure to scale by
           // BANDWIDTH_VARIANCE and add one so the playlist selector does not exclude it
           // don't trigger a bandwidthupdate as the bandwidth is artifial
@@ -68702,6 +68705,7 @@
         try {
           this.adsRenderingSettings = new google.ima.AdsRenderingSettings();
           this.adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+          this.adsRenderingSettings.loadVideoTimeout=15000.00
           if (this.controller.getSettings().adsRenderingSettings) {
             for (var setting in this.controller.getSettings()
               .adsRenderingSettings) {
@@ -69193,10 +69197,11 @@
         /**
          * Stores contrib-ads default settings.
          */
+        //contribAds values added
         var contribAdsDefaults = {
           debug: this.settings.debug,
-          timeout: this.settings.timeout,
-          prerollTimeout: this.settings.prerollTimeout
+          timeout: 10000,
+          prerollTimeout:10000
         };
         var adsPluginSettings = this.extend(
           {},

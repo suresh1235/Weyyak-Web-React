@@ -51,7 +51,8 @@ class MyActivity extends BaseContainer {
       issueWithTranslation: false,
       issueWithCommunication: false,
       rating: 0,
-      userComment: ""
+      userComment: "",
+      gotResponse:false
     };
     this.itemTitle = "";
   }
@@ -142,7 +143,7 @@ class MyActivity extends BaseContainer {
     Logger.log(this.MODULE_NAME, "userWatchingReceived");
     const userWatching = {};
     userWatching[this.props.locale] = data;
-    this.setState({ userWatching: userWatching });
+    this.setState({ userWatching: userWatching , gotResponse: true});
   }
 
   userWatchingError() {
@@ -741,7 +742,8 @@ class MyActivity extends BaseContainer {
             </div>
           ) : null}
           <div className="empty-space" />
-          {this.props.loading ? <Spinner /> : null}
+          {/* {this.props.loading ? <Spinner /> : null} */}
+          {!this.state.gotResponse ? <Spinner /> : null}
         </div>
       </React.Fragment>
     );

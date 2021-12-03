@@ -144,6 +144,16 @@ class UserInput extends React.Component {
             );
           }
         }
+      }else{
+        this.setState(
+          {
+            bMobileValid: false,
+            bEmailValid: false,
+            inputError: false,
+            currentInputIsMobile: false
+          },
+          this.inputStateChanged
+        );
       }
     } catch (ex) {
       this.setState(

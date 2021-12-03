@@ -7,69 +7,72 @@
  * an Open Source License of any type without the expressed written permission
  * of L&T.
  */
-import {store} from "app/App";
+import { store } from "app/App";
 import * as appURLs from "app/AppConfig/urlConfig";
 import * as actionTypes from "./actions";
 import * as CONSTANTS from "app/AppConfig/constants";
-import {ENABLE_CONTACT_US} from "app/AppConfig/features";
+import { ENABLE_CONTACT_US } from "app/AppConfig/features";
 import * as common from "../../utility/common";
-import {COUNTRIES} from "../mock";
+import { COUNTRIES } from "../mock";
 import axios from "axios";
-import {createAxiosInstance} from "app/axios/zee5-axios";
+import { createAxiosInstance } from "app/axios/zee5-axios";
 import aStaticMenuEn from "app/i18n/StaticMenu/static-menu-en.json";
 import aStaticMenuAr from "app/i18n/StaticMenu/static-menu-ar.json";
 import oResourceBundle from "app/i18n/";
+import { CleverTap_CustomEvents } from 'core/CleverTap'
 import Logger from "core/Logger";
+import { toast } from "core/components/Toaster/";
+import { HEADER_MENU } from "../../AppConfig/urlConfig";
 const MODULE_NAME = "actionCreators";
 
 let zeeAxios = null;
 let zeeAxiosUM = null;
 export const startLoader = () => {
-  return {type: actionTypes.START_LOADER};
+  return { type: actionTypes.START_LOADER };
 };
 
 export const stopLoader = () => {
-  return {type: actionTypes.STOP_LOADER};
+  return { type: actionTypes.STOP_LOADER };
 };
 
 export const startVideoInfoLoader = () => {
-  return {type: actionTypes.START_VIDEO_INFO_LOADER};
+  return { type: actionTypes.START_VIDEO_INFO_LOADER };
 };
 
 export const stopVideoInfoLoader = () => {
-  return {type: actionTypes.STOP_VIDEO_INFO_LOADER};
+  return { type: actionTypes.STOP_VIDEO_INFO_LOADER };
 };
 
 export const changeDirection = sCurrentLocale => {
-  return {type: actionTypes.CHANGE_DIRECTION, payload: sCurrentLocale};
+  return { type: actionTypes.CHANGE_DIRECTION, payload: sCurrentLocale };
 };
 
 export const setVolume = volume => {
-  return {type: actionTypes.START_LOADER};
+  return { type: actionTypes.START_LOADER };
 };
 
 export const fnPageViewSent = () => {
-  return {type: actionTypes.PAGEVIEW_SENT};
+  return { type: actionTypes.PAGEVIEW_SENT };
 };
 
 export const fnUpdatePlayerScreenState = playerScreenVisible => {
   return {
     type: actionTypes.UPDATE_PLAYER_SCREEN_STATE,
-    payload: {playerScreenVisible}
+    payload: { playerScreenVisible }
   };
 };
 
 export const fnUpdateVideoPlaybackState = videoPlaybackState => {
   return {
     type: actionTypes.UPDATE_VIDEO_PLAYBACK_STATE,
-    payload: {videoPlaybackState}
+    payload: { videoPlaybackState }
   };
 };
 
 export const fnUpdatePlayerQuality = qualityLevels => {
   return {
     type: actionTypes.UPDATE_VIDEO_QUALITY_LEVELS,
-    payload: {qualityLevels}
+    payload: { qualityLevels }
   };
 };
 
@@ -93,22 +96,36 @@ export const fnFetchPlatformConfig = (
         if (response.status === CONSTANTS.STATUS_OK && response.data.default) {
           const oDefaultUrls = response.data.default["1.0"];
           // response.data.default["1.0"].Ad_Tag_Url_EN =
-          //   "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/n7729.testsite/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Den&description_url=https://weyyak.z5.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
+          //   "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/n7729.testsite/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Den&description_url=https://weyyak.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
           // response.data.default["1.0"].Ad_Tag_Url_AR =
-          //   "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/n7729.testsite/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Dar&description_url=https://weyyak.z5.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
+          //   "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/n7729.testsite/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Dar&description_url=https://weyyak.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
 
-          response.data.default["1.0"].Ad_Tag_Url_EN =
-            "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Den&description_url=https://weyyak.z5.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
-          response.data.default["1.0"].Ad_Tag_Url_AR =
-            "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Dar&description_url=https://weyyak.z5.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
-          // response.data.default["1.0"].Ad_Tag_Url_EN = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/n7729.testsite/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Den&description_url=https://weyyak.z5.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
-          // response.data.default["1.0"].Ad_Tag_Url_AR = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/n7729.testsite/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Dar&description_url=https://weyyak.z5.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
+          // response.data.default["1.0"].Ad_Tag_Url_EN =
+          //   "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229,77688724/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Den&description_url=https://weyyak.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
+          // response.data.default["1.0"].Ad_Tag_Url_AR =
+          //   "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229,77688724/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Dar&description_url=https://weyyak.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
+          // response.data.default["1.0"].Ad_Tag_Url_EN = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/n7729.testsite/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Den&description_url=https://weyyak.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
+          // response.data.default["1.0"].Ad_Tag_Url_AR = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/7229/n7729.testsite/Weyyak&ciu_szs=320x50,320x100,728x90,970x90,970x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&url=[referrer_url]&cust_params=platform%3Dweb&lang%3Dar&description_url=https://weyyak.com&ad_rule=1&correlator=&cmsid=2499579&vid=VIDEO_ID";
+
+          // response.data.default["1.0"].Ad_Tag_Url_EN = "https://pubads.g.doubleclick.net/gampad/ads?iu=/77688724/Weyyak&description_url=https%3A%2f%2fweyyak.com&tfcd=0&npa=0&sz=640x480&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=12"
+          // response.data.default["1.0"].Ad_Tag_Url_AR = "https://pubads.g.doubleclick.net/gampad/ads?iu=/77688724/Weyyak&description_url=https%3A%2f%2fweyyak.com&tfcd=0&npa=0&sz=640x480&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=12"
+
+          // test 
+         //  response.data.default["1.0"].Ad_Tag_Url_EN ="https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpostpod&cmsid=496&vid=short_onecue&correlator="
+         //  response.data.default["1.0"].Ad_Tag_Url_AR ="https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpostpod&cmsid=496&vid=short_onecue&correlator="
+
+
           //Update zeeAxios based on platform config
           zeeAxios = createAxiosInstance(oDefaultUrls && oDefaultUrls["CMS"]);
           zeeAxiosUM = createAxiosInstance(oDefaultUrls && oDefaultUrls["UM"]);
           let geoLoctionURL = oDefaultUrls && oDefaultUrls["Geolocation"];
+          const userTokenString = common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN);
 
-          const userTokenString = common.getCookie(CONSTANTS.COOKIE_USER_TOKEN);
+          // let  userTokenString = null;
+          // common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN).then(function(token){
+          //    userTokenString= token
+          //   })
+
           const payloadSavedUserTokenString = common.getCookie(
             CONSTANTS.COOKIE_PAYLOAD_SAVED_USER_TOKEN
           );
@@ -116,7 +133,7 @@ export const fnFetchPlatformConfig = (
             CONSTANTS.COOKIE_VERIFY_PAYMENT_PAYLOAD
           );
           const userToken =
-            userTokenString && userTokenString !== null
+            (userTokenString && userTokenString !== null && userTokenString != 'null')
               ? JSON.parse(userTokenString)
               : null;
           const payloadSavedUserToken =
@@ -223,10 +240,10 @@ function configUpdate(
   response,
   fnSuccess
 ) {
-   dispatch(stopLoader());
+  dispatch(stopLoader());
   if (geoLoctionURL) {
     dispatch(fnFetchGeoLocation(geoLoctionURL, sCountry));
-   
+
   }
   //Set platform config and language code
   dispatch(updatePlatformConfig(response.data, sLanguageCode));
@@ -334,7 +351,7 @@ export const fnFetchCountryList = sLanguageCode => {
  * @return {dispatch} - dispatch object
  */
 const updateCountryList = aCountryList => {
-  return {type: actionTypes.UPDATE_COUNTRY_LIST, payload: aCountryList};
+  return { type: actionTypes.UPDATE_COUNTRY_LIST, payload: aCountryList };
 };
 
 const updateEnglishCountryList = aCountryList => {
@@ -364,10 +381,10 @@ const fnFetchGeoLocation = (sUrl, sQueryParamCountry) => {
           localStorage.setItem("country", response.data);
           dispatch(updateGeoLocation(response.data));
           dispatch({
-           'type': 'sCodeUpdate',
-           'payload':response.data
-        })
-                                }
+            'type': 'sCodeUpdate',
+            'payload': response.data
+          })
+        }
         dispatch(stopLoader());
       })
       .catch(error => {
@@ -390,7 +407,7 @@ const updateGeoLocation = sCountryCode => {
   const isMENARegion = common.isMENARegion(sCountryCode);
   return {
     type: actionTypes.UPDATE_COUNTRY_CODE,
-    payload: {sCountryCode, isMENARegion}
+    payload: { sCountryCode, isMENARegion }
   };
 };
 
@@ -403,7 +420,7 @@ const updateGeoLocation = sCountryCode => {
 const updatePlatformConfig = (oPlatformConfig, sLanguageCode) => {
   return {
     type: actionTypes.UPDATE_PLATFORM_CONFIG,
-    payload: {oPlatformConfig, sLanguageCode}
+    payload: { oPlatformConfig, sLanguageCode }
   };
 };
 
@@ -446,7 +463,7 @@ export const fnFetchMenuItems = sLanguageCode => {
  * @return {dispatch} - dispatch object
  */
 const updateMenuItems = oMenuItems => {
-  return {type: actionTypes.UPDATE_MENU_ITEMS, payload: oMenuItems};
+  return { type: actionTypes.UPDATE_MENU_ITEMS, payload: oMenuItems };
 };
 
 /**
@@ -457,18 +474,24 @@ const updateMenuItems = oMenuItems => {
  */
 export const fnFetchPageContent = (
   sLanguageCode,
-  sCategoryId,  
+  sCategoryId,
   fnMyPlayListLoginFailure,
   apiFailure
 ) => {
   return (dispatch, getState) => {
-        //Get app state
+    //Get app state
     // const dCountry = getState().sCode
     const oAppState = getState();
     const oFirstMenuItem = oAppState.aMenuItems && oAppState.aMenuItems.data[0];
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
+    // let  oUserToken = null;
+
+    //   common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN).then(function(token){
+    //     oUserToken=null;
+    //   })
+
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     const aPromises = [];
     // let dCountry = "AE";
@@ -492,11 +515,11 @@ export const fnFetchPageContent = (
           "{LANGUAGE_CODE}",
           sLanguageCode
         ).replace("{CATEGORY_ID}", sCategoryId)
-        .replace("{COUNTRY}",dCountry)
+          .replace("{COUNTRY}", dCountry)
       );
       aPromises.push(oPageDeailPromise);
       //if home is selected and user is logged in and selected item is home
-      if (oFirstMenuItem.id === sCategoryId && sAuthToken) {
+      if (oFirstMenuItem != null && oFirstMenuItem.id === sCategoryId && sAuthToken) {
         const params = {
           headers: {
             Authorization: "Bearer " + sAuthToken
@@ -508,18 +531,17 @@ export const fnFetchPageContent = (
       dispatch(startLoader());
       Promise.all(aPromises)
         .then(response => {
-         //if the item selected is Grid items
+          //if the item selected is Grid items
           if (
             response[0].data.data.type === "VOD" &&
             response[0].data.data.playlists[0]
           ) {
             //Sort the playlist items based on recent date
-            response[0].data.data.playlists[0].content.sort(function(a, b) {
+            response[0].data.data.playlists[0].content.sort(function (a, b) {
               return new Date(b.insertedAt) - new Date(a.insertedAt);
             });
           }
           dispatch(updatePageContent(response[0].data));
-
           //if response is having resumable coontent
           if (response[1]) {
             const aUserResumables = response[1].data.data;
@@ -573,53 +595,31 @@ export const fnFetchPageContent = (
   };
 };
 
-export const fnFetchPlanContent = (planid,offset,count
-) => {
+export const fnFetchResumableItems = (response, sLanguageCode) => {
+  //if response is having resumable coontent
   return (dispatch, getState) => {
-      
-    //Get app state
-    const dCountry = getState().sCode;
-    const oAppState = getState();
-    const oFirstMenuItem = oAppState.aMenuItems && oAppState.aMenuItems.data[0];
+
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
+
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
-    const aPromises = [];
 
-    //Check wheather selected menu item is playlist or not
-    // if (sCategoryId === CONSTANTS.MY_PLAYLIST_MENU_ID) {
-    //   dispatch(fnFetchMyPlayList(fnMyPlayListLoginFailure));
-    // } else {
-      // const oPageDeailPromise = zeeAxios.get(
-      //   appURLs.CATEGORY_CONTENT.replace(
-      //     "{LANGUAGE_CODE}",
+    //if home is selected and user is logged in and selected item is home
+    if (sAuthToken) {
+      const params = {
+        headers: {
+          Authorization: "Bearer " + sAuthToken
+        }
+      };
+      let oResumablePromise = zeeAxiosUM.get(appURLs.RESUMABLE, params);
 
-      //     sLanguageCode
-      //   ).replace("{CATEGORY_ID}", sCategoryId)
-      // );
-    //  aPromises.push(oPageDeailPromise);
-      //if home is selected and user is logged in and selected item is home
-      if (sAuthToken) {
-        const params = {
-          headers: {
-            Authorization: "Bearer " + sAuthToken
-          }
-        };
-        const oResumablePromisePlan = zeeAxios.get(appURLs.VIDEO_RESUMABLE
-          .replace("{COUNTRY}",dCountry)
-          );//+'offset='+offset+'&limit='+count+'&plan='+planid, params
-        aPromises.push(oResumablePromisePlan);
-        
-      // console.log("======"+JSON.stringify(oResumablePromisePlan));
-      }
-      dispatch(startLoader());
-      Promise.all(aPromises)
+
+      oResumablePromise
         .then(response => {
-          dispatch(updatePlanContent(response[0])); 
           //if response is having resumable coontent
-          if (response) {
-            const aUserResumables = response.data;
+          if (response.data) {
+            const aUserResumables = response.data.data;
             const aQueryURLItems = [];
             const oUserResumablesObject = aUserResumables.reduce(
               (oUserResumablesObject, ele) => {
@@ -632,27 +632,26 @@ export const fnFetchPlanContent = (planid,offset,count
               {}
             );
             //Resumable media details
-            // const oResumableMediaObjects = zeeAxios.get(
-            //   appURLs.RESUMABLE_ITEMS.replace(
-            //     "{LANGUAGE_CODE}",
-            //     sLanguageCode
-            //   ).replace("{QUERY_ITEMS}", aQueryURLItems.join(","))
-            // );
-            // oResumableMediaObjects
-            //   .then(response => {
-            //     response.status === CONSTANTS.STATUS_OK &&
-            //       dispatch(
-            //         updateResumableContent({
-            //           oUserResumablesObject,
-            //           aResumableMedias: response.data
-            //         })
-            //       );
-            //   })
-            //   .catch(err => {                
-            //     dispatch(stopLoader());
-            //     Logger.error(MODULE_NAME, err);
-            //   });
-          } else {            
+            const oResumableMediaObjects = zeeAxios.get(
+              appURLs.RESUMABLE_ITEMS.replace(
+                "{LANGUAGE_CODE}",
+                sLanguageCode
+              ).replace("{QUERY_ITEMS}", aQueryURLItems.join(","))
+            );
+            oResumableMediaObjects
+              .then(response => {
+                response.status === CONSTANTS.STATUS_OK &&
+                  dispatch(
+                    updateResumableContent({
+                      oUserResumablesObject,
+                      aResumableMedias: response.data.data
+                    })
+                  );
+              })
+              .catch(err => {
+                Logger.error(MODULE_NAME, err);
+              });
+          } else {
             dispatch(
               updateResumableContent({
                 oUserResumablesObject: null,
@@ -662,10 +661,107 @@ export const fnFetchPlanContent = (planid,offset,count
           }
         })
         .catch(error => {
-          dispatch(stopLoader());
           Logger.error(MODULE_NAME, error);
-         // apiFailure();
         });
+
+
+    }
+  }
+}
+
+export const fnFetchPlanContent = (planid, offset, count
+) => {
+  return (dispatch, getState) => {
+
+    //Get app state
+    const dCountry = getState().sCode;
+    const oAppState = getState();
+    const oFirstMenuItem = oAppState.aMenuItems && oAppState.aMenuItems.data[0];
+    const oUserToken = JSON.parse(
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
+    );
+    const sAuthToken = oUserToken ? oUserToken.authToken : null;
+    const aPromises = [];
+
+    //Check wheather selected menu item is playlist or not
+    // if (sCategoryId === CONSTANTS.MY_PLAYLIST_MENU_ID) {
+    //   dispatch(fnFetchMyPlayList(fnMyPlayListLoginFailure));
+    // } else {
+    // const oPageDeailPromise = zeeAxios.get(
+    //   appURLs.CATEGORY_CONTENT.replace(
+    //     "{LANGUAGE_CODE}",
+
+    //     sLanguageCode
+    //   ).replace("{CATEGORY_ID}", sCategoryId)
+    // );
+    //  aPromises.push(oPageDeailPromise);
+    //if home is selected and user is logged in and selected item is home
+    if (sAuthToken) {
+      const params = {
+        headers: {
+          Authorization: "Bearer " + sAuthToken
+        }
+      };
+      const oResumablePromisePlan = zeeAxios.get(appURLs.VIDEO_RESUMABLE
+        .replace("{COUNTRY}", dCountry)
+      );//+'offset='+offset+'&limit='+count+'&plan='+planid, params
+      aPromises.push(oResumablePromisePlan);
+
+      // console.log("======"+JSON.stringify(oResumablePromisePlan));
+    }
+    dispatch(startLoader());
+    Promise.all(aPromises)
+      .then(response => {
+        dispatch(updatePlanContent(response[0]));
+        //if response is having resumable coontent
+        if (response) {
+          const aUserResumables = response.data;
+          const aQueryURLItems = [];
+          const oUserResumablesObject = aUserResumables.reduce(
+            (oUserResumablesObject, ele) => {
+              oUserResumablesObject[ele.content.id] = ele;
+              aQueryURLItems.push(
+                `${ele.content.id}.${ele.content.contentType}`
+              );
+              return oUserResumablesObject;
+            },
+            {}
+          );
+          //Resumable media details
+          // const oResumableMediaObjects = zeeAxios.get(
+          //   appURLs.RESUMABLE_ITEMS.replace(
+          //     "{LANGUAGE_CODE}",
+          //     sLanguageCode
+          //   ).replace("{QUERY_ITEMS}", aQueryURLItems.join(","))
+          // );
+          // oResumableMediaObjects
+          //   .then(response => {
+          //     response.status === CONSTANTS.STATUS_OK &&
+          //       dispatch(
+          //         updateResumableContent({
+          //           oUserResumablesObject,
+          //           aResumableMedias: response.data
+          //         })
+          //       );
+          //   })
+          //   .catch(err => {                
+          //     dispatch(stopLoader());
+          //     Logger.error(MODULE_NAME, err);
+          //   });
+        } else {
+          dispatch(
+            updateResumableContent({
+              oUserResumablesObject: null,
+              aResumableMedias: null
+            })
+          );
+        }
+      })
+      .catch(error => {
+        dispatch(stopLoader());
+        Logger.error(MODULE_NAME, error);
+        // apiFailure();
+      });
     //}
   };
 };
@@ -675,7 +771,7 @@ export const fnFetchMyPlayList = fnMyPlayListLoginFailure => {
     dispatch(startLoader());
     const sLocal = getState().locale;
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     if (sAuthToken) {
@@ -694,9 +790,8 @@ export const fnFetchMyPlayList = fnMyPlayListLoginFailure => {
             var myPlayListUrl = `${appURLs.CONTENT_DETAILS.replace(
               "{LANGUAGE_CODE}",
               sLocal
-            )}${response.data.data[0].content.id}.${
-              response.data.data[0].content.contentType
-            }`;
+            )}${response.data.data[0].content.id}.${response.data.data[0].content.contentType
+              }`;
             response.data.data.slice(1).forEach(item => {
               let itemId = item.content.id;
               let type = item.content.contentType;
@@ -735,11 +830,11 @@ export const fnFetchMyPlayList = fnMyPlayListLoginFailure => {
  * @return {dispatch} - dispatch object
  */
 const updatePageContent = oPageContent => {
-  return {type: actionTypes.UPDATE_PAGE_CONTENT, payload: oPageContent};
+  return { type: actionTypes.UPDATE_PAGE_CONTENT, payload: oPageContent };
 };
 
-const updatePlanContent = oPlanContent => {  
-  return {type: actionTypes.DISPLAY_PLAN_CONTENT, payload: oPlanContent};
+const updatePlanContent = oPlanContent => {
+  return { type: actionTypes.DISPLAY_PLAN_CONTENT, payload: oPlanContent };
 
 }
 
@@ -787,7 +882,7 @@ export const fnFetchBucketSelectedItemContent = (
   return dispatch => {
     dispatch(startVideoInfoLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -850,7 +945,7 @@ export const updateSelectedBucketItemContent = (
 ) => {
   return {
     type: actionTypes.UPDATE_BUCKET_ITEM_VIDEO_INFO,
-    payload: {oVideoContent, sBucketTitle}
+    payload: { oVideoContent, sBucketTitle }
   };
 };
 
@@ -861,7 +956,7 @@ export const updateSelectedBucketItemContent = (
  * @return {dispatch} - dispatch object
  */
 export const startVideoDetailLoader = () => {
-  return {type: actionTypes.START_VIDEO_DETAIL_LOADER};
+  return { type: actionTypes.START_VIDEO_DETAIL_LOADER };
 };
 /**
  * Component Name - Action creators
@@ -870,7 +965,7 @@ export const startVideoDetailLoader = () => {
  * @return {dispatch} - dispatch object
  */
 export const stopVideoDetailLoader = () => {
-  return {type: actionTypes.STOP_VIDEO_DETAIL_LOADER};
+  return { type: actionTypes.STOP_VIDEO_DETAIL_LOADER };
 };
 
 /**
@@ -892,7 +987,7 @@ export const fnFetchSelectedVideoItemContent = (
   return dispatch => {
     dispatch(startVideoDetailLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -905,20 +1000,20 @@ export const fnFetchSelectedVideoItemContent = (
     }
     //Video details
     const aPromises = [];
-    const oVideoContentPromise = zeeAxios.get(      
-        // appURLs.BACKDROP_VIDEO_CONTENT.replace("{LANGUAGE_CODE}", sLanguageCode)
-        //   .replace("{TYPE}", sVideoType)
-        //   .replace("{ID}", sVideoId)
-        //   .replace("{COUNTRY}", sCountry)
-        //   .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2")
-        (sVideoType !== 'series')?
-        (sLanguageCode+'/contents/moviedetails?Country='+sCountry+'&contentkey='+sVideoId )
+    const oVideoContentPromise = zeeAxios.get(
+      // appURLs.BACKDROP_VIDEO_CONTENT.replace("{LANGUAGE_CODE}", sLanguageCode)
+      //   .replace("{TYPE}", sVideoType)
+      //   .replace("{ID}", sVideoId)
+      //   .replace("{COUNTRY}", sCountry)
+      //   .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2")
+      (sVideoType !== 'series' && sVideoType !== 'program') ?
+        (sLanguageCode + '/contents/moviedetails?Country=' + sCountry + '&contentkey=' + sVideoId)
         : (appURLs.BACKDROP_VIDEO_CONTENT.replace("{LANGUAGE_CODE}", sLanguageCode)
-           .replace("{TYPE}", sVideoType)
-           .replace("{ID}", sVideoId)
-           .replace("{COUNTRY}", sCountry)
-           .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2"))
-      
+          .replace("{TYPE}", sVideoType == 'program' ? "series" : sVideoType)
+          .replace("{ID}", sVideoId)
+          .replace("{COUNTRY}", sCountry)
+          .replace("{CASCADE_NO}", sVideoType === "series" || sVideoType == 'program' ? "3" : "2"))
+
     );
     //Video rating
     const oVideoRatingPromise = zeeAxiosUM.get(
@@ -950,6 +1045,7 @@ export const fnFetchSelectedVideoItemContent = (
             response[1].data.data.userData.rating &&
             (response[0].data.data.averageRating =
               response[1].data.data.userData.rating);
+
         } else {
           response[0].data.data.averageRating = null;
           response[0].data.data.ar_title = "";
@@ -958,7 +1054,7 @@ export const fnFetchSelectedVideoItemContent = (
         //Fetch related video contents
         const dCode = store.getState().sCode;
         const sQuery =
-          response[0].data.data.genres && response[0].data.data.genres[0]==undefined?"drama":(response[0].data.data.genres && response[0].data.data.genres[0]);
+          response[0].data.data.genres && response[0].data.data.genres[0] == undefined ? "drama" : (response[0].data.data.genres && response[0].data.data.genres[0]);
         fnFetchRelatedVideoContent(
           sLanguageCode,
           sVideoId,
@@ -966,7 +1062,7 @@ export const fnFetchSelectedVideoItemContent = (
           sQuery,
           dCode,
           aRelatedVideoContent => {
-            if (typeof fnSuccess === "function") fnSuccess();
+            if (typeof fnSuccess === "function") fnSuccess(response);
             dispatch(
               updateSelectedVideoItemContent({
                 oVideoContent: response[0].data,
@@ -1029,17 +1125,17 @@ const fnFetchRelatedVideoContent = (
       .replace("{COUNTRY}", dCode)
   );
   aRelatedPromises.push(aRelatedVideosPromise);
-  if (sVideoType === CONSTANTS.MOVIE) {
-    const aTypeRelatedVideosPromise = zeeAxios.get(
-      appURLs.RELATED_VIDEOS_WITH_TYPE.replace("{LANGUAGE_CODE}", sLanguageCode)
-        .replace("{QUERY}", sQuery)
-        .replace("{ID}", sVideoId)
-        .replace("{TYPE}", sVideoType)
-        .replace("{COUNTRY}",dCode)
-               
-    );
-    aRelatedPromises.push(aTypeRelatedVideosPromise);
-  }
+  // if (sVideoType === CONSTANTS.MOVIE) {
+  //   const aTypeRelatedVideosPromise = zeeAxios.get(
+  //     appURLs.RELATED_VIDEOS_WITH_TYPE.replace("{LANGUAGE_CODE}", sLanguageCode)
+  //       .replace("{QUERY}", sQuery)
+  //       .replace("{ID}", sVideoId)
+  //       .replace("{TYPE}", sVideoType)
+  //       .replace("{COUNTRY}", dCode)
+
+  //   );
+  //   aRelatedPromises.push(aTypeRelatedVideosPromise);
+  // }
 
   //Fetch related video contents
   Promise.all(aRelatedPromises)
@@ -1068,9 +1164,11 @@ export const fnFetchSeriesEpisodes = (
 ) => {
   return dispatch => {
     const aRelatedVideosPromise = zeeAxios.get(
-      appURLs.SERIES_DETAILS.replace("{LANGUAGE_CODE}", sLanguageCode)
-        .replace("{SERIES_ID}", encodeURIComponent(sSeriesId))
+      appURLs.BACKDROP_VIDEO_CONTENT.replace("{LANGUAGE_CODE}", sLanguageCode)
+        .replace("{ID}", sSeriesId)
+        .replace("{TYPE}", 'series')
         .replace("{COUNTRY}", country)
+        .replace("{CASCADE_NO}", "3")
     );
     aRelatedVideosPromise
       .then(response => {
@@ -1109,10 +1207,10 @@ export const fnFetchRelatedVideos = (
   sVideoType,
   aGenre
 ) => {
-  return (dispatch,getState) => {
+  return (dispatch, getState) => {
     const dCountry = getState().sCode;
     let aAllRelatedVideosPromise = [];
-    aGenre.forEach(genre => {      
+    aGenre.forEach(genre => {
       const aRelatedVideosPromise = zeeAxios.get(
         appURLs.RELATED_VIDEOS_WITH_TYPE.replace(
           "{LANGUAGE_CODE}",
@@ -1151,9 +1249,69 @@ export const fnFetchRelatedVideos = (
 const updateRelatedVideos = relatedVideos => {
   return {
     type: actionTypes.UPDATE_RELATED_VIDEOS,
-    payload: {relatedVideos}
+    payload: { relatedVideos }
   };
 };
+
+/**
+ * Component Name - Action creators
+ * method that fetches the Trailer for Content
+ * @param {String} sLanguageCode - Language code
+ * @param {String} sVideoId - video ID
+ * @param {String} sVideoType - video type
+ * @param {String} aGenre - query string
+ * @return {undefined}
+ */
+export const fnFetchTrailerForVideos = (
+  sLanguageCode,
+  sVideoId,
+  sVideoType,
+  countryCode,
+  fnTrailersSuccess
+) => {
+  return (dispatch, getState) => {
+    const dCountry = getState().sCode;
+
+    const RelatedTrailerData = zeeAxios.get(
+      appURLs.RELATED_VIDEO_TRAILERS
+        .replace("{LANGUAGE_CODE}", sLanguageCode)
+        .replace("{ID}", sVideoId)
+        .replace("{TYPE}", sVideoType)
+        .replace("{COUNTRY}", countryCode)
+    )
+
+    RelatedTrailerData.then(res => {
+      if (res.status == 200) {
+        // fnTrailersSuccess(res.data)
+        dispatch(updateTrailerVideos(res.data));
+      }
+    }).catch((err) => {
+      console.log("ERROR:------>", err)
+    });
+
+  };
+};
+
+export const fnUnmountTrailers = () => {
+  return (dispatch, getState) => {
+    dispatch(updateTrailerVideos([]));
+  }
+};
+
+/**
+ * Component Name - Action creators
+ * method that update the trailer videos for selected video.
+ * @param {object} oPageContent - related videos object.
+ * @return {dispatch} - dispatch object
+ */
+const updateTrailerVideos = TrailerVideos => {
+  return {
+    type: actionTypes.UPDATE_TRAILER_VIDEOS,
+    payload: { TrailerVideos }
+  };
+};
+
+
 
 /**
  * Component Name - Action creators
@@ -1180,18 +1338,18 @@ export const fnFetchVideoUrlDetails = (
     //     .replace("{COUNTRY}", sCountry)
     //     .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2")
     // );
-    const oVideoInfo = zeeAxios.get((sVideoType=='episode')?
-              ( appURLs.BACKDROP_VIDEO_CONTENT_EPISODE.replace("{LANGUAGE_CODE}", sLanguageCode)
-              .replace("{TYPE}", sVideoType)
-              .replace("{ID}", sVideoId)
-              .replace("{COUNTRY}", sCountry)
-              .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2")):(sVideoType !== 'series')?
-              (sLanguageCode+'/contents/moviedetails?Country='+sCountry+'&contentkey='+sVideoId )
-              : (appURLs.BACKDROP_VIDEO_CONTENT.replace("{LANGUAGE_CODE}", sLanguageCode)
-                 .replace("{TYPE}", sVideoType)
-                 .replace("{ID}", sVideoId)
-                 .replace("{COUNTRY}", sCountry)
-                 .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2")))
+    const oVideoInfo = zeeAxios.get((sVideoType == 'episode') ?
+      (appURLs.BACKDROP_VIDEO_CONTENT_EPISODE.replace("{LANGUAGE_CODE}", sLanguageCode)
+        .replace("{TYPE}", sVideoType)
+        .replace("{ID}", sVideoId)
+        .replace("{COUNTRY}", sCountry)
+        .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2")) : (sVideoType !== 'series' && sVideoType !== 'program') ?
+        (sLanguageCode + '/contents/moviedetails?Country=' + sCountry + '&contentkey=' + sVideoId)
+        : (appURLs.BACKDROP_VIDEO_CONTENT.replace("{LANGUAGE_CODE}", sLanguageCode)
+          .replace("{TYPE}", 'series')
+          .replace("{ID}", sVideoId)
+          .replace("{COUNTRY}", sCountry)
+          .replace("{CASCADE_NO}", sVideoType === "series" || sVideoType == 'program' ? "3" : "2")))
 
     const state = getState();
 
@@ -1210,7 +1368,7 @@ export const fnFetchVideoUrlDetails = (
             );
             videoInfoPromise
               .then(response => {
-                fnSuccess({videoInfo: infoResponse, urlInfo: response.data});
+                fnSuccess({ videoInfo: infoResponse, urlInfo: response.data });
                 dispatch(
                   updateVideoUrlContent({
                     videoInfo: infoResponse,
@@ -1234,6 +1392,81 @@ export const fnFetchVideoUrlDetails = (
   };
 };
 
+
+/**
+ * Component Name - Action creators
+ * method to fetch Trailer video url details for selected trailer
+ * @param {string} sLanguageCode - selected language code.
+ * @param {string} sVideoId - video Id.
+ * @param {string} sVideoType - video type.
+ * @return {function} - function to operate asynchronous code
+ */
+export const fnFetchTrailerVideoUrlDetails = (
+  sLanguageCode,
+  trailerid,
+  sVideoId,
+  sVideoType,
+  sCountry,
+  fnSuccess
+) => {
+  return (dispatch, getState) => {
+    dispatch(startLoader());
+
+    const oVideoInfo = zeeAxios.get((sVideoType == 'episode') ?
+      (appURLs.BACKDROP_VIDEO_CONTENT_EPISODE.replace("{LANGUAGE_CODE}", sLanguageCode)
+        .replace("{TYPE}", sVideoType)
+        .replace("{ID}", sVideoId)
+        .replace("{COUNTRY}", sCountry)
+        .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2")) : (sVideoType !== 'series') ?
+        (sLanguageCode + '/contents/moviedetails?Country=' + sCountry + '&contentkey=' + sVideoId)
+        : (appURLs.BACKDROP_VIDEO_CONTENT.replace("{LANGUAGE_CODE}", sLanguageCode)
+          .replace("{TYPE}", sVideoType)
+          .replace("{ID}", sVideoId)
+          .replace("{COUNTRY}", sCountry)
+          .replace("{CASCADE_NO}", sVideoType === "series" ? "3" : "2")))
+
+    const state = getState();
+
+    if (
+      state.platformConfig &&
+      state.platformConfig.default &&
+      state.platformConfig.default["1.0"] &&
+      state.platformConfig.default["1.0"].videoapi
+    ) {
+      const url = state.platformConfig.default["1.0"].videoapi;
+      oVideoInfo
+        .then(infoResponse => {
+          if (infoResponse && infoResponse.data && infoResponse.data.data) {
+            const videoInfoPromise = zeeAxios.get(
+              url + trailerid
+            );
+            videoInfoPromise
+              .then(response => {
+                fnSuccess({ videoInfo: infoResponse, urlInfo: response.data });
+                dispatch(
+                  updateVideoUrlContent({
+                    videoInfo: infoResponse,
+                    urlInfo: response.data
+                  })
+                );
+              })
+              .catch(error => {
+                dispatch(stopLoader());
+                Logger.error(MODULE_NAME, error);
+              });
+          } else {
+            dispatch(stopLoader());
+          }
+        })
+        .catch(error => {
+          dispatch(stopLoader());
+          Logger.error(MODULE_NAME, error);
+        });
+    }
+  };
+};
+
+
 /**
  * Component Name - Action creators
  * method to fetch video url details for selected video
@@ -1254,7 +1487,7 @@ export const fnResetVideoUrlDetails = () => {
 const updateVideoUrlContent = videoInfo => {
   return {
     type: actionTypes.UPDATE_ITEM_VIDEO_INFO,
-    payload: {videoInfo}
+    payload: { videoInfo }
   };
 };
 
@@ -1272,7 +1505,7 @@ export const fnSendLoginCredentials = (oCredentials, fnSuccess, fnError) => {
     );
     const encodedUrl = common.SerializePostCall(requestBodyDetails);
     const oLoginServiceCall = zeeAxiosUM.post(appURLs.LOGIN_TOKEN, encodedUrl, {
-      headers: {"Content-Type": "application/x-www-form-urlencoded"}
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
     });
     oLoginServiceCall
       .then(loginResponse => {
@@ -1329,7 +1562,7 @@ export const fnSendLoginCredentials = (oCredentials, fnSuccess, fnError) => {
 export const fnVerifyEmail = (data, fnSuccess, fnError) => {
   return dispatch => {
     const serviceCall = zeeAxiosUM.post(appURLs.VERIFY_EMAIL, data, {
-      headers: {"Content-Type": "application/json"}
+      headers: { "Content-Type": "application/json" }
     });
     dispatch(startLoader());
     serviceCall
@@ -1365,7 +1598,7 @@ export const resendVerificationEmail = (data, fnSuccess, fnError) => {
       appURLs.RESEND_VERIFICATION_EMAIL,
       data,
       {
-        headers: {"Content-Type": "application/json"}
+        headers: { "Content-Type": "application/json" }
       }
     );
     dispatch(startLoader());
@@ -1400,7 +1633,7 @@ export const resendVerificationEmail = (data, fnSuccess, fnError) => {
 export const updatePasswordOTP = (data, fnSuccess, fnError) => {
   return dispatch => {
     const serviceCall = zeeAxiosUM.post(appURLs.UPDATE_PASSWORD_OTP, data, {
-      headers: {"Content-Type": "application/json"}
+      headers: { "Content-Type": "application/json" }
     });
     dispatch(startLoader());
     serviceCall
@@ -1434,7 +1667,7 @@ export const updatePasswordOTP = (data, fnSuccess, fnError) => {
 export const sendOTPCode = (data, fnSuccess, fnError) => {
   return dispatch => {
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     const serviceCall = zeeAxiosUM.post(appURLs.SEND_OTP_CODE, data, {
@@ -1616,7 +1849,7 @@ export const fnSendNewUserDetails = (
       url = appURLs.REGISTER_MOBILE;
     }
     const oCreateAcctNewUser = zeeAxiosUM.post(url, requestBodyDetails, {
-      headers: {"Content-Type": "application/json"}
+      headers: { "Content-Type": "application/json" }
     });
     oCreateAcctNewUser
       .then(userCreatedResponse => {
@@ -1649,12 +1882,14 @@ export const fnSendNewUserDetails = (
 export const fnForgotPasswordCall = (
   oUserEmailDetail,
   sLocale,
+  countryCode,
   fnSuccessForgotPassword,
   fnFailForgotPassword
 ) => {
   return dispatch => {
     dispatch(startLoader());
-    let oForgotPasswordUserEmailDetails = {email: oUserEmailDetail};
+    let CountryName = common.getCountryName(countryCode)
+    let oForgotPasswordUserEmailDetails = { email: oUserEmailDetail, Alpha2code: countryCode, countryName: CountryName };
     const oForgotPasswordUser = zeeAxiosUM.put(
       appURLs.FORGOT_PASSWORD,
       oForgotPasswordUserEmailDetails,
@@ -1678,6 +1913,9 @@ export const fnForgotPasswordCall = (
           );
           fnSuccessForgotPassword();
         } else {
+          CleverTap_CustomEvents("forgotpassword", {
+            "status": "failure"
+          })
           typeof fnFailForgotPassword === "function" &&
             fnFailForgotPassword(oForgotPasswordUserResponse);
         }
@@ -1726,7 +1964,7 @@ export const fnResetPassword = (
     const oForgotPasswordUser = zeeAxiosUM.post(
       appURLs.RESET_PASSWORD,
       resetPasswordData,
-      {headers: {"Content-Type": "application/json"}}
+      { headers: { "Content-Type": "application/json" } }
     );
     oForgotPasswordUser
       .then(oForgotPasswordUserResponse => {
@@ -1771,7 +2009,7 @@ export const fnSendSocialLoginResponse = (
     const oFacebookSWeyyakerviceCall = zeeAxiosUM.post(
       appURLs.LOGIN_FACEBOOK_USER,
       encodedUrl,
-      {headers: {"Content-Type": "application/x-www-form-urlencoded"}}
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
     oFacebookSWeyyakerviceCall.then(weyyakResponse => {
       const _userObj = common.creatingUserObjectForFacebookCookies(
@@ -1836,6 +2074,95 @@ const fnSendSocialTokenResponse = oFbResponse => {
 
 /**
  * Component Name - Action creators
+ * method to fetch User Details using Auth Token of Apple.
+ * @param {Object} oFacebookLoginResponse - Response From Facebook.
+ * @return {function} - function to operate asynchronous code
+ */
+export const fnSendAppleLoginResponse = (
+  oAppleLoginResponse,
+  grantType,
+  fnSuccess,
+  fnError
+) => {
+  return dispatch => {
+    // console.log('-------->', oAppleLoginResponse)
+    const requestBodyDetails = common.creatingRequestBodyForAppleSignIn(
+      oAppleLoginResponse,
+      grantType
+    );
+    // console.log('-------->', requestBodyDetails)
+    const encodedUrl = common.SerializePostCall(requestBodyDetails);
+    // console.log('-encodedUrl------->', encodedUrl)
+    const oAppleSWeyyakerviceCall = zeeAxiosUM.post(
+      appURLs.LOGIN_APPLE_USER,
+      encodedUrl,
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+    );
+    oAppleSWeyyakerviceCall.then(weyyakResponse => {
+      // console.log('-weyyakResponse------->', weyyakResponse)
+      const _userObj = common.creatingUserObjectForAppleCookies(
+        oAppleLoginResponse
+      );
+      const _userToken = common.creatingUserTokenForCookies(
+        weyyakResponse.data
+      );
+      common.saveUserDetails(_userObj, _userToken);
+      oAppleLoginResponse.bSuccessful = true;
+      oAppleLoginResponse.userDetails = {
+        firstName: oAppleLoginResponse.name,
+        email: oAppleLoginResponse.email
+      };
+      if (grantType === CONSTANTS.GRANT_TYPE_APPLE) {
+        const userDetails = zeeAxiosUM.get(appURLs.USER_DETAILS, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `bearer ${_userToken.authToken}`
+          }
+        });
+
+        userDetails
+          .then(userDetails => {
+            const _userObj = common.creatingUserObjectForCookies(
+              userDetails.data.data
+            );
+            common.setCookie(
+              CONSTANTS.COOKIE_USER_OBJECT,
+              JSON.stringify(_userObj),
+              CONSTANTS.INFINITE_COOKIE_TIME
+            );
+            if (fnSuccess) {
+              fnSuccess();
+            }
+          })
+          .catch(() => {
+            if (fnError) {
+              fnError();
+            }
+          });
+      } else {
+        dispatch(fnAppleTokenResponse(oAppleLoginResponse));
+        fnSuccess();
+      }
+    });
+  };
+};
+
+/**
+ * Component Name - Action creators
+ * method that will handle the Facebook response for the User.
+ * @param {object} oFbResponse - Facebook Response object.
+ * @return {dispatch} - dispatch object
+ */
+const fnAppleTokenResponse = oAppleResponse => {
+  return {
+    type: actionTypes.UPDATE_APPLE_LOGIN_INFO,
+    payload: oAppleResponse
+  };
+};
+
+
+/**
+ * Component Name - Action creators
  * method to add item to playlist
  * @param {String} sLanguageCode - Language Code.
  * @param {String} sItemId - Item id.
@@ -1860,7 +2187,7 @@ export const fnAddItemToPlayList = (
       genres: []
     };
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -1933,7 +2260,7 @@ export const fnRemoveItemFromPlayList = (
 ) => {
   return dispatch => {
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -1988,6 +2315,82 @@ export const fnRemoveItemFromPlayList = (
   };
 };
 
+
+/**
+ * Component Name - Action creators
+ * method to delete items from Continue watching list
+ * @param {String} sLanguageCode - Language Code.
+ * @param {String} sItemId - Item id.
+ * @param {String} sItemType - Item type.
+ * @return {fuunction} - function to operate asynchronous code
+ */
+export const fnDeleteItemFromContinueWatching = (
+  sLanguageCode,
+  sItemId,
+  sItemType,
+  fnAnUtherisedHanlder,
+  fnSuccess,
+  fnFailure
+) => {
+  return dispatch => {
+    const oUserToken = JSON.parse(
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
+    );
+    const sAuthToken = oUserToken ? oUserToken.authToken : null;
+    let params = {};
+    if (sAuthToken) {
+      params = {
+        headers: {
+          Authorization: "Bearer " + sAuthToken
+        }
+      };
+    }
+    const DeleteItemPromise = zeeAxiosUM.delete(
+      appURLs.DELETE_FROM_PLAYLIST.replace("{ID}", sItemId).replace(
+        "{TYPE}",
+        sItemType
+      ),
+      params
+    );
+    DeleteItemPromise
+      .then(response => {
+
+        if (
+          !response.status &&
+          response.response.status === CONSTANTS.STATUS_UNAUTHORISED
+        ) {
+          typeof fnAnUtherisedHanlder === "function" && fnAnUtherisedHanlder();
+        } else {
+          //upate user playlist data
+          if (
+            response &&
+            ((response.response && response.response.status === 200) ||
+              response.status === 200)
+          ) {
+            typeof fnSuccess === "function" && fnSuccess();
+            // fnUpdateUserPlayListData(
+            //   dispatch,
+            //   sLanguageCode,
+            //   () => {
+            //     typeof fnSuccess === "function" && fnSuccess();
+            //   },
+            //   () => {
+            //     typeof fnSuccess === "function" && fnSuccess();
+            //   }
+            // );
+          } else {
+            typeof fnFailure === "function" && fnFailure();
+          }
+        }
+      })
+      .catch(error => {
+        dispatch(stopVideoDetailLoader());
+        Logger.error(MODULE_NAME, error);
+        typeof fnFailure === "function" && fnFailure();
+      });
+  };
+};
+
 /**
  * Component Name - Action creators
  * method to update playlist data
@@ -2000,7 +2403,7 @@ export const fnUpdateUserPlayListData = (
   fnSuccess,
   fnError
 ) => {
-  const oUserToken = JSON.parse(common.getCookie(CONSTANTS.COOKIE_USER_TOKEN));
+  const oUserToken = JSON.parse(common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN));
   const sAuthToken = oUserToken ? oUserToken.authToken : null;
   let params = {};
   if (sAuthToken) {
@@ -2019,6 +2422,7 @@ export const fnUpdateUserPlayListData = (
         dispatch(fnUpdateUserPlayList(response.data ? response.data.data : []));
         if (fnSuccess && typeof fnSuccess === "function") {
           fnSuccess(response.data);
+          dispatch(fnStoreUserPlayList(response.data ? response.data.data : []));
         }
       })
       .catch(error => {
@@ -2037,10 +2441,10 @@ export const fnUpdateUserPlayListData = (
  * @param {String} sLanguageCode - Language Code.
  * @return {undefined}
  */
-export const fnGetUserPlayListData = () => {
+export const fnGetUserPlayListData = (page) => {
   return dispatch => {
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -2057,9 +2461,15 @@ export const fnGetUserPlayListData = () => {
       );
       oUserPlayListPromise
         .then(response => {
-          dispatch(
-            fnUpdateUserPlayList(response.data ? response.data.data : [])
-          );
+          if (page == "home") {
+            dispatch(
+              fnStoreUserPlayList(response.data ? response.data.data : [])
+            );
+          } else {
+            dispatch(
+              fnUpdateUserPlayList(response.data ? response.data.data : [])
+            );
+          }
         })
         .catch(error => {
           Logger.error(MODULE_NAME, error);
@@ -2081,6 +2491,14 @@ const fnUpdateUserPlayList = aUserPlayList => {
   };
 };
 
+const fnStoreUserPlayList = aUserPlayList => {
+  return {
+    type: actionTypes.STORE_USER_PLAYLIST,
+    payload: aUserPlayList
+  };
+};
+
+
 /**
  * Component Name - Action creators
  * method that returns new access token.
@@ -2100,14 +2518,14 @@ export const fetchAccessToken = sRefreshToken => {
         appURLs.LOGIN_TOKEN,
         encodedUrl,
         {
-          headers: {"Content-Type": "application/x-www-form-urlencoded"}
+          headers: { "Content-Type": "application/x-www-form-urlencoded" }
         }
       );
       oNewAccessTokenPromise
         .then(loginResponse => {
           if (loginResponse.status === CONSTANTS.STATUS_OK) {
             const {
-              data: {access_token, refresh_token, user_id}
+              data: { access_token, refresh_token, user_id }
             } = loginResponse;
             const _userToken = common.creatingUserTokenForCookies({
               access_token,
@@ -2163,7 +2581,7 @@ export const fnChangeRating = (
   return dispatch => {
     //dispatch(startVideoDetailLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -2193,7 +2611,7 @@ export const fnChangeRating = (
     oChangeRatingPromise
       .then(oResponse => {
         //Get video rating details updated
-        const {status} = oResponse;
+        const { status } = oResponse;
         if (dontFetchDetails) {
           typeof fnSuccess === "function" && fnSuccess();
           return;
@@ -2243,7 +2661,7 @@ export const fnChangeRating = (
 const fnUpdateAverageRatingList = (iAverageRating, iUserRating) => {
   return {
     type: actionTypes.UPDATE_ITEM_RATING,
-    payload: {iAverageRating, iUserRating}
+    payload: { iAverageRating, iUserRating }
   };
 };
 
@@ -2260,15 +2678,15 @@ export const fnSearchUserInput = (
   fnUserSearchResponseListError,
   fnSuccess
 ) => {
-  return (dispatch,getState) => {
+  return (dispatch, getState) => {
     //dispatch(startLoader());
     const dCountry = getState().sCode;
     // const oAppState = getState();
     let searchUserList = "";
     if (oSearchTerm.bSearchTerm) {
       searchUserList = `${appURLs.SEARCH_ITEM
-        .replace("{LANGUAGE_CODE}",sLocale)
-        .replace("{COUNTRY}",dCountry)}${oSearchTerm.userInputText}`;
+        .replace("{LANGUAGE_CODE}", sLocale)
+        .replace("{COUNTRY}", dCountry)}${oSearchTerm.userInputText}`;
     } else {
       const scategoryUrl =
         oSearchTerm.category === CONSTANTS.CAST
@@ -2276,11 +2694,11 @@ export const fnSearchUserInput = (
           : appURLs.SEARCH_ITEM_BY_GENRE;
       searchUserList = `${scategoryUrl
         .replace("{LANGUAGE_CODE}", sLocale)
-        .replace("{COUNTRY}",dCountry)
+        .replace("{COUNTRY}", dCountry)
         .replace("{CATEGORY}", oSearchTerm.category)}${oSearchTerm.name}`;
     }
     const oUserSearchListData = zeeAxios.get(searchUserList, {
-      headers: {"Content-Type": "application/x-www-form-urlencoded"}
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
     });
     oUserSearchListData
       .then(userSearchResponseList => {
@@ -2332,7 +2750,7 @@ const fnUserSearchResponseList = (
 ) => {
   return {
     type: actionTypes.USER_SEARCH_RESPONSE,
-    payload: {userSearchResponseList, bUpdateSearchInput}
+    payload: { userSearchResponseList, bUpdateSearchInput }
   };
 };
 /**
@@ -2358,7 +2776,7 @@ export const fnFetchUserRating = (fnSuccess, fnFailed) => {
     dispatch(startLoader());
     const sLocal = getState().locale;
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     const ratedDetails = [];
@@ -2383,9 +2801,8 @@ export const fnFetchUserRating = (fnSuccess, fnFailed) => {
             var userRatedUrl = `${appURLs.CONTENT_DETAILS.replace(
               "{LANGUAGE_CODE}",
               sLocal
-            )}${oResponse.data.data[0].content.id}.${
-              oResponse.data.data[0].content.contentType
-            }`;
+            )}${oResponse.data.data[0].content.id}.${oResponse.data.data[0].content.contentType
+              }`;
             oResponse.data.data.slice(1).forEach(item => {
               let itemId = item.content.id;
               let type = item.content.contentType;
@@ -2432,7 +2849,7 @@ export const fnDeleteUserRating = (id, type, fnSuccess, fnFailed) => {
   return (dispatch, getState) => {
     dispatch(startLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -2472,7 +2889,7 @@ export const fnFetchUserWatching = (fnSuccess, fnFailed) => {
     dispatch(startLoader());
     const sLocal = getState().locale;
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     const watchedDetails = [];
@@ -2497,9 +2914,8 @@ export const fnFetchUserWatching = (fnSuccess, fnFailed) => {
             var userWatchedUrl = `${appURLs.CONTENT_DETAILS.replace(
               "{LANGUAGE_CODE}",
               sLocal
-            )}${oResponse.data.data[0].content.id}.${
-              oResponse.data.data[0].content.contentType
-            }`;
+            )}${oResponse.data.data[0].content.id}.${oResponse.data.data[0].content.contentType
+              }`;
             oResponse.data.data.slice(1).forEach(item => {
               let itemId = item.content.id;
               let type = item.content.contentType;
@@ -2550,7 +2966,7 @@ export const fnDeleteUserWatching = (id, type, fnSuccess, fnFailed) => {
   return (dispatch, getState) => {
     dispatch(startLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -2596,7 +3012,7 @@ export const fnAddUserWatching = (
 ) => {
   return (dispatch, getState) => {
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -2623,7 +3039,7 @@ export const fnAddUserWatching = (
         data,
         params
       );
-      oUserwatchedContent.then(oResponse => {}).catch(error => {});
+      oUserwatchedContent.then(oResponse => { }).catch(error => { });
     }
   };
 };
@@ -2646,7 +3062,7 @@ export const fnSubmitReportIssue = (
   return dispatch => {
     dispatch(startLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -2699,7 +3115,7 @@ export const fnFetchUserDetails = (fnSuccess, fnFailed, bShouldDispatch) => {
   return dispatch => {
     dispatch(startLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -2739,14 +3155,72 @@ export const fnFetchUserDetails = (fnSuccess, fnFailed, bShouldDispatch) => {
     }
   };
 };
+//Cooking Contest
+export const fnHandleSubmitContest = (
+  oContestUserDetails,
+  fnSuccess,
+  fnFailed
+) => {
+  return (dispatch,getState) => {
+    dispatch(startLoader());
+    const {
+      fname,
+      email,
+      mobile,
+      countryCode,
+      gender,
+      age_confirmed,
+      travel_confirmed,
+      country,
+      nationality,
+      ageGroup
+    } = oContestUserDetails;
 
+    const data = {
+      "englishFullName": fname,
+      "alpha2Code":countryCode,
+      "mobile":mobile,
+      "email": email,
+      "ageGroup": ageGroup,
+      "gender": gender,
+      "nationality": nationality,
+      "countryOfResidence": country,
+      "adultConsent": age_confirmed,
+      "travelConsent": travel_confirmed,
+      "language":getState().locale
+      };
+
+    let params = {};
+    const contestDetailsPromise = zeeAxiosUM.post(
+      appURLs.COOKING_CONTEST,
+      data,
+      params
+    );
+
+    contestDetailsPromise
+      .then(oResponse => {
+        //debugger;
+        dispatch(stopLoader());
+        if (!oResponse.data.error && oResponse.status === CONSTANTS.STATUS_OK) {
+          if (typeof fnSuccess === "function") fnSuccess();
+        } else {
+          if (typeof fnFailed === "function") fnFailed(oResponse.data.invalid.email);
+        }
+      })
+      .catch(error => {
+        if (typeof fnFailed === "function") fnFailed(error);
+        dispatch(stopLoader());
+        Logger.error(MODULE_NAME, error);
+      });
+  };
+};
 /**
  * Component Name - Action creators
  * method that update video rating
  * @param {object} oUserDetails - user details object
  * @return {dispatch} - dispatch object
  */
-const fnUpdateUserDetails = oUserDetails => {
+export const fnUpdateUserDetails = oUserDetails => {
   return {
     type: actionTypes.UPDATE_USER_DETAILS,
     payload: oUserDetails
@@ -2777,7 +3251,17 @@ export const fnHandleUpdateAccount = (
       selectedLanguageCode,
       newsletter1,
       newsletter2,
-      newsletter3
+      newsletter3,
+      performance,
+      advertising,
+      googleAnalytics,
+      cleverTap,
+      firebase,
+      appFlyer,
+      aique,
+      googleAds,
+      facebookAds,
+      isGdprAccepted
     } = oCurrentAccountState;
     //Get user details
     dispatch(
@@ -2794,10 +3278,21 @@ export const fnHandleUpdateAccount = (
             newslettersEnabled: newsletter,
             promotionsEnabled: promotions,
             privacyPolicy: newsletter1,
-            isAdult:newsletter2,
-            isRecommend:newsletter3          };
+            isAdult: newsletter2,
+            isRecommend: newsletter3,
+            performance,
+            advertising,
+            googleAnalytics,
+            cleverTap,
+            firebase,
+            appFlyer,
+            aique,
+            googleAds,
+            facebookAds,
+            isGdprAccepted
+          };
           const oUserToken = JSON.parse(
-            common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+            common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
           );
           const sAuthToken = oUserToken ? oUserToken.authToken : null;
           let params = {};
@@ -2841,6 +3336,60 @@ export const fnHandleUpdateAccount = (
   };
 };
 
+
+/**
+ * Component Name - Action creators
+ * method that update GDPR data to DB &  GDPR Cookies
+ * @param {object} loginResponse - user details object
+ * @return {dispatch} - dispatch object
+ */
+export const fnupdateGDPRCookieData = loginResponse => {
+  return dispatch => {
+
+    // let GDPR_DATA = JSON.parse(common.getCookie('GDPR_Cookies'))
+    // let GDPR_DATA = common.getGDPRCookie('GDPR_Cookies')
+
+    if (loginResponse) {
+      let isGdprDataUpdated = loginResponse.isGdprAccepted
+
+      // if isGdprDataUpdated "TRUE" , update Response GDPR data into Cookie
+      if (isGdprDataUpdated) {
+        // console.log("1)----user  Cookie Data create OR updated.......")
+        //GDPR COOKIE DATA
+        let data = {
+          performance: loginResponse.performance,
+          advertising: loginResponse.advertising,
+          googleAnalytics: loginResponse.googleAnalytics,
+          cleverTap: loginResponse.cleverTap,
+          googleAds: loginResponse.googleAds,
+
+
+          // firebase: loginResponse.firebase,
+          // appFlyer: loginResponse.appFlyer,
+
+          // aique: loginResponse.aique,
+          // facebookAds: loginResponse.facebookAds,
+
+        }
+
+        // data.expiresTime = CONSTANTS.INFINITE_COOKIE_TIME
+        common.setGDPRCookie('cookies_accepted', 'true')
+        common.setGDPRCookie('GDPR_Cookies', data, CONSTANTS.INFINITE_COOKIE_TIME);
+
+        // common.setCookie('cookies_accepted', true, CONSTANTS.INFINITE_COOKIE_TIME)
+        // common.setCookie('GDPR_Cookies', JSON.stringify(data), CONSTANTS.INFINITE_COOKIE_TIME);
+        // else check user acceptance of GDPR Cookie 
+      } else {
+        // console.log("2)----user Data not updated.......")
+
+        common.DeleteGDPRCookie('GDPR_Cookies');
+        common.DeleteGDPRCookie('cookies_accepted');
+        // common.deleteCookie('cookies_accepted');
+
+      }
+    }
+  }
+};
 /**
  * Component Name - Action creators
  * method to signout from all device
@@ -2881,7 +3430,7 @@ export const fnSignOutFromAllDevices = (fnSuccess, fnFailed) => {
 export const fnLogOutFromDevice = (aDeviceId, fnSuccess, fnFailed) => {
   return dispatch => {
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -2943,7 +3492,7 @@ export const fnFetchLoggedInDevices = (
   return dispatch => {
     dispatch(startLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -3015,7 +3564,7 @@ export const fnAddPairingCode = (sPairingCode, fnSuccess, fnFailed) => {
             aLoggedInDevicesResponse.length >= 5
           ) {
             if (typeof fnFailed === "function")
-              fnFailed({data: {description: oResourceBundle.device_limit}});
+              fnFailed({ data: { description: oResourceBundle.device_limit } });
             dispatch(stopLoader());
           } else {
             //Add code for log in
@@ -3055,7 +3604,7 @@ const fnLogInToDevice = (sPairingCode, fnSuccess, fnFailed) => {
   return dispatch => {
     dispatch(startLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     let params = {};
@@ -3076,7 +3625,7 @@ const fnLogInToDevice = (sPairingCode, fnSuccess, fnFailed) => {
       );
       oAddPaingCodePromise
         .then(oResponse => {
-          const {status} = oResponse;
+          const { status } = oResponse;
           if (status === CONSTANTS.STATUS_OK) {
             //success callback
             typeof fnSuccess === "function" && fnSuccess(oResponse);
@@ -3095,7 +3644,7 @@ const fnLogInToDevice = (sPairingCode, fnSuccess, fnFailed) => {
       //User logged out
       dispatch(stopLoader());
       typeof fnFailed === "function" &&
-        fnFailed({description: oResourceBundle.session_expired});
+        fnFailed({ description: oResourceBundle.session_expired });
     }
   };
 };
@@ -3108,7 +3657,7 @@ const fnLogInToDevice = (sPairingCode, fnSuccess, fnFailed) => {
 export const fnChangePassword = (oCurrentAccountState, fnSuccess, fnFailed) => {
   return dispatch => {
     dispatch(startLoader());
-    const {newpass, oldpass} = oCurrentAccountState;
+    const { newpass, oldpass } = oCurrentAccountState;
     //Get user details
     dispatch(
       fnFetchUserDetails(
@@ -3131,9 +3680,9 @@ export const fnChangePassword = (oCurrentAccountState, fnSuccess, fnFailed) => {
           //   fnSendLoginCredentials(
           //     oCredentials,
           //     oLogInResponse => {
-          const data = {password: newpass, oldpassword: oldpass};
+          const data = { password: newpass, oldpassword: oldpass };
           const oUserToken = JSON.parse(
-            common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+            common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
           );
           const sAuthToken = oUserToken ? oUserToken.authToken : null;
           let params = {};
@@ -3353,9 +3902,9 @@ export const fnSubscriptionEntitlement = (
 export const adyenCancelSubscription = (
   orderId,
   locale,
-  fnSuccess, 
+  fnSuccess,
   fnFailed
-  ) => {
+) => {
   return dispatch => {
     dispatch(startLoader());
     const cancelSubscriptionPromise = axios.get(
@@ -3384,6 +3933,50 @@ export const adyenCancelSubscription = (
   };
 };
 
+
+/**
+ * Component Name - Action creators
+ * Get all GDPR payment gateway plans
+ * @param {string} sCountryCode
+ */
+export const fnGDPR_PaymentGateWay_Lists = (
+  sCountryCode,
+  sLanguageCode
+) => {
+  return dispatch => {
+    dispatch(startLoader());
+    const oCheckPaymentGatewaysListPromise = axios.get(
+      appURLs.GDPR_PAYMENT_GATEWAYS_LIST.replace(
+        "{COUNTRY_CODE}",
+        sCountryCode
+      ).replace(
+        "{LANGUAGE_CODE}",
+        sLanguageCode
+      )
+    );
+
+    oCheckPaymentGatewaysListPromise
+      .then(oResponse => {
+        dispatch(fnUpdateGDPRGateWayList(oResponse.data));
+        dispatch(stopLoader());
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch(stopLoader());
+      });
+  };
+};
+
+export const fnUpdateGDPRGateWayList = aGDPRPaymentGatewayList => {
+  return {
+    type: actionTypes.UPDATE_GDPR_PAYMENTGATEWAY_LIST,
+    payload: aGDPRPaymentGatewayList
+  };
+};
+
+
+
+
 /**
  * Component Name - Action creators
  * Get all subscription plans
@@ -3394,17 +3987,40 @@ export const fnSubscriptionPlans = (
   sCountryCode,
   sLocale,
   fnSuccess,
-  fnFailed
+  fnFailed,
+  couponCode,
+  user_id,
 ) => {
   return dispatch => {
-    dispatch(startLoader());
-    const oCheckSubscriptionPlansPromise = axios.get(
-      appURLs.SUBSCRIPTION_PLANS.replace(
-        "{COUNTRY_CODE}",
-        sCountryCode
-      ).replace("{LANGUAGE_CODE}", sLocale)
-    );
-    
+    // dispatch(startLoader());
+    // const oCheckSubscriptionPlansPromise = axios.get(
+    //   appURLs.SUBSCRIPTION_PLANS.replace(
+    //     "{COUNTRY_CODE}",
+    //     sCountryCode
+    //   ).replace("{LANGUAGE_CODE}", sLocale)
+    // );
+    let oCheckSubscriptionPlansPromise
+    if (couponCode) {
+      oCheckSubscriptionPlansPromise = axios.get(
+        appURLs.SUBSCRIPTION_PLANS_FOR_DISCOUNT.replace(
+          "{COUNTRY_CODE}",
+          sCountryCode                //********** need change to Dynamic country code "sCountryCode"
+        ).replace("{LANGUAGE_CODE}", sLocale)
+          .replace("{COUPON_CODE}", couponCode)
+          .replace("{user_id}", user_id)
+      );
+    }
+    else {
+      oCheckSubscriptionPlansPromise = axios.get(
+        appURLs.SUBSCRIPTION_PLANS.replace(
+          "{COUNTRY_CODE}",
+          sCountryCode                  //********** need change to Dynamic country code "sCountryCode"
+        ).replace("{LANGUAGE_CODE}", sLocale)
+        // .replace("{COUPON_CODE}",couponCode)
+        // .replace("{user_id",user_id)
+      );
+    }
+
     oCheckSubscriptionPlansPromise
       .then(oResponse => {
         // let arr = Object.entries(oResponse);
@@ -3414,14 +4030,14 @@ export const fnSubscriptionPlans = (
           dispatch(fnUpdateSubscriptionPlan(oResponse.data));
           typeof fnSuccess === "function" && fnSuccess(oResponse.data);
         } else {
-          
+
           typeof fnFailed === "function" && fnFailed(oResponse.data);
         }
-        dispatch(stopLoader());
+        // dispatch(stopLoader());
       })
       .catch(error => {
-      
-        dispatch(stopLoader());
+
+        // dispatch(stopLoader());
         typeof fnFailed === "function" && fnFailed(error);
         Logger.error(MODULE_NAME, error);
       });
@@ -3439,7 +4055,7 @@ export const fnUpdateSubscriptionPlan = aSubscriptionPlans => {
     type: actionTypes.UPDATE_SUBSCRIPTON_PLANS,
     payload: aSubscriptionPlans
   };
- 
+
 };
 
 /**
@@ -3503,7 +4119,7 @@ export const fnSendContactDetails = (contactUsDetails, fnSuccess, fnError) => {
     const oContactDetailsData = zeeAxiosUM.post(
       appURLs.SEND_CONTACT_DETAILS,
       contactUsDetails,
-      {headers: {"Content-Type": "application/json"}}
+      { headers: { "Content-Type": "application/json" } }
     );
     oContactDetailsData
       .then(response => {
@@ -3537,7 +4153,7 @@ export const verifyOTPCode = (
   return dispatch => {
     dispatch(startLoader());
     const otpVerificationDetails = zeeAxiosUM.post(appURLs.VERIFY_OTP, data, {
-      headers: {"Content-Type": "application/json"}
+      headers: { "Content-Type": "application/json" }
     });
     otpVerificationDetails
       .then(response => {
@@ -3568,10 +4184,53 @@ export const updatePhoneNumber = (data, updateSuccess, updateFail) => {
   return dispatch => {
     dispatch(startLoader());
     const oUserToken = JSON.parse(
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
     );
     const sAuthToken = oUserToken ? oUserToken.authToken : null;
     const updateAPI = zeeAxiosUM.post(appURLs.UPDATE_PHONE_NUMBER, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sAuthToken
+      }
+    });
+    updateAPI
+      .then(response => {
+        dispatch(stopLoader());
+        if (
+          response &&
+          response.response &&
+          response.response.status === CONSTANTS.STATUS_OK &&
+          typeof updateSuccess === "function"
+        ) {
+          updateSuccess(response.response.data);
+        } else if (response && response.status === CONSTANTS.STATUS_OK) {
+          let data = response;
+          if (response && response.data) {
+            data = response.data;
+          }
+          updateSuccess(data);
+        } else {
+          updateFail(response);
+        }
+      })
+      .catch(error => {
+        dispatch(stopLoader());
+        if (typeof updateFail === "function") {
+          updateFail(error);
+        }
+      });
+  };
+};
+
+
+export const updateUserInfo = (data, updateSuccess, updateFail) => {
+  return dispatch => {
+    dispatch(startLoader());
+    const oUserToken = JSON.parse(
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
+    );
+    const sAuthToken = oUserToken ? oUserToken.authToken : null;
+    const updateAPI = zeeAxiosUM.post(appURLs.UPDATE_USER_INFO, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sAuthToken
@@ -3818,14 +4477,14 @@ export const etisalatVerify = (data, fnSuccess, fnError) => {
 export const etisalatCancelSubscription = (
   orderId,
   locale,
-  fnSuccess, 
+  fnSuccess,
   fnError) => {
   return dispatch => {
     dispatch(startLoader());
-    const url = appURLs.ETISALAT_CANCEL_SUBSCRIPTION.replace(
+    const url = appURLs.CANCEL_SUBSCRIPTION.replace(
       "{ORDER_ID}",
       orderId
-    ).replace("{LANGUAGE_CODE}",locale);
+    ).replace("{LANGUAGE_CODE}", locale);
     const prepareAPI = zeeAxiosUM.get(url);
     prepareAPI
       .then(response => {
@@ -3854,6 +4513,34 @@ export const etisalatCancelSubscription = (
           fnError(error);
         }
       });
+  };
+};
+
+export const fnFetchCouponData = (
+  language,
+  userId,
+  fnSuccues,
+  fnStatusFailed
+) => {
+  return dispatch => {
+    dispatch(startLoader());
+    const url = appURLs.CAMPAIGN_COUPONS
+      .replace("{USER_ID}", userId)
+      .replace("{LANGUAGE_CODE}", language);
+    const couponAPI = zeeAxiosUM.get(url);
+    couponAPI
+      .then(response => {
+        if (
+          response &&
+          response.status === CONSTANTS.STATUS_OK
+        ) {
+          localStorage.setItem("Ramadan", response.data.coupon_code);
+          fnSuccues(response.data)
+        } else {
+          fnStatusFailed(response)
+          localStorage.removeItem("Ramadan")
+        }
+      })
   };
 };
 
@@ -3975,7 +4662,7 @@ export const tpayPrepareSession = (data, fnSuccess, fnError) => {
           fnSuccess(response.data);
         } else {
           let data = response;
-         
+
           if (response && response.data) {
             data = response.data;
           }
@@ -4061,10 +4748,10 @@ export const tpayVerify = (data, fnSuccess, fnError) => {
     });
     prepareAPI
       .then(response => {
-        
+
         dispatch(stopLoader());
         common.isUserSubscribed();
-        
+
         if (
           response &&
           response.status === CONSTANTS.STATUS_OK &&
@@ -4134,6 +4821,142 @@ export const tpayCancelSubscription = (orderId, locale, fnSuccess, fnError) => {
   };
 };
 
+// payment Zain
+
+export const ZainPrepareSession = (data, fnSuccess, fnError) => {
+  return dispatch => {
+    dispatch(startLoader());
+    const url = appURLs.ZAIN_PREPARE;
+    const prepareAPI = zeeAxiosUM.post(url, data, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    prepareAPI
+      .then(response => {
+        dispatch(fnUpdateZainSession(response.data));
+        dispatch(stopLoader());
+        if (
+          response &&
+          response.status === CONSTANTS.STATUS_OK &&
+          !response.data.error_msg &&
+          typeof fnSuccess === "function"
+        ) {
+          fnSuccess(response.data);
+        } else {
+          let data = response;
+
+          if (response && response.data) {
+            data = response.data;
+          }
+          if (response && response.response && response.response.data) {
+            data = response.response.data;
+          }
+          if (typeof fnError === "function") {
+            fnError(data);
+
+          }
+        }
+      })
+      .catch(error => {
+        dispatch(stopLoader());
+        if (typeof fnError === "function") {
+          console.log(error)
+          fnError(error);
+        }
+      });
+  };
+};
+
+/**
+ * Component Name - Action creators
+ * method that update user details for paymeny
+ * @param {object} oUserPaymentDetails - user details object
+ * @return {dispatch} - dispatch object
+ */
+export const fnUpdateZainSession = details => {
+  return {
+    type: actionTypes.UPDATE_ZAIN_SESSION,
+    payload: details
+  };
+};
+
+export const ZainVerify = (data, fnSuccess, fnError) => {
+  return dispatch => {
+    dispatch(startLoader());
+    const url = appURLs.ZAIN_VERIFY_PINCODE;
+    const prepareAPI = zeeAxiosUM.post(url, data, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    prepareAPI
+      .then(response => {
+
+        dispatch(stopLoader());
+        common.isUserSubscribed();
+
+        if (
+          response &&
+          response.status === CONSTANTS.STATUS_OK &&
+          !response.data.error_code &&
+          typeof fnSuccess === "function"
+        ) {
+          fnSuccess(response.data);
+
+        } else {
+          let data = response;
+          if (response && response.response && response.response.data) {
+            data = response.response.data;
+          }
+          if (typeof fnError === "function") {
+            fnError(data);
+          }
+        }
+      })
+      .catch(error => {
+        dispatch(stopLoader());
+        if (typeof fnError === "function") {
+          fnError(error);
+        }
+      });
+  };
+};
+
+
+export const ZainResendOTP = (data, fnSuccess, fnError) => {
+  return dispatch => {
+    dispatch(startLoader());
+    const url = appURLs.ZAIN_RESEND_OTP;
+    const prepareAPI = zeeAxiosUM.post(url, data, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    prepareAPI
+      .then(response => {
+        dispatch(stopLoader());
+        if (response && response.data && response.data.error_code) {
+          if (typeof fnError === "function") {
+            fnError(response.data);
+          }
+          return;
+        }
+        if (typeof fnSuccess === "function") {
+          fnSuccess(response);
+        }
+      })
+      .catch(error => {
+        dispatch(stopLoader());
+        if (typeof fnError === "function") {
+          fnError(error);
+        }
+      });
+  };
+};
+
+
+
 //infoMedia
 export const infoPrepareSession = (data, fnSuccess, fnError) => {
   return dispatch => {
@@ -4158,7 +4981,7 @@ export const infoPrepareSession = (data, fnSuccess, fnError) => {
           fnSuccess(response.data);
         } else {
           let data = response;
-         
+
           if (response && response.data) {
             data = response.data;
           }
@@ -4214,7 +5037,7 @@ export const infoCancelSubscription = (orderId, locale, fnSuccess, fnError) => {
             data = response.response.data;
           }
           if (typeof fnError === "function") {
-            console.log(data,"sub")
+            console.log(data, "sub")
             fnError(data);
           }
         }
@@ -4251,7 +5074,7 @@ export const telusPrepareSession = (data, fnSuccess, fnError) => {
           fnSuccess(response.data);
         } else {
           let data = response;
-         
+
           if (response && response.data) {
             data = response.data;
           }
@@ -4307,7 +5130,7 @@ export const TelusCancelSubscription = (orderId, locale, fnSuccess, fnError) => 
             data = response.response.data;
           }
           if (typeof fnError === "function") {
-            console.log(data,"sub")
+            console.log(data, "sub")
             fnError(data);
           }
         }
@@ -4320,5 +5143,140 @@ export const TelusCancelSubscription = (orderId, locale, fnSuccess, fnError) => 
       });
   };
 };
+
+export const clearHeaderCOntent = () => {
+  return (dispatch, getState) => {
+    dispatch(fnUpdateHeaderMenuContent([]));
+  }
+}
+
+export const fnHeaderMenuContent = (
+  sCountryCode,
+  sLocale,
+  contentType,
+  fnSuccess,
+  fnFailed
+) => {
+  return (dispatch, getState) => {
+    dispatch(startLoader());
+    const dCountry = getState().sCode;
+
+    let HeaderMenuContent = "";
+
+    HeaderMenuContent = `${appURLs.HEADERMENU_CONTENTS
+      .replace(
+        "{COUNTRY}",
+        sCountryCode
+      )
+      .replace("{LANGUAGE_CODE}", sLocale)
+      .replace("{COUNTRY}", dCountry)
+      .replace("{CONTENT_TYPE}", contentType)}`;
+
+    const oHeaderMenuContentPromise = zeeAxios.get(HeaderMenuContent, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    });
+
+    // const oHeaderMenuContentPromise = axios.get(
+    //   appURLs.HEADERMENU_CONTENTS.replace(
+    //     "{COUNTRY}",
+    //     dCountry
+    //   ).replace("{LANGUAGE_CODE}", sLocale)
+    //   .replace("{CONTENT_TYPE}", contentType)
+    // );
+
+
+    oHeaderMenuContentPromise
+      .then(oResponse => {
+        // let arr = Object.entries(oResponse);
+        // console.log(arr.length);
+        // console.log(arr);
+        if (oResponse.status === CONSTANTS.STATUS_OK) {
+          dispatch(fnUpdateHeaderMenuContent(oResponse.data));
+          typeof fnSuccess === "function" && fnSuccess(oResponse.data);
+        } else {
+          dispatch(fnUpdateHeaderMenuContent([]));
+          typeof fnFailed === "function" && fnFailed(oResponse.data);
+        }
+        dispatch(stopLoader());
+      })
+      .catch(error => {
+
+        dispatch(stopLoader());
+        typeof fnFailed === "function" && fnFailed(error);
+        Logger.error(MODULE_NAME, error);
+      });
+  };
+};
+
+/**
+ * Component Name - Action creators
+ * method that update plans
+ * @param {Array} HeaderMenuContent - HeaderMenuContent
+ * @return {dispatch} - dispatch object
+ */
+export const fnUpdateHeaderMenuContent = aHeaderMenuContent => {
+  return {
+    type: actionTypes.UPDATE_HEADER_MENU_CONTETS,
+    payload: aHeaderMenuContent
+  };
+
+};
+
+
+export const fnHeaderMenu = (sLocale, fnSuccess, fnFailed) => {
+  return dispatch => {
+    dispatch(startLoader());
+
+
+    let HeaderMenuContent = "";
+
+    HeaderMenuContent = `${appURLs.HEADERMENU
+
+      .replace("{LANGUAGE_CODE}", sLocale)}`;
+
+    const oHeaderMenuContentPromise = zeeAxios.get(HeaderMenuContent, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    });
+
+
+
+    oHeaderMenuContentPromise
+      .then(oResponse => {
+        // let arr = Object.entries(oResponse);
+        // console.log(arr.length);
+        // console.log(arr);
+        if (oResponse.status === CONSTANTS.STATUS_OK) {
+          dispatch(fnUpdateHeaderMenu(oResponse.data));
+          typeof fnSuccess === "function" && fnSuccess(oResponse.data);
+        } else {
+
+          typeof fnFailed === "function" && fnFailed(oResponse.data);
+        }
+        dispatch(stopLoader());
+      })
+      .catch(error => {
+
+        dispatch(stopLoader());
+        typeof fnFailed === "function" && fnFailed(error);
+        Logger.error(MODULE_NAME, error);
+      });
+  };
+};
+
+/**
+ * Component Name - Action creators
+ * method that update plans
+ * @param {Array} HeaderMenu - HeaderMenu
+ * @return {dispatch} - dispatch object
+ */
+export const fnUpdateHeaderMenu = aHeaderMenu => {
+  return {
+    type: actionTypes.UPDATE_HEADER_MENU,
+    payload: aHeaderMenu
+  };
+
+};
+
+
 
 

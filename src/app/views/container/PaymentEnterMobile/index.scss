@@ -235,4 +235,37 @@
     position: relative;
     top: 63px;
   }
+
+}
+@media(max-width: 767px){
+ .enter-mobile-container .etisalat-container .free-for-en {
+  font-weight: 700;
+  margin-top: -44px;
+  margin-left: 0;
+  // width: 80%;
+}
+.enter-mobile-container .etisalat-container .free-for-ar {
+  font-weight: 700;
+  margin-top: -44px;
+  position: relative;
+  margin-right: 0px;
+  left: 0;
+  text-align: right;
+}
+.enter-mobile-container .input-container .send-button {
+  height: 40px;
+  line-height: 27px;
+}
+.enter-mobile-container .input-container .send-button span {
+  font-size: 14px;
+}
+.enter-mobile-container .exit-etisalat {
+  width: 32px;
+  height: 22px;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 0 auto;
+  margin-top: -65px;
+}
 }

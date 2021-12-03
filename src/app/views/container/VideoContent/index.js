@@ -51,7 +51,8 @@ class VideoContent extends BaseContainer {
     }
   }
   componentDidMount() {
-   
+    common.loadBannerAds();
+    console.log('loading the details page')
     Logger.log(this.MODULE_NAME, "componentDidMount -- VideoContent");
     this.bAdSignalDataSent = false;
     const { langcode, type, id } = this.props.match.params;
@@ -119,11 +120,16 @@ class VideoContent extends BaseContainer {
         this.props.locale,
         this.props.sCountryCode,
         common.getUserId(),
+        common.uuidv4(),
         this.props.bPageViewSent
       );
       this.props.fnPageViewSent();
       this.bAdSignalDataSent = true;
     }
+  }
+
+  componentWillUnmount() {
+    common.unloadBannerAds()
   }
   /**
    * Used to focus top of the page
@@ -303,7 +309,10 @@ class VideoContent extends BaseContainer {
     let seo_title =((this.props.oVideoDetailContent && this.props.oVideoDetailContent.data && this.props.oVideoDetailContent.data.seasons && this.props.oVideoDetailContent.data.seasons.length > 0)?this.props.oVideoDetailContent.data.seasons[0].seo_title:this.props.oVideoDetailContent.data.seo_title);
 
 
-
+    let GoogleAdsContainer = 'div-gpt-ad-1638268425277-0';
+    if(isMobile) {
+      GoogleAdsContainer = 'div-gpt-ad-1638271079345-0';
+    }
      // const {
       //   //This would be changed to seo_title
       //   //As wrong data is coming from the field binded with title

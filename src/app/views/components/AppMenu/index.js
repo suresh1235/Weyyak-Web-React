@@ -10,6 +10,7 @@
 
 import React, { Component } from "react";
 import oResourceBundle from "app/i18n/";
+
 import { withRouter } from "react-router-dom";
 import Menu from "core/components/Menu";
 import * as actionTypes from "app/store/action/";
@@ -27,6 +28,10 @@ import { Link } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import downArrowOrange from "app/resources/assets/login/ic-user-darrow-orange.png";
 import HandlerContext from "app/views/Context/HandlerContext";
+// import DefaultImage from "../../../resources/assets/weyyak-logo.svg"
+import DefaultImage from "../../../resources/assets/weyyak-logo.png"
+import LanguageButton from "app/views/components/LanguageButton/";
+
 
 import "./index.scss";
 
@@ -40,7 +45,7 @@ class AppMenu extends Component {
   componentDidUpdate() {
     try {
       setTimeout(() => {
-        (this.appMenu && this.appMenu.current ) && this.appMenu.current.scrollTo(0, 0);
+        (this.appMenu && this.appMenu.current) && this.appMenu.current.scrollTo(0, 0);
       }, 10);
     } catch (e) {
       console.log(e);
@@ -93,6 +98,11 @@ class AppMenu extends Component {
       case "logout": {
         common.deleteCookie(constants.COOKIE_USER_OBJECT);
         common.deleteCookie(constants.COOKIE_USER_TOKEN);
+        common.DeleteGDPRCookie('GDPR_Cookies');
+        common.DeleteGDPRCookie('cookies_accepted');
+        localStorage.removeItem("Ramadan")
+        sessionStorage.removeItem("subscribedUser")
+        sessionStorage.removeItem("notSubscribedUser")
         this.props.fnForLogOut();
         //this.props.history.push(`/${this.props.locale}`);
         break;
@@ -103,6 +113,15 @@ class AppMenu extends Component {
     }
   }
 
+  fnRenderThumbnailImages(item,DeviceOriented){
+    if( item.imagery [DeviceOriented] ) {
+      return item.imagery [DeviceOriented] 
+   }else{
+         return DefaultImage
+         
+   }
+ }
+
   /**
    * Component Name - AppMenu
    * It is a render method of Menu Component, that will render the menu in Application.
@@ -110,11 +129,25 @@ class AppMenu extends Component {
    * @returns { Object }
    */
   render() {
+    // console.log(this.props.menuitems)
+    if (this.props.menuitems) {
+      let sCategoryId=null
+		  const oMenuItem = this.props.menuitems.filter(ele => {
+			if (ele.friendly_url.indexOf("premium") !== -1) {
+			  return true;
+			}
+			return false;
+		  });
+		  sCategoryId = oMenuItem[0] ? oMenuItem[0].id : null;
+      // console.log(sCategoryId)
+      localStorage.setItem("PremiumID",sCategoryId)
+		}
+   
     const touchClassName = isMobile !== undefined && isMobile ? "is-touch" : "";
     let userLogInStatus = null;
     try {
-      userLogInStatus = common.getCookie(constants.COOKIE_USER_OBJECT) !== null
-        ? JSON.parse(common.getCookie(constants.COOKIE_USER_OBJECT))
+      userLogInStatus = common.getServerCookie(constants.COOKIE_USER_OBJECT) !== null
+        ? JSON.parse(common.getServerCookie(constants.COOKIE_USER_OBJECT))
         : null;
     } catch (ex) {
       common.deleteCookie(constants.COOKIE_USER_OBJECT)
@@ -131,68 +164,98 @@ class AppMenu extends Component {
         >
           <div className="app-menu-item-container">
             <div className="menu-items">
+            <div className="head-links-mobile">
+              <ul>
+                {this.props.HeaderMenu.map((ele, index) => {
+                  return(
+                  	<li>
+									<Link
+										className={this.props.location.pathname.substring(this.props.location.pathname.lastIndexOf('/')+1)===ele.url ? "activelink" : ""}
+										to={`/${this.props.locale}/contents/${ele.url}`}
+									>{ele.title}</Link>
+
+								{/* <a href={`/${this.props.locale}/contents/${ele.url}`}>{ele.title}</a> */}
+								</li>
+
+                  )
+                  
+                })
+                }
+					  </ul> 
+				    </div>
               <div className="menu-sign-in">
                 <Button
                   className="user-icon"
                   icon={userIcon}
                   onClick={this.props.onSignInClick}
                 />
+                {/* {JSON.parse(this.props.loginDetails)} */}
+                
                 {(this.props.loginDetails !== null &&
                   this.props.loginDetails.bSuccessful) ||
-                userLogInStatus !== null ? (
-                  <React.Fragment>
-                    <UserMenu
-                    onSignInClick={this.props.onSignInClick}
-                    showUserMenuDropDown={this.props.showUserMenuDropDown}
-                    downArrowIcon={downArrowOrange}
-                    className="user-menu-container"
-                    handleUserMenuDropDown={(index, eve) =>
-                      this.handleUserMenuDropDown(index, eve)
-                    }
-                  />
-                    <Button
-                      className="settings-btn"
-                      icon={settingsIcon}
-                      onClick={()=>common.fnNavTo.call(this, "/" + this.props.locale + "/settings")}
-                    />
-                  </React.Fragment>
+                  userLogInStatus !== null ? (
+                    <React.Fragment>
+                      <UserMenu
+                        onSignInClick={this.props.onSignInClick}
+                        showUserMenuDropDown={this.props.showUserMenuDropDown}
+                        downArrowIcon={downArrowOrange}
+                        className="user-menu-container"
+                        handleUserMenuDropDown={(index, eve) =>
+                          this.handleUserMenuDropDown(index, eve)
+                        }
+                      />
+                      <Button
+                        className="settings-btn"
+                        icon={settingsIcon}
+                        onClick={() => common.fnNavTo.call(this, "/" + this.props.locale + "/settings")}
+                      />
+                    </React.Fragment>
 
-                ) : (
-                  <React.Fragment>
-                    <Button
-                      className="sign-in-btn"
-                      onClick={this.props.onSignInClick}
-                    >
-                      {oResourceBundle.sign_in_or_register}
-                    </Button>
-                    <Button
-                      className="settings-btn sign-in"
-                      icon={settingsIcon}
-                      onClick={()=>common.fnNavTo.call(this, "/" + this.props.locale + "/settings")}
-                    />
-                  </React.Fragment>
-                )}
+                  ) : (
+                    <React.Fragment>
+                      <Button
+                        className="sign-in-btn"
+                        onClick={this.props.onSignInClick}
+                      >
+                        {oResourceBundle.sign_in_or_register}
+                      </Button>
+                      <Button
+                        className="settings-btn sign-in"
+                        icon={settingsIcon}
+                        onClick={() => common.fnNavTo.call(this, "/" + this.props.locale + "/settings")}
+                      />
+                    </React.Fragment>
+                  )}
               </div>
-              {this.props.menuitems.map(item => (
-                <Link
-                  key={item.id}
-                  to={`${item.friendly_url}`}
-                  tabIndex={this.props.show ? "0" : "-1"}
-                >
-                  <MenuItem
-                    text={item.title}
-                    id={item.id}
-                    show={this.props.show}
-                    friendly_url={item.friendly_url}
-                    seo_description={item.seo_description}
-                    type={item.type}
-                    onClick={this.onMenuItemClick.bind(this)}
-                    aria-label={item.title}
-                  />
-                </Link>
-              ))}
+              {this.props.menuitems.map(item => {
+               return item.title == "Home"  || item.title == "Premium"  || item.title == "الصفحة الرئيسية"  || item.title == "الباقة المميزة" ?  "" : (
+                  <Link
+                    key={item.id}
+                    to={`${item.friendly_url}`}
+                    tabIndex={this.props.show ? "0" : "-1"}
+                  >
+                    <MenuItem
+                      text={item.title}
+                      id={item.id}
+                      show={this.props.show}
+                      friendly_url={item.friendly_url}
+                      seo_description={item.seo_description}
+                      type={item.type}
+                      onClick={this.onMenuItemClick.bind(this)}
+                      aria-label={item.title}
+                      img={this.fnRenderThumbnailImages(item,"mobile-menu")}
+                      // img={item.imagery["mobile-menu"]}
+                    />
+                  </Link>
+                ) 
+              })}
             </div>
+            
             <div className="static-menu">
+            <LanguageButton
+                    locale={this.props.locale}
+                    onLanguageButtonCLick={this.props.onLanguageButtonClick}
+                />
               {this.props.staticMenuItems.map((item, index) =>
                 index === 0 ? (
                   <Link
@@ -203,8 +266,7 @@ class AppMenu extends Component {
                     <MenuItem
                       text={
                         item.title +
-                        `<strong class="z5-menu-text">&nbsp;${
-                          oResourceBundle.weyyak
+                        `<strong class="z5-menu-text">&nbsp;${oResourceBundle.weyyak
                         }</strong>`
                       }
                       showHTMLText={true}
@@ -216,29 +278,35 @@ class AppMenu extends Component {
                       htmlText={item.text}
                       onClick={this.onMenuItemClick.bind(this)}
                       aria-label={item.title}
+                      img={"NO"}
                     />
                   </Link>
                 ) : (
-                  <Link
-                    key={item.id}
-                    to={`/${this.props.locale}/static/${item.friendly_url}`}
-                    tabIndex={this.props.show ? "0" : "-1"}
-                  >
-                    <MenuItem
-                      text={item.title}
-                      showHTMLText={true}
-                      id={item.id}
-                      friendly_url={item.friendly_url}
-                      plain_text={item.plain_text}
-                      subtitle={item.subtitle}
-                      title={item.title}
-                      htmlText={item.text}
-                      onClick={this.onMenuItemClick.bind(this)}
-                      aria-label={item.title}
-                    />
-                  </Link>
-                )
+                    <Link
+                      key={item.id}
+                      to={`/${this.props.locale}/static/${item.friendly_url}`}
+                      tabIndex={this.props.show ? "0" : "-1"}
+                    >
+                      <MenuItem
+                        text={item.title}
+                        showHTMLText={true}
+                        id={item.id}
+                        friendly_url={item.friendly_url}
+                        plain_text={item.plain_text}
+                        subtitle={item.subtitle}
+                        title={item.title}
+                        htmlText={item.text}
+                        onClick={this.onMenuItemClick.bind(this)}
+                        aria-label={item.title}
+                        img={"NO"}
+                      />
+                    </Link>
+                  )
               )}
+              <hr></hr>
+              <div style={{ color: 'gray' }}>
+                <h5><b>Version</b>: {constants.BUILD_VERSION_NUMBER}</h5>
+              </div>
             </div>
           </div>
         </Menu>
@@ -271,7 +339,15 @@ const mapDispatchToProps = dispatch => {
   return {
     fnForLogOut: () => {
       dispatch(actionTypes.fnForLogOut());
-    }
+    },
+    fnHeaderMenu: (fnSuccess, fnFailed) => {
+			dispatch(
+			  actionTypes.fnHeaderMenu(
+				fnSuccess,
+				fnFailed
+			  )
+			);
+		  },
   };
 };
 

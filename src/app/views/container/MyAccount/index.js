@@ -22,13 +22,14 @@ import oResourceBundle from "app/i18n/";
 import CheckBox from "core/components/Checkbox";
 import withTracker from "core/GoogleAnalytics/";
 import SelectBox from "core/components/SelectBox";
-import {sendEvents} from "core/GoogleAnalytics/";
+import { sendEvents } from "core/GoogleAnalytics/";
 import Label from "core/components/Label";
 import { isUserLoggedIn, isValidEmail } from "app/utility/common";
 import Spinner from "core/components/Spinner";
 import PhoneInput from "../../components/PhoneInput/";
 import { toast } from "core/components/Toaster/";
 import ReactHtmlParser from 'react-html-parser';
+import { CleverTap_UserEvents } from 'core/CleverTap'
 //import DatePicker from "react-datepicker";
 //import "react-datepicker/dist/react-datepicker.css";
 
@@ -81,14 +82,23 @@ class MyAccount extends BaseContainer {
       checkboxChanged1: false,
       checkboxChanged2: false,
       checkboxChanged3: false,
-      isAdult:false,
-      isRecommend:false,
-      privacyPolicy:false,
+      isAdult: false,
+      isRecommend: false,
+      privacyPolicy: false,
+      performance: "",
+      advertising: "",
+      googleAnalytics: "",
+      cleverTap: "",
+      firebase: "",
+      appFlyer: "",
+      aique: "",
+      googleAds: "",
+      facebookAds: "",
+      isGdprAccepted: ""
     };
   }
 
   componentDidMount() {
-    console.log(this.props,"myaccount")
     this.fnScrollToTop();
     if (isUserLoggedIn()) {
       this.props.fnFetchCountryList(this.props.locale);
@@ -112,24 +122,37 @@ class MyAccount extends BaseContainer {
       nextState.prevProps &&
       nextProps.oUserAccountDetails !== nextState.prevProps.oUserAccountDetails
     ) {
-      console.log(nextProps)
       return {
         fname: nextProps.oUserAccountDetails.firstName,
         lname: nextProps.oUserAccountDetails.lastName,
         email: nextProps.oUserAccountDetails.email,
         mobile: nextProps.oUserAccountDetails.phoneNumber,
         savedMobile: nextProps.oUserAccountDetails.phoneNumber,
-        newsletter: nextProps.oUserAccountDetails.newslettersEnabled,
+        // newsletter: nextProps.oUserAccountDetails.newslettersEnabled,
+        newsletter: true,
         promotions: nextProps.oUserAccountDetails.promotionsEnabled,
         country: nextProps.oUserAccountDetails.countryName,
         selectedCountryCode: nextProps.oUserAccountDetails.countryId || "",
         language: nextProps.oUserAccountDetails.languageName,
         selectedLanguageCode: nextProps.oUserAccountDetails.languageId,
-        newsletter1: nextProps.oUserAccountDetails.privacyPolicy,
-        newsletter3: nextProps.oUserAccountDetails.isAdult,
-        newsletter2: nextProps.oUserAccountDetails.isRecommend,
+        // newsletter1: nextProps.oUserAccountDetails.privacyPolicy,
+        newsletter1: true,
+        newsletter3: true,
+        newsletter2: true,
+        // newsletter3: nextProps.oUserAccountDetails.isAdult,
+        // newsletter2: nextProps.oUserAccountDetails.isRecommend,
         playnext: false,
-        prevProps: nextProps
+        prevProps: nextProps,
+        performance: nextProps.oUserAccountDetails.performance,
+        advertising: nextProps.oUserAccountDetails.advertising,
+        googleAnalytics: nextProps.oUserAccountDetails.googleAnalytics,
+        cleverTap: nextProps.oUserAccountDetails.cleverTap,
+        firebase: nextProps.oUserAccountDetails.firebase,
+        appFlyer: nextProps.oUserAccountDetails.appFlyer,
+        aique: nextProps.oUserAccountDetails.aique,
+        googleAds: nextProps.oUserAccountDetails.googleAds,
+        facebookAds: nextProps.oUserAccountDetails.facebookAds,
+        isGdprAccepted: nextProps.oUserAccountDetails.isGdprAccepted
       };
     }
     // Return null to indicate no change to state.
@@ -146,13 +169,13 @@ class MyAccount extends BaseContainer {
   fnSetUpdateButtonEnabled() {
     if (
       ((this.state.fname && this.state.fname.trim() !== "") ||
-      (this.state.lname && this.state.lname.trim() !== "") ||
-      this.state.checkboxChanged ||
-      this.state.checkboxChanged1 ||
-      this.state.checkboxChanged2 ||
-      this.state.checkboxChanged3 ||
-      this.state.countryChanged ||
-      this.state.languageChanged) &&
+        (this.state.lname && this.state.lname.trim() !== "") ||
+        this.state.checkboxChanged ||
+        // this.state.checkboxChanged1 ||
+        // this.state.checkboxChanged2 ||
+        // this.state.checkboxChanged3 ||
+        this.state.countryChanged ||
+        this.state.languageChanged) &&
       // !this.state.showMobileVerification &&
       this.state.newsletter1 &&
       this.state.newsletter2 &&
@@ -217,7 +240,7 @@ class MyAccount extends BaseContainer {
       {
         [oEvent.target.name]: oEvent.target.checked,
         checkboxChanged1: true,
-        privacyPolicy:true
+        privacyPolicy: true
       },
       this.fnSetUpdateButtonEnabled
     );
@@ -227,7 +250,7 @@ class MyAccount extends BaseContainer {
       {
         [oEvent.target.name]: oEvent.target.checked,
         checkboxChanged2: true,
-        isAdult:true
+        isAdult: true
       },
       this.fnSetUpdateButtonEnabled
     );
@@ -237,7 +260,7 @@ class MyAccount extends BaseContainer {
       {
         [oEvent.target.name]: oEvent.target.checked,
         checkboxChanged3: true,
-        isRecommend:true
+        isRecommend: true
       },
       this.fnSetUpdateButtonEnabled
     );
@@ -356,6 +379,12 @@ class MyAccount extends BaseContainer {
       this.state,
       () => {
         //Data updated successfully
+        this.props.fnFetchUserDetails((res) => {
+          let userData = res
+          userData.userId = common.getUserId()
+          CleverTap_UserEvents("ProfileEvent", userData)
+        }, null, true);
+
         toast.dismiss();
         toast.success(oResourceBundle.profile_update_success, {
           position: toast.POSITION.BOTTOM_CENTER
@@ -407,9 +436,9 @@ class MyAccount extends BaseContainer {
     );
     if (
       this.props.oUserAccountDetails.registrationSource ===
-        CONSTANTS.REGISTRATION_SOURCE_EMAIL ||
+      CONSTANTS.REGISTRATION_SOURCE_EMAIL ||
       this.props.oUserAccountDetails.registrationSource ===
-        CONSTANTS.REGISTRATION_SOURCE_MOBILE
+      CONSTANTS.REGISTRATION_SOURCE_MOBILE
     ) {
       this.props.history.push(
         `/${this.props.locale}/${CONSTANTS.CHANGE_PASSWORD}/`
@@ -566,8 +595,8 @@ class MyAccount extends BaseContainer {
     if (country.length > 0) {
       selected = this.state.selectedCountryCode
         ? country[
-            country.findIndex(ele => ele.key === this.state.selectedCountryCode)
-          ].text
+          country.findIndex(ele => ele.key === this.state.selectedCountryCode)
+        ].text
         : oResourceBundle.my_account_select_country;
     }
 
@@ -647,9 +676,8 @@ class MyAccount extends BaseContainer {
                     <div className="contact-us">
                       <Link
                         className="contact-us-link"
-                        to={`/${this.props.locale}/static/${
-                          oResourceBundle.contact_us_link
-                        }`}
+                        to={`/${this.props.locale}/static/${oResourceBundle.contact_us_link
+                          }`}
                       >
                         {oResourceBundle.contact_us_to_change_email}
                       </Link>
@@ -729,8 +757,8 @@ class MyAccount extends BaseContainer {
                                 (this.props.oUserAccountDetails
                                   .registrationSource ===
                                   CONSTANTS.REGISTRATION_SOURCE_EMAIL ||
-                                this.props.oUserAccountDetails
-                                  .registrationSource ===
+                                  this.props.oUserAccountDetails
+                                    .registrationSource ===
                                   CONSTANTS.REGISTRATION_SOURCE_MOBILE
                                   ? " enabled"
                                   : "")
@@ -945,13 +973,13 @@ class MyAccount extends BaseContainer {
                     onChange={this.handleCheckBox2.bind(this)}
                     selected={this.state.newsletter2}
                     name="newsletter2"
-                    value ={this.state.isAdult}
+                    value={this.state.isAdult}
                     text={oResourceBundle.subscribe_to_newsletter2}
                   />
                   <CheckBox
                     onChange={this.handleCheckBox3.bind(this)}
                     selected={this.state.newsletter3}
-                    value ={this.state.isRecommend}
+                    value={this.state.isRecommend}
                     name="newsletter3"
                     text={oResourceBundle.subscribe_to_newsletter3}
                   />
@@ -1064,3 +1092,4 @@ export default withTracker(
     mapDispatchToProps
   )(MyAccount)
 );
+

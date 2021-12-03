@@ -89,7 +89,10 @@ class SelectBox extends React.PureComponent {
         ? "select-box-scroll"
         : "";
 
-
+        let buttonVisibility =  "auto";
+        //buttonVisibility = ((!this.props.showButton) || (this.props.items && this.props.items.length <= 1) ) ? "hidden": "auto";
+        //buttonVisibility = ( ) ? "hidden": "auto";
+   
     return (
       <select-box class={[this.props.className].join(" ")}>
         <div className="select-box-container">
@@ -119,12 +122,7 @@ class SelectBox extends React.PureComponent {
                 onMouseOver={this.handleMouseOverState.bind(this)}
                 onMouseOut={this.handleMouseLeaveState.bind(this)}
                 icon={this.state.btnIcon}
-                style={{
-                  visibility:
-                    this.props.items && this.props.items.length <= 1
-                      ? "hidden"
-                      : "auto"
-                }}
+                style={{ visibility:buttonVisibility}}
               />
             </div>
             <div className={["select-box-elements", sHeightClass].join(" ")}>

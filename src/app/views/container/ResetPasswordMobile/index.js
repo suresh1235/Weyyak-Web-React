@@ -22,6 +22,7 @@ import withTracker from "core/GoogleAnalytics/";
 import errorIcon from "app/resources/assets/error.svg";
 import goodIcon from "app/resources/assets/good.svg";
 import { toast } from "core/components/Toaster/";
+import Recaptcha from "../../components/Recaptcha";
 import "./index.scss";
 
 class ResetPasswordMobile extends BaseContainer {
@@ -41,7 +42,11 @@ class ResetPasswordMobile extends BaseContainer {
         newPassword: true,
         confirmNewPassword: true
       },
-      bEnableChangePasswordBtn: false
+      bEnableChangePasswordBtn: false,
+      activateResend: false,
+      activateResendLink: false,
+      timerValue: CONSTANTS.RESEND_CODE_TIME,
+      timerText: this.formatText(CONSTANTS.RESEND_CODE_TIME),
     };
   }
 
@@ -49,6 +54,45 @@ class ResetPasswordMobile extends BaseContainer {
     // if (!this.props.newUserDetails.phoneNumber) {
     //   this.props.history.push(`/${this.props.locale}`);
     // }
+    this.startTimer();
+  }
+
+  startTimer() {
+    this.setState({
+      timerValue: CONSTANTS.RESEND_CODE_TIME,
+      timerText: this.formatText(CONSTANTS.RESEND_CODE_TIME),
+      activateResend: false
+    });
+    this.stopTimer();
+    this.resendInterval = setInterval(() => {
+      if (this.state.timerValue === 0) {
+        this.setState({
+          activateResend: true
+        });
+        this.stopTimer();
+        return;
+      }
+      const value = this.state.timerValue - 1;
+      this.setState({
+        timerValue: value,
+        timerText: this.formatText(value)
+      });
+    }, CONSTANTS.RESEND_TIMER_UPDATE_INTERVAL);
+  }
+
+  stopTimer() {
+    clearInterval(this.resendInterval);
+  }
+
+  formatText(time) {
+    return time > 59
+      ? this.getTwoDigits(time / 60) + ":" + this.getTwoDigits(time % 60)
+      : "00:" + this.getTwoDigits(time);
+  }
+
+  getTwoDigits(text) {
+    text = text + "";
+    return text.length === 2 ? text : "0" + text;
   }
 
   /**
@@ -115,6 +159,11 @@ class ResetPasswordMobile extends BaseContainer {
    */
   handleFormInputs(eve) {
     const { name, value } = eve.target;
+    if(name == "smsCode"){
+      this.setState({
+        activateResendLink:false
+      })
+    }
     this.setState({ [name]: value }, this.fnSetUpdateButtonEnabled);
   }
 
@@ -155,6 +204,12 @@ class ResetPasswordMobile extends BaseContainer {
     //Fail
     if (error.response && error.response && error.response.data && error.response.data.invalid &&
     error.response.data.invalid.otp && error.response.data.invalid.otp.code) {
+      this.setState({
+        smsCode:""
+      })
+      this.setState(prevState => ({
+        error: { ...prevState.error, smsCode: true }
+      }));
       common.showToast(
         CONSTANTS.REGISTER_ERROR_TOAST_ID,
         oResourceBundle.otp_does_not_match,
@@ -174,19 +229,31 @@ class ResetPasswordMobile extends BaseContainer {
       phonenumber: this.props.newUserDetails.phoneNumber || "+919045215092",
       requestType: CONSTANTS.OTP_REQUEST_TYPE_FORGOT_PASSWORD
     };
+    if (this.state.activateResend && this.state.activateResendLink ) {
     this.props.sendOTPCode(
       data,
       this.resendSuccess.bind(this),
       this.resendError.bind(this)
     );
+    }
   }
 
   resendSuccess() {
+    this.startTimer();
+    this.setState({
+      activateResendLink:false
+    })
     common.showToast(
       CONSTANTS.REGISTER_ERROR_TOAST_ID,
       oResourceBundle.otp_sent,
       toast.POSITION.BOTTOM_CENTER
     );
+  }
+
+  VerifiyCaptcha = (value)=>{
+    this.setState({
+      activateResendLink:value? true: false
+    })
   }
 
   resendError() {
@@ -228,9 +295,25 @@ class ResetPasswordMobile extends BaseContainer {
                   <img alt="success" src={goodIcon} />
                 )}
               </div>
-              <div onClick={this.resendOTP.bind(this)} className="resend-sms-code">
-                <p>{oResourceBundle.resend_sms_code}</p>
-              </div>
+              {
+                this.state.activateResend  && !this.state.smsCode ?
+                <Recaptcha isVerified={this.VerifiyCaptcha}/> : ""
+              }
+              
+              <div className="resend-code">
+              <span
+                onClick={this.resendOTP.bind(this)}
+                className={
+                  "resend-text" + (this.state.activateResendLink ? " active" : "")
+                }
+              >
+                {oResourceBundle.resend_the_code}
+              </span>
+              <span className="timer">{this.state.timerText}</span>
+            </div>
+              {/* <div onClick={this.resendOTP.bind(this)} className="resend-sms-code">
+                <p>{oResourceBundle.resend_sms_code}</p><span className="timer">{this.state.timerText}</span>
+              </div> */}
               <div className="label">{oResourceBundle.new_password}</div>
               <div className="new-password-input">
                 <Input

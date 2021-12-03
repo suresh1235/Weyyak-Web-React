@@ -10,8 +10,8 @@
 
 import React from "react";
 import BaseContainer from "core/BaseContainer/";
-import {connect} from "react-redux";
-import {isMobile, isIOS, isSafari} from "react-device-detect";
+import { connect } from "react-redux";
+import { isMobile, isIOS, isSafari } from "react-device-detect";
 import CircularProgressbar from "react-circular-progressbar";
 import Swiper from "core/components/Swiper";
 import ImageThumbnail from "app/views/components/ImageThumbnail";
@@ -38,6 +38,7 @@ import {
   VIDEO_COMPLETED_ACTION,
   VIDEO_START_EPISODE_ACTION,
   VIDEO_START_MOVIE_ACTION,
+  VIDEO_START_LIVETV_ACTION,
   PLAY_VIDEO_ACTION,
   PAUSE_VIDEO_ACTION,
   VIDEO_STOP_ACTION,
@@ -52,11 +53,29 @@ import {
   RESUME_PATH_COOKIE_NAME,
   COOKIES_TIMEOUT_NOT_REMEMBER,
   MY_PLAYLIST_TOAST_ID,
-  COOKIE_USER_TOKEN
+  COOKIE_USER_TOKEN,
+  VIDEO_AVOD_CATEGORY,
+  VIDEO_SVOD_CATEGORY,
+  PLAY_EPISODE,
+  PAUSE_EPISODE,
+  STOP_EPISODE,
+  PLAY_MOVIE,
+  PAUSE_MOVIE,
+  STOP_MOVIE,
+  VIDEO_LIVETV_STARTED,
+  VIDEO_LIVETV_STOPPED,
+  FORWARD,
+  BACKWARD,
+  NEXT_EPISODE,
+  VIDEO_EPISODE_STARTED,
+  VIDEO_EPISODE_COMPLETED,
+  VIDEO_MOVIE_STARTED,
+  VIDEO_MOVIE_COMPLETED,
+  SUBSCRIPTION_TO_WATCH
 } from "app/AppConfig/constants";
 import VideoSpinner from "core/components/VideoSpinner";
 import VideoPlayer from "core/components/VideoPlayer";
-import {toast} from "core/components/Toaster/";
+import { toast } from "core/components/Toaster/";
 import {
   ENABLE_VIDEO_ADVERTISEMENT,
   ENABLE_CUSTOM_CONTROLS,
@@ -65,6 +84,7 @@ import {
 import * as actionTypes from "app/store/action/";
 import {
   getCookie,
+  getServerCookie,
   setCookie,
   getDirection,
   capitalizeFirstLetter,
@@ -74,7 +94,7 @@ import {
   getNavigationPathForPremiumContent,
   fnConstructTranslatedTitle,
   isUserSubscribed,
-  showToast
+  showToast,
 } from "app/utility/common";
 import oResourceBundle from "app/i18n/";
 import * as common from "app/utility/common";
@@ -89,7 +109,8 @@ import pauseHover from "app/resources/assets/video-player/pause_button_hover.svg
 import shareHover from "app/resources/assets/video-player/share_button_hover.svg";
 import facebook from "app/resources/assets/video-content/fb.svg";
 import twitter from "app/resources/assets/video-content/twitter.svg";
-import {sendEvents} from "core/GoogleAnalytics/";
+import { sendEvents } from "core/GoogleAnalytics/";
+import { CleverTap_CustomEvents } from 'core/CleverTap'
 
 import "./index.scss";
 
@@ -138,9 +159,16 @@ class Player extends BaseContainer {
       seriesInfo: null,
       showPlayIcon: isIOS ? true : false,
       showSubscriptionBanner: false,
+      PlayerTime_0: false,
+      PlayerTime_25: false,
+      PlayerTime_50: false,
+      PlayerTime_75: false,
+      PageTimer: "",
+      VIDEO_TYPE_CATEGORY:"",
+      videocurrentTime:"",
       orientation:
         window.innerWidth > window.innerHeight &&
-        window.innerWidth > PLAYER_LANDSCAPE_MIN_WIDTH
+          window.innerWidth > PLAYER_LANDSCAPE_MIN_WIDTH
           ? 90
           : 0
     };
@@ -204,7 +232,7 @@ class Player extends BaseContainer {
   componentDidMount() {
     Logger.log(this.MODULE_NAME, "componentDidMount");
     this.playistAPIfired = false;
-    var country = this.props.sCountryCode == ""? "AE":this.props.sCountryCode ;
+    var country = this.props.sCountryCode == "" ? "AE" : this.props.sCountryCode;
     if (country) {
       this.setState({
         geoBlock: false
@@ -223,6 +251,22 @@ class Player extends BaseContainer {
     document.addEventListener("fullscreenchange", this.onFullscreenChange);
     window.addEventListener("resize", this.updateWindowDimensions);
     this.bCheckSubscription = false;
+
+    this.setState({
+      PageTimer: new Date().getTime()
+    })
+
+    let VIDEO_TYPE_CATEGORY = this.props.isUserSubscribed ? VIDEO_SVOD_CATEGORY : VIDEO_AVOD_CATEGORY
+
+    this.setState({
+      VIDEO_TYPE_CATEGORY
+    })
+   
+  }
+
+  StopPageTimer() {
+    let endTime = new Date();
+    return ((endTime.getTime() - this.state.PageTimer) / 1000);
   }
 
   /**
@@ -230,7 +274,7 @@ class Player extends BaseContainer {
    */
   componentWillUnmount() {
     Logger.log(this.MODULE_NAME, "componentWillUnmount");
-    const {id, name, type} = this.props.match.params;
+    const { id, name, type } = this.props.match.params;
     this.updateWatchingProgress(true);
     this.cancelWatchingTimer();
     clearInterval(this.nextEpisodeTimer);
@@ -239,12 +283,14 @@ class Player extends BaseContainer {
     document.removeEventListener("fullscreenchange", this.onFullscreenChange);
     window.removeEventListener("resize", this.updateWindowDimensions);
 
-    //Send analytics event
+    //Send analytics & CleverTap event
     if (this.props.videoInfo && this.props.videoInfo.videoInfo) {
       const {
         episode_number,
         season_number,
-        title
+        title,
+        genres,
+        content_type
       } = this.props.videoInfo.videoInfo.data.data;
       if (type !== EPISODE) {
         sendEvents(
@@ -253,21 +299,69 @@ class Player extends BaseContainer {
           name ? name : id,
           this.videoPlayedDuration
         );
+        sendEvents(
+          this.state.VIDEO_TYPE_CATEGORY,
+          content_type && content_type == "movie" ? STOP_MOVIE : VIDEO_LIVETV_STOPPED,
+          name ? name : id
+        );
+        sendEvents(
+          VIDEO_CATEGORY,
+          content_type && content_type == "movie" ? STOP_MOVIE : VIDEO_LIVETV_STOPPED,
+          name ? name : id
+        );
       } else {
         sendEvents(
           WATCHED_DURATION_CATEGORY,
           WATCHED_PERIOD_ACTION,
-          `${title ? title : id} | ${
-            oResourceBundle.season
+          `${title ? title : id} | ${oResourceBundle.season
           } ${season_number} | ${oResourceBundle.episode} ${episode_number}`,
           this.videoPlayedDuration
         );
+        sendEvents(
+          this.state.VIDEO_TYPE_CATEGORY,
+          STOP_EPISODE,
+          `${title ? title : id} | ${oResourceBundle.season
+          } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+        );
+        sendEvents(
+          VIDEO_CATEGORY,
+          STOP_EPISODE,
+          `${title ? title : id} | ${oResourceBundle.season
+          } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+        );
+      }
+
+      // CleverTap Events
+      if (type !== EPISODE) {
+        CleverTap_CustomEvents("content_stopped", {
+          "content_type": this.props.videoInfo.videoInfo.data.data.content_type,
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres.join(),
+          "time_spent": this.StopPageTimer(),
+          "country": localStorage.getItem('country')
+        })
+      } else {
+        CleverTap_CustomEvents("content_stopped", {
+          "content_type": "series",
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres.join(),
+          "time_spent": this.StopPageTimer(),
+          "episode_number": episode_number,
+          "episode_name": title,
+          "country": localStorage.getItem('country')
+        })
       }
     }
+
+
+
+
   }
 
   checkContent(prevProps) {
-    const {type} = this.props.match.params;
+    const { type } = this.props.match.params;
     const prevId = prevProps.match.params.id;
     const prevName = prevProps.match.params.name;
     if (this.props.locale !== prevProps.locale) {
@@ -357,14 +451,19 @@ class Player extends BaseContainer {
           sendEvents(
             WATCHED_DURATION_CATEGORY,
             WATCHED_PERIOD_ACTION,
-            `${title ? title : prevId} | ${
-              oResourceBundle.season
+            `${title ? title : prevId} | ${oResourceBundle.season
             } ${season_number} | ${oResourceBundle.episode} ${episode_number}`,
             this.videoPlayedDuration
           );
         }
       }
     }
+  }
+
+  time_convert(num){ 
+  const hours = Math.floor(num / 60);  
+  const minutes = num % 60;
+   return `${hours}:${minutes}`;         
   }
 
   bigPlayIconClick() {
@@ -397,7 +496,7 @@ class Player extends BaseContainer {
 
   onFirstFrameLoaded() {
     Logger.log(this.MODULE_NAME, "onFirstFrameLoaded");
-    const {id, type} = this.props.match.params;
+    const { id, type } = this.props.match.params;
     this.bVideoCompleted = false;
     this.setState({
       playerReady: true
@@ -407,19 +506,26 @@ class Player extends BaseContainer {
     const {
       episode_number,
       season_number,
-      title
+      title,
+      content_type
     } = this.props.videoInfo.videoInfo.data.data;
 
     if (type === EPISODE) {
       sendEvents(
         VIDEO_CATEGORY,
-        VIDEO_START_EPISODE_ACTION,
-        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${
-          oResourceBundle.episode
+        VIDEO_EPISODE_STARTED,
+        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${oResourceBundle.episode
+        } ${episode_number}`
+      );
+      sendEvents(
+        this.state.VIDEO_TYPE_CATEGORY,
+        VIDEO_EPISODE_STARTED,
+        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${oResourceBundle.episode
         } ${episode_number}`
       );
     } else {
-      sendEvents(VIDEO_CATEGORY, VIDEO_START_MOVIE_ACTION, title ? title : id);
+      sendEvents(VIDEO_CATEGORY,content_type==='movie' ? VIDEO_MOVIE_STARTED : VIDEO_LIVETV_STARTED, title ? title : id);
+      sendEvents(this.state.VIDEO_TYPE_CATEGORY, content_type && content_type == "movie" ? VIDEO_MOVIE_STARTED : VIDEO_LIVETV_STARTED, title ? title : id);
     }
 
     this.setState({
@@ -439,8 +545,9 @@ class Player extends BaseContainer {
   onTimeUpdate(time) {
     Logger.log(this.MODULE_NAME, "onTimeUpdate " + this.state.videoEnded);
     if (!this.state.videoEnded) {
-      const {currentTime, duration} = time.target.player.cache_;
-      const {id, type} = this.props.match.params;
+      const { currentTime, duration } = time.target.player.cache_;
+      
+      const { id, type } = this.props.match.params;
       // Logger.log(this.MODULE_NAME, 'onTimeUpdate: ' + (currentTime / duration * 100));
       // Holds the watched video duration
       this.videoPlayedDuration = currentTime;
@@ -454,6 +561,40 @@ class Player extends BaseContainer {
         nextEpisodeCounter: 0,
         showNextEpisodeCounter: false
       });
+
+      const {
+        episode_number,
+        genres,
+        title
+      } = this.props.videoInfo.videoInfo.data.data;
+
+      let ClevertapPayload = ""
+
+      if (type !== EPISODE) {
+        ClevertapPayload = {
+          "content_type": this.props.videoInfo.videoInfo.data.data.content_type,
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres.join(),
+          "time_spent": "",
+          "page_name": common.getGeneralCookie("page_name"),
+          "playlist_name ": common.getGeneralCookie("playlist_name"),
+          "country": localStorage.getItem('country')
+        }
+      } else {
+        ClevertapPayload = {
+          "content_type": "series",
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres.join(),
+          "time_spent": "",
+          "episode_number": episode_number,
+          "episode_name": title,
+          "page_name": common.getGeneralCookie("page_name"),
+          "playlist_name ": common.getGeneralCookie("playlist_name"),
+          "country": localStorage.getItem('country')
+        }
+      }
 
       //Calculate % duration
       if (
@@ -469,21 +610,72 @@ class Player extends BaseContainer {
         if (type === EPISODE) {
           sendEvents(
             VIDEO_CATEGORY,
-            VIDEO_COMPLETED_ACTION,
-            `${title ? title : id} | ${
-              oResourceBundle.season
+            VIDEO_EPISODE_COMPLETED,
+            `${title ? title : id} | ${oResourceBundle.season
+            } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+          );
+          sendEvents(
+            this.state.VIDEO_TYPE_CATEGORY,
+            VIDEO_EPISODE_COMPLETED,
+            `${title ? title : id} | ${oResourceBundle.season
             } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
           );
         } else {
           sendEvents(
             VIDEO_CATEGORY,
-            VIDEO_COMPLETED_ACTION,
+            VIDEO_MOVIE_COMPLETED,
+            title ? title : id
+          );
+          sendEvents(
+            this.state.VIDEO_TYPE_CATEGORY,
+            VIDEO_MOVIE_COMPLETED,
             title ? title : id
           );
         }
 
+        ClevertapPayload.time_spent = 100
+        CleverTap_CustomEvents("content_played", ClevertapPayload)
+
         this.bVideoCompleted = true;
+
       }
+
+      let progressTime = (currentTime / duration) * 100
+
+      // if (progressTime >= 0 && !this.state.PlayerTime_0) {
+      //   ClevertapPayload.time_spent = 0
+      //   CleverTap_CustomEvents("content_played", ClevertapPayload)
+      //   this.setState({
+      //     PlayerTime_0: true
+      //   })
+      // } else
+      if (progressTime >= 25 && progressTime < 50 && !this.state.PlayerTime_25) {
+        ClevertapPayload.time_spent = 25
+        CleverTap_CustomEvents("content_played", ClevertapPayload)
+        this.setState({
+          PlayerTime_25: true
+        })
+
+      } else if (progressTime >= 50 && progressTime < 75 && !this.state.PlayerTime_50) {
+        ClevertapPayload.time_spent = 50
+        CleverTap_CustomEvents("content_played", ClevertapPayload)
+        this.setState({
+          PlayerTime_50: true
+        })
+
+      } else if (progressTime >= 75 && progressTime < 98 && !this.state.PlayerTime_75) {
+        ClevertapPayload.time_spent = 75
+        CleverTap_CustomEvents("content_played", ClevertapPayload)
+        this.setState({
+          PlayerTime_75: true
+        })
+
+      }
+
+      this.setState({
+        videocurrentTime:currentTime
+      })
+
     }
   }
 
@@ -519,7 +711,7 @@ class Player extends BaseContainer {
 
   onPause() {
     Logger.log(this.MODULE_NAME, "onPause");
-    const {id, type} = this.props.match.params;
+    const { id, type } = this.props.match.params;
     if (this.state.showNextEpisodeCounter) {
       return;
     }
@@ -527,23 +719,23 @@ class Player extends BaseContainer {
     const {
       episode_number,
       season_number,
+      genres,
       title
     } = this.props.videoInfo.videoInfo.data.data;
-    if (type !== EPISODE) {
-      sendEvents(
-        VIDEO_CATEGORY,
-        `${PAUSE_VIDEO_ACTION}${type}`,
-        title ? title : id
-      );
-    } else {
-      sendEvents(
-        VIDEO_CATEGORY,
-        `${PAUSE_VIDEO_ACTION}${type}`,
-        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${
-          oResourceBundle.episode
-        } ${episode_number}`
-      );
-    }
+    // if (type !== EPISODE) {
+    //   sendEvents(
+    //     VIDEO_CATEGORY,
+    //     `${PAUSE_VIDEO_ACTION}${type}`,
+    //     title ? title : id
+    //   );
+    // } else {
+    //   sendEvents(
+    //     VIDEO_CATEGORY,
+    //     `${PAUSE_VIDEO_ACTION}${type}`,
+    //     `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${oResourceBundle.episode
+    //     } ${episode_number}`
+    //   );
+    // }
     this.cancelWatchingTimer();
     this.setState({
       paused: true,
@@ -553,7 +745,7 @@ class Player extends BaseContainer {
 
   onPlay() {
     Logger.log(this.MODULE_NAME, "onPlay");
-    const {type, id} = this.props.match.params;
+    const { type, id } = this.props.match.params;
 
     if (this.state.showNextEpisodeCounter) {
       return;
@@ -567,26 +759,26 @@ class Player extends BaseContainer {
       const {
         episode_number,
         season_number,
+        genres,
         title
       } = this.props.videoInfo.videoInfo.data.data;
-      if (!this.forcePlayed) {
-        this.forcePlayed = false;
-        if (type !== EPISODE) {
-          sendEvents(
-            VIDEO_CATEGORY,
-            `${PLAY_VIDEO_ACTION}${type}`,
-            title ? title : id
-          );
-        } else {
-          sendEvents(
-            VIDEO_CATEGORY,
-            `${PLAY_VIDEO_ACTION}${type}`,
-            `${title ? title : id} | ${
-              oResourceBundle.season
-            } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
-          );
-        }
-      }
+      // if (!this.forcePlayed) {
+      //   this.forcePlayed = false;
+      //   if (type !== EPISODE) {
+      //     sendEvents(
+      //       VIDEO_CATEGORY,
+      //       `${PLAY_VIDEO_ACTION}${type}`,
+      //       title ? title : id
+      //     );
+      //   } else {
+      //     sendEvents(
+      //       VIDEO_CATEGORY,
+      //       `${PLAY_VIDEO_ACTION}${type}`,
+      //       `${title ? title : id} | ${oResourceBundle.season
+      //       } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+      //     );
+      //   }
+      // }
     }
     this.startWatchingTimer();
     this.isPlayerLoading = false;
@@ -613,7 +805,6 @@ class Player extends BaseContainer {
   }
 
   onAutoplayError() {
-    console.log("auto")
     Logger.log(this.MODULE_NAME, "onAutoplayError");
     if (!ENABLE_MUTED_AUTOPLAY) {
       this.setState({
@@ -656,8 +847,8 @@ class Player extends BaseContainer {
         VIDEO_ADS_CATEGORY,
         VIDEO_ADS_ACTION,
         getAdType(event.A.g.adPodInfo.podIndex) +
-          " | " +
-          event.A.g.adPodInfo.adPosition
+        " | " +
+        event.A.g.adPodInfo.adPosition
       );
     }
   }
@@ -708,7 +899,7 @@ class Player extends BaseContainer {
 
   onEnded() {
     Logger.log(this.MODULE_NAME, "onEnded");
-    const {id, type} = this.props.match.params;
+    const { id, type } = this.props.match.params;
     this.cancelWatchingTimer();
     if (
       this.getContentType(this.props.videoInfo.videoInfo) === EPISODE &&
@@ -735,17 +926,16 @@ class Player extends BaseContainer {
       season_number,
       title
     } = this.props.videoInfo.videoInfo.data.data;
-    if (type !== EPISODE) {
-      sendEvents(VIDEO_CATEGORY, VIDEO_STOP_ACTION, title ? title : id);
-    } else {
-      sendEvents(
-        VIDEO_CATEGORY,
-        VIDEO_STOP_ACTION,
-        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${
-          oResourceBundle.episode
-        } ${episode_number}`
-      );
-    }
+    // if (type !== EPISODE) {
+    //   sendEvents(VIDEO_CATEGORY, VIDEO_STOP_ACTION, title ? title : id);
+    // } else {
+    //   sendEvents(
+    //     VIDEO_CATEGORY,
+    //     VIDEO_STOP_ACTION,
+    //     `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${oResourceBundle.episode
+    //     } ${episode_number}`
+    //   );
+    // }
   }
 
   onWaiting() {
@@ -792,13 +982,23 @@ class Player extends BaseContainer {
     this.setState({
       orientation:
         window.innerWidth > window.innerHeight &&
-        window.innerWidth > PLAYER_LANDSCAPE_MIN_WIDTH
+          window.innerWidth > PLAYER_LANDSCAPE_MIN_WIDTH
           ? 90
           : 0
     });
   }
 
-  onProgressBarClick(event,progress) {
+  onProgressBarClick(event, progress) {
+
+    const { type, id } = this.props.match.params;
+    const {
+      episode_number,
+      season_number,
+      title,
+      content_type
+    } = this.props.videoInfo.videoInfo.data.data;
+
+
     this.updateWatchingProgress(true, Math.floor(progress));
     if (this.state.showQuality) {
       this.setState({
@@ -815,6 +1015,25 @@ class Player extends BaseContainer {
         showSharePopup: false
       });
     }
+
+    let typeCheck = type == EPISODE || (type == "movie" && content_type != "LiveTV")
+    
+    if(typeCheck){
+      sendEvents(
+        this.state.VIDEO_TYPE_CATEGORY,
+        this.state.videocurrentTime < progress ? FORWARD : BACKWARD,
+        type !== EPISODE ?  title ? title : id : `${title ? title : id} | ${oResourceBundle.season
+        } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+      );
+      sendEvents(
+        VIDEO_CATEGORY,
+        this.state.videocurrentTime < progress ? FORWARD : BACKWARD,
+        type !== EPISODE ?  title ? title : id : `${title ? title : id} | ${oResourceBundle.season
+        } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+      );
+    }
+     
+   
   }
 
   togglePlayerCarousel() {
@@ -848,7 +1067,7 @@ class Player extends BaseContainer {
 
     //Send analytics event
     if (fullscreen) {
-      const {type, id} = this.props.match.params;
+      const { type, id } = this.props.match.params;
       const {
         episode_number,
         season_number,
@@ -864,8 +1083,7 @@ class Player extends BaseContainer {
         sendEvents(
           PLAYER_CONTROL_CATEGORY,
           `${FULL_SCREEN_ACTION}`,
-          `${title ? title : id} | ${
-            oResourceBundle.season
+          `${title ? title : id} | ${oResourceBundle.season
           } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
         );
       }
@@ -992,11 +1210,21 @@ class Player extends BaseContainer {
       data.content_type = EPISODE;
       url = fnConstructContentURL(EPISODE, data);
       next = `/${this.props.locale}/${PLAYER}${url}`;
+      
+
+      let CurrentItem = this.props.relatedVideos.filter(
+        ele => ele.id === data.id
+      )[0];
+
+      if(CurrentItem.digitalRighttype ==  3 && !this.props.isUserSubscribed){
+        next = `/${this.props.locale}/${SUBSCRIPTION_TO_WATCH}`;
+      }
+
       this.props.history.push(next);
     }
 
     //Send analytics event
-    const {type, id} = this.props.match.params;
+    const { type, id } = this.props.match.params;
     const oNextItem = this.props.relatedVideos.filter(
       ele => ele.id === data.id
     )[0];
@@ -1016,10 +1244,8 @@ class Player extends BaseContainer {
       sendEvents(
         PLAYER_CONTROL_CATEGORY,
         `${RELATED_SELECT_ACTION}`,
-        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${
-          oResourceBundle.episode
-        } ${episode_number} | ${oNextItem.title} | ${oResourceBundle.episode} ${
-          oNextItem.episode_number
+        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${oResourceBundle.episode
+        } ${episode_number} | ${oNextItem.title} | ${oResourceBundle.episode} ${oNextItem.episode_number
         }`
       );
     }
@@ -1036,16 +1262,17 @@ class Player extends BaseContainer {
   }
 
   getContentType(videoInfo) {
-    return videoInfo.data.data.series_id ? EPISODE : MOVIE;
+    return videoInfo.data.data.series_id || videoInfo.data.data.content_type == "program" ? EPISODE : videoInfo.data.data.content_type;
   }
 
   seriesOrMovie(videoInfo) {
-    return videoInfo.data.data.series_id ? SERIES : MOVIE;
+    // return videoInfo.data.data.series_id ? SERIES : MOVIE;
+    return  videoInfo.data.data.series_id ? SERIES :  videoInfo.data.data.content_type 
   }
 
   onAddRemovePlaylist() {
     Logger.log(this.MODULE_NAME, "onAddRemovePlaylist");
-    const {locale} = this.props;
+    const { locale } = this.props;
     const itemId = this.getId();
     Logger.log(this.MODULE_NAME, "itemId: " + itemId);
     const itemTitle = this.props.videoInfo.videoInfo.data.data.title;
@@ -1058,7 +1285,7 @@ class Player extends BaseContainer {
     //check if the item is already in the playlist or not
     if (this.props.userPlayList) {
       const isItemExists = this.isInPlaylist(itemId);
-      const oUserToken = JSON.parse(getCookie(COOKIE_USER_TOKEN));
+      const oUserToken = JSON.parse(getServerCookie(COOKIE_USER_TOKEN));
 
       if (oUserToken) {
         if (!this.playistAPIfired) {
@@ -1076,8 +1303,8 @@ class Player extends BaseContainer {
                 showToast(
                   MY_PLAYLIST_TOAST_ID,
                   oResourceBundle.removed_from_playlist1 +
-                    itemTitle +
-                    oResourceBundle.removed_from_playlist2,
+                  itemTitle +
+                  oResourceBundle.removed_from_playlist2,
                   toast.POSITION.BOTTOM_CENTER
                 );
                 this.playistAPIfired = false;
@@ -1105,8 +1332,8 @@ class Player extends BaseContainer {
                 showToast(
                   MY_PLAYLIST_TOAST_ID,
                   oResourceBundle.added_to_playlist1 +
-                    itemTitle +
-                    oResourceBundle.added_to_playlist2,
+                  itemTitle +
+                  oResourceBundle.added_to_playlist2,
                   toast.POSITION.BOTTOM_CENTER
                 );
                 this.playistAPIfired = false;
@@ -1121,7 +1348,7 @@ class Player extends BaseContainer {
               }
             );
             //Send analytics event
-            const {type} = this.props.match.params;
+            const { type } = this.props.match.params;
             const {
               episode_number,
               season_number
@@ -1137,10 +1364,8 @@ class Player extends BaseContainer {
               sendEvents(
                 ADD_PLAYLIST_CATEGORY,
                 type,
-                `${itemTitle ? itemTitle : itemId} | ${
-                  oResourceBundle.season
-                } ${season_number} | ${
-                  oResourceBundle.episode
+                `${itemTitle ? itemTitle : itemId} | ${oResourceBundle.season
+                } ${season_number} | ${oResourceBundle.episode
                 } ${episode_number}`
               );
             }
@@ -1185,13 +1410,52 @@ class Player extends BaseContainer {
 
       // if(this.props.videoInfo.data.data.geoblock
       this.fetchCarouselData(data);
+
+      const { id, type } = this.props.match.params;
+
+      const {
+        episode_number,
+        genres,
+        title,
+      } = data.videoInfo.data.data;
+
+      let ClevertapPayload = ""
+
+      if (type !== EPISODE) {
+        ClevertapPayload = {
+          "content_type": type,
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres ? genres.join() : "",
+          "time_spent": 0,
+          "page_name": common.getGeneralCookie("page_name"),
+          "playlist_name ": common.getGeneralCookie("playlist_name"),
+          "country": localStorage.getItem('country')
+        }
+      } else {
+        ClevertapPayload = {
+          "content_type": "series",
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres ? genres.join() : "",
+          "time_spent": 0,
+          "episode_number": episode_number,
+          "episode_name": title,
+          "page_name": common.getGeneralCookie("page_name"),
+          "playlist_name ": common.getGeneralCookie("playlist_name"),
+          "country": localStorage.getItem('country')
+        }
+      }
+
+      CleverTap_CustomEvents("content_played", ClevertapPayload)
+
     }
   }
 
   sendSignalData(data) {
     const episodeNumber = data.episode_number;
     const type = episodeNumber !== undefined ? "episode" : MOVIE;
-    this.setSignalData(data, type, this.props.locale, this.props.sCountryCode, common.getUserId(), this.props.bPageViewSent);
+    this.setSignalData(data, type, this.props.locale, this.props.sCountryCode, common.getUserId(), common.uuidv4(), this.props.bPageViewSent);
     this.props.fnPageViewSent();
   }
 
@@ -1288,7 +1552,7 @@ class Player extends BaseContainer {
    * @returns {undefined}
    */
   onTwitterShareButtonClick() {
-    const {id, type} = this.props.match.params;
+    const { id, type } = this.props.match.params;
     const {
       episode_number,
       season_number,
@@ -1299,8 +1563,7 @@ class Player extends BaseContainer {
       sendEvents(
         SHARE_CATEGORY,
         SHARE_PLAYER_ACTION,
-        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${
-          oResourceBundle.episode
+        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${oResourceBundle.episode
         } ${episode_number}`
       );
     } else {
@@ -1318,7 +1581,7 @@ class Player extends BaseContainer {
    * @returns {undefined}
    */
   onFBShareButtonClick() {
-    const {id, type} = this.props.match.params;
+    const { id, type } = this.props.match.params;
     const {
       episode_number,
       season_number,
@@ -1329,8 +1592,7 @@ class Player extends BaseContainer {
       sendEvents(
         SHARE_CATEGORY,
         SHARE_PLAYER_ACTION,
-        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${
-          oResourceBundle.episode
+        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${oResourceBundle.episode
         } ${episode_number}`
       );
     } else {
@@ -1357,7 +1619,7 @@ class Player extends BaseContainer {
       index > -1
         ? `${this.props.qualityLevels[0].height}p`
         : oResourceBundle.auto;
-    const {id, type} = this.props.match.params;
+    const { id, type } = this.props.match.params;
     const {
       episode_number,
       season_number,
@@ -1368,8 +1630,7 @@ class Player extends BaseContainer {
       sendEvents(
         PLAYER_CONTROL_CATEGORY,
         BIT_RATE_ACTION,
-        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${
-          oResourceBundle.episode
+        `${title ? title : id} | ${oResourceBundle.season} ${season_number} | ${oResourceBundle.episode
         } ${episode_number} | ${sSelectedBitRate}`
       );
     } else {
@@ -1407,6 +1668,14 @@ class Player extends BaseContainer {
 
   startNextEpisode(fromTimer) {
     Logger.log(this.MODULE_NAME, "startNextEpisode");
+
+    const { id } = this.props.match.params;
+    const {
+      episode_number,
+      season_number,
+      title
+    } = this.props.videoInfo.videoInfo.data.data;
+
     if (!fromTimer && !isIOS) {
       this.setState({
         showPlayIcon: false,
@@ -1422,10 +1691,28 @@ class Player extends BaseContainer {
     this.setState({
       showNextEpisodeCounter: false
     });
-    const next = `/${this.props.locale}/${PLAYER}/${EPISODE}/${
-      this.nextEpisode.id
-    }/`;
+    sendEvents(
+      this.state.VIDEO_TYPE_CATEGORY,
+      NEXT_EPISODE,
+      `${title ? title : id} | ${oResourceBundle.season
+      } ${season_number} | ${oResourceBundle.episode} ${episode_number + 1}`
+    );
+    sendEvents(
+      VIDEO_CATEGORY,
+      NEXT_EPISODE,
+      `${title ? title : id} | ${oResourceBundle.season
+      } ${season_number} | ${oResourceBundle.episode} ${episode_number + 1}`
+    );
+
+
+    let next = `/${this.props.locale}/${PLAYER}/${EPISODE}/${this.nextEpisode.id}/`;
+
+    if(this.nextEpisode.digitalRighttype ==  3 && !this.props.isUserSubscribed){
+      next = `/${this.props.locale}/${SUBSCRIPTION_TO_WATCH}`;
+    }
+
     this.props.history.push(next);
+
   }
 
   startWatchingTimer() {
@@ -1437,9 +1724,9 @@ class Player extends BaseContainer {
     clearInterval(this.addToWatchingTimer);
   }
 
-  updateWatchingProgress(sendOnly,time) {
+  updateWatchingProgress(sendOnly, time) {
     this.cancelWatchingTimer();
-    const authToken = getCookie(COOKIE_USER_TOKEN);
+    const authToken = getServerCookie(COOKIE_USER_TOKEN);
     if (authToken && this.props.videoInfo) {
       const refreshToken = JSON.parse(authToken).refreshToken;
       const id = this.props.videoInfo.videoInfo.data.data.id;
@@ -1451,11 +1738,11 @@ class Player extends BaseContainer {
       //   ? Math.floor(this.videoPlayedDuration)
       //   : 0;
       let lastWatchPosition =
-      time !== undefined
-        ? time
-        : this.videoPlayedDuration
-          ? Math.floor(this.videoPlayedDuration)
-          : 0;
+        time !== undefined
+          ? time
+          : this.videoPlayedDuration
+            ? Math.floor(this.videoPlayedDuration)
+            : 0;
       const watchSessionId = refreshToken + "_" + new Date().getTime();
       if (sendOnly) {
         this.props.fnAddUserWatching(
@@ -1486,15 +1773,15 @@ class Player extends BaseContainer {
     }
   }
   onSubscriptionBackClick() {
-      this.setState({
-        showSubscriptionBanner: false
-      });
-    }
-  
-    onContinueBtnClick() {
-      this.setState({
-        showSubscriptionBanner: false
-      });
+    this.setState({
+      showSubscriptionBanner: false
+    });
+  }
+
+  onContinueBtnClick() {
+    this.setState({
+      showSubscriptionBanner: false
+    });
   }
 
   /**
@@ -1514,7 +1801,7 @@ class Player extends BaseContainer {
       this.props.oUserResumablesObject &&
       this.props.videoInfo &&
       this.props.oUserResumablesObject[
-        this.props.videoInfo.videoInfo.data.data.id
+      this.props.videoInfo.videoInfo.data.data.id
       ]
     ) {
       startTime = this.props.oUserResumablesObject[
@@ -1535,7 +1822,7 @@ class Player extends BaseContainer {
       const {
         title,
         seo_description,
-        imagery: {thumbnail}
+        imagery: { thumbnail }
       } = this.props.videoInfo.videoInfo.data.data;
 
       if (this.props.match.params.type === MOVIE) {
@@ -1544,8 +1831,7 @@ class Player extends BaseContainer {
             oResourceBundle.weyyak
           )}`,
           window.location.href,
-          `${seo_description} | ${title} ${
-            oResourceBundle.on
+          `${seo_description} | ${title} ${oResourceBundle.on
           } ${capitalizeFirstLetter(oResourceBundle.weyyak)}`,
           thumbnail
         );
@@ -1555,14 +1841,11 @@ class Player extends BaseContainer {
           season_number
         } = this.props.videoInfo.videoInfo.data.data;
         oMetaObject = this.fnConstructMetaTags(
-          `${title} ${oResourceBundle.episode} ${episode_number} | ${
-            oResourceBundle.season
+          `${title} ${oResourceBundle.episode} ${episode_number} | ${oResourceBundle.season
           } ${season_number}`,
           window.location.href,
-          `${seo_description} | ${
-            oResourceBundle.episode
-          } ${episode_number} ${title}  ${
-            oResourceBundle.season
+          `${seo_description} | ${oResourceBundle.episode
+          } ${episode_number} ${title}  ${oResourceBundle.season
           } ${season_number}`,
           thumbnail
         );
@@ -1572,8 +1855,8 @@ class Player extends BaseContainer {
     } else {
       const oMetaObject = this.fnConstructMetaTags(
         capitalizeFirstLetter(oResourceBundle.weyyak) +
-          " - " +
-          this.props.match.params.name,
+        " - " +
+        this.props.match.params.name,
         window.location.href
       );
       oMetaTags = this.fnUpdateMetaTags(oMetaObject);
@@ -1611,7 +1894,7 @@ class Player extends BaseContainer {
       this.props.platformConfig.default &&
       this.props.platformConfig.default["1.0"] &&
       this.props.platformConfig.default["1.0"][
-        CONFIG_AD_PROPERTY[this.props.locale]
+      CONFIG_AD_PROPERTY[this.props.locale]
       ]
     ) {
       const videoUrl = this.props.platformConfig.default["1.0"][
@@ -1626,11 +1909,10 @@ class Player extends BaseContainer {
       }
     }
     let live_type = '';
-    if(this.props.oVideoDetailContent && this.props.oVideoDetailContent.data){
+    if (this.props.oVideoDetailContent && this.props.oVideoDetailContent.data) {
       live_type = (this.props.oVideoDetailContent.data.content_type);
     }
-    if (this.props.isUserSubscribed || (live_type === "LiveTV" && this.props.isMENARegion)) 
-    {
+    if (this.props.isUserSubscribed || (live_type === "LiveTV" && this.props.isMENARegion)) {
       adUrl = "";
       Logger.log(this.MODULE_NAME, "no ads for subscriber");
     }
@@ -1664,7 +1946,7 @@ class Player extends BaseContainer {
                 path: {
                   stroke: "#fff"
                 },
-                trail: {stroke: "transparent"}
+                trail: { stroke: "transparent" }
               }}
             />
             <div
@@ -1732,8 +2014,8 @@ class Player extends BaseContainer {
         )}
 
         {this.props.videoInfo &&
-        this.props.videoInfo.urlInfo &&
-        !this.state.geoBlock ? (
+          this.props.videoInfo.urlInfo &&
+          !this.state.geoBlock ? (
           <VideoPlayer
             videoRef={this.videoRef}
             showNextEpisodeCounter={this.state.showNextEpisodeCounter}
@@ -1761,7 +2043,9 @@ class Player extends BaseContainer {
             currentQuality={currentQuality}
             episodeNumber={episodeNumber}
             title={title}
+            params={this.props.match.params}
             startTime={startTime}
+            isTrailer={false}
             qualityLevels={this.props.qualityLevels}
             onToggleFullScreen={this.onToggleFullScreen.bind(this)}
             showQuality={this.state.showQuality}
@@ -1793,6 +2077,7 @@ class Player extends BaseContainer {
             videoInfo={this.props.videoInfo}
             hdValue={PLAYER_QUALITY_HD_MIN_VALUE}
             showControls={this.state.showControls}
+            isFullScreen={this.state.fullScreen}
             showPlayIcon={this.state.showPlayIcon}
             setControlsDragging={this.setControlsDragging.bind(this)}
             adUrl={adUrl}
@@ -1826,6 +2111,7 @@ class Player extends BaseContainer {
               this.props.isUserSubscribed ? false : ENABLE_VIDEO_ADVERTISEMENT
             }
             ENABLE_CUSTOM_CONTROLS={ENABLE_CUSTOM_CONTROLS}
+            VIDEO_TYPE_CATEGORY={this.state.VIDEO_TYPE_CATEGORY}
           />
         ) : null}
         {this.props.relatedVideos && (
@@ -1881,7 +2167,7 @@ class Player extends BaseContainer {
                         friendlyUrl={ele.friendly_url}
                         episodeNumber={ele.episode_number}
                         className="carousel-item"
-                        imageSrc={`${ele.imagery==null?"":ele.imagery.thumbnail}${IMAGE_DIMENSIONS}`}
+                        imageSrc={`${ele.imagery == null ? "" : ele.imagery.thumbnail}${IMAGE_DIMENSIONS}`}
                         fallback={
                           this.props.locale === AR_CODE
                             ? fallbackAr
@@ -1897,7 +2183,7 @@ class Player extends BaseContainer {
                             : (index + 1).toString()
                         }
                         showDuration={true}
-                        durationValue={"--:--"}
+                        durationValue={ele ? this.time_convert(ele.length) : "--:--"}
                       />
                     </div>
                   );
@@ -1944,7 +2230,7 @@ class Player extends BaseContainer {
  */
 const mapStateToProps = state => {
 
-    return {
+  return {
     locale: state.locale,
     platformConfig: state.platformConfig,
     videoInfo: state.videoInfo,

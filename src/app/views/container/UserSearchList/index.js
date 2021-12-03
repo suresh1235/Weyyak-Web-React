@@ -136,7 +136,6 @@ class UserSearchList extends BaseContainer {
    * @returns { undefined }
    */
   render() {
-    console.log(this.props, "search")
     const aUniquContentTypeValues = this.fnConstructUniqueContentType(
       this.props.userSearchPageResponse
     );

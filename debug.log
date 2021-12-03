@@ -5,3 +5,7 @@
 [0927/104911.344:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
 [0930/160708.456:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
 [0706/193247.924:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0812/160018.289:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0812/161129.699:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0812/162912.452:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1019/114356.009:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)

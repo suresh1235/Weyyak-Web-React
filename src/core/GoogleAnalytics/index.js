@@ -10,8 +10,11 @@
 
 //This file is used for google analytics
 import { ENABLE_GOOGLE_ANALYTICS } from "../Features/";
-import { isUserLoggedIn } from "app/utility/common";
+import { isUserLoggedIn, getServerCookie } from "app/utility/common";
 import { store } from "app/App";
+import * as common from 'app/utility/common';
+import * as CONSTANTS from "app/AppConfig/constants";
+
 
 //Initialise with tracking id
 // export function initializeReactGA(sTrackingId) {
@@ -24,7 +27,12 @@ export function sendEvents(
   sLabel = null,
   eventValue = null
 ) {
-  if (ENABLE_GOOGLE_ANALYTICS) {
+
+  let GDPR_DATA = common.getGDPRCookie('GDPR_Cookies')
+  let IsGoogleAnalyticsEnabled = true
+  // IsGoogleAnalyticsEnabled = GDPR_DATA ? GDPR_DATA.googleAnalytics : true
+
+  if (IsGoogleAnalyticsEnabled) {
     const locale = store.getState().locale;
     let oEventObject = {
       category: sCategory,
@@ -35,7 +43,7 @@ export function sendEvents(
       eventCategory: sCategory,
       eventAction: sAction,
       loggedIn: isUserLoggedIn(),
-      
+
       language: locale === "ar" ? "arabic" : "english"
     };
 
@@ -51,7 +59,7 @@ export function sendEvents(
     //ReactGA.event(oEventObject);
     //Using GTM to send data
     window.dataLayer.push(oGTMObject);
-  }
+  } 
 }
 
 export default function withTracker(WrappedComponent, options = {}) {

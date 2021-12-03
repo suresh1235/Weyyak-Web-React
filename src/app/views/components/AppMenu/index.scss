@@ -7,16 +7,23 @@
  * an Open Source License of any type without the expressed written permission
  * of L&T.
  */
+ $header-height: 70px;
 @import "app/resources/styles/variables.scss";
 @import "app/App.scss";
+
 
 .app-body[dir="rtl"] {
   .app-menu {
     .app-menu-item-container {
       margin: 0;
-      margin-right: 20px;
+      // margin-right: 40px;
       margin-top: 15px;
       height: calc(100% - 15px);
+      padding-right: 30px;
+      padding-left: 0;
+      @media only screen and(max-width:745px){
+        margin-right: -10px !important;
+      }
     }
 
     .menu-sign-in {
@@ -41,8 +48,8 @@
   }
 
   .sidemenu {
-    right: -$app-menu-width;
-    left: auto;
+    right: -456px;
+    left: inherit;
 
     &.show {
       right: 0px;
@@ -59,21 +66,25 @@
     }
   }
   .settings-btn {
-    left: 0;
+    left: 20px;
     right: unset;
+    @media screen and(max-width:768px) {
+      left:75px;
+      
+    }
   }
 }
 
 .app-menu {
   @extend .scroll-bar;
   padding-top: 0;
-  top: $header-height;
-  height: calc(100% - #{$header-height});
+  top: 70px;
+  height: calc(100% - 70px);
   font-family: "changa";
 
   .app-menu-item-container {
     width: 200px;
-    margin: 25px 0 0 15px;
+    margin: 25px 0 0 9px;
     height: calc(100% - 25px);
     display: -webkit-box;
     display: -ms-flexbox;
@@ -85,6 +96,7 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    padding-left: 32px;
 
     a {
       text-decoration: none;
@@ -98,11 +110,12 @@
     //display: none;
     display: -webkit-flex;
     display: flex;
-    width: calc(#{$app-menu-width} - 50px);
+    width: calc(456px - 50px);
     padding: 0;
     padding-bottom: 13px;
     border-bottom: solid 2px grey;
     position: relative;
+    margin-bottom: 10px;
     .icon {
       width: 38px;
       height: 38px;
@@ -138,14 +151,18 @@
     padding: 8px 0;
     height: 40px;
     display: block;
-    font-size: 1em;
+    font-size: 16px;
     -webkit-margin-before: 0;
-    -webkit-margin-after: 3px;
+    -webkit-margin-after: 17px;
     -webkit-margin-start: 0;
     -webkit-margin-end: 0;
     font-weight: initial;
     color: $app-menu-item-color;
     font-family: "changa";
+    @media screen and(max-width:768px) {
+      
+      
+    }
 
     &:hover {
       background-color: $menu-menuitem-background-color;
@@ -155,6 +172,7 @@
 
   .static-menu {
     margin-bottom: 10px;
+    // padding-bottom: 60px;
     .menuItem span {
       color: $static-menu-item-color;
 
@@ -166,6 +184,21 @@
     .z5-menu-text {
       color: $primary-orange-color;
     }
+    .languagebtn-container{
+      display:none;
+    }
+    @media screen and(max-width:768px) {
+    .languagebtn-container{
+      display:block;
+    }
+    .languagebtn-container .lanchange-btn{
+        margin-right: 8px !important;
+        span{
+          padding: 0px;
+        }
+        
+    }
+  }
   }
 
   &.is-touch {
@@ -179,20 +212,46 @@
 
   .settings-btn{
     position: absolute;
-    right: 0;
+    right: 20px;
     top: 5px;
+    @media screen and(max-width:768px) {
+      right:75px;
+      
+    }
+   
     &.btn{
       margin: auto;
+     
     }
     .icon{
       width: 28px;
       height: 28px;
     }
+   
   }
 }
 
 /*Device width pixel lesser than 860px */
 @media only screen and (max-width: 1023px) {
+  .static-menu {
+    margin-bottom: 10px;
+    padding-bottom: 60px;
+  }
+  .app-menu .menu-sign-in {
+    padding-bottom: 0;
+    margin-bottom: 20px;
+  }
+  .head-links-mobile {
+    margin-bottom: 15px;
+    padding: 3px;
+    width: 350px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+  .app-body[dir="rtl"] .app-menu .app-menu-item-container {
+    margin-top: 25px;
+}
   .app-menu {
     .menu-sign-in {
       display: -webkit-box;
@@ -216,9 +275,13 @@
 
 /*Device width pixel lesser than 745*/
 @media only screen and (max-width: 745px) {
+  // .sidemenu.show {
+  //   top: 70px;
+  // }
+
   .app-menu {
     bottom: 0;
-    top: 0;
+    top: 160px;
     height: 100%;
     .menuItem span {
       &:hover {
@@ -228,6 +291,7 @@
     }
     .app-menu-item-container {
       height: 100%;
+      padding-left:11px;
     }
     &.is-touch {
       .menuItem span {
@@ -237,5 +301,10 @@
         }
       }
     }
+  }
+}
+@media only screen and (max-width: 1023px) {
+  .app-menu {
+    top: 160px;
   }
 }

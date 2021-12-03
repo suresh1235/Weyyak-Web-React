@@ -11,9 +11,9 @@
 import React from "react";
 import BaseContainer from "core/BaseContainer/";
 import Spinner from "core/components/Spinner";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import * as actionTypes from "app/store/action/";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "core/components/Button/";
 import * as common from "app/utility/common";
 import * as CONSTANTS from "app/AppConfig/constants";
@@ -23,8 +23,9 @@ import SocialLogin from "../SocialLogin";
 import UserInput from "../../components/UserInput";
 import showPasswordIcon from "app/resources/assets/login/show_password.svg";
 import showPasswordCheckedIcon from "app/resources/assets/login/show_password_checked.svg";
-import {sendEvents} from "core/GoogleAnalytics/";
-import {toast} from "core/components/Toaster/";
+import { sendEvents } from "core/GoogleAnalytics/";
+import { toast } from "core/components/Toaster/";
+import { CleverTap_UserEvents, CleverTap_CustomEvents } from 'core/CleverTap'
 import Logger from "core/Logger";
 
 import "./index.scss";
@@ -53,6 +54,7 @@ class Login extends BaseContainer {
   }
 
   componentDidMount() {
+    CleverTap_CustomEvents("login_page_visited")
     Logger.log(MODULE_NAME, "componentDidMount");
     this.checkAlreadyLoggedIn();
     this.props.stopLoader();
@@ -67,7 +69,7 @@ class Login extends BaseContainer {
     if (this.props.twitterToken && this.props.twitterToken.oauth_token) {
       window.open(
         "https://api.twitter.com/oauth/authenticate?oauth_token=" +
-          this.props.twitterToken.oauth_token,
+        this.props.twitterToken.oauth_token,
         "_self"
       );
     }
@@ -86,15 +88,15 @@ class Login extends BaseContainer {
   updateWindowDimensions() {
     const bThresholdDesktop = window.matchMedia("(min-width: 745px)").matches;
     if (this.state.isDesktop !== bThresholdDesktop) {
-      this.setState({isDesktop: bThresholdDesktop});
+      this.setState({ isDesktop: bThresholdDesktop });
     }
   }
 
   fnSetContinueButtonEnabled() {
     if (!this.state.inputError && this.state.passwordValid) {
-      this.setState({bEnableContinueBtn: true});
+      this.setState({ bEnableContinueBtn: true });
     } else {
-      this.setState({bEnableContinueBtn: false});
+      this.setState({ bEnableContinueBtn: false });
     }
   }
 
@@ -120,24 +122,50 @@ class Login extends BaseContainer {
    *  Handle the Confirm Button after setting the values in Input.
    *  @param { null }
    */
+
   loginClick(eve) {
+
     const data = {
       password: this.state.password,
       username: common.getRawNumber(this.state.input)
     };
+
+    let method = this.state.bEmailValid ? "email" : "phone"
+
+    CleverTap_CustomEvents("signin_initiated", {
+      "method": method
+    })
+
     this.props.startLoader();
 
     this.props.fnSendLoginCredentials(
       data,
-      () => {
+      (loginResponse) => {
+
+        this.props.fnupdateGDPRCookieData(loginResponse.userDetails)
+        let userData = loginResponse.userDetails
+        userData.userId = common.getUserId()
+        CleverTap_UserEvents("LoginEvent", userData)
+        CleverTap_CustomEvents("signin_success", {
+          "method": method,
+          "country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country')
+        })
+
         common.redirectAfterLogin.call(this);
-        // sendEvents(
-        //   CONSTANTS.LOGIN_CATEGORY,
-        //   CONSTANTS.OWN_CREDENTIALS_LOGIN_ACTION
-        // );
+
+        sendEvents(
+          CONSTANTS.LOGIN_CATEGORY,
+          CONSTANTS.OWN_CREDENTIALS_LOGIN_ACTION
+        );
       },
       error => {
         let errorText = oResourceBundle.invalid_mail_or_password;
+
+        CleverTap_CustomEvents("signin_failure", {
+          "method": method,
+          "country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country')
+        })
+
         if (this.state.bEmailValid) {
           if (CONSTANTS.STATUS_UNVERIFIED_EMAIL === error.status) {
             const data = {
@@ -161,7 +189,7 @@ class Login extends BaseContainer {
             error.response &&
             error.response.data &&
             CONSTANTS.STATUS_UNVERIFIED_MOBILE ===
-              error.response.data.description
+            error.response.data.description
           ) {
             const data = {
               phoneNumber: common.getRawNumber(this.state.input),
@@ -273,7 +301,12 @@ class Login extends BaseContainer {
   }
 
   checkAlreadyLoggedIn() {
-    const userDetails = common.getCookie(CONSTANTS.COOKIE_USER_OBJECT);
+    // let  userDetails = null;
+    const userDetails = common.getServerCookie(CONSTANTS.COOKIE_USER_OBJECT);
+    // common.getServerCookie(CONSTANTS.COOKIE_USER_OBJECT).then(function(user){
+    //   console.log("==========>",user)
+    //   userDetails=user;
+    // });
     if (userDetails) {
       this.props.history.push(`/${this.props.locale}`);
     }
@@ -284,7 +317,7 @@ class Login extends BaseContainer {
   }
 
   updateCurrentInput(currentInputIsMobile) {
-    this.setState({currentInputIsMobile: currentInputIsMobile});
+    this.setState({ currentInputIsMobile: currentInputIsMobile });
   }
 
   forgotPasswordClicked() {
@@ -294,6 +327,12 @@ class Login extends BaseContainer {
       CONSTANTS.FORGET_PASSWORD_LABEL
     );
   }
+
+  TriggerEvents = () => {
+    CleverTap_CustomEvents("switchtosignup")
+  }
+
+
   /**
    * Component Name - Login
    * It returns jsx to be rendered
@@ -316,9 +355,8 @@ class Login extends BaseContainer {
         {this.props.loading && <Spinner />}
         <div className="signin-container">
           <div className="login">
-            <span className="overlay-title">{`${
-              oResourceBundle.sign_in
-            }`}</span>
+            <span className="overlay-title">{`${oResourceBundle.sign_in
+              }`}</span>
             <div className="login-container">
               <div className="input-container">
                 <UserInput
@@ -335,6 +373,7 @@ class Login extends BaseContainer {
                   hidePasswordFiled={false}
                   updateCurrentInput={this.updateCurrentInput.bind(this)}
                   enterKeyOnInput={this.enterKeyOnInput.bind(this)}
+                  placeholderInput={oResourceBundle.login_placeholder}
                 />
                 <div className="forgot-password-wrapper">
                   <div className="forgot-password-text">
@@ -372,7 +411,7 @@ class Login extends BaseContainer {
                 key={"redirection"}
                 to={`/${this.props.locale}/${CONSTANTS.SIGNUP}`}
               >
-                <div className="redirection-name">
+                <div className="redirection-name" onClick={this.TriggerEvents}>
                   {oResourceBundle.login_redirection_text_to_register}
                 </div>
               </Link>
@@ -418,6 +457,18 @@ const mapDispatchToProps = dispatch => {
     },
     fnSaveNewUserDetails: newUserDetails => {
       dispatch(actionTypes.fnSaveNewUserDetails(newUserDetails));
+    },
+    fnupdateGDPRCookieData: newUserDetails => {
+      dispatch(actionTypes.fnupdateGDPRCookieData(newUserDetails));
+    },
+    handleUpdateAccount: (currentStateValues, fnSuccess, fnFailed) => {
+      dispatch(
+        actionTypes.fnHandleUpdateAccount(
+          currentStateValues,
+          fnSuccess,
+          fnFailed
+        )
+      );
     },
     sendOTPCode: (data, sendSuccess, sendError) => {
       dispatch(actionTypes.sendOTPCode(data, sendSuccess, sendError));

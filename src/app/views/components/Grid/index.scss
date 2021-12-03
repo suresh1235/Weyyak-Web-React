@@ -14,6 +14,13 @@
     color: $select-hover-color;
   }
 
+  .select-box-container {
+   
+    @media only screen and (min-width: 768px) {
+      margin-top: 22px !important;
+    }
+  }
+
   .listing-filters-mobile {
     display: block;
     position: absolute;
@@ -208,6 +215,7 @@
       width: calc(100% - 4px);
       // margin: 0 2px;
       display: block;
+      border-radius: 5px;
     }
 
     .btn,
@@ -224,7 +232,9 @@
       .select-box-container {
         label {
           float: right;
-          margin: 0 20px;
+          margin: 0;
+          color: #ea7528;
+          font-family: 'changa-regular';
         }
       }
     }
@@ -238,14 +248,17 @@
         margin-right: 30px;
 
         label {
-          margin: 0 20px;
+          float: none;
+          margin: 0;
+          color: #ea7528;
+          font-family: 'changa-regular';
         }
       }
     }
 
     .grid {
-      width: calc(100% - (#{$grid-margin-left-right-320} * 2));
-      margin: 0 $grid-margin-left-right-320;
+      width: calc(100% - (15px * 2));
+      margin: 0 15px;
       padding: 0;
 
       .carousel-item {
@@ -272,6 +285,9 @@
         font-size: 1em;
         line-height: 50px;
         cursor: pointer;
+        color: #818181;
+        font-size: 16px;
+        font-family: 'changa-regular';
       }
     }
 
@@ -350,3 +366,10 @@
     }
   }
 }
+
+@media (max-width: 414px) {
+  .gridScreen .grid .carousel-item{
+    width: $carousel-item-width-min-768;
+  
+  }
+ }

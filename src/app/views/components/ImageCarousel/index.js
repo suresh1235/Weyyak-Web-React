@@ -77,7 +77,39 @@ class ImageCarousel extends React.PureComponent {
                         }
                       </div>
                     );
-                  } else {
+                  }
+                  else if (
+                    ele.content_type ===
+                    CONSTANTS.CONTEST_BANNER_CONTENT_TYPE
+                  ) {
+                    return (
+                      <div
+                        className="subscribe-thumbnail"
+                        key={i}
+                        aria-label={ele.title}
+                        tabIndex="0"
+                        onClick={event =>
+                          this.context.onContestButtonClick(event, true)
+                        }
+                      >
+                        <ImageThumbnail
+                          className="carousel-item context"
+                          fallback={fallbackImage}
+                          imageSrc={ele.thumbnail}
+                          alt={ele.title}
+                          showPlayIcon={false}
+                          isSubscriptionBanner={true}
+                          showPlayIcononHover={false}
+                          digitalRights={digitalRights}
+                          
+                        />
+                        {
+                          // <CarouselRegisterButton className="subscribe-button" />
+                        }
+                      </div>
+                    );
+                  } 
+                  else {
                     return (
                       <Link
                         to={`/${this.props.locale}${fnConstructContentURL(

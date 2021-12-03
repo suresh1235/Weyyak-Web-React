@@ -31,8 +31,8 @@ class ManageYourAccount extends React.Component {
   }
 
   async componentDidMount() {
-    const oUserToken = getCookie(constants.COOKIE_USER_TOKEN)
-      ? JSON.parse(getCookie(constants.COOKIE_USER_TOKEN))
+    const oUserToken = getServerCookie(constants.COOKIE_USER_TOKEN)
+      ? JSON.parse(getServerCookie(constants.COOKIE_USER_TOKEN))
       : null;
     if (!oUserToken) {
       this.props.history.push(`/${this.props.locale}/${constants.LOGIN}`);

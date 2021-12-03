@@ -11,10 +11,7 @@
 .privacy-overlay {
   width: 100%;
   min-height: calc(100vh - 50px - 186px);
-  background: url("~app/resources/assets/login/overlay-bg.jpg") no-repeat;
-  background-size: cover;
-  color: $overlay-color;
-  position: relative;
+ 
 
   .close-btn {
     position: absolute;
@@ -34,41 +31,131 @@
 
   .privacy-overlay-container {
     width: 100%;
-    padding: 70px 0;
+    padding: 0 !important;
+    background-color: #000000;
 
     .static-page {
-      padding: 0 70px;
-
+      padding: 0 0;
+      background-color: #000000;
       @media (max-width: $mobile-view-threshold-px) {
         padding: 0 10px;
       }
 
       .overlay-title {
-        color: $overlay-title-color;
+        color: white !important;
         max-width: 1300px;
-        font-size: 26px;
+        font-size: 81px !important;
+        font-family: changa;
         width: 100%;
         margin: 0 auto !important;
-        background-color: $overlay-title-background-color;
-        padding: 60px 0 0;
-        font-weight: bold;
+        background-color: #000000 !important;
+        padding: 22px 0 !important;
+        font-weight: bold !important;
         text-align: center;
+        margin-bottom: 26px;
+        @media(max-width:767px){
+          font-size:26px !important;
+        }
       }
 
       .static-content {
         max-width: 1300px;
         width: 100%;
         margin: 0 auto;
-        background-color: $static-content-background-color;
-        color: $static-content-color;
+        background-color:#000000 !important;
+        color:#6c6c6c;
         padding: 20px 60px;
-        text-align: justify;
+        font-family: changa;
+        h4{
+          font-size: 24px !important;
+          margin-bottom: auto;
+        }
+        
         @media (max-width: $mobile-view-threshold-px) {
           padding: 15px;
+          margin-top: -44px !important;
+          // text-align: left !important;
+          
         }
+       
+        ul{
+          li{
+            // font-size: 21px;
+            font: normal normal 200 21px/36px Changa !important;
+            line-height: 30px !important;
+            @media(max-width:767px){
+              font-size:16px !important;
+              
+            }
+
+          }
+        }
+        h1{
+                    font: normal normal bold 26px/28px Changa;
+                    letter-spacing: 0px;
+                    color: #707070;
+                    @media(max-width:767px){
+                      font: normal normal bold 16px/16px Changa;
+                    }
+                    
+        }
+        h3 {
+          margin: -30px 0 0 0;
+          font-weight: lighter !important;
+          @media(max-width:767px){
+            margin: -15px 0 0 0;
+          }
+        
+          strong{
+            font-family: changa;
+           
+            font-size: 26px;
+            color:#EE7623;
+            @media(max-width:767px){
+              font-size:24px !important;
+             
+              
+              
+            }
+          }
+        }
+        span{
+          font: normal normal bold 26px/25px Changa;
+          color: #707070;
+          @media(max-width:767px){
+            font-size:24px !important;
+          }
+        }
+        p{
+          font-size:26px;
+          font-family: changa;
+          letter-spacing: 0px;
+          line-height: 30px;
+          @media(max-width:767px){
+            font-size:16px !important;
+            text-align: left;
+            font: normal normal normal 16px/16px Changa;
+            letter-spacing: 0px;
+            color: #707070;
+            //line-height: 30px;
+          }
+          span{
+            font-weight:bold;
+          }
+        }
+      
+        
 
         strong {
-          font-weight: bold;
+          font-family: changa;
+          // font-weight: bold;
+          font-weight: normal !important;
+          font-size: 26px;
+          color:#EE7623;
+          @media(max-width:767px){
+            font-size:24px !important;
+            line-height: 27px;
+          }
         }
       }
 
@@ -124,4 +211,80 @@
 
 .overlays.ng-enter.ng-enter-active {
   opacity: 1;
+}
+
+.privacy-title {
+  span {
+  color: #EE7623 !important;
+  }
+}
+@media(max-width:767px){
+.privacy-overlay .privacy-overlay-container .static-page .static-content p span {
+  font-weight: bold;
+  font-size: 16px !important;
+}
+
+
+}
+@media(max-width:767px){
+  .privacy-overlay .privacy-overlay-container .static-page .static-content h1 strong{
+    font-weight: bold;
+    font-size: 18px !important;
+  }
+}
+@media(max-width:767px){
+  .rtl{
+  .privacy-overlay .privacy-overlay-container .static-page .static-content p span {
+    font-weight: bold;
+    font-size: 16px !important;
+    
+  }
+  .privacy-overlay .privacy-overlay-container .static-page .static-content p {
+    text-align: justify;
+  }
+   span u{
+    font-size: 16px !important;
+    margin-bottom: -25px;
+    font-weight: bold;
+  }
+  ol{
+    //margin-top: -14px;
+  }
+  
+  }
+}
+@media(max-width:767px){
+.privacy-overlay .privacy-overlay-container .static-page .static-content h4 {
+  font-size: 16px !important;
+  margin-bottom: -25px;
+  font-weight: bold;
+}
+}
+@media(max-width:767px){
+.privacy-overlay .privacy-overlay-container .static-page .static-content h2 {
+  text-align: left;
+}
+.privacy-overlay .privacy-overlay-container .static-page .static-content  ul li{
+
+    text-align: left;
+}
+}
+@media(max-width:767px){
+.rtl .privacy-overlay .privacy-overlay-container .static-page .static-content h1 {
+  p{
+  margin-bottom: -20px;
+  
+  }
+ 
+}
+.rtl .privacy-overlay .privacy-overlay-container .static-page .static-content ul li {
+  text-align: justify;
+}
+}
+@media (max-width: 767px){
+
+.privacy-overlay .privacy-overlay-container .static-page .static-content ul li {
+    font-size: 16px !important;
+    line-height: 20px !important;
+}
 }

@@ -40,7 +40,7 @@ class AdyenGateway extends BaseContainer {
       this.props.oPaymentSession &&
       prevProps.oPaymentSession &&
       this.props.oPaymentSession.paymentSession !==
-        prevProps.oPaymentSession.paymentSession
+      prevProps.oPaymentSession.paymentSession
     ) {
       this.fnRenderPaymentUI();
       this.bPaymentUIRendered = true;
@@ -102,12 +102,12 @@ class AdyenGateway extends BaseContainer {
       // consolidateCards: true
     };
 
-    // Initiate the Checkout form.
-    this.checkout = window.chckt.checkout(
-      this.props.oPaymentSession.paymentSession,
-      "#adyen-payment-div",
-      sdkConfigObj
-    );
+    // // Initiate the Checkout form.
+    // this.checkout = window.chckt.checkout(
+    //   this.props.oPaymentSession.paymentSession,
+    //   "#adyen-payment-div",
+    //   sdkConfigObj
+    // );
     //Handler for payment complete response
     window.chckt.hooks.beforeComplete = this.fnBeforeCompletePaymentHandler.bind(
       this
@@ -117,7 +117,7 @@ class AdyenGateway extends BaseContainer {
       this
     );
 
-    window.chckt.hooks.toggleExcessPaymentMethods = function(
+    window.chckt.hooks.toggleExcessPaymentMethods = function (
       buttonNode /*HTML Node*/,
       excessNodesAreVisible /*Boolean*/
     ) {
@@ -129,10 +129,10 @@ class AdyenGateway extends BaseContainer {
     };
 
     //Save order id
-    window.localStorage.setItem(
-      CONSTANTS.PAYMENT_ORDER_ID_LOCAL_STORAGE,
-      this.props.oPaymentSession.order_id
-    );
+    // window.localStorage.setItem(
+    //   CONSTANTS.PAYMENT_ORDER_ID_LOCAL_STORAGE,
+    //   this.props.oPaymentSession.order_id
+    // );
   }
 
   handleError(e) {
@@ -188,7 +188,7 @@ class AdyenGateway extends BaseContainer {
     );
     common.setCookie(
       CONSTANTS.COOKIE_PAYLOAD_SAVED_USER_TOKEN,
-      common.getCookie(CONSTANTS.COOKIE_USER_TOKEN),
+      common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN),
       CONSTANTS.INFINITE_COOKIE_TIME
     );
   }
@@ -231,21 +231,24 @@ class AdyenGateway extends BaseContainer {
                 </div>
                 <div>
                   {this.props.oSelectedPlan.currency == "GBP" ? <span>&#163;</span> : this.props.oSelectedPlan.currency}{` `}
-                  {this.props.oSelectedPlan.price}
+                  {this.props.oSelectedPlan.final_price}
+                  {/* {this.props.oSelectedPlan.final_price < this.props.oSelectedPlan.price ? this.props.oSelectedPlan.final_price : this.props.oSelectedPlan.price} */}
                 </div>
               </span>
             </div>
           </div>
-          {!this.props.paymentDone && (
+          {/* {!this.props.paymentDone && (
             <div
               id="adyen-payment-div"
-              style={{visibility: this.props.loading ? "hidden" : "visible"}}
+              style={{ visibility: this.props.loading ? "hidden" : "visible" }}
             />
-          )}
+          )} */}
+          {/* <iframe src="http://localhost:3000/checkout/dropin" height="500px"></iframe> */}
+          <iframe src="/en/adyenpayment?isBot=true" height="500px" style={{ "border": 0 }}></iframe>
           <div className="powered-by-adyen">
             {oResourceBundle.powered_by_adyen}
           </div>
-          {this.props.loading ? <Spinner /> : null}
+          {/* {this.props.loading ? <Spinner /> : null} */}
         </div>
       </div>
     ) : null;

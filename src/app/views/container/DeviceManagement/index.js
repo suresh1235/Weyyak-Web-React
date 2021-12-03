@@ -21,6 +21,8 @@ import { isUserLoggedIn } from 'app/utility/common';
 import Spinner from 'core/components/Spinner';
 import oResourceBundle from 'app/i18n/';
 import { withRouter } from "react-router-dom";
+import moment from "moment";
+import * as common from "app/utility/common";
 import './index.scss';
 
 class DeviceManagement extends BaseContainer {
@@ -115,15 +117,38 @@ class DeviceManagement extends BaseContainer {
    * Add pairing code handler.
    * @param {object} oEvent - Event hanlder
    */
-  hanldeAddPairingCode() {
+  async hanldeAddPairingCode() {
+
+    let plansInfo = await common.userSubscriptionPlan(true, this.props.locale)
+
+    let subscription_date = null
+
+    if(plansInfo.length > 0){
+      let plan = plansInfo[plansInfo.length - 1]
+       subscription_date = moment(plan.subscription_start).format("YYYY/MM/DD")
+    }
+    
+    let data = {
+      user_code: this.state.pairingCode,
+      subscriptiondate: subscription_date
+    }
+
+
     this.state.pairingCode.length !== 0 &&
-      this.props.fnAddPairingCode(this.state.pairingCode, (oSuccess) => {
+      this.props.fnAddPairingCode(data, (oSuccess) => {
         //Add pairing code success
+        var _this = this;
+        setTimeout(function(){_this.setState({ showPairingMessage: false});_this.props.fetchLoggedInDevices(null, null, true)},5000);
         this.setState({ errorPairingMessage: oResourceBundle.pairing_success, showPairingMessage: true, bPairingSuccess: true });
       }, (oError) => {
         //Add pairing code failed
         if (oError && oError.data && oError.data.description) {
-          this.setState({ errorPairingMessage: oError.data.description, showPairingMessage: true, bPairingSuccess: false });
+          if(oError.data.description == "Pairing code is invalid or expired."){
+            this.setState({ errorPairingMessage:  oResourceBundle.invalid_pairing_code, showPairingMessage: true, bPairingSuccess: false });
+          }else{
+            this.setState({ errorPairingMessage: oError.data.description, showPairingMessage: true, bPairingSuccess: false });
+          }
+         
         }
       });
   }
@@ -199,7 +224,7 @@ class DeviceManagement extends BaseContainer {
 
           </div>
         </div>
-        {this.props.loading ? <Spinner /> : null}
+        {/* {this.props.loading ? <Spinner /> : null} */}
       </React.Fragment >
     )
   }

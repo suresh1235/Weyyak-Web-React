@@ -10,12 +10,12 @@
 
 import React from "react";
 import BaseContainer from "core/BaseContainer/";
-import {connect} from "react-redux";
-import {Link} from "react-router-dom";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import * as CONSTANTS from "../../../AppConfig/constants";
 import * as actionTypes from "app/store/action/";
 import * as common from "app/utility/common";
-import {FORCE_ALPHANUMERIC_PASSWORD} from "app/AppConfig/features";
+import { FORCE_ALPHANUMERIC_PASSWORD } from "app/AppConfig/features";
 import Input from "../../../../core/components/Input/";
 import Checkbox from "../../../../core/components/Checkbox/";
 import Button from "../../../../core/components/Button/";
@@ -27,8 +27,10 @@ import PhoneInput from "../../components/PhoneInput/";
 import oResourceBundle from "app/i18n/";
 import withTracker from "core/GoogleAnalytics/";
 import Logger from "core/Logger";
-import {toast} from "core/components/Toaster/";
-import {sendEvents} from "core/GoogleAnalytics/";
+import { toast } from "core/components/Toaster/";
+import { sendEvents } from "core/GoogleAnalytics/";
+import Recaptcha from "../../components/Recaptcha";
+import { CleverTap_CustomEvents } from 'core/CleverTap'
 
 import "./index.scss";
 
@@ -60,13 +62,14 @@ class SignUp extends BaseContainer {
       mobilePasswordValid: false,
       bEnableUpdateBtn: false,
       checkboxChanged: false,
-      checkboxChanged1:false,
-      checkboxChanged2:false,
+      checkboxChanged1: false,
+      checkboxChanged2: false,
       subscriptionCheckBox: false,
-      subscriptionCheckBox1: false,
-      subscriptionCheckBox2: false,
-      subscriptionCheckBox3: false,
-      subscriptionCheckBox4: false
+      subscriptionCheckBox1: true,
+      subscriptionCheckBox2: true,
+      subscriptionCheckBox3: true,
+      subscriptionCheckBox4: false,
+      captchaVerified:false
     };
     this.minimumPasswordLength = CONSTANTS.PASSWORD_VALIDATION_CONTENT_LENGTH;
   }
@@ -78,16 +81,18 @@ class SignUp extends BaseContainer {
   }
 
   componentDidUpdate() {
+    Logger.log(MODULE_NAME, "componentDidUpdate");
+    this.checkAlreadyLoggedIn();
     if (this.props.twitterToken && this.props.twitterToken.oauth_token) {
       window.open(
         "https://api.twitter.com/oauth/authenticate?oauth_token=" +
-          this.props.twitterToken.oauth_token,
+        this.props.twitterToken.oauth_token,
         "_self"
       );
     }
   }
   checkAlreadyLoggedIn() {
-    const userDetails = common.getCookie(CONSTANTS.COOKIE_USER_OBJECT);
+    const userDetails = common.getServerCookie(CONSTANTS.COOKIE_USER_OBJECT);
     if (userDetails) {
       this.props.history.push(`/${this.props.locale}`);
     }
@@ -105,21 +110,32 @@ class SignUp extends BaseContainer {
    * @param { null }
    */
   handleConfirmButton(eve) {
+
+    let CountryName = common.getCountryName(this.props.countryCode)
+
     if (this.state.emailVisible) {
       sendEvents(
         CONSTANTS.REGISTRATION_CATEGORY,
         CONSTANTS.REGISTRATION_ACTION,
         CONSTANTS.LABEL_EMAIL
       );
+
+      CleverTap_CustomEvents("signup_initiated", {
+        "method": "email"
+      })
+
       if (this.state.isEmailValid && this.state.emailPasswordValid && this.state.subscriptionCheckBox1 && this.state.subscriptionCheckBox2 && this.state.subscriptionCheckBox3) {
         const oCreateAcctUserData = {
           email: this.state.email,
           password: this.state.emailPassword,
           languageId: CONSTANTS.LANGUAGE_ID[this.props.locale],
-          privacyPolicy:this.state.subscriptionCheckBox1,
-          isAdult:this.state.subscriptionCheckBox2,
-          IsRecommend:this.state.subscriptionCheckBox3,
-          newsletter:this.state.newsletter
+          privacyPolicy: this.state.subscriptionCheckBox1,
+          isAdult: this.state.subscriptionCheckBox2,
+          IsRecommend: this.state.subscriptionCheckBox3,
+          newsletter: this.state.newsletter,
+          Alpha2code: this.props.countryCode,
+          countryName: CountryName,
+
         };
         this.props.fnSendNewUserDetails(
           oCreateAcctUserData,
@@ -133,16 +149,21 @@ class SignUp extends BaseContainer {
         CONSTANTS.REGISTRATION_ACTION,
         CONSTANTS.LABEL_MOBILE
       );
-      if (this.state.isMobileValid && this.state.mobilePasswordValid && this.state.subscriptionCheckBox1 && this.state.subscriptionCheckBox2 && this.state.subscriptionCheckBox3) {
+
+      CleverTap_CustomEvents("signup_initiated", {
+        "method": "phone"
+      })
+
+      if (this.state.isMobileValid && this.state.mobilePasswordValid && this.state.subscriptionCheckBox1 && this.state.subscriptionCheckBox2 && this.state.subscriptionCheckBox3 && this.state.captchaVerified) {
         const phoneNumber = common.getRawNumber(this.state.phoneNumber);
         const oCreateAcctUserData = {
           phoneNumber: phoneNumber,
           password: this.state.mobilePassword,
           languageId: CONSTANTS.LANGUAGE_ID[this.props.locale],
-          privacyPolicy:this.state.subscriptionCheckBox1,
-          isAdult:this.state.subscriptionCheckBox2,
-          isRecommend:this.state.subscriptionCheckBox3,
-          newsletter:this.state.newsletter
+          privacyPolicy: this.state.subscriptionCheckBox1,
+          isAdult: this.state.subscriptionCheckBox2,
+          isRecommend: this.state.subscriptionCheckBox3,
+          newsletter: this.state.newsletter
         };
         this.props.fnSendNewUserDetails(
           oCreateAcctUserData,
@@ -162,14 +183,21 @@ class SignUp extends BaseContainer {
     let oNewUserDetails = {
       emailVerified: false,
       email: oCreateAcctUserData.email,
-      privacyPolicy:oCreateAcctUserData.privacyPolicy,
-      isAdult:oCreateAcctUserData.isAdult,
-      IsRecommend:oCreateAcctUserData.isRecommend
+      privacyPolicy: oCreateAcctUserData.privacyPolicy,
+      isAdult: oCreateAcctUserData.isAdult,
+      IsRecommend: oCreateAcctUserData.isRecommend
     };
     this.props.fnSaveNewUserDetails(oNewUserDetails);
     this.props.history.push(`/${this.props.locale}/${CONSTANTS.CONFIRM_EMAIL}`);
+
     //Send analytics event
     sendEvents(CONSTANTS.SIGNUP_CATEGORY, CONSTANTS.MAIL_ACTION);
+
+    //ClerverTap Events
+    CleverTap_CustomEvents("signup_success", {
+      "method": "email",
+      "country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country')
+    })
   }
 
   /**
@@ -211,6 +239,12 @@ class SignUp extends BaseContainer {
         serverLogInErrorStatus: true
       });
     }
+
+    //ClerverTap Events
+    CleverTap_CustomEvents("signup_failure", {
+      "method": "email",
+      "country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country')
+    })
   }
 
   /**
@@ -224,9 +258,9 @@ class SignUp extends BaseContainer {
       emailVerified: false,
       phoneNumber: oCreateAcctUserData.phoneNumber,
       password: this.state.mobilePassword,
-      privacyPolicy:oCreateAcctUserData.privacyPolicy,
-      isAdult:oCreateAcctUserData.isAdult,
-      IsRecommend:oCreateAcctUserData.IsRecommend
+      privacyPolicy: oCreateAcctUserData.privacyPolicy,
+      isAdult: oCreateAcctUserData.isAdult,
+      IsRecommend: oCreateAcctUserData.IsRecommend
     };
     this.props.fnSaveNewUserDetails(oNewUserDetails);
     this.props.history.push(
@@ -287,6 +321,13 @@ class SignUp extends BaseContainer {
         serverLogInErrorStatus: true
       });
     }
+
+    //ClerverTap Events
+    CleverTap_CustomEvents("signup_failure", {
+      "method": "phone",
+      "country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country')
+    })
+
   }
 
   /**
@@ -311,7 +352,7 @@ class SignUp extends BaseContainer {
       subscriptionCheckBox: oEvent.target.checked
     });
   }
- handleCheckBox1(oEvent) {
+  handleCheckBox1(oEvent) {
     this.setState({
       subscriptionCheckBox1: oEvent.target.checked,
       checkboxChanged: true
@@ -332,13 +373,13 @@ class SignUp extends BaseContainer {
     });
   }
 
- handleCheckBox4(oEvent) {
+  handleCheckBox4(oEvent) {
     this.setState({
       subscriptionCheckBox4: oEvent.target.checked,
     });
   }
 
- inputStateChanged(newState) {
+  inputStateChanged(newState) {
     this.setState(newState, this.fnSetContinueButtonEnabled);
   }
 
@@ -447,7 +488,8 @@ class SignUp extends BaseContainer {
   mobileButtonClicked() {
     this.setState({
       mobileVisible: true,
-      emailVisible: false
+      emailVisible: false,
+      captchaVerified: false
     });
   }
 
@@ -473,6 +515,16 @@ class SignUp extends BaseContainer {
         break;
       default:
     }
+  }
+
+  TriggerEvents = () => {
+    CleverTap_CustomEvents("switchtosignin")
+  }
+
+  VerifiyCaptcha = (value)=>{
+    this.setState({
+      captchaVerified:value
+    })
   }
 
   /**
@@ -575,21 +627,21 @@ class SignUp extends BaseContainer {
                           selected={this.state.subscriptionCheckBox1}
                           name="subscription-checkbox1"
                         />
-                       <Checkbox
+                        <Checkbox
                           text={oResourceBundle.subscribe_to_newsletter2}
                           onChange={this.handleCheckBox2.bind(this)}
                           customBackground={true}
                           selected={this.state.subscriptionCheckBox2}
                           name="subscription-checkbox2"
                         />
-                      <Checkbox
+                        <Checkbox
                           text={oResourceBundle.subscribe_to_newsletter3}
                           onChange={this.handleCheckBox3.bind(this)}
                           customBackground={true}
                           selected={this.state.subscriptionCheckBox3}
                           name="subscription-checkbox3"
                         />
-                       <Checkbox
+                        <Checkbox
                           text={oResourceBundle.subscribe_to_newsletter}
                           onChange={this.handleCheckBox.bind(this)}
                           customBackground={true}
@@ -602,10 +654,10 @@ class SignUp extends BaseContainer {
                       className={
                         "register-button email" +
                         (this.state.isEmailValid &&
-                        this.state.emailPasswordValid && 
-                        this.state.subscriptionCheckBox1 &&
-                        this.state.subscriptionCheckBox2 &&
-                        this.state.subscriptionCheckBox3                     
+                          this.state.emailPasswordValid &&
+                          this.state.subscriptionCheckBox1 &&
+                          this.state.subscriptionCheckBox2 &&
+                          this.state.subscriptionCheckBox3
                           ? " enable"
                           : "")
                       }
@@ -663,6 +715,7 @@ class SignUp extends BaseContainer {
                       </div>
                     </form>
                     <div className="subscribe-checkbox-wrapper">
+                     <Recaptcha isVerified={this.VerifiyCaptcha}/>
                       <div className="checkbox">
                         {/* <Checkbox
                           text={oResourceBundle.subscribe_to_newsletter}
@@ -678,21 +731,21 @@ class SignUp extends BaseContainer {
                           selected={this.state.subscriptionCheckBox1}
                           name="subscription-checkbox1"
                         />
-                       <Checkbox
+                        <Checkbox
                           text={oResourceBundle.subscribe_to_newsletter2}
                           onChange={this.handleCheckBox2.bind(this)}
                           customBackground={true}
                           selected={this.state.subscriptionCheckBox2}
                           name="subscription-checkbox2"
                         />
-                      <Checkbox
+                        <Checkbox
                           text={oResourceBundle.subscribe_to_newsletter3}
                           onChange={this.handleCheckBox3.bind(this)}
                           customBackground={true}
                           selected={this.state.subscriptionCheckBox3}
                           name="subscription-checkbox3"
                         />
-                      <Checkbox
+                        <Checkbox
                           text={oResourceBundle.subscribe_to_newsletter4}
                           onChange={this.handleCheckBox4.bind(this)}
                           customBackground={true}
@@ -705,10 +758,11 @@ class SignUp extends BaseContainer {
                       className={
                         "register-button mobile" +
                         (this.state.isMobileValid &&
-                        this.state.mobilePasswordValid &&
-                        this.state.subscriptionCheckBox1 &&
-                        this.state.subscriptionCheckBox2 &&
-                        this.state.subscriptionCheckBox3
+                          this.state.mobilePasswordValid &&
+                          this.state.subscriptionCheckBox1 &&
+                          this.state.subscriptionCheckBox2 &&
+                          this.state.subscriptionCheckBox3 &&
+                          this.state.captchaVerified
                           ? " enable"
                           : "")
                       }
@@ -757,7 +811,7 @@ class SignUp extends BaseContainer {
                 key={"redirection"}
                 to={`/${this.props.locale}/${CONSTANTS.LOGIN}`}
               >
-                <div className="redirection-name">
+                <div className="redirection-name" onClick={this.TriggerEvents}>
                   {oResourceBundle.sign_in}
                 </div>
               </Link>

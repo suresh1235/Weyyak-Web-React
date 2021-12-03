@@ -17,12 +17,15 @@ import {
 import * as constants from "app/AppConfig/constants";
 import * as common from "app/utility/common";
 import * as actionTypes from "app/store/action/";
+import oResourceBundle from "app/i18n/";
+import { toast } from "core/components/Toaster/";
 import "url-search-params-polyfill";
 import Spinner from "core/components/Spinner";
 import Logger from "core/Logger";
 import {
   sendEvents
 } from "core/GoogleAnalytics/";
+import { CleverTap_UserEvents } from 'core/CleverTap'
 
 class TwitterToken extends Component {
   MODULE_NAME = "TwitterToken";
@@ -46,6 +49,10 @@ class TwitterToken extends Component {
         this.props.match.params.languagecode
       );
     }
+    if (params.get("denied")) {
+      this.props.history.push(`/${this.props.match.params.languagecode}/login`);
+    }
+
   }
 
   componentDidUpdate() {
@@ -60,12 +67,30 @@ class TwitterToken extends Component {
         response,
         constants.GRANT_TYPE_TWITTER,
         this.userDataDone.bind(this),
-        this.userDataDone.bind(this)
+        this.userDataError.bind(this)
       );
     }
   }
 
   async userDataDone() {
+    Logger.log(this.MODULE_NAME, "userDataDone");
+    if (!this.redirectDone) {
+      this.redirectDone = true;
+
+      this.props.fnFetchUserDetails((loginResponse) => {
+        this.props.fnupdateGDPRCookieData(loginResponse)
+        let userData = loginResponse.userDetails
+        userData.userId = common.getUserId()
+        CleverTap_UserEvents("LoginEvent", userData)
+        // this.updateGDPRCookieData(loginResponse)
+      }, null, true);
+
+      common.redirectAfterLogin.call(this);
+      sendEvents(constants.LOGIN_CATEGORY, constants.TWITTER_LOGIN_ACTION);
+    }
+  }
+
+  async userDataError() {
     Logger.log(this.MODULE_NAME, "userDataDone");
     if (!this.redirectDone) {
       this.redirectDone = true;
@@ -75,7 +100,7 @@ class TwitterToken extends Component {
   }
 
   render() {
-    return <Spinner / > ;
+    return <Spinner />;
   }
 }
 
@@ -105,6 +130,9 @@ const mapDispatchToProps = dispatch => {
         actionTypes.fnGetTwitterAccessToken(oauthToken, oauthVerifier, locale)
       );
     },
+    fnupdateGDPRCookieData: newUserDetails => {
+      dispatch(actionTypes.fnupdateGDPRCookieData(newUserDetails));
+    },
     fnSendSocialLoginResponse: (fbResponse, grantType, fnFacebookSuccess, fnFacebookError) => {
       dispatch(
         actionTypes.fnSendSocialLoginResponse(
@@ -114,8 +142,22 @@ const mapDispatchToProps = dispatch => {
           fnFacebookError
         )
       );
-    }
-  };
+    },
+    fnFetchUserDetails: (fnSuccess, fnFailed, bShouldDispatch) => {
+      dispatch(
+        actionTypes.fnFetchUserDetails(fnSuccess, fnFailed, bShouldDispatch)
+      );
+    },
+    handleUpdateAccount: (currentStateValues, fnSuccess, fnFailed) => {
+      dispatch(
+        actionTypes.fnHandleUpdateAccount(
+          currentStateValues,
+          fnSuccess,
+          fnFailed
+        )
+      );
+    },
+  }
 };
 
 export default connect(

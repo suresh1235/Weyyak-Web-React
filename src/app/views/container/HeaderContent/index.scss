@@ -1,0 +1,29 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+}
+
+.user-search-container {
+  margin: 0;
+  .filter-search{
+    display: inline-block;
+    position: static;
+    width: auto;
+    color: unset;
+    background-color: transparent;
+  }
+  .select-element{
+    &:hover{
+      color: $primary-orange-color;
+    }
+  }
+}   
+.home-content{
+  .no-results{
+    padding: 60px;
+  }
+}
+/*Device width pixel lesser than 745*/
+@media only screen and (max-width: 745px) {
+
+}

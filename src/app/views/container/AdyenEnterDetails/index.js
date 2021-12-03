@@ -19,7 +19,7 @@ import Label from "core/components/Label/";
 import Input from "core/components/Input/";
 import oResourceBundle from "app/i18n/";
 import HandlerContext from "app/views/Context/HandlerContext";
-import {sendEvents} from "core/GoogleAnalytics/";
+import { sendEvents } from "core/GoogleAnalytics/";
 import Spinner from "core/components/Spinner";
 import { toast } from "core/components/Toaster/";
 import "./index.scss";
@@ -42,8 +42,8 @@ class AdyenEnterDetails extends BaseContainer {
       common.fnNavTo.call(this, `/${this.props.locale}/`);
     }
 
-    const oUserObject = common.getCookie(CONSTANTS.COOKIE_USER_OBJECT)
-      ? JSON.parse(common.getCookie(CONSTANTS.COOKIE_USER_OBJECT))
+    const oUserObject = common.getServerCookie(CONSTANTS.COOKIE_USER_OBJECT)
+      ? JSON.parse(common.getServerCookie(CONSTANTS.COOKIE_USER_OBJECT))
       : null;
 
     if (oUserObject.email) {
@@ -214,8 +214,8 @@ class AdyenEnterDetails extends BaseContainer {
     this.props.fnUpdatePaymentUserDetails({ mobile, email });
     // common.fnNavTo.call(this, `/${this.props.locale}/${CONSTANTS.CHECKOUT}`);
     //Set payload for create payment session
-    const oUserToken = common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
-      ? JSON.parse(common.getCookie(CONSTANTS.COOKIE_USER_TOKEN))
+    const oUserToken = common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      ? JSON.parse(common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN))
       : null;
     const shopperLocale = this.props.locale === "en" ? "en_US" : "en_US";
     const language = this.props.locale === "en" ? "EN" : "AR";
@@ -232,36 +232,80 @@ class AdyenEnterDetails extends BaseContainer {
       language: language,
       subscription_plan_id: this.props.oSelectedPlan.id,
       user_id: oUserToken ? oUserToken.user_id : "",
-      paymentmode: "Adyen"
+      paymentmode: "Adyen",
+      promo_code: this.props.oSelectedPlan.discount_coupon
     };
 
-    this.setState({ loading: true });
-    this.props.fnInitiatePaymentSession(
-      oPayload, 
-      oPaymentSession => {
-        //Success
-        this.setState({ loading: false });
-        common.fnNavTo.call(
-          this,
-          `/${this.props.locale}/${CONSTANTS.CHECKOUT}`
-        );
-      },
-      oError => {
-        //Fail
-        this.setState({ loading: false });
-        common.showToast(
-          CONSTANTS.GENERIC_TOAST_ID,
-          oResourceBundle.payment_system_error,
-          toast.POSITION.BOTTOM_CENTER
-        );
-        // common.showToast(
-        //   CONSTANTS.ERROR_CODE_INAPP_ACTIVE,
-        //   oResourceBundle.inapp_error,
-        //   toast.POSITION.BOTTOM_CENTER
-        // );
-        console.log(oError);
-      }
+
+    let newoPayload = {
+      "channel": "Web",
+      "countryCode": this.props.oSelectedPlan.country,
+      "shopperLocale": shopperLocale,
+      "email": email,
+      "mobile": mobile,
+      "subscription_plan_id": this.props.oSelectedPlan.id,
+      "user_id": oUserToken ? oUserToken.user_id : "",
+      "user_name": common.getUserName(),
+      "paymentmode": this.props.oSelectedPlan.provider_id,
+      "language": language,
+      "promo_code": this.props.oSelectedPlan.discount_coupon,
+      "no_of_free_trial_days": this.props.oSelectedPlan.no_of_free_trial_days
+    }
+
+    common.setGDPRCookie("payload", newoPayload)
+
+    common.fnNavTo.call(
+      this,
+      `/${this.props.locale}/${CONSTANTS.CHECKOUT}`
     );
+
+    // localStorage.setItem("payload", JSON.stringify(newoPayload))
+
+    // window.parent.postMessage({ message: "getAppData", value: newoPayload }, "*");
+
+    // this.setState({ loading: true });
+    // this.props.fnInitiatePaymentSession(
+    //   oPayload,
+    //   oPaymentSession => {
+    //     //Success
+    //     this.setState({ loading: false });
+    // common.fnNavTo.call(
+    //   this,
+    //   `/${this.props.locale}/${CONSTANTS.CHECKOUT}`
+    // );
+    //   },
+    //   oError => {
+    //     //Fail
+    //     this.setState({ loading: false });
+    //     common.showToast(
+    //       CONSTANTS.GENERIC_TOAST_ID,
+    //       oResourceBundle.payment_system_error,
+    //       toast.POSITION.BOTTOM_CENTER
+    //     );
+    //     console.log(oError);
+    //   }
+    // );
+    // const userdata ={
+    //   phonenumber: mobile,
+    //   email: email
+    // };
+    // this.props.updateUserInfo(
+    //   userdata,
+    //   oUserInfo => {
+    //     //Success
+    //     this.setState({ loading: false });
+    //   },
+    //   oError => {
+    //     //Fail
+    //     this.setState({ loading: false });
+    //     common.showToast(
+    //       CONSTANTS.GENERIC_TOAST_ID,
+    //       oResourceBundle.payment_system_error,
+    //       toast.POSITION.BOTTOM_CENTER
+    //     );
+    //     console.log(oError);
+    //   }
+    // );
 
     sendEvents(
       CONSTANTS.SUBSCRIPTION_PLAN_CATEGORY,
@@ -291,9 +335,9 @@ class AdyenEnterDetails extends BaseContainer {
               &nbsp;
             </div>
             <div>
-             {this.props.oSelectedPlan.currency == "GBP" ? <span>&#163;</span> : this.props.oSelectedPlan.currency}
-             {this.props.oSelectedPlan.price}
-              
+              {this.props.oSelectedPlan.currency == "GBP" ? <span>&#163;</span> : this.props.oSelectedPlan.currency}
+              {this.props.oSelectedPlan.final_price}
+              {/* {this.props.oSelectedPlan.final_price < this.props.oSelectedPlan.price ? this.props.oSelectedPlan.final_price : this.props.oSelectedPlan.price} */}
             </div>
           </div>
 
@@ -351,7 +395,7 @@ class AdyenEnterDetails extends BaseContainer {
             <Button
               className="pay-btn"
               onClick={this.handleNextBtnClicked.bind(this)}
-              // disabled={this.state.bEnablePayBtn ? false : true}
+            // disabled={this.state.bEnablePayBtn ? false : true}
             >
               {oResourceBundle.next}
             </Button>
@@ -394,7 +438,10 @@ const mapDispatchToProps = dispatch => {
     },
     fnUpdatePaymentUserDetails: oPaymentUserDetails => {
       dispatch(actionTypes.fnUpdatePaymentUserDetails(oPaymentUserDetails));
-    }
+    },
+    updateUserInfo: (data, verifySuccess, verifyError) => {
+      dispatch(actionTypes.updateUserInfo(data, verifySuccess, verifyError));
+    },
   };
 };
 

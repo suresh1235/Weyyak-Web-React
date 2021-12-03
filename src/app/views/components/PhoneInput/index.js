@@ -78,9 +78,12 @@ class PhoneInput extends React.Component {
 
   setDefaultDialCode() {
     let dialCode = ""
-    if (this.state.phoneNumber !== "") {
-      dialCode = common.getCountryCodeFromNumber(this.state.phoneNumber);
-    } else {
+    // if (this.state.phoneNumber !== "") {
+    //   dialCode = common.getCountryCodeFromNumber(this.state.phoneNumber);
+    // } else 
+    if(this.state.dialCode!="") {
+      dialCode = this.state.dialCode;
+    }else {
       const country = common.getCountryFromCode(this.props.countryCode);
       dialCode = "+" + country.dial;
     }
@@ -228,7 +231,8 @@ class PhoneInput extends React.Component {
             className="number-input"
             value={this.state.phoneNumber}
             onChange={this.onNumberChange.bind(this)}
-            placeholder={oResourceBundle.mobile}
+            // placeholder={oResourceBundle.mobile}
+            placeholder={this.props.placeholder!=undefined?this.props.placeholder:oResourceBundle.mobile}
             onKeyDown={this.onKeyDown.bind(this)}
           />
         </div>

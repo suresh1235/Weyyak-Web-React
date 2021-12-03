@@ -31,9 +31,12 @@
         .swiper-container {
           .swiper-button-next {
             margin: -22px -5px 0 -4px;
-          }
+           }
           .swiper-button-prev {
             margin: -22px -4px 0px 0;
+            @media(max-width:1024px){
+              margin: -22px -77px 0px 0;
+            }
           }
         }
       }

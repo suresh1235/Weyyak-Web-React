@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.tva.z5",
+    "sha256_cert_fingerprints": ["D1:BA:83:88:7B:CF:35:AC:9F:21:CE:BF:40:91:DF:4B:D5:EC:AC:03:A0:BE:6B:6B:77:E8:11:DB:4C:3E:5F:CD"]
+  }
+}]

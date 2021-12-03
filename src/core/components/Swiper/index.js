@@ -40,7 +40,7 @@ class Swiper extends React.Component {
   componentDidMount() {
     // Hack to enable click on duplicate slides of swiper
     if (this.ENABLE_LOGS) {
-      Logger.log(this.MODULE_NAME,"componentDidMount");
+      Logger.log(this.MODULE_NAME, "componentDidMount");
     }
     this.addButtonEvents();
     this.updateWindowDimensions();
@@ -58,13 +58,15 @@ class Swiper extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    let PropChildrenLength = this.props.children && this.props.children.length
+    let prePropLength = prevProps.children && prevProps.children.length
     if (this.ENABLE_LOGS) {
       Logger.log(this.MODULE_NAME, "componentDidUpdate");
     }
-    if (this.props.children.length !== prevProps.children.length) {
+    if (PropChildrenLength !== prePropLength) {
       this.addButtonEvents();
     } else {
-      for (let i = 0; i < this.props.children.length; i++) {
+      for (let i = 0; i < PropChildrenLength; i++) {
         if (
           prevProps.children[i] &&
           this.props.children[i] &&
@@ -266,80 +268,177 @@ class Swiper extends React.Component {
     let classNameNext, classNamePrev;
     let slidesPerView, slidesToScroll;
 
+    let PropChildrenLength = this.props.children && this.props.children.length
+
     if (this.state.windowWidth > 4999) {
-      classNameNext =
-        this.props.children.length > 8 || this.props.forceEnableArrows
+      if(this.props.ComponentUsedIn == "EpisodeSlider"){
+        classNameNext =
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-next"
           : ".hidden";
       classNamePrev =
-        this.props.children.length > 8 || this.props.forceEnableArrows
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-prev"
           : ".hidden";
       slidesPerView =
-        this.props.expand && this.props.children.length < 7
+        this.props.expand && PropChildrenLength < 9
+          ? this.props.children.length
+          : 9;
+      slidesToScroll = 9;
+
+      }else{
+        classNameNext =
+        PropChildrenLength > 8 || this.props.forceEnableArrows
+          ? ".swiper-button-next"
+          : ".hidden";
+      classNamePrev =
+        PropChildrenLength > 8 || this.props.forceEnableArrows
+          ? ".swiper-button-prev"
+          : ".hidden";
+      slidesPerView =
+        this.props.expand && PropChildrenLength < 7
           ? this.props.children.length
           : 7;
       slidesToScroll = 7;
+
+      }
     } else if (this.state.windowWidth > 1599) {
-      classNameNext =
-        this.props.children.length > 7 || this.props.forceEnableArrows
+      if(this.props.ComponentUsedIn == "EpisodeSlider"){
+        classNameNext =
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-next"
           : ".hidden";
       classNamePrev =
-        this.props.children.length > 7 || this.props.forceEnableArrows
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-prev"
           : ".hidden";
       slidesPerView =
-        this.props.expand && this.props.children.length < 7
+        this.props.expand && PropChildrenLength < 9
+          ? this.props.children.length
+          : 9;
+      slidesToScroll = 9;
+
+      }else{
+       classNameNext =
+        PropChildrenLength > 7 || this.props.forceEnableArrows
+          ? ".swiper-button-next"
+          : ".hidden";
+      classNamePrev =
+        PropChildrenLength > 7 || this.props.forceEnableArrows
+          ? ".swiper-button-prev"
+          : ".hidden";
+      slidesPerView =
+        this.props.expand && PropChildrenLength < 7
           ? this.props.children.length
           : 7;
       slidesToScroll = 7;
-    } else if (this.state.windowWidth > 1279)
-     {
-      classNameNext =
-        this.props.children.length > 5 || this.props.forceEnableArrows
+
+      }
+      
+    } else if (this.state.windowWidth > 1279) {
+      
+
+      if(this.props.ComponentUsedIn == "EpisodeSlider"){
+        classNameNext =
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-next"
           : ".hidden";
       classNamePrev =
-        this.props.children.length > 5 || this.props.forceEnableArrows
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-prev"
           : ".hidden";
       slidesPerView =
-        this.props.expand && this.props.children.length < 6
+        this.props.expand && PropChildrenLength < 9
+          ? this.props.children.length
+          : 9;
+      slidesToScroll = 9;
+
+      }else{
+        classNameNext =
+        PropChildrenLength > 5 || this.props.forceEnableArrows
+          ? ".swiper-button-next"
+          : ".hidden";
+      classNamePrev =
+        PropChildrenLength > 5 || this.props.forceEnableArrows
+          ? ".swiper-button-prev"
+          : ".hidden";
+      slidesPerView =
+        this.props.expand && PropChildrenLength < 6
           ? this.props.children.length
           : 6;
       slidesToScroll = 6;
+
+
+      }
     } else if (this.state.windowWidth > 959) {
-      classNameNext =
-        this.props.children.length > 5 || this.props.forceEnableArrows
+
+      if(this.props.ComponentUsedIn == "EpisodeSlider"){
+        classNameNext =
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-next"
           : ".hidden";
       classNamePrev =
-        this.props.children.length > 5 || this.props.forceEnableArrows
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-prev"
           : ".hidden";
       slidesPerView =
-        this.props.expand && this.props.children.length < 5
+        this.props.expand && PropChildrenLength < 9
+          ? this.props.children.length
+          : 7;
+      slidesToScroll = 7;
+
+      }else{
+
+        classNameNext =
+        PropChildrenLength > 5 || this.props.forceEnableArrows
+          ? ".swiper-button-next"
+          : ".hidden";
+      classNamePrev =
+        PropChildrenLength > 5 || this.props.forceEnableArrows
+          ? ".swiper-button-prev"
+          : ".hidden";
+      slidesPerView =
+        this.props.expand && PropChildrenLength < 5
           ? this.props.children.length
           : 5;
       slidesToScroll = 5;
+      }
     } else if (this.state.windowWidth > 744) {
-      classNameNext =
-        this.props.children.length > 4 || this.props.forceEnableArrows
+
+      if(this.props.ComponentUsedIn == "EpisodeSlider"){
+        classNameNext =
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-next"
           : ".hidden";
       classNamePrev =
-        this.props.children.length > 4 || this.props.forceEnableArrows
+        PropChildrenLength > 7 || this.props.forceEnableArrows
           ? ".swiper-button-prev"
           : ".hidden";
       slidesPerView =
-        this.props.expand && this.props.children.length < 4
+        this.props.expand && PropChildrenLength < 9
+          ? this.props.children.length
+          : 6;
+      slidesToScroll = 6;
+
+      }else{
+        classNameNext =
+        PropChildrenLength > 4 || this.props.forceEnableArrows
+          ? ".swiper-button-next"
+          : ".hidden";
+      classNamePrev =
+        PropChildrenLength > 4 || this.props.forceEnableArrows
+          ? ".swiper-button-prev"
+          : ".hidden";
+      slidesPerView =
+        this.props.expand && PropChildrenLength < 4
           ? this.props.children.length
           : 4;
       slidesToScroll = 4;
+
+      }      
     } else if (this.state.windowWidth > 499) {
       slidesPerView =
-        this.props.expand && this.props.children.length < 3
+        this.props.expand && PropChildrenLength < 3
           ? this.props.children.length
           : 3;
       slidesToScroll = 1;
@@ -359,7 +458,7 @@ class Swiper extends React.Component {
     let params = {
       rebuildOnUpdate:
         this.props.rebuildOnUpdate !== undefined &&
-        this.props.rebuildOnUpdate === false
+          this.props.rebuildOnUpdate === false
           ? this.props.rebuildOnUpdate
           : true,
       shouldSwiperUpdate:
@@ -406,7 +505,7 @@ class Swiper extends React.Component {
             this.props.loopAdditionalSlides !== undefined
               ? this.props.loopAdditionalSlides
               : 1,
-          loop: this.props.children.length > slidesPerView ? true : false,
+          loop: PropChildrenLength > slidesPerView ? true : false,
           rtl: this.props.rtl
         },
         1599: {
@@ -420,7 +519,7 @@ class Swiper extends React.Component {
             this.props.loopAdditionalSlides !== undefined
               ? this.props.loopAdditionalSlides
               : 1,
-          loop: this.props.children.length > slidesPerView ? true : false,
+          loop: PropChildrenLength > slidesPerView ? true : false,
           rtl: this.props.rtl
         },
         1279: {
@@ -434,7 +533,7 @@ class Swiper extends React.Component {
             this.props.loopAdditionalSlides !== undefined
               ? this.props.loopAdditionalSlides
               : 1,
-          loop: this.props.children.length > slidesPerView ? true : false,
+          loop: PropChildrenLength > slidesPerView ? true : false,
           rtl: this.props.rtl
         },
         959: {
@@ -445,7 +544,7 @@ class Swiper extends React.Component {
             this.props.loopAdditionalSlides !== undefined
               ? this.props.loopAdditionalSlides
               : 1,
-          loop: this.props.children.length > slidesPerView ? true : false,
+          loop: PropChildrenLength > slidesPerView ? true : false,
           rtl: this.props.rtl
         },
         744: {
@@ -456,7 +555,7 @@ class Swiper extends React.Component {
             this.props.loopAdditionalSlides !== undefined
               ? this.props.loopAdditionalSlides
               : 1,
-          loop: this.props.children.length > slidesPerView ? true : false,
+          loop: PropChildrenLength > slidesPerView ? true : false,
           rtl: this.props.rtl
         },
         499: {
@@ -466,13 +565,13 @@ class Swiper extends React.Component {
           loopAdditionalSlides: this.props.loopAdditionalSlides
             ? this.props.loopAdditionalSlides
             : 1,
-          loop: this.props.children.length > slidesPerView ? true : false,
+          loop: PropChildrenLength > slidesPerView ? true : false,
           rtl: this.props.rtl
         },
         299: {
           slidesPerView: slidesPerView ? slidesPerView : 1,
           slidesPerGroup: 1,
-          loop: this.props.children.length > slidesPerView ? true : false,
+          loop: PropChildrenLength > slidesPerView ? true : false,
           rtl: this.props.rtl
         }
       };
@@ -481,7 +580,7 @@ class Swiper extends React.Component {
         //rtl: this.props.rtl,
         rebuildOnUpdate:
           this.props.rebuildOnUpdate !== undefined &&
-          this.props.rebuildOnUpdate === false
+            this.props.rebuildOnUpdate === false
             ? this.props.rebuildOnUpdate
             : true,
         breakpoints: {
@@ -492,12 +591,12 @@ class Swiper extends React.Component {
             loopAdditionalSlides: this.props.loopAdditionalSlides
               ? slidesPerView
               : 2,
-            loop: this.props.children.length > 1 ? true : false,
+            loop: PropChildrenLength > 1 ? true : false,
             rtl: this.props.rtl
           }
         }
       };
-      if (this.props.children.length > 1) {
+      if (PropChildrenLength > 1) {
         params.autoplay = {
           delay: this.props.autoplaySpeed,
           disableOnInteraction: false

@@ -8,14 +8,14 @@
  * of L&T.
  */
 
-import Axios, {axios} from "core/axios";
-import {toast} from "core/components/Toaster/";
-import {store} from "app/App";
+import Axios, { axios } from "core/axios";
+import { toast } from "core/components/Toaster/";
+import { store } from "app/App";
 import oResourceBundle from "app/i18n/";
 import * as actionTypes from "app/store/action/";
 import * as constants from "app/AppConfig/constants";
 import * as common from "app/utility/common";
-import {ENABLE_REFRESH_TOKEN} from "app/AppConfig/features";
+import { ENABLE_REFRESH_TOKEN } from "app/AppConfig/features";
 
 //denotes token is fetching status
 let isAlreadyFetchingAccessToken = false;
@@ -87,14 +87,14 @@ export const createAxiosInstance = sBaseURL => {
       }
       const {
         config,
-        response: {status}
+        response: { status }
       } = err;
       if (status === constants.STATUS_UNAUTHORISED) {
         const originalRequest = config;
         const oUserToken = JSON.parse(
-          common.getCookie(constants.COOKIE_USER_TOKEN)
+          common.getServerCookie(constants.COOKIE_USER_TOKEN)
         );
-        const sRefreshToken = oUserToken.refreshToken;
+        const sRefreshToken = oUserToken && oUserToken.refreshToken;
         //Unutherised access
         if (ENABLE_REFRESH_TOKEN && sRefreshToken) {
           //Refresh Token

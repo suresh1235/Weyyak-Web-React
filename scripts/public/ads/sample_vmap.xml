@@ -1,0 +1,7 @@
+<Playlist>
+  <Preroll>
+    <Ad>
+      <![CDATA[http://192.168.1.196:3000/ads/sample_vast.xml]]>
+    </Ad>
+  </Preroll>
+</Playlist>

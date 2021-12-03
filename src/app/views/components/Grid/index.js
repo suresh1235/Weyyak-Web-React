@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import {
   AD_CONTAINER_ID_PREFIX,
   AD_CLASS_MOBILE,
-  AD_CLASS_DESKTOP
-} from "app/AppConfig/constants";
+  AD_CLASS_DESKTOP,
+AD_MOBILE_CONTAINER_ID_PREFIX } from "app/AppConfig/constants";
 import { ENABLE_BANNER_ADVERTISEMENT } from "app/AppConfig/features";
 import ImageThumbnail from "app/views/components/ImageThumbnail";
 import fallbackEn from "app/resources/assets/thumbnail/placeholder_carousel_ar.png";
@@ -13,7 +13,7 @@ import oResourceBundle from "app/i18n/";
 import SelectBox from "core/components/SelectBox";
 import { isMobile } from "react-device-detect";
 import { IMAGE_DIMENSIONS } from "app/AppConfig/constants";
-import { fnConstructContentURL } from "app/utility/common";
+import { fnConstructContentURL, loadBannerAds, unloadBannerAds } from "app/utility/common";
 import "./index.scss";
 
 /**
@@ -59,8 +59,12 @@ class Grid extends React.Component {
    * @param {undefined}
    */
   componentDidMount() {
+    loadBannerAds();
     typeof this.props.adsContainerLoaded === "function" &&
       this.props.adsContainerLoaded();
+  }
+  componentWillUnmount() {
+    unloadBannerAds();
   }
   /**
    * Component Name - Grid
@@ -148,21 +152,41 @@ class Grid extends React.Component {
    */
   sortClicked(event) {
     const gridIem = this.state.gridItems;
-
-    if (event.target.innerText === oResourceBundle.oldest) {
-      gridIem.sort(function(a, b) {
-        return new Date(a.insertedAt) - new Date(b.insertedAt);
-      });
-    } else {
-      gridIem.sort(function(a, b) {
-        return new Date(b.insertedAt) - new Date(a.insertedAt);
-      });
+    if(gridIem.insertedAt)
+    {
+      if (event.target.innerText === oResourceBundle.oldest) {
+        gridIem.sort(function(a, b) {
+          return new Date(a.insertedAt) - new Date(b.insertedAt);
+        });
+        this.setState({ sortTitle: "oldest"});
+      } else {
+        gridIem.sort(function(a, b) {
+          return new Date(b.insertedAt) - new Date(a.insertedAt);
+        });
+        this.setState({ sortTitle: "recently_added" });
+      }
+  
     }
-
+    else
+    {
+      if (event.target.innerText === oResourceBundle.oldest) {
+        gridIem.sort(function(a, b) {
+          return new Date(a.id) - new Date(b.id);
+        });
+        this.setState({ sortTitle: "oldest"});
+      } else {
+        gridIem.sort(function(a, b) {
+          return new Date(b.id) - new Date(a.id);
+        });
+        this.setState({ sortTitle: "recently_added" });
+      }
+    }
+     
+   
     window.scroll(0, 1);
     window.scroll(0, 0);
     this.sortShowToggle(event);
-    this.setState({ sortTitle: event.target.innerText });
+    // this.setState({ sortTitle: event.target.innerText });
   }
 
   /**
@@ -181,13 +205,17 @@ class Grid extends React.Component {
       { title: oResourceBundle.oldest },
       { title: oResourceBundle.recently_added }
     ];
+    let GoogleAdsContainer = AD_CONTAINER_ID_PREFIX;
+    if(isMobile) {
+      GoogleAdsContainer = AD_MOBILE_CONTAINER_ID_PREFIX;
+    }
     return (
       <section className="gridScreen" onClick={this.screenClicked.bind(this)}>
-        {this.props.isSearchPage === true ? null : (
+        {this.props.isSearchPage === true || this.props.iscontent===true ? null : (
           <h1 className="section-title">{this.props.title}</h1>
         )}
 
-        <div className="listing-filters-mobile">
+        {/* <div className="listing-filters-mobile" style={{display:"none"}}>
           <div className="container">
             {this.props.data &&
               this.props.data.map((ele, index) => {
@@ -211,7 +239,7 @@ class Grid extends React.Component {
                 );
               })}
           </div>
-        </div>
+        </div> */}
         <div className="listing-filters">
           <div className="first-select-box">
             {this.props.isSearchPage ? (
@@ -241,7 +269,9 @@ class Grid extends React.Component {
                     })}
                 </div>
               </div>
-            ) : (
+            ) : this.props.iscontent ?
+            ""
+            :(
               <SelectBox
                 className={this.state.filterSelectClass}
                 items={this.props.data}
@@ -255,17 +285,20 @@ class Grid extends React.Component {
             className={this.state.sortSelectClass}
             items={aSortItems}
             label={oResourceBundle.sort_by}
-            selected={this.state.sortTitle}
+            selected={this.state.sortTitle==="oldest" ? oResourceBundle.oldest :oResourceBundle.recently_added}
             showToggle={this.sortShowToggle.bind(this)}
             onChange={this.sortClicked.bind(this)}
           />
         </div>
         {ENABLE_BANNER_ADVERTISEMENT && (
           <div
-            id={AD_CONTAINER_ID_PREFIX}
+            id={GoogleAdsContainer}
+            style={{"text-align": "center", "margin": "20px auto"}}
             className={isMobile ? AD_CLASS_MOBILE : AD_CLASS_DESKTOP}
             ref="bucket-ad-container"
           />
+          
+
         )}
         <div className="grid">
           {this.state.gridItems &&

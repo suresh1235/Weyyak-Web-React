@@ -42,11 +42,11 @@ class Terms extends BaseContainer {
     return (
       <React.Fragment>
         <div className="terms-overlay">
-          <Button
+          {/* <Button
             className="close-btn"
             icon={icon}
             onClick={() => this.handleCloseButton()}
-          />
+          /> */}
           <div className="terms-overlay-container">
             <div className="static-page">
               <div className="overlay-title">{oResourceBundle.terms}</div>

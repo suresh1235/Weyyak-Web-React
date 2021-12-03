@@ -24,6 +24,16 @@ class AppHeader extends React.Component {
    */
   render() {
     return (
+      // <>        
+      // <div className="header1">
+      //   <div className="left-header1">
+      //     <div>menu</div>
+      //     <div>LangE</div>
+      //   </div>
+      //   <div className="middle-header1">Logo</div>
+      //   <div className="right-header1">LangR</div>
+      // </div>
+      // </>
       <Header
         contentLeft={
           this.props.geoBlock ? null : (
@@ -33,10 +43,14 @@ class AppHeader extends React.Component {
               onMenuButtonClick={this.props.onMenuButtonClick}
               onSearchButtonClick={this.props.onSearchButtonClick}
               handleSearchInputText={this.props.handleSearchInputText}
+              onLanguageButtonCLick={this.props.onLanguageButtonClickHandler}
+              showSubscriptionButton={this.props.showSubscriptionButton}
               keyPress={this.props.keyPress}
               keyUp={this.props.keyUp}
               keyDown={this.props.keyDown}
               userInputText={this.props.userInputText}
+              showSearchButton={this.props.showSearchButton}
+              show={this.props.show}
             />
           )
         }
@@ -59,11 +73,24 @@ class AppHeader extends React.Component {
               keyUp={this.props.keyUp}
               keyDown={this.props.keyDown}
               userInputText={this.props.userInputText}
+              HeaderMenu={this.props.HeaderMenu}
             />
           )
         }
       />
     );
+  }
+  componentDidUpdate(){
+      let searchBar = document.querySelector('.search-bar'); 
+      let headerBottom = document.querySelector('.header_bottom');
+      let searchBarClasses = searchBar.classList;
+      if ( (" " + searchBarClasses + " ").replace(/[\n\t]/g, " ").indexOf("expand") > -1 ){
+        headerBottom.classList.add('expanded_search');
+
+      } else {
+        headerBottom.classList.remove('expanded_search');
+      }
+     
   }
 }
 export default withRouter(AppHeader);

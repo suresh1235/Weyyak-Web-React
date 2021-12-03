@@ -45,13 +45,14 @@
 
   .progressbar-container {
     position: absolute;
-    bottom: 0;
+    // bottom: 0;
     z-index: 2;
     width: 100%;
     background-color: $video-info-background;
 
     .progressbar-progress {
       height: 5px;
+      
     }
   }
 
@@ -156,14 +157,14 @@
     opacity: 1;
     padding: 0;
     margin: 0;
-
+   
     &:hover {
       background-color: transparent;
     }
 
     .icon {
-      width: 100%;
-      height: 100%;
+      width: 100% !important;
+      height: 100% !important;
     }
   }
 
@@ -197,8 +198,11 @@
       .play-button-hover {
         display: block;
       }
-
-      .carousel-bottom-overlay {
+      .trailor-play-btn{
+        transform: translate(-50%,-90%);
+        -webkit-transform: translate(-50%, -90%);
+      }
+   .carousel-bottom-overlay {
         display: flex;
         flex-direction: row;
       }
@@ -216,11 +220,12 @@
   &.play-button-image-hover {
     &:hover {
       .play-button-hover {
-        display: block;
+         display: block;
       }
     }
   }
 }
+
 /*Device width pixel lesser than 745*/
 @media only screen and (max-width: $mobile-view-threshold-px) {
   .image-thumbnail {
@@ -279,3 +284,264 @@
     }
   }
 }
+
+
+.app-body[dir="rtl"] {
+  .watching_details{
+  .carousel-bottom-overlay {
+    bottom: 0px;
+    right: 0px;
+  }
+}
+}
+
+
+.Continue_watching{
+  a {
+    text-decoration: none;
+  }
+  .image-thumbnail .progressbar-container {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    background-color: transparent;
+    margin-top: -5px;
+
+    .progressbar-progress {
+      border-radius: 2px;
+      margin-left: 9px;
+      margin-right: 9px;
+    }
+}
+
+  .carousel-bottom-overlay {
+    bottom: 0px;
+    left: 0px;
+  }
+
+  .carousel-image.image-container {
+    position: relative;
+  }
+  .carousel-image.image-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: transparent linear-gradient(359deg , #292929 0%, #70707000 100%);
+  }
+
+  .image-thumbnail .play-button {
+    margin: -50px 0px;
+
+    // &:hover {
+    //   background-color: rgba(100, 100, 100, 0.5);
+    // }
+  }
+
+  .image-thumbnail.thumnail-hover:hover {
+    -webkit-transform: inherit;
+    transform: inherit;
+    z-index: 1;
+}
+
+  .watching_details{
+     background-color: #292929;
+     font-family: 'changa-Regular';
+     border-radius: 0px 0px 10px 10px;
+     opacity: 1;
+     margin-top: -45px;
+     z-index: 2;
+    //  background: transparent linear-gradient(359deg , #292929 0%, #70707000 100%);
+    
+     .btn:hover {
+      background-color:transparent;
+    }
+
+    &:hover {
+      .carousel-bottom-overlay {
+        display: none;
+      }
+    }
+
+    .watching_title{
+      min-height: 48px;
+      color: white;
+      position: relative;
+      bottom: 0;
+      font-size: 18px;
+      display: block;
+      line-height: 20px;
+      // margin-bottom: 10px;
+      padding-left: 9px;
+      padding-right: 9px;
+
+      
+      @media only screen and (min-width: 1400px) {
+        font-size: 18px;
+        line-height: 18px;
+        font-weight: 500;
+
+      }
+      @media only screen and (min-width: 1024px) {
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 500;
+
+      }
+      @media only screen and (max-width: 768px) {
+        font-size: 12px;
+        font-weight: 500;
+        min-height: 35px;
+        line-height: 18px;
+        font-family: 'changa';
+
+      }
+
+      }
+
+    p{
+      color:  #757575;
+      font-size: 16px;
+      padding-left: 9px;
+      padding-right: 9px;
+      margin-bottom: 10px;
+      min-height: 30px;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 11px;
+      }
+
+      @media only screen and (min-width: 1400px) {
+        font-size: 16px;
+      }
+
+    }
+
+    .watching_actions {
+      display: flex;
+      justify-content: space-between;
+      margin-right: 3px;
+      margin-left: 3px;
+      
+     .btn {
+        margin:3px 3px!important;
+        // padding:0px 0px;
+    }
+    }
+  
+      .icon {
+        height:33px;
+        width:33px;
+        @media only screen and (max-width: 1024px) {
+        height:24px;
+        width:24px;
+       }
+       @media only screen and (max-width: 768px) {
+        height:24px;
+        width:24px;
+      }
+    }
+  }
+
+
+
+}
+
+.addItem-btn {
+  background-image: url(../../../resources/assets/add.svg);
+  width: 33px;
+  height: 33px;
+
+  &:hover {
+    background-image: url(../../../resources/assets/playlist_Plus_hover.svg);
+    width: 33px;
+    height: 33px;
+    background-size: 33px;
+    @media only screen and (max-width: 768px) {
+    background-image: url(../../../resources/assets/add.svg);
+    
+  }
+  }
+  
+}
+.MinusItem-btn {
+  background-image: url(../../../resources/assets/removeItem.svg);
+  width: 33px;
+  height: 33px;
+
+  &:hover {
+    background-image: url(../../../resources/assets/removeItemHover.svg);
+    width: 33px;
+    height: 33px;
+    background-size: 33px;
+    @media only screen and (max-width: 768px) {
+      background-image: url(../../../resources/assets/removeItem.svg);
+    }
+  }
+ 
+}
+.PlayItem-btn {
+  background-image: url(../../../resources/assets/playsvg.svg);
+  width: 33px;
+  height: 33px;
+
+  &:hover {
+    background-image: url(../../../resources/assets/playsvgHover.svg);
+    width: 33px;
+    height: 33px;
+    background-size: 33px;
+    @media only screen and (max-width: 768px) {
+      background-image: url(../../../resources/assets/playsvg.svg);
+    }
+  }
+  
+}
+.RemoveItem-btn {
+  background-image: url(../../../resources/assets/remove.svg);
+  width: 33px;
+  height: 33px;
+
+  &:hover {
+    background-image: url(../../../resources/assets/removeHover.svg);
+    width: 33px;
+    height: 33px;
+    background-size: 33px;
+    @media only screen and (max-width: 768px) {
+      background-image: url(../../../resources/assets/remove.svg);
+    }
+  }
+  
+}
+
+.trailers-image-container{
+  // position: relative;
+  .pos-relative {
+    position: relative;
+  }
+  .on-image-desc{
+    top:inherit !important;
+    bottom: 10px !important;
+  }
+  .desc-containar {
+    height: auto !important;
+    position: relative;
+    top: -5px;
+    .description {
+      line-height: 15px;
+    }
+    p {
+      margin: 0 !important;
+    }
+  }
+}
+.Continue_watching{
+  .swiper-slide:hover{
+    transform: scale(1.0333) !important;
+     transition: all .3s ease-in-out;
+     @media  only screen and (max-width:767px){
+       transform: scale(1) !important;
+     }
+  }
+  }

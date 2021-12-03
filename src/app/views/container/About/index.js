@@ -12,47 +12,50 @@ import React from "react";
 import BaseContainer from "core/BaseContainer/";
 import Button from "../../../../core/components/Button/";
 import icon from "../../../resources/assets/login/ic-delete.png";
+import imageTop from "../../../resources/assets/about/about-top-image.png";
+import imageBottom from "../../../resources/assets/about/about-bottom-image.png";
 import { connect } from "react-redux";
 import ReactHtmlParser from "react-html-parser";
 import oResourceBundle from "app/i18n/";
 import withTracker from "core/GoogleAnalytics/";
-import "./index.scss";
+import "./index.scss"; 
 
 class About extends BaseContainer {
-  /**
-   * Component Name - About
-   *  Handle the Close Button and to redirect to Home Component.
-   * @param { null }
-   */
-  handleCloseButton() {
-    this.props.history.push(`/${this.props.locale}`);
-  }
-
-  /**
-   * Component Name - About
-   * It returns jsx to be rendered
-   * @param null
-   * @returns { undefined }
-   */
+  
   render() {
     return (
+
       <React.Fragment>
-        <div className="about-overlay">
-          <Button
-            className="close-btn"
-            icon={icon}
-            onClick={() => this.handleCloseButton()}
-          />
-          <div className="about-overlay-container">
-            <div className="static-page">
-              <div className="overlay-title">{oResourceBundle.about}</div>
-              <div className="static-content">
-                {ReactHtmlParser(oResourceBundle.about_content)}
-              </div>
-            </div>
-          </div>
+      <div className="about-overlay">
+      
+        <div className="about-overlay-container">
+          <div className="static-page">
+            <div className="about-heading"><h1>{oResourceBundle.about}</h1></div>
+            <div className="image-top">
+         <img src={imageTop} alt="image-top" />
         </div>
-      </React.Fragment>
+        <div className="description">
+          {ReactHtmlParser(oResourceBundle.about_content)}
+        </div>
+        <div className="middle-heading">
+          {oResourceBundle.about_weare}
+        </div>
+        <div className="middle-heading2">
+          {oResourceBundle.about_everywhere}
+        </div>
+        <div className="image-bottom">
+           <img src={imageBottom} alt="image-bottom" />
+          </div>
+          <div className="bottom-text">
+          {oResourceBundle.about_bottom_text}
+          </div>
+
+          </div>
+        </div> 
+       
+       
+      </div>
+    </React.Fragment>
     );
   }
 }

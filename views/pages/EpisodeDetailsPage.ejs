@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charSet="UTF-8" />
+    <link rel="shortcut icon" href= />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="title" content="<%= contentData.data.title %> Episode <%= contentData.data.episode_number %> | Season <%=
+                    contentData.data.season_number %>">
+    </meta>
+    <meta name="description" content="<%= contentData.data.seo_description %>" />
+    <meta name="keywords" content="<%= seo_keywords %>" />
+    <link rel="canonical" href="https://weyyak.com<%= url %>" />
+    <meta property="og:title" content="<%= contentData.data.title %> Episode <%= contentData.data.episode_number %> | Season <%=
+                    contentData.data.season_number %>" />
+    <meta property="og:description" content="<%= contentData.data.seo_description %>" />
+    <meta property="og:image" content="<%= contentData.data.imagery.thumbnail %>?d=600×315" />
+    <meta property="og:url" content="https://weyyak.com<%= url %>" />
+    <meta name="twitter:title" content="<%= contentData.data.title %> Episode <%= contentData.data.episode_number %> | Season <%=
+                    contentData.data.season_number %>">
+    <meta name="twitter:description" content="<%= contentData.data.seo_description %>" />
+    <meta name="twitter:image" content="<%= contentData.data.imagery.thumbnail %>?d=280x150" />
+    <meta name="twitter:card" content="summary">
+
+    <title>
+        <%= contentData.data.title %> Episode <%= contentData.data.episode_number %> | Season <%=
+                    contentData.data.season_number %>
+    </title>
+
+    <%- include('../partials/style'); %>
+
+</head>
+
+<body>
+    <div class='app-body ltr' dir="ltr">
+        <%- include('../partials/header'); %>
+            <div class="movie-details">
+                <div class="movie-image-big-screens movie-thumb">
+                    <!-- <a class="router-link" href="/${state.lang}/player/${state.content_type}/${state.id}/${state.friendly_url}"> -->
+                    <div class=" image-thumbnail video-details-thumbnail-item">
+                        <div class="carousel-image image-container">
+                            <img data-src="${state.imagery.thumbnail}?d=200x200"
+                                src='<%= contentData.data.imagery.thumbnail %>?d=450x450'
+                                alt="<%= contentData.data.seo_title %>" />
+                        </div>
+                    </div>
+                    <!-- </a> -->
+                </div>
+                <div class="movie-info">
+                    <div class="dropdown-bottom dropdown-overview" aria-hidden="false">
+                        <div class="dropdown-bottom-left">
+                            <div class="dropdown-info">
+                                <h1 class="title-info">
+                                    <%= contentData.data.title %>
+                                </h1>
+                                <div class="dropdown-actors-genres">
+                                    <div class="label" translate="starring">season number:</div>
+                                    <p>
+                                        <%= contentData.data.season_number %>,
+                                    </p>
+                                </div>
+                                <div class="dropdown-description">
+                                    <p class="">
+                                        <%= contentData.data.synopsis %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/footer'); %>
+    </div>
+</body>
+
+</html>

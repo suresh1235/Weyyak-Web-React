@@ -10,9 +10,10 @@
 
 import React from "react";
 import BaseContainer from "core/BaseContainer/";
-import {isUserSubscribed, fnNavTo} from "app/utility/common";
+import { isUserSubscribed, fnNavTo ,getUserId} from "app/utility/common";
+import * as actionTypes from "app/store/action/";
 import Button from "core/components/Button/";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import oResourceBundle from "app/i18n/";
 import backIcon from "app/resources/assets/subscribe/back.svg";
 import HandlerContext from "app/views/Context/HandlerContext";
@@ -31,10 +32,18 @@ class SubsribeToWatch extends BaseContainer {
       fnNavTo.call(this, `/${this.props.locale}`, true);
     }
 
+
+    this.props.fnFetchCouponData(
+			this.props.locale,
+		  getUserId(),
+			()=>{},
+      ()=>{}
+		);
+
     this.fnScrollToTop();
   }
 
-  componentDidUpdate(prevProps, prevSate) {}
+  componentDidUpdate(prevProps, prevSate) { }
   onSubscriptionBackClick() {
     this.props.history.goBack();
   }
@@ -54,7 +63,7 @@ class SubsribeToWatch extends BaseContainer {
             {oResourceBundle.to_watch_this_content}
           </div>
           <Button
-            className="subscribe-btn"
+            className="subscribe-btn-1"
             onClick={this.context.onSubscribeButtonClick1}
           >
             {oResourceBundle.please_subscribe2}
@@ -87,7 +96,18 @@ const mapStateToProps = state => {
  */
 const mapDispatchToProps = dispatch => {
   //dispatch action to redux store
-  return {};
+    return{
+      fnFetchCouponData: (sLocale, user_id, fnSuccues, fnStatusFailed) => {
+        dispatch(
+          actionTypes.fnFetchCouponData(
+            sLocale,
+            user_id,
+            fnSuccues,
+            fnStatusFailed
+          )
+        )}
+      
+    }
 };
 
 export default connect(

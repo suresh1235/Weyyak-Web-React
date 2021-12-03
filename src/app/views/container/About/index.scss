@@ -8,13 +8,13 @@
     }
   }
 }
+
+
+
 .about-overlay {
   width: 100%;
   min-height: calc(100vh - 50px - 186px);
-  background: url("~app/resources/assets/login/overlay-bg.jpg") no-repeat;
-  background-size: cover;
-  color: $overlay-title-color;
-  position: relative;
+background-color: #000000;
 
   .close-btn {
     position: absolute;
@@ -34,14 +34,20 @@
 
   .about-overlay-container {
     width: 100%;
-    padding: 70px 0;
+    padding: 0 70px;
+    max-width: 1300px;
+    margin: 0 auto;
+    @media (max-width: 767px) {
+      padding: 0 30px;
+    }
 
     .static-page {
       padding: 0 70px;
-
       @media (max-width: $mobile-view-threshold-px) {
         padding: 0 10px;
       }
+
+     
 
       .overlay-title {
         color: $overlay-title-color;
@@ -104,6 +110,103 @@
     }
     &::after {
       transform: rotate(-45deg);
+    }
+  }
+
+  .about-heading{
+    text-align: center;
+    padding-top: 22px;
+    h1{
+      color: white;
+      font-size: 81px;
+      font-family: Changa;
+      font-weight: bold;
+      margin-bottom: 18px;
+      margin-top: 0;
+      @media(max-width:767px){
+        // font-size: 24px;
+        font: normal normal bold 31px/71px Changa;
+        letter-spacing: 0px;
+      }
+      
+    }
+  }
+
+  .image-top{
+    text-align: center;
+    img{
+      @media(max-width:767px){
+        width: 100%;
+      }
+    }
+ 
+  }
+  .description{
+    color:white;
+    text-align: center;
+    font-family: Changa,Regular;
+    font-size: 21px;
+    line-height: 26px;
+    margin-bottom: 31px;
+    @media(max-width:767px){
+      // font-size: 18px;
+      font: normal normal normal 16px/23px Changa;
+      letter-spacing: 0px;
+      color: #FFFFFF;
+     
+    } 
+  }
+  .middle-heading{
+    color:#707070;
+    font-size: 26px;
+    font-family: Changa,Regular;
+    letter-spacing: 13px;
+    text-align: center;
+    @media(max-width:767px){
+      // font-size: 21px;
+      font: normal normal normal 16px/30px Changa;
+      
+    }
+  }
+  .middle-heading2{
+    color:white;
+    font-size: 81px;
+    font-family: Changa;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -45px;
+    margin-bottom: 15px;
+    @media(max-width:767px){
+      // font-size: 24px;
+      margin-top: -23px;
+      text-align: center;
+      font: normal normal bold 31px/71px Changa;
+      letter-spacing: 0px;
+      color: #FFFFFF;
+    }
+   
+  }
+  .image-bottom{
+    text-align: center;
+    margin-bottom: 10px;
+    img{
+      @media(max-width:767px){
+        width:100%;
+      }
+    }
+  }
+  .bottom-text{
+    color:#707070;
+    font-size:26px;
+    font-family: Changa,Regular;
+    text-align: center;
+    @media(max-width:767px){
+      // font-size: 21px;
+      text-align: center;
+      font: normal normal normal 16px/16px Changa;
+      letter-spacing: 0px;
+      color: #707070;
+      
     }
   }
 }

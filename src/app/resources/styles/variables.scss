@@ -43,8 +43,9 @@
  $app-footer-top-left-link: #929090;
  $app-header-searchinput-placeholder: #fff;
  /* Header */
- $header-height: 60px;
- $header-height-mobile: 50px;
+ $header-height: 80px;
+//  $header-height-mobile: 50px;
+$header-height-mobile: 80px;
  $header-mobile-margin-top: 50px;
  $header-sign-in-button: 0.8em;
  $header-search-input: 1em;
@@ -204,6 +205,7 @@
  $or-background-color: #fff;
  $facebook-color: #4968a2;
  $facebook-color-mobile: #3e4e8d;
+ $apple-color-mobile: #f6f3ed;
  $twitter-color: #36b9ff;
  $twitter-color-mobile: #25afff;
  $create-account-background-color: #232323;

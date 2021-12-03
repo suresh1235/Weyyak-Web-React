@@ -43,8 +43,14 @@ class EmailVerification extends BaseContainer {
    * @returns {undefined}
    */
   handleResendConfirmation() {
+
+    let CountryName = common.getCountryName(this.props.countryCode)
+
     const data = {
-      email: this.props.newUserDetails.email
+      email: this.props.newUserDetails.email,
+      Alpha2code: this.props.countryCode,
+      countryName:CountryName,
+
     };
     this.props.resendVerificationEmail(
       data,
@@ -143,7 +149,9 @@ const mapStateToProps = state => {
   return {
     locale: state.locale,
     newUserDetails: state.newUserDetails,
-    loading: state.loading
+    loading: state.loading,
+    countryCode: state.sCountryCode,
+
   };
 };
 

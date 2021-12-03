@@ -9,7 +9,32 @@
  */
  @import "app/resources/styles/variables.scss";
 .menuItem {
-  white-space: nowrap;
+   /*white-space: nowrap;
   overflow: hidden;
-  width: calc(#{$app-menu-width} - 50px);
+  width: calc(#{$app-menu-width} - 50px);*/
+  border-radius: 30px;
+ 
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  width:390px  !important;
+  .user-icon{
+    width: 60px;
+    height: 60px;
+    border-radius: 40px;
+    padding-left: 0px;
+    color: #757575;
+    font: normal normal 300 16px/30px Changa;
+    letter-spacing: -0.38px;
+  }
+  span{
+   background-color: transparent !important;
+   padding-left: 10px !important;
+   padding-right: 10px !important;
+   &:hover{
+    color:#ff740f !important;
+    
+   }
+ }
 }

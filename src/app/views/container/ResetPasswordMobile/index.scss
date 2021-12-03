@@ -30,6 +30,33 @@
     }
   }
 }
+
+.resend-code {
+  width: 100%;
+  height: 18px;
+  margin: 10px 0;
+  padding: 0 10px;
+  font-size: 14px;
+  text-align: center;
+
+  .resend-text {
+    color: gray;
+    text-decoration: underline;
+
+    &.active {
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .timer {
+    color: #5d5d5d;
+    margin: 0 5px;
+  }
+  @media(max-width: $mobile-view-threshold-px) {
+    font-size: 12px;
+  }
+}
 .reset-password-mobile {
   display: flex;
   flex-direction: column;

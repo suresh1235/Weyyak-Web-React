@@ -12,7 +12,6 @@
 import React from 'react';
 import BaseContainer from 'core/BaseContainer/';
 import './index.scss';
-import Button from '../../../../core/components/Button/';
 import icon from '../../../resources/assets/login/ic-delete.png';
 import { connect } from 'react-redux';
 import oResourceBundle from 'app/i18n/';
@@ -21,35 +20,15 @@ import withTracker from 'core/GoogleAnalytics/';
 
 // TODO add a generic base class for twitter and fb login
 class Privacy extends BaseContainer {
-
-  componentDidMount() {
-    this.fnScrollToTop();
-  }
-
-  /**
-    * Component Name - Privacy
-    *  Handle the Close Button and to redirect to Home Component.
-    * @param { null }
-    */
-  handleCloseButton() {
-    this.props.history.push(`/${this.props.locale}`);
-  }
-
-  /**
-   * Component Name - Privacy
-   * It returns jsx to be rendered
-   * @param null
-   * @returns { undefined }
-   */
   render() {
     return (
       <React.Fragment>
         <div className="privacy-overlay">
-          <Button className="close-btn" icon={icon} onClick={() => this.handleCloseButton()}></Button>
           <div className="privacy-overlay-container">
             <div className="static-page">
               <div className="overlay-title">{oResourceBundle.privacy_policy}</div>
-              <div className="static-content">{ReactHtmlParser(oResourceBundle.privacy_content)}</div>
+              <div className="static-content">
+              {ReactHtmlParser(oResourceBundle.privacy_content)}</div>
             </div>
           </div>
         </div>

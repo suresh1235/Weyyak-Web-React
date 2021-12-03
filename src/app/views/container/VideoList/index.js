@@ -236,7 +236,7 @@ class VideoList extends BaseContainer {
     );
     if (!this.bAdSignalDataSent) {
       this.bAdSignalDataSent = true;
-      super.setSignalData({}, {}, this.props.locale, this.props.sCountryCode, common.getUserId(), this.props.bPageViewSent);
+      super.setSignalData({}, {}, this.props.locale, this.props.sCountryCode, common.getUserId(), common.uuidv4(), this.props.bPageViewSent);
       setTimeout(() => this.props.fnPageViewSent(), 0);
     }
   }

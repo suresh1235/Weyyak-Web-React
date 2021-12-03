@@ -4,6 +4,7 @@
   width: 399px;
 
   .login-facebook,
+   .login-apple,
   .login-twitter {
     display: block;
     min-width: 250px;
@@ -35,9 +36,33 @@
         width: 30px;
         height: 27px;
       }
+
+       .apple-icon{
+        margin-top: 10px;
+        width: 35px;
+        height: 35px;
+        background-color:#f6f3ed;
+      }
+
     }
 
     .social-login-text {
+      width: 80%;
+      display: inline-block;
+      height: 55px;
+      line-height: 55px;
+      text-align: center;
+      @media(max-width: $mobile-view-threshold-login-px) {
+        margin: 0 30px;
+        white-space: nowrap;
+      }
+      @media(max-width: $mobile-view-threshold-px) {
+        font-size: 16px;
+      }
+    }
+
+    .apple-login-text {
+      color:black;
       width: 80%;
       display: inline-block;
       height: 55px;
@@ -72,12 +97,22 @@
   @media(max-width: $mobile-view-threshold-login-px) {
     width: 100%;
   }
+
+   .login-apple {
+    margin-top: 20px;
+    background-color: $apple-color-mobile;
+    @media(max-width: $mobile-view-threshold-login-px) {
+      margin-top: 0px;
+    }
+  }
+
 }
 
 .app-body[dir="rtl"] {
   .signup-container {
     .sign-up {
       .login-facebook,
+      .login-apple,
       .login-twitter {
         .social-login-text {
           margin: 0 40px 0 0;

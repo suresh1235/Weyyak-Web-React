@@ -17,12 +17,14 @@ import * as CONSTANTS from "../../../AppConfig/constants";
 import * as common from "app/utility/common";
 import Button from "../../../../core/components/Button/";
 import oResourceBundle from "app/i18n/";
-import {sendEvents} from "core/GoogleAnalytics/";
+import { sendEvents } from "core/GoogleAnalytics/";
 import withTracker from "core/GoogleAnalytics/";
 import errorIcon from "app/resources/assets/error.svg";
 import goodIcon from "app/resources/assets/good.svg";
 import UserInput from "../../components/UserInput";
+import Recaptcha from "../../components/Recaptcha";
 import { toast } from "core/components/Toaster/";
+import { CleverTap_CustomEvents } from 'core/CleverTap'
 import "./index.scss";
 
 class ForgotPassword extends BaseContainer {
@@ -34,7 +36,8 @@ class ForgotPassword extends BaseContainer {
   constructor(props) {
     super(props);
     this.state = {
-      errorText: ""
+      errorText: "",
+      captchaVerified:false
     };
   }
   /**
@@ -57,6 +60,11 @@ class ForgotPassword extends BaseContainer {
 
   inputStateChanged(newState) {
     this.setState(newState, this.handleFormInputs);
+    if(!newState.bMobileValid){
+      this.setState({
+        captchaVerified:false
+      })
+    }
   }
 
   /**
@@ -89,6 +97,7 @@ class ForgotPassword extends BaseContainer {
       this.props.fnForgotPasswordCall(
         this.state.input,
         this.props.locale,
+        this.props.countryCode,
         this.fnSuccessForgotPassword.bind(
           this,
           `/${this.props.locale}/${CONSTANTS.FORGOT_PASSWORD_SUCCESS}`
@@ -104,12 +113,20 @@ class ForgotPassword extends BaseContainer {
   }
 
   resendSuccess() {
+
+    CleverTap_CustomEvents("forgotpassword", {
+      "status": "success"
+    })
+
     this.props.history.push(
       `/${this.props.locale}/${CONSTANTS.FORGOT_PASSWORD_MOBILE_OTP}`
     );
   }
 
   resendError(error) {
+    CleverTap_CustomEvents("forgotpassword", {
+      "status": "failure"
+    })
     if (
       error &&
       error.response &&
@@ -139,6 +156,7 @@ class ForgotPassword extends BaseContainer {
       oResourceBundle.something_went_wrong,
       toast.POSITION.BOTTOM_CENTER
     );
+
   }
   /**
    * Component Name - ForgotPassword
@@ -146,6 +164,10 @@ class ForgotPassword extends BaseContainer {
    * @param { null }
    */
   fnSuccessForgotPassword(sPath) {
+    CleverTap_CustomEvents("forgotpassword", {
+      "status": "success"
+    })
+
     common.fnNavTo.call(this, sPath);
   }
   /**
@@ -183,11 +205,27 @@ class ForgotPassword extends BaseContainer {
       oResourceBundle.something_went_wrong,
       toast.POSITION.BOTTOM_CENTER
     );
+
+    CleverTap_CustomEvents("forgotpassword", {
+      "status": "failure"
+    })
   }
 
   enterKeyOnInput(e) {
-    this.handleSendButton(e);
+    e.preventDefault();
+    if(this.state.bEmailValid || this.state.bMobileValid && this.state.captchaVerified){
+      this.handleSendButton(e);
+    }
+    
   }
+
+  VerifiyCaptcha = (value)=>{
+    this.setState({
+      captchaVerified:value
+    })
+  }
+
+
   /**
    * Component Name - ForgotPassword
    * It returns jsx to be rendered
@@ -228,12 +266,17 @@ class ForgotPassword extends BaseContainer {
               inputStateChanged={this.inputStateChanged.bind(this)}
               hidePasswordField={true}
               enterKeyOnInput={this.enterKeyOnInput.bind(this)}
+              placeholderInput={oResourceBundle.login_placeholder}
             />
+            {
+              this.state.bMobileValid ? <Recaptcha isVerified={this.VerifiyCaptcha}/> : ""
+            }
+             
             <div className="forgot-password-buttons">
               <Button
                 className="send-button forgot-button highlight"
                 onClick={() => this.handleSendButton()}
-                disabled={!(this.state.bEmailValid || this.state.bMobileValid)}
+                disabled={this.state.bEmailValid ? !this.state.bEmailValid : this.state.bMobileValid && this.state.captchaVerified ? false : true}
               >
                 {oResourceBundle.send}
               </Button>

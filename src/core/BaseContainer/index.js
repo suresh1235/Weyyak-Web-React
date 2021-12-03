@@ -40,42 +40,59 @@ export default class BaseContainer extends React.Component {
     return oMetaTagObject;
   }
 
-  setSignalData(data, type, language, country, userid, pageviewSent) {
-    window.signal.content.season = null;
-    window.signal.content.series = null;
-    window.signal.content.episode = null;
-    window.signal.user.country = null;
-    window.signal.user.userid = null;
-    if (type === "series") {
-      window.signal.content.season =
-        data && data.seasons
-          ? data.seasons[0]
-            ? data.seasons[0].id + ""
-            : null
-          : null;
-      window.signal.content.series = data.id + "";
-    }
+  setSignalData(data, type, language, country, userid, uuid, pageviewSent) {
+    // window.signal.content.season = null;
+    // window.signal.content.series = null;
+    // window.signal.content.episode = null;
+    // window.signal.user.country = null;
+    // window.signal.user.userid = null;
+    var uidValue = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
 
-    if (type === "episode") {
-      window.signal.content.season =
-        data && data.season_id ? data.season_id + "" : null;
-      window.signal.content.series =
-        data && data.series_id ? data.series_id + "" : null;
-      window.signal.content.episode =
-        data && data.episode_number !== undefined
-          ? data.episode_number + ""
-          : null;
+  
+    if(uuid==undefined || uuid==null || uuid==false){
+       uuid = localStorage.getItem("uuid");
+     
+       if(uuid==undefined || uuid==null || uuid==false){
+       uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      );
+      localStorage.setItem("uuid",uuid);
+       }
     }
+    // window.signal.user.uuid = null;
+    // if (type === "series") {
+    //   window.signal.content.season =
+    //     data && data.seasons
+    //       ? data.seasons[0]
+    //         ? data.seasons[0].id + ""
+    //         : null
+    //       : null;
+    //   window.signal.content.series = data.id + "";
+    // }
 
-    window.signal.content.genre = data && data.genres ? data.genres : null;
-    window.signal.content["sub-genre"] =
-      data && data.sub_genre ? data.sub_genre : null;
-    window.signal.content["content-type"] = type ? type : null;
-    window.signal.content.keywords = data && data.cast ? data.cast : null;
-    window.signal.content.show_name = data && data.title ? data.title : null;
-    window.signal.content.language = language ? language : null;
-    window.signal.user.country = country ? country:null;
-    window.signal.user.userid = userid ? userid:null;
+    // if (type === "episode") {
+    //   window.signal.content.season =
+    //     data && data.season_id ? data.season_id + "" : null;
+    //   window.signal.content.series =
+    //     data && data.series_id ? data.series_id + "" : null;
+    //   window.signal.content.episode =
+    //     data && data.episode_number !== undefined
+    //       ? data.episode_number + ""
+    //       : null;
+    // }
+
+    // window.signal.content.genre = data && data.genres ? data.genres : null;
+    // window.signal.content["sub-genre"] =
+    //   data && data.sub_genre ? data.sub_genre : null;
+    // window.signal.content["content-type"] = type ? type : null;
+    // window.signal.content.keywords = data && data.cast ? data.cast : null;
+    // window.signal.content.show_name = data && data.title ? data.title : null;
+    // window.signal.content.language = language ? language : null;
+    // window.signal.user.country = country ? country:null;
+    // window.signal.user.userid = userid ? userid:uuid;
+    // window.signal.user.uuid = uuid?uuid:null;
     // window.signal.content.country = country ? country : null;
     // window.signal.content.userid = data
 

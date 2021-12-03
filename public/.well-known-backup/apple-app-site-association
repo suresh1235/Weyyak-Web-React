@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Server: nginx/1.10.1
+Content-Type: application/pkcs7-mime
+Content-Length: 300
+
+ 
+
+
+{
+  "applinks": {
+    "apps": [],
+    "details": [{
+      "appID": "C9REGPB46C.com.tvaa.z5weyyak",
+      "paths": ["*"]
+    }]
+  }
+}

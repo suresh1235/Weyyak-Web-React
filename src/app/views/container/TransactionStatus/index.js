@@ -10,19 +10,25 @@
 
 import React from "react";
 import BaseContainer from "core/BaseContainer/";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import * as actionTypes from "app/store/action/";
 import * as CONSTANTS from "../../../AppConfig/constants";
-import {fnNavTo, getCookie} from "app/utility/common";
+import { fnNavTo, getCookie, userSubscriptionPlan, getUserId } from "app/utility/common";
 import Spinner from "core/components/Spinner";
-import {sendEvents} from "core/GoogleAnalytics/";
+import { sendEvents } from "core/GoogleAnalytics/";
+import { CleverTap_CustomEvents,CleverTap_UserEvents } from 'core/CleverTap'
 import Button from "core/components/Button/";
 import oResourceBundle from "app/i18n/";
 import url from "url";
 import "./index.scss";
 
 class AdyenGateway extends BaseContainer {
-  componentDidMount() {
+  async componentDidMount() {
+
+    CleverTap_CustomEvents("subscription_thankyou_page", {
+      "country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country'),
+    })
+
     if (this.props.match.params.status) {
       const url_parts = url.parse(this.props.location.search, true);
       const query = url_parts.query;
@@ -46,25 +52,61 @@ class AdyenGateway extends BaseContainer {
       fnNavTo.call(this, `/${this.props.locale}`);
     }
 
+    const allPlans = await userSubscriptionPlan(true, this.props.locale);
+
+    let activePlans = [];
+
+    for (let plan of allPlans) {
+      if (plan.state === CONSTANTS.ACTIVE_PLAN_TEXT) {
+        activePlans.push(plan);
+      }
+    }
+
+    // console.log("----->", activePlans)
+
+
     if (
       this.props.oTransactionReference &&
       this.props.oTransactionReference.resultCode === "Authorised"
     ) {
       sendEvents(
-        CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_CATEGORY,
+        activePlans && activePlans[0].subscription_plan.no_of_free_trial_days == 0 ? CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_CATEGORY : CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_TRIAL_CATEGORY,
         CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_ACTION,
         CONSTANTS.PAYMENT_OPERATOR_ADYEN
       );
+
+      if (activePlans) {
+        //CleverTap Events
+        CleverTap_CustomEvents("subscription_success", {
+          "payment mode": activePlans[0].payment_provider,
+          "pack_type": activePlans[0].subscription_plan.title,
+          "subscription_start_date": activePlans[0].subscription_start,
+          "subscription_expiry_date": activePlans[0].subscription_end,
+          "subscription_country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country'),
+        })
+      }
+
     } else {
       sendEvents(
         CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_CATEGORY,
         CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_ACTION,
         CONSTANTS.PAYMENT_OPERATOR_ADYEN
       );
+
+      if (this.props.oSelectedPlan) {
+        //CleverTap Events
+        CleverTap_CustomEvents("subscription_failure", {
+          "payment mode": this.props.oSelectedPlan.payment_providers[0].name,
+          "pack_type": this.props.oSelectedPlan.title,
+          // "subscription_start_date": this.props.oSelectedPlan.start,
+          // "subscription_expiry_date": this.props.oSelectedPlan.end,
+          "subscription_country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country'),
+        })
+      }
     }
   }
 
-  componentDidUpdate(prevProps, prevSate) {}
+  componentDidUpdate(prevProps, prevSate) { }
 
   fnCheckResultCode(oResponse) {
     this.props.fnUpdateTransactionReference(oResponse);
@@ -136,9 +178,9 @@ class AdyenGateway extends BaseContainer {
 
     const sPath =
       this.props.oTransactionReference &&
-      this.props.oTransactionReference.error_code !==
+        this.props.oTransactionReference.error_code !==
         CONSTANTS.PAYMENT_SUCCESS_CODE &&
-      this.props.oTransactionReference.error_code !==
+        this.props.oTransactionReference.error_code !==
         CONSTANTS.PAYMENT_PARTIAL_SUCCESS_CODE
         ? `/${this.props.locale}/${CONSTANTS.CHECKOUT}`
         : `/${this.props.locale}`;
@@ -179,7 +221,7 @@ class AdyenGateway extends BaseContainer {
               onClick={this.fnRetryBtnClick.bind(this, sPath)}
             >
               {this.props.oTransactionReference.resultCode ===
-              CONSTANTS.PAYMENT_VERIFY_ERROR
+                CONSTANTS.PAYMENT_VERIFY_ERROR
                 ? oResourceBundle.ok
                 : oResourceBundle.try_again}
             </Button>
@@ -201,8 +243,11 @@ class AdyenGateway extends BaseContainer {
 const mapStateToProps = state => {
   return {
     locale: state.locale,
+    countryCode: state.sCountryCode,
     loading: state.loading,
-    oTransactionReference: state.oTransactionReference
+    oTransactionReference: state.oTransactionReference,
+    oSelectedPlan: state.oSelectedPlan,
+    countryCode: state.sCountryCode,
   };
 };
 

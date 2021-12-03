@@ -8,36 +8,41 @@
  * of L&T.
  */
 
-import React from "react";
-import RootContainer from "core/RootConatiner/";
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
-import * as actionTypes from "app/store/action/";
-import RoutComponent from "app/Routes/";
-import {Link} from "react-router-dom";
-import Button from "core/components/Button/";
-import * as routeNames from "app/Routes/RouteNames";
-import * as CONSTANTS from "app/AppConfig/constants";
-import AppHeader from "app/views/components/AppHeader";
-import Spinner from "core/components/Spinner";
-import AppMenu from "app/views/components/AppMenu";
-import AppFooter from "app/views/components/AppFooter";
-import {ENABLE_COUNTRY_QUERY_PARAM} from "app/AppConfig/features";
-import oResourceBundle from "app/i18n/";
-import oResourceBundleError from "app/AppConfig/Error/";
-import HandlerContext from "app/views/Context/HandlerContext";
-import {getDirection} from "app/utility/common";
-import {sendEvents} from "core/GoogleAnalytics/";
-import Logger from "core/Logger";
-import * as common from "app/utility/common";
-import {Toaster} from "core/components/Toaster/";
-import url from "url";
-import { isMobile, isAndroid, isIOS } from "react-device-detect";
+import React from 'react';
+import RootContainer from 'core/RootConatiner/';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as actionTypes from 'app/store/action/';
+import RoutComponent from 'app/Routes/';
+import { Link } from 'react-router-dom';
+import Button from 'core/components/Button/';
+import * as routeNames from 'app/Routes/RouteNames';
+import * as constants from "../../../AppConfig/constants";
+import * as CONSTANTS from 'app/AppConfig/constants';
+import AppHeader from 'app/views/components/AppHeader';
+import Spinner from 'core/components/Spinner';
+import AppMenu from 'app/views/components/AppMenu';
+import AppFooter from 'app/views/components/AppFooter';
+import ManageCookies from 'app/views/components/ManageCookies';
+import { ENABLE_COUNTRY_QUERY_PARAM } from 'app/AppConfig/features';
+import oResourceBundle from 'app/i18n/';
+import oResourceBundleError from 'app/AppConfig/Error/';
+import HandlerContext from 'app/views/Context/HandlerContext';
+import { getDirection } from 'app/utility/common';
+import { sendEvents } from 'core/GoogleAnalytics/';
+import Logger from 'core/Logger';
+import * as common from 'app/utility/common';
+import { Toaster } from 'core/components/Toaster/';
+import { toast } from "core/components/Toaster/";
+import url from 'url';
+import { isMobile, isAndroid, isIOS } from 'react-device-detect';
+// import ClevertapReact from '../../../../core/CleverTap/index'
+import { CleverTap_CustomEvents, CleverTap_privacy } from 'core/CleverTap'
 
-import "./index.scss";
+import './index.scss';
 
 class AppBody extends RootContainer {
-  MODULE_NAME = "AppBody";
+  MODULE_NAME = 'AppBody';
   bLogoClicked = false;
   /**
    * Represents App Body.
@@ -51,9 +56,13 @@ class AppBody extends RootContainer {
       showSearchInput: false,
       playerScreenVisible: false,
       showUserMenu: false,
-      userInputText: "",
+      userInputText: '',
       errorOccured: false,
-      geoBlock: false
+      geoBlock: false,
+      cookieSettings: false,
+      showEssential: false,
+      showPerformance: false,
+      showAdvertising: false,
     };
     this.bMenuLoaded = false;
   }
@@ -67,16 +76,14 @@ class AppBody extends RootContainer {
     let sLanguageCode = this.props.match.params.langcode;
     const url_parts = url.parse(this.props.location.search, true);
     const query = url_parts.query;
-    
+
     //if language code is not valid
     if (
       !sLanguageCode ||
       sLanguageCode.length > 2 ||
-      (sLanguageCode !== CONSTANTS.AR_CODE &&
-        sLanguageCode !== CONSTANTS.EN_CODE)
+      (sLanguageCode !== CONSTANTS.AR_CODE && sLanguageCode !== CONSTANTS.EN_CODE)
     ) {
-      this.props.history.location.pathname !== CONSTANTS.HOME_PATH &&
-        this.props.history.push("/");
+      this.props.history.location.pathname !== CONSTANTS.HOME_PATH && this.props.history.push('/');
       //Set deafult locale
       sLanguageCode = this.props.locale;
     }
@@ -92,17 +99,42 @@ class AppBody extends RootContainer {
     );
     //Idle Time calculation
     this.idleTime = 0;
+
+    // Clevertap user Privacy 
+    CleverTap_privacy()
   }
 
   platformConfigSuccess() {
-    Logger.log(this.MODULE_NAME, "platformConfigSuccess");
+    Logger.log(this.MODULE_NAME, 'platformConfigSuccess');
     this.setState({
       errorOccured: false
     });
+
+    this.props.fnHeaderMenu(
+      this.props.locale,
+      oReponse => {
+
+        //Success
+        if (oReponse.code === 404) {
+          common.showToast(
+            CONSTANTS.GENERIC_TOAST_ID,
+            oResourceBundle.payment_system_error,
+            toast.POSITION.BOTTOM_CENTER
+          );
+        }
+      },
+      oError => {
+        //Failed
+        common.showToast(
+          CONSTANTS.GENERIC_TOAST_ID,
+          oResourceBundle.payment_system_error,
+          toast.POSITION.BOTTOM_CENTER
+        );
+      })
   }
 
   platformConfigFailed() {
-    Logger.log(this.MODULE_NAME, "platformConfigFailed");
+    Logger.log(this.MODULE_NAME, 'platformConfigFailed');
     this.setState({
       errorOccured: true
     });
@@ -113,11 +145,11 @@ class AppBody extends RootContainer {
    * @param {null}
    */
   fnUpdateCookie() {
-    const oUserObj = common.getCookie(CONSTANTS.COOKIE_USER_OBJECT)
-      ? JSON.parse(common.getCookie(CONSTANTS.COOKIE_USER_OBJECT))
+    const oUserObj = common.getServerCookie(CONSTANTS.COOKIE_USER_OBJECT)
+      ? JSON.parse(common.getServerCookie(CONSTANTS.COOKIE_USER_OBJECT))
       : null;
-    const oUserToken = common.getCookie(CONSTANTS.COOKIE_USER_TOKEN)
-      ? JSON.parse(common.getCookie(CONSTANTS.COOKIE_USER_TOKEN))
+    const oUserToken = common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN)
+      ? JSON.parse(common.getServerCookie(CONSTANTS.COOKIE_USER_TOKEN))
       : null;
     const oRememberMe = common.getCookie(CONSTANTS.COOKIE_REMEMBER_ME)
       ? JSON.parse(common.getCookie(CONSTANTS.COOKIE_REMEMBER_ME))
@@ -157,10 +189,10 @@ class AppBody extends RootContainer {
    */
   filterShowToggleUserMenu(oEvent) {
     if (this.state.showUserMenu) {
-      this.setState({showUserMenu: false});
+      this.setState({ showUserMenu: false });
     } else {
       //Make it true for activating dropdown menu
-      this.setState({showUserMenu: false});
+      this.setState({ showUserMenu: false });
     }
     oEvent.stopPropagation();
   }
@@ -183,10 +215,7 @@ class AppBody extends RootContainer {
    * @param {object} prevState - Previous states
    */
   componentDidUpdate(prevProps, prevState) {
-    const nextLocale =
-      this.props.locale === CONSTANTS.EN_CODE
-        ? CONSTANTS.AR_CODE
-        : CONSTANTS.EN_CODE;
+    const nextLocale = this.props.locale === CONSTANTS.EN_CODE ? CONSTANTS.AR_CODE : CONSTANTS.EN_CODE;
     //Logo Click constraints
     // if (this.props.history.location.state) {
     //   this.props.history.location.state.bLogoClicked = false;
@@ -194,17 +223,36 @@ class AppBody extends RootContainer {
     //dispatch menu items fetch only if menu are not loaded
     //And new props locale is changed
     if (
-      (this.props.platformConfig &&
-        !this.props.aMenuItems &&
-        !this.bMenuLoaded) ||
+      (this.props.platformConfig && !this.props.aMenuItems && !this.bMenuLoaded) ||
       (this.props.platformConfig && this.props.locale !== prevProps.locale)
     ) {
       this.props.fnFetchMenuItems(this.props.locale);
       this.bMenuLoaded = true;
+      this.props.fnHeaderMenu(
+        this.props.locale,
+        oReponse => {
+
+          //Success
+          if (oReponse.code === 404) {
+            common.showToast(
+              CONSTANTS.GENERIC_TOAST_ID,
+              oResourceBundle.payment_system_error,
+              toast.POSITION.BOTTOM_CENTER
+            );
+          }
+        },
+        oError => {
+          //Failed
+          common.showToast(
+            CONSTANTS.GENERIC_TOAST_ID,
+            oResourceBundle.payment_system_error,
+            toast.POSITION.BOTTOM_CENTER
+          );
+        })
     }
     //on back change app direction
     if (
-      this.props.history.action === "POP" &&
+      this.props.history.action === 'POP' &&
       this.props.match.params.langcode !== prevProps.match.params.langcode
     ) {
       let sLocale = nextLocale;
@@ -213,12 +261,15 @@ class AppBody extends RootContainer {
       //Change app language
       oResourceBundle.setLanguage(sLocale);
       oResourceBundleError.setLanguage(sLocale);
+
     }
     if (this.props.countryCode !== prevProps.countryCode) {
       const geoBlock = common.isGeoBlocked(this.props.countryCode);
       this.setState({
         geoBlock: geoBlock
       });
+
+      // this.props.fnGDPR_PaymentGateWay_Lists(this.props.countryCode);
     }
   }
 
@@ -227,18 +278,12 @@ class AppBody extends RootContainer {
    *  Language change handler.
    * @param {object} oEvent - Event hanlder
    */
-  onLanguageButtonClickHandler = oEvent => {
+  onLanguageButtonClickHandler = (oEvent) => {
     const pathname = this.props.history.location.pathname;
-    const aPathnameParams = pathname.split("/");
-    let newPathName = "";
-    const nextLocale =
-      this.props.locale === CONSTANTS.EN_CODE
-        ? CONSTANTS.AR_CODE
-        : CONSTANTS.EN_CODE;
-    if (
-      aPathnameParams.indexOf(this.props.locale) > -1 &&
-      this.props.match.params.langcode
-    ) {
+    const aPathnameParams = pathname.split('/');
+    let newPathName = '';
+    const nextLocale = this.props.locale === CONSTANTS.EN_CODE ? CONSTANTS.AR_CODE : CONSTANTS.EN_CODE;
+    if (aPathnameParams.indexOf(this.props.locale) > -1 && this.props.match.params.langcode) {
       aPathnameParams[aPathnameParams.indexOf(this.props.locale)] = nextLocale;
 
       //Check of videocontent page
@@ -249,7 +294,7 @@ class AppBody extends RootContainer {
         //5th index is name
         aPathnameParams[5] = window.sTranslatedTitle;
       }
-      newPathName = aPathnameParams.join("/");
+      newPathName = aPathnameParams.join('/');
     } else if (!this.props.match.params.langcode) {
       Logger.log(this.MODULE_NAME, CONSTANTS.HOME_PATH);
       newPathName = CONSTANTS.HOME_PATH + nextLocale;
@@ -265,9 +310,7 @@ class AppBody extends RootContainer {
     //Send analytics event
     sendEvents(
       CONSTANTS.CHANGE_LANGUAGE,
-      nextLocale === CONSTANTS.AR_CODE
-        ? CONSTANTS.AR_ACTION
-        : CONSTANTS.EN_ACTION
+      nextLocale === CONSTANTS.AR_CODE ? CONSTANTS.AR_ACTION : CONSTANTS.EN_ACTION
     );
   };
 
@@ -276,8 +319,8 @@ class AppBody extends RootContainer {
    *  Menu Button click handler.
    * @param {object} oEvent - Event hanlder
    */
-  onMenuButtonClick = oEvent => {
-    this.setState(prevState => ({showMenu: !this.state.showMenu}));
+  onMenuButtonClick = (oEvent) => {
+    this.setState((prevState) => ({ showMenu: !this.state.showMenu }));
     this.fnHideSearchInput();
     oEvent.stopPropagation();
   };
@@ -288,7 +331,7 @@ class AppBody extends RootContainer {
    * @param {object} oEvent - Event hanlder
    */
   onSearchButtonClick(oEvent) {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       showSearchInput: !this.state.showSearchInput
     }));
     this.fnCloseMenu();
@@ -301,7 +344,7 @@ class AppBody extends RootContainer {
    * @returns {undefined}
    */
   fnCloseMenu() {
-    this.setState({showMenu: false});
+    this.setState({ showMenu: false });
   }
 
   /**
@@ -312,7 +355,7 @@ class AppBody extends RootContainer {
    */
   fnHideSearchInput() {
     this.props.fnClearUserSearchData();
-    this.setState({showSearchInput: false, userInputText: ""});
+    this.setState({ showSearchInput: false, userInputText: '' });
   }
 
   /**
@@ -338,7 +381,7 @@ class AppBody extends RootContainer {
   onAppBodyClicked() {
     this.state.showMenu && this.fnCloseMenu();
     this.state.showSearchInput && this.fnHideSearchInput();
-    this.state.showUserMenu && this.setState({showUserMenu: false});
+    this.state.showUserMenu && this.setState({ showUserMenu: false });
     //Clear search items
     this.props.fnClearSearchItems();
   }
@@ -361,10 +404,7 @@ class AppBody extends RootContainer {
    */
   onSignInClick() {
     if (common.isUserLoggedIn()) {
-      common.fnNavTo.call(
-        this,
-        `/${this.props.locale}/${CONSTANTS.MY_ACCOUNT}`
-      );
+      common.fnNavTo.call(this, `/${this.props.locale}/${CONSTANTS.MY_ACCOUNT}`);
     } else {
       this.setResumePath();
       common.fnNavTo.call(this, `/${this.props.locale}/${CONSTANTS.LOGIN}`);
@@ -380,28 +420,24 @@ class AppBody extends RootContainer {
     if (fromPlayer === true) {
       resumePath = this.props.sResumePagePath;
     } else if (
-      !currentPath.includes("login") &&
-      !currentPath.includes("sign-up") &&
-      !currentPath.includes("plans") &&
-      !currentPath.includes("adyen") &&
-      !currentPath.includes("transaction") &&
-      !currentPath.includes("payment")
+      !currentPath.includes('login') &&
+      !currentPath.includes('sign-up') &&
+      !currentPath.includes('plans') &&
+      !currentPath.includes('adyen') &&
+      !currentPath.includes('transaction') &&
+      !currentPath.includes('payment')
     ) {
       resumePath = currentPath;
     } else {
-      resumePath = common.getCookie(CONSTANTS.RESUME_PATH_COOKIE_NAME) || "";
+      resumePath = common.getCookie(CONSTANTS.RESUME_PATH_COOKIE_NAME) || '';
     }
-    common.setCookie(
-      CONSTANTS.RESUME_PATH_COOKIE_NAME,
-      resumePath,
-      CONSTANTS.COOKIES_TIMEOUT_NOT_REMEMBER
-    );
+    common.setCookie(CONSTANTS.RESUME_PATH_COOKIE_NAME, resumePath, CONSTANTS.COOKIES_TIMEOUT_NOT_REMEMBER);
     this.props.fnUpdateResumePagePath(resumePath);
     return resumePath;
   }
 
   getCurrentPath() {
-    const index = window.location.href.indexOf("/" + this.props.locale);
+    const index = window.location.href.indexOf('/' + this.props.locale);
     return window.location.href.substring(index);
   }
   /**
@@ -414,10 +450,7 @@ class AppBody extends RootContainer {
     if (this.state.geoBlock) {
       return;
     }
-    if (
-      this.props.history.location.pathname !==
-      CONSTANTS.HOME_PATH + this.props.locale
-    ) {
+    if (this.props.history.location.pathname !== CONSTANTS.HOME_PATH + this.props.locale) {
       this.bLogoClicked = true;
       this.props.history.push({
         pathname: CONSTANTS.HOME_PATH + this.props.locale
@@ -444,16 +477,18 @@ class AppBody extends RootContainer {
     if (this.state.userInputText.length >= 3) {
       this.props.fnSearchUserInput(
         this.props.locale,
-        {userInputText: this.state.userInputText, bSearchTerm: true},
+        { userInputText: this.state.userInputText, bSearchTerm: true },
         true,
         this.fnUserSearchResponseListError.bind(this),
-        oSearchTerm => {
+        (oSearchTerm) => {
           //Send analytics event
-          sendEvents(
-            CONSTANTS.SEARCH_CATEGORY,
-            oSearchTerm.userInputText,
-            this.props.location.pathname
-          );
+          sendEvents(CONSTANTS.SEARCH_CATEGORY, oSearchTerm.userInputText, this.props.location.pathname);
+          //CleverTap Events
+          // CleverTap_CustomEvents("content_paused")
+          CleverTap_CustomEvents("search", {
+            "searched_keyword": this.state.userInputText,
+            "country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country')
+          })
         }
       );
     }
@@ -466,7 +501,7 @@ class AppBody extends RootContainer {
    * @returns {undefined}
    */
   fnUserSearchResponseListError(error) {
-    console.error("fnUserSearchResponseListError: ", error);
+    console.error('fnUserSearchResponseListError: ', error);
   }
   /**
    * Component Name - AppBody
@@ -483,20 +518,20 @@ class AppBody extends RootContainer {
       const userInputText = oEvent.target.value;
       this.props.fnSearchUserInput(
         this.props.locale,
-        {userInputText: userInputText, bSearchTerm: true},
+        { userInputText: userInputText, bSearchTerm: true },
         this.fnUserSearchResponseListError.bind(this),
-        oSearchTerm => {
+        (oSearchTerm) => {
           //Send analytics event
-          sendEvents(
-            CONSTANTS.SEARCH_CATEGORY,
-            oSearchTerm.userInputText,
-            this.props.location.pathname
-          );
+          sendEvents(CONSTANTS.SEARCH_CATEGORY, oSearchTerm.userInputText, this.props.location.pathname);
         }
       );
-      this.props.history.push(
-        `/${this.props.locale}/${CONSTANTS.SEARCH}/${userInputText}/`
-      );
+
+      CleverTap_CustomEvents("search", {
+        "searched_keyword": this.state.userInputText,
+        "country": this.props.countryCode ? this.props.countryCode : localStorage.getItem('country')
+      })
+
+      this.props.history.push(`/${this.props.locale}/${CONSTANTS.SEARCH}/${userInputText}/`);
     }
   }
   /**
@@ -510,10 +545,7 @@ class AppBody extends RootContainer {
     if (oEvent.keyCode === CONSTANTS.ESC_KEYCODE) {
       this.props.fnClearUserSearchData();
     } else if (oEvent.keyCode !== CONSTANTS.ENTER_KEYCODE) {
-      this.typingTimer = setTimeout(
-        this.fnFetchSearchItems.bind(this),
-        CONSTANTS.TYPING_DELAY
-      );
+      this.typingTimer = setTimeout(this.fnFetchSearchItems.bind(this), CONSTANTS.TYPING_DELAY);
     }
   }
 
@@ -527,9 +559,98 @@ class AppBody extends RootContainer {
     clearTimeout(this.typingTimer);
   }
 
-  setCookiesPolicyOk() {
+  setCookiesPolicyOk(GDPR_DATA, MGC) {
     // 2335285800000 comes in 2093
-    common.setCookie("cookies_accepted", true, CONSTANTS.INFINITE_COOKIE_TIME);
+
+    common.setGDPRCookie('cookies_accepted', 'true');
+    // common.setCookie('cookies_accepted', true, CONSTANTS.INFINITE_COOKIE_TIME)
+
+    let User_DATA = JSON.parse(common.getServerCookie('COOKIE_USER_OBJECT'))
+    //**Defalut GDPR DATA
+
+    let data = {
+      performance: true,
+      advertising: true,
+
+      googleAnalytics: true,
+      cleverTap: true,
+      googleAds: true,
+
+      // firebase: true,
+      // appFlyer: true,
+
+      // aique: true,
+      // facebookAds: true,
+    }
+
+
+    if (common.isUserLoggedIn()) {
+
+      let USER_LOGGED__DATA = {
+        fname: User_DATA ? User_DATA.firstName : "",
+        lname: User_DATA ? User_DATA.lastName : "",
+        email: User_DATA ? User_DATA.email : "",
+        newsletter: User_DATA ? User_DATA.newslettersEnabled : "",
+        promotions: User_DATA ? User_DATA.promotionsEnabled : "",
+        country: User_DATA ? User_DATA.countryName : "",
+        selectedCountryCode: User_DATA ? User_DATA.countryId : "",
+        language: User_DATA ? User_DATA.languageName : "",
+        selectedLanguageCode: User_DATA ? User_DATA.languageId : "",
+        newsletter1: User_DATA ? User_DATA.privacyPolicy : "",
+        newsletter2: User_DATA ? User_DATA.isAdult : "",
+        newsletter3: User_DATA ? User_DATA.isRecommend : "",
+        firebase: User_DATA ? User_DATA.firebase : "",
+        appFlyer: User_DATA ? User_DATA.appFlyer : "",
+        aique: User_DATA ? User_DATA.aique : "",
+        facebookAds: User_DATA ? User_DATA.facebookAds : "",
+
+        isGdprAccepted: true,
+        performance: true,
+        advertising: true,
+        googleAnalytics: true,
+        cleverTap: true,
+        googleAds: true,
+
+      }
+
+
+
+      this.props.handleUpdateAccount(
+        USER_LOGGED__DATA,
+        () => {
+          //Data updated successfully
+          toast.dismiss();
+          toast.success(oResourceBundle.cookie_update_success, {
+            position: toast.POSITION.BOTTOM_CENTER
+          });
+        },
+        oError => {
+          if (oError) {
+            toast.dismiss();
+            toast.success(oError.description, {
+              position: toast.POSITION.BOTTOM_CENTER
+            });
+          } else {
+            toast.dismiss();
+            toast.success(oResourceBundle.something_went_wrong, {
+              position: toast.POSITION.BOTTOM_CENTER
+            });
+          }
+        }
+      );
+
+      common.setGDPRCookie('GDPR_Cookies', data, CONSTANTS.INFINITE_COOKIE_TIME);
+      // common.setCookie('GDPR_Cookies', JSON.stringify(data), CONSTANTS.INFINITE_COOKIE_TIME);
+
+      CleverTap_privacy()
+    } else {
+
+      common.setGDPRCookie('GDPR_Cookies', data, CONSTANTS.GDPRCookieExpires);
+      // common.setCookie('GDPR_Cookies', JSON.stringify(data), CONSTANTS.GDPRCookieExpires);
+
+      CleverTap_privacy()
+    }
+
   }
 
   /**
@@ -558,19 +679,13 @@ class AppBody extends RootContainer {
    * @returns {undefined}
    */
   onSubscribeButtonClick = async (oEvent, fromSlider) => {
-    let sPath = "";
+    let sPath = '';
     const isUserEntitled = await common.isUserSubscribed();
     const resumePath = this.setResumePath();
     if (!common.isUserLoggedIn()) {
       sPath = `/${this.props.locale}/${CONSTANTS.LOGIN}`;
-      this.props.fnUpdateResumePagePath(
-        `${this.props.locale}/${CONSTANTS.PLANS_DESCRIPTION}`
-      );
-      common.setCookie(
-        CONSTANTS.COOKIE_GO_TO_SUBSCRIBE,
-        true,
-        CONSTANTS.INFINITE_COOKIE_TIME
-      );
+      this.props.fnUpdateResumePagePath(`${this.props.locale}/${CONSTANTS.PLANS_DESCRIPTION}`);
+      common.setCookie(CONSTANTS.COOKIE_GO_TO_SUBSCRIBE, true, CONSTANTS.INFINITE_COOKIE_TIME);
     } else if (common.isUserLoggedIn() && !isUserEntitled) {
       //if user is logged in and not subscribed go to plans page
       sPath = `/${this.props.locale}/${CONSTANTS.PLANS_DESCRIPTION}`;
@@ -582,11 +697,9 @@ class AppBody extends RootContainer {
       fromSlider === true ? CONSTANTS.LABEL_MAIN_SLIDER : resumePath
     );
 
-    sPath !== "" && common.fnNavTo.call(this, sPath);
+    sPath !== '' && common.fnNavTo.call(this, sPath);
   };
 
-
-  
   /**
    * Component Name - AppBody
    * Subscribe button click
@@ -594,19 +707,13 @@ class AppBody extends RootContainer {
    * @returns {undefined}
    */
   onSubscribeButtonClick1 = async (oEvent, fromSlider) => {
-    let sPath = "";
+    let sPath = '';
     const isUserEntitled = await common.isUserSubscribed();
     const resumePath = this.setResumePath();
     if (!common.isUserLoggedIn()) {
       sPath = `/${this.props.locale}/${CONSTANTS.LOGIN}`;
-      this.props.fnUpdateResumePagePath(
-        `${this.props.locale}/${CONSTANTS.PLANS}`
-      );
-      common.setCookie(
-        CONSTANTS.COOKIE_GO_TO_SUBSCRIBE,
-        true,
-        CONSTANTS.INFINITE_COOKIE_TIME
-      );
+      this.props.fnUpdateResumePagePath(`${this.props.locale}/${CONSTANTS.PLANS}`);
+      common.setCookie(CONSTANTS.COOKIE_GO_TO_SUBSCRIBE, true, CONSTANTS.INFINITE_COOKIE_TIME);
     } else if (common.isUserLoggedIn() && !isUserEntitled) {
       //if user is logged in and not subscribed go to plans page
       sPath = `/${this.props.locale}/${CONSTANTS.PLANS}`;
@@ -618,20 +725,59 @@ class AppBody extends RootContainer {
       fromSlider === true ? CONSTANTS.LABEL_MAIN_SLIDER : resumePath
     );
 
-    sPath !== "" && common.fnNavTo.call(this, sPath);
+    sPath !== '' && common.fnNavTo.call(this, sPath);
   };
 
+
+  showCookiePolicy = () => {
+    common.fnNavTo.call(this, `/${this.props.locale}/${constants.PRIVACY_POLICY}${this.props.locale}`)
+  }
+  //Cooking Contest
+  
+  onContestButtonClick = async (oEvent) => {
+    let sPath =  `/${this.props.locale}/${CONSTANTS.COOKING_CONTEST}`;
+    common.fnNavTo.call(this, sPath);
+  };
   /**
    * Component Name - AppBody
    * renders the UI.
    * @param null
    * @returns {undefined}
    */
+
+  openManageCookiesSettings = () => {
+    this.setState({
+      cookieSettings: !this.state.cookieSettings
+    })
+  }
+
+
+  manageEssentialInfo = () => {
+    this.setState({
+      showEssential: !this.state.showEssential
+    })
+  }
+
+  managePerformanceAnalyticsInfo = () => {
+    this.setState({
+      showPerformance: !this.state.showPerformance
+    })
+  }
+
+  manageAdvertisingInfo = () => {
+    this.setState({
+      showAdvertising: !this.state.showAdvertising
+    })
+  }
+
+
+
+
+
+
   render() {
     const oHandlers = {
-      onLanguageButtonClickHandler: this.onLanguageButtonClickHandler.bind(
-        this
-      ),
+      onLanguageButtonClickHandler: this.onLanguageButtonClickHandler.bind(this),
       onMenuButtonClick: this.onMenuButtonClick.bind(this),
       onSearchButtonClick: this.onSearchButtonClick.bind(this),
       onOverlayClick: this.onOverlayClick.bind(this),
@@ -643,19 +789,54 @@ class AppBody extends RootContainer {
       fnLogoClickedStateChange: this.fnLogoClickedStateChange.bind(this),
       fnGetLogoClickedState: this.fnGetLogoClickedState.bind(this),
       onSubscribeButtonClick: this.onSubscribeButtonClick.bind(this),
-      onSubscribeButtonClick1: this.onSubscribeButtonClick1.bind(this)
+      onSubscribeButtonClick1: this.onSubscribeButtonClick1.bind(this),
+      onContestButtonClick:this.onContestButtonClick.bind(this)
     };
-    let footerClassName = "";
+    let footerClassName = '';
     if (this.props.playerScreenVisible) {
-      footerClassName += " gone";
+      footerClassName += ' gone';
     }
-    const areCookiesAccepted = common.getCookie("cookies_accepted");
+
+    // let areCookiesAccepted = common.getCookie('cookies_accepted');
+
+    //OLD Implemetation
+    // let IsCookiesAccepted = common.getCookie('cookies_accepted');
+    // let IsGDPRCookies = common.getCookie('GDPR_Cookies') ? true : false
+
+    //NEW Implemetation
+    let IsCookiesAccepted = common.getGDPRCookie('cookies_accepted');
+    let IsGDPRCookies = common.getGDPRCookie('GDPR_Cookies') ? true : false
+
+    let GDPRDATA = common.getGDPRCookie('GDPR_Cookies')
+    let CurrentData = new Date().getTime()
+    let ExpiresTime = GDPRDATA ? GDPRDATA.expiresTime : ""
+
+    // debugger;
+    // console.log(ExpiresTime)
+
+    let areCookiesAccepted = false
+
+    if (ExpiresTime && CurrentData >= ExpiresTime) {
+      areCookiesAccepted = false
+      common.DeleteGDPRCookie('GDPR_Cookies');
+      common.DeleteGDPRCookie('cookies_accepted');
+    } else {
+      areCookiesAccepted = IsCookiesAccepted && IsGDPRCookies ? true : false
+    }
+
+    let GDPREssentialData = null
+
+    if (this.props.GDPRPaymentGatewaysList && this.props.GDPRPaymentGatewaysList.payment_providers) {
+      GDPREssentialData = this.props.GDPRPaymentGatewaysList
+      // console.log("------>", this.props.GDPRPaymentGatewaysList)
+    }
+
 
     return (
       <HandlerContext.Provider value={oHandlers}>
         <Toaster rtl={getDirection(this.props.locale) === CONSTANTS.RTL} />
         <div
-          className={"app-body " + getDirection(this.props.locale)}
+          className={'app-body ' + getDirection(this.props.locale)}
           dir={getDirection(this.props.locale)}
           ref="app-body"
           onClick={this.onAppBodyClicked.bind(this)}
@@ -665,9 +846,7 @@ class AppBody extends RootContainer {
             showSearchInput={this.state.showSearchInput}
             showUserMenuDropDown={this.state.showUserMenu}
             locale={this.props.locale}
-            onLanguageButtonClickHandler={this.onLanguageButtonClickHandler.bind(
-              this
-            )}
+            onLanguageButtonClickHandler={this.onLanguageButtonClickHandler.bind(this)}
             onSearchButtonClick={this.onSearchButtonClick.bind(this)}
             onMenuButtonClick={this.onMenuButtonClick.bind(this)}
             onSignInClick={this.onSignInClick.bind(this)}
@@ -677,6 +856,8 @@ class AppBody extends RootContainer {
             keyDown={this.onSearchInputKeyDown.bind(this)}
             keyPress={this.onSearchInputkeyPress.bind(this)}
             userInputText={this.state.userInputText}
+            HeaderMenu={this.props.aHeaderMenu}
+            show={this.state.showMenu}
           />
 
           {this.props.aMenuItems ? (
@@ -688,28 +869,22 @@ class AppBody extends RootContainer {
               closeButtonClick={this.onOverlayClick.bind(this)}
               onSignInClick={this.onSignInClick.bind(this)}
               showCloseBtn={false}
+              HeaderMenu={this.props.aHeaderMenu}
+              onLanguageButtonClick={this.onLanguageButtonClickHandler.bind(this)}
             />
           ) : null}
           {this.state.errorOccured && (
             <div className="full-error-message">
-              {window.navigator.onLine
-                ? <Spinner />
-                : oResourceBundle.no_internet_connection}
+              {window.navigator.onLine ? <Spinner /> : oResourceBundle.no_internet_connection}
             </div>
           )}
           {this.props.platformConfig && (
             <div className="page-content">
               {this.state.geoBlock && (
-                <section className="geo-blocked">
-                  {oResourceBundle.weyyak_unavailable}
-                </section>
+                <section className="geo-blocked">{oResourceBundle.weyyak_unavailable}</section>
               )}
               {
-                <section
-                  className={
-                    "home-content" + (this.state.geoBlock ? " gone" : "")
-                  }
-                >
+                <section className={'home-content' + (this.state.geoBlock ? ' gone' : '')}>
                   <RoutComponent location={this.props.location} />
                 </section>
               }
@@ -717,30 +892,46 @@ class AppBody extends RootContainer {
           )}
           {!areCookiesAccepted &&
             !this.state.geoBlock && (
-              <div className="cookies-policy-container">
+              <div className="cookies-policy-container" style={{ borderTop: '1px solid #ff740f' }}>
                 <div className="cookies-policy">
-                  <p className="cookies-text">
-                    {oResourceBundle.cookies_1}
-                    <br />
-                    {oResourceBundle.cookies_2}
-                    <Link
-                      to={`/${this.props.locale}/static/privacy-${
-                        this.props.locale
-                      }`}
-                      aria-label={oResourceBundle.privacy_policy}
-                    >
-                      <span>{oResourceBundle.cookies_3}</span>
-                    </Link>
-                    <br />
-                    {oResourceBundle.cookies_4}
-                  </p>
-                  <Button
-                    className="cookies-ok"
-                    onClick={this.setCookiesPolicyOk.bind(this)}
-                  >
-                    {oResourceBundle.ok}
-                  </Button>
+
+                  <div className="latest-cookie-block">
+                    <section className="cookie-parent-block">
+                      <p><b>{oResourceBundle.GDPR_Cookies_1}</b> </p>
+                      <p className="cookies-text">
+                        {oResourceBundle.GDPR_Cookies_2}&nbsp;
+                        <Link
+                          to={`/${this.props.locale}/static/cookie-policy-${this.props.locale
+                            }`}
+                          aria-label={oResourceBundle.privacy_policy}
+                        >
+                          <span>{oResourceBundle.cookie_policy}</span>
+                        </Link>
+
+                      </p>
+                      <p> {oResourceBundle.GDPR_Cookies_3}</p>
+                      <p>{oResourceBundle.GDPR_Cookies_4}</p>
+                      <div className="cookie-btn-group">
+                        <button className="new-orange-btn" onClick={this.setCookiesPolicyOk.bind(this)}> {isMobile ? oResourceBundle.proceed : oResourceBundle.Iagree} </button>
+                        <button className="new-stroke-btn" style={{ padding: "0px 20px" }} onClick={this.openManageCookiesSettings}> {oResourceBundle.ManageCookies} </button>
+                      </div>
+
+                    </section>
+                  </div>
                 </div>
+              </div>
+            )}
+
+          {!areCookiesAccepted && this.state.cookieSettings &&
+            !this.state.geoBlock && (
+              <div className="cookies-policy-container" style={{ borderTop: '1px solid #ff740f' }}>
+                <ManageCookies
+                  // UserLoginStatus={common.isUserLoggedIn()}
+                  // GDPREssentialData={GDPREssentialData}
+                  MoreToggle={false}
+                  openManageCookiesSettings={this.openManageCookiesSettings}
+                  CookiesPolicyOk={this.setCookiesPolicyOk}
+                />
               </div>
             )}
           {this.props.loading && !this.props.platformConfig && <Spinner />}
@@ -757,7 +948,7 @@ class AppBody extends RootContainer {
  * @param {Object} state - state from redux store.
  * @return {Object} - state mapped to props
  */
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     locale: state.locale,
     loading: state.loading,
@@ -768,7 +959,10 @@ const mapStateToProps = state => {
     oPageContent: state.oPageContent,
     playerScreenVisible: state.playerScreenVisible,
     userSearchResponseList: state.userSearchResponseList,
-    sResumePagePath: state.sResumePagePath
+    sResumePagePath: state.sResumePagePath,
+    GDPRPaymentGatewaysList: state.aGDPRPaymentGatewaysList,
+    oUserAccountDetails: state.oUserAccountDetails,
+    aHeaderMenu: state.aHeaderMenu
   };
 };
 
@@ -778,7 +972,7 @@ const mapStateToProps = state => {
  * @param {Object} dispatch - dispatcher from store.
  * @return {Object} - dispatchers mapped to props
  */
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   //dispatch action to redux store
   return {
     //to access use this.props.fnChangeAppDirection();
@@ -787,7 +981,7 @@ const mapDispatchToProps = dispatch => {
      * @param {string} sCurrentDirection - Current selected locale.
      * @return null
      */
-    fnChangeAppDirection: sCurrentLocale => {
+    fnChangeAppDirection: (sCurrentLocale) => {
       dispatch(actionTypes.changeDirection(sCurrentLocale));
     },
     /**
@@ -795,7 +989,7 @@ const mapDispatchToProps = dispatch => {
      * @param {string} sCurrentDirection - Current selected locale.
      * @return null
      */
-    fnChangeAppLocale: sCurrentLocale => {
+    fnChangeAppLocale: (sCurrentLocale) => {
       dispatch(actionTypes.changeDirection(sCurrentLocale));
     },
     /**
@@ -804,12 +998,14 @@ const mapDispatchToProps = dispatch => {
      * @return null
      */
     fnFetchPlatformConfig: (sLanguageCode, sCountry, fnSuccess, fnFailure) => {
+      dispatch(actionTypes.fnFetchPlatformConfig(sLanguageCode, sCountry, fnSuccess, fnFailure));
+    },
+    fnHeaderMenu: (slocale, fnSuccess, fnFailed) => {
       dispatch(
-        actionTypes.fnFetchPlatformConfig(
-          sLanguageCode,
-          sCountry,
+        actionTypes.fnHeaderMenu(
+          slocale,
           fnSuccess,
-          fnFailure
+          fnFailed
         )
       );
     },
@@ -818,8 +1014,25 @@ const mapDispatchToProps = dispatch => {
      * @param null
      * @return null
      */
-    fnFetchMenuItems: sLanguageCode => {
+    fnFetchMenuItems: (sLanguageCode) => {
       dispatch(actionTypes.fnFetchMenuItems(sLanguageCode));
+    },
+    fnGDPR_PaymentGateWay_Lists: (sCountryCode, sLocale) => {
+      dispatch(
+        actionTypes.fnGDPR_PaymentGateWay_Lists(
+          sCountryCode,
+          sLocale
+        )
+      );
+    },
+    handleUpdateAccount: (currentStateValues, fnSuccess, fnFailed) => {
+      dispatch(
+        actionTypes.fnHandleUpdateAccount(
+          currentStateValues,
+          fnSuccess,
+          fnFailed
+        )
+      );
     },
     fnClearUserSearchData: () => {
       dispatch(actionTypes.fnClearUserSearchData());
@@ -844,18 +1057,15 @@ const mapDispatchToProps = dispatch => {
     fnClearSearchItems: () => {
       dispatch({
         type: actionTypes.USER_SEARCH_RESPONSE,
-        payload: {userSearchResponseList: [], bUpdateSearchInput: true}
+        payload: { userSearchResponseList: [], bUpdateSearchInput: true }
       });
     },
-    fnUpdateResumePagePath: sPath => {
+    fnUpdateResumePagePath: (sPath) => {
       dispatch(actionTypes.fnUpdateResumePagePath(sPath));
     }
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(AppBody)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppBody));
+
+

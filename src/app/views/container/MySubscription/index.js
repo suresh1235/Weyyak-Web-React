@@ -9,19 +9,21 @@
  */
 
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import moment from "moment";
 import Dialog from "core/components/Dialog";
 import * as constants from "../../../AppConfig/constants";
 import Button from "core/components/Button/";
 import * as actionTypes from "app/store/action/";
-import {sendEvents} from "core/GoogleAnalytics/";
+import { sendEvents } from "core/GoogleAnalytics/";
 import oResourceBundle from "app/i18n/";
 import * as CONSTANTS from "app/AppConfig/constants";
 import * as common from "app/utility/common";
 import BaseContainer from "core/BaseContainer/";
 import Spinner from "core/components/Spinner";
-import {toast} from "core/components/Toaster/";
+import { toast } from "core/components/Toaster/";
+import {CleverTap_UserEvents} from 'core/CleverTap'
+
 import "./index.scss";
 
 const ACTIVE_PLANS_TAB = 1;
@@ -44,13 +46,21 @@ class ManageYourAccount extends BaseContainer {
   }
 
   componentDidMount() {
-    const oUserToken = common.getCookie(constants.COOKIE_USER_TOKEN)
-      ? JSON.parse(common.getCookie(constants.COOKIE_USER_TOKEN))
+    const oUserToken = common.getServerCookie(constants.COOKIE_USER_TOKEN)
+      ? JSON.parse(common.getServerCookie(constants.COOKIE_USER_TOKEN))
       : null;
     if (!oUserToken) {
       this.props.history.push(`/${this.props.locale}/${constants.LOGIN}`);
     }
     this.getPlans();
+
+    
+    this.props.fnFetchCouponData(
+			this.props.locale,
+		  common.getUserId(),
+			()=>{},
+      ()=>{}
+		);
   }
 
   componentDidUpdate(prevProps, prevSate) {
@@ -85,7 +95,7 @@ class ManageYourAccount extends BaseContainer {
    * @param { null }
    * @returns {undefined}
    */
-  handleToggle() {}
+  handleToggle() { }
 
   activePlansClicked() {
     this.setState({
@@ -110,7 +120,7 @@ class ManageYourAccount extends BaseContainer {
     });
   }
 
-  cancelSubscriptionSuccess() {
+  cancelSubscriptionSuccess(activePlanData) {
     common.showToast(
       CONSTANTS.MY_SUBSCRIPTION_TOAST_ID,
       oResourceBundle.cancel_subscription_success,
@@ -119,7 +129,8 @@ class ManageYourAccount extends BaseContainer {
     this.getPlans();
 
     sendEvents(
-      CONSTANTS.SUBSCRIPTION_CANCEL_CATEGORY,
+      activePlanData && activePlanData[0] && activePlanData[0].free_trial_days == 0 ?
+        CONSTANTS.SUBSCRIPTION_CANCEL_CATEGORY : CONSTANTS.SUBSCRIPTION_CANCEL_CATEGORY_TRIAL,
       CONSTANTS.SUBSCRIPTION_CANCEL_ACTION,
       this.state.selectedPlan.subscription_plan.title
     );
@@ -137,34 +148,50 @@ class ManageYourAccount extends BaseContainer {
     this.setState({
       showCancelDialog: false
     });
-    if (
-      CONSTANTS.PAYMENT_OPERATOR_ADYEN ===
-      this.state.selectedPlan.payment_provider
-    ) {
-      this.props.adyenCancelSubscription(
-        this.state.selectedPlan.order_id,
-        this.props.locale,
-        this.cancelSubscriptionSuccess.bind(this),
-        this.cancelSubscriptionFailure.bind(this)
-      );
-    } else if (
-      CONSTANTS.PAYMENT_OPERATOR_ETISALAT ===
-      this.state.selectedPlan.payment_provider
-    ) {
-      this.props.etisalatCancelSubscription(
-        this.state.selectedPlan.order_id,
-        this.props.locale,
-        this.cancelSubscriptionSuccess.bind(this),
-        this.cancelSubscriptionFailure.bind(this)
-      );
-    } else if (common.isTpay(this.state.selectedPlan.payment_provider)) {
-      this.props.tpayCancelSubscription(
-        this.state.selectedPlan.order_id,
-        this.props.locale,
-        this.cancelSubscriptionSuccess.bind(this),
-        this.cancelSubscriptionFailure.bind(this)
-      );
-    }
+
+    // use etisalatCancelSubscription for all cancel subscription
+
+    this.props.etisalatCancelSubscription(
+      this.state.selectedPlan.order_id,
+      this.props.locale,
+      this.cancelSubscriptionSuccess.bind(this),
+      this.cancelSubscriptionFailure.bind(this)
+    );
+
+    let userData = {}
+    userData.userId = common.getUserId()
+    userData.subType = "Not_a_Subscribed_User"
+    CleverTap_UserEvents("ProfileEvent", userData)
+
+
+    // if (
+    //   CONSTANTS.PAYMENT_OPERATOR_ADYEN ===
+    //   this.state.selectedPlan.payment_provider
+    // ) {
+    //   this.props.adyenCancelSubscription(
+    //     this.state.selectedPlan.order_id,
+    //     this.props.locale,
+    //     this.cancelSubscriptionSuccess.bind(this, this.activePlans),
+    //     this.cancelSubscriptionFailure.bind(this)
+    //   );
+    // } else if (
+    //   CONSTANTS.PAYMENT_OPERATOR_ETISALAT ===
+    //   this.state.selectedPlan.payment_provider
+    // ) {
+    //   this.props.etisalatCancelSubscription(
+    //     this.state.selectedPlan.order_id,
+    //     this.props.locale,
+    //     this.cancelSubscriptionSuccess.bind(this, this.activePlans),
+    //     this.cancelSubscriptionFailure.bind(this)
+    //   );
+    // } else if (common.isTpay(this.state.selectedPlan.payment_provider)) {
+    //   this.props.tpayCancelSubscription(
+    //     this.state.selectedPlan.order_id,
+    //     this.props.locale,
+    //     this.cancelSubscriptionSuccess.bind(this, this.activePlans),
+    //     this.cancelSubscriptionFailure.bind(this)
+    //   );
+    // }
   }
 
   handleDialogNo() {
@@ -173,7 +200,7 @@ class ManageYourAccount extends BaseContainer {
     });
   }
 
-  onCancelDialogClosed() {}
+  onCancelDialogClosed() { }
   onSubscribeButtonClick() {
     this.props.history.push(`/${this.props.locale}/${CONSTANTS.PLANS}`);
   }
@@ -185,6 +212,7 @@ class ManageYourAccount extends BaseContainer {
    * @returns { undefined }
    */
   render() {
+  
     return (
       <div className="manage-account">
         <div className="manage-account-conatiner ">
@@ -212,6 +240,7 @@ class ManageYourAccount extends BaseContainer {
             (this.state.currentPlans.length > 0 ? (
               this.state.currentPlans.map((plan, i) => {
                 const isPromo = plan.subscription_plan && plan.subscription_plan.promo_code;
+                const payment_providers = plan.subscription_plan && plan.subscription_plan.payment_providers;
                 return (
                   <div
                     className={
@@ -252,22 +281,38 @@ class ManageYourAccount extends BaseContainer {
                     </div>
                     <div className="plan-price plan-item">
                       <div className="label">{oResourceBundle.amount}</div>
-                      <div className="value">
-                        {plan.subscription_plan.price}{" "}
+                      {
+                        plan.subscription_plan.final_price == 0 && plan.free_trial_days != 0 ?
+                        <div className="value">
+                        {plan.subscription_plan.final_price}{" "}
                         {plan.subscription_plan.currency} {oResourceBundle.for}{" "}
-                        {plan.subscription_plan.billing_frequency}{" "}
+                        {plan.free_trial_days}{" "}
                         {oResourceBundle.days}
-                      </div>
+                      </div> 
+                      :
+                      <div className="value">
+                      {plan.subscription_plan.final_price}{" "}
+                      {plan.subscription_plan.currency} {oResourceBundle.for}{" "}
+                      {plan.subscription_plan.billing_frequency}{" "}
+                      {oResourceBundle.days}
+                    </div>
+                      }
                     </div>
                     <div className="payment-mode plan-item">
                       <div className="label">
                         {oResourceBundle.payment_mode}
                       </div>
                       <div className="value">
-                        {isPromo
-                          ? oResourceBundle.promo_code+ "("+plan.subscription_plan.promo_code+")"
-                          : plan.payment_provider}
+                        {isPromo && payment_providers=="Promo Code"
+                          ? ((plan.subscription_plan.coupon_type == "Voucher") ? oResourceBundle.gift_voucher : oResourceBundle.promo_code) + "(" + plan.subscription_plan.promo_code + ")"
+                          : plan.payment_provider == 'mw_zain' ? 'zain' : plan.payment_provider}
+
+                          {" "}
+                        {isPromo && payment_providers!="Promo Code"
+                          ? oResourceBundle.Discounted_Coupon + "(" + plan.subscription_plan.promo_code + ")"
+                          : "" }
                       </div>
+
                     </div>
                     <div className="pack-country plan-item">
                       <div className="label">
@@ -348,47 +393,47 @@ class ManageYourAccount extends BaseContainer {
                       </Dialog>
                     ) : null}
                     {isPromo ? null : this.state.current === ACTIVE_PLANS_TAB &&
-                    plan.recurring_enabled === true ? (
+                      plan.recurring_enabled === true ? (
 
-                      <div className="cancel-subscription">
-                        <span>
-                          { oResourceBundle.payment_mode === plan.payment_provider ?"Manage Your Subscription in Settings on Your ios device":<span
-                          onClick={this.cancelSubscriptionClicked.bind(
-                            this,
-                            plan
-                          )}
-                        >
-                          {oResourceBundle.cancel_subscription}
-                        </span> }
-                        </span>
+                        <div className="cancel-subscription">
+                          <span>
+                            {oResourceBundle.payment_mode === plan.payment_provider ? "Manage Your Subscription in Settings on Your ios device" : <span
+                              onClick={this.cancelSubscriptionClicked.bind(
+                                this,
+                                plan
+                              )}
+                            >
+                              {oResourceBundle.cancel_subscription}
+                            </span>}
+                          </span>
 
-                     
-                      </div>
-                    ) : (
-                      <div className="cancelled">
-                        <span>{oResourceBundle.cancelled}</span>
-                      </div>
-                    )}
+
+                        </div>
+                      ) : (
+                        <div className="cancelled">
+                          <span>{oResourceBundle.cancelled}</span>
+                        </div>
+                      )}
                     <div className="horizontal-divider" />
                   </div>
                 );
               })
             ) : (
-              <div className="no-active-plan">
-                {this.state.current === ACTIVE_PLANS_TAB &&
-                  oResourceBundle.no_active_plan}
-                {this.state.current === BILLING_TAB &&
-                  oResourceBundle.no_billing_history}
-                <div>
-                <Button
-                  className="subscribe-now-button"
-                  onClick={this.onSubscribeButtonClick.bind(this)}
-                >
-                {oResourceBundle.subscribe_now}
-               </Button>
-               </div>
-              </div>
-            ))}
+                <div className="no-active-plan">
+                  {this.state.current === ACTIVE_PLANS_TAB &&
+                    oResourceBundle.no_active_plan}
+                  {this.state.current === BILLING_TAB &&
+                    oResourceBundle.no_billing_history}
+                  <div>
+                    <Button
+                      className="subscribe-now-button"
+                      onClick={this.onSubscribeButtonClick.bind(this)}
+                    >
+                      {oResourceBundle.subscribe_now}
+                    </Button>
+                  </div>
+                </div>
+              ))}
         </div>
         {this.props.loading && <Spinner />}
       </div>
@@ -430,11 +475,20 @@ const mapDispatchToProps = dispatch => {
         actionTypes.etisalatCancelSubscription(orderId, locale, fnSuccess, fnFailure)
       );
     },
-    tpayCancelSubscription: (orderId,locale, fnSuccess, fnError) => {
+    tpayCancelSubscription: (orderId, locale, fnSuccess, fnError) => {
       dispatch(
         actionTypes.tpayCancelSubscription(orderId, locale, fnSuccess, fnError)
       );
-    }
+    },
+    fnFetchCouponData: (sLocale, user_id, fnSuccues, fnStatusFailed) => {
+      dispatch(
+        actionTypes.fnFetchCouponData(
+          sLocale,
+          user_id,
+          fnSuccues,
+          fnStatusFailed
+        )
+      )}
   };
 };
 

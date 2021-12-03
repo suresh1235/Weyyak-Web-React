@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charSet="UTF-8" />
+    <link rel="shortcut icon" href= />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="title" content="<%= contentData.data.seo_title %> on weyyak">
+    </meta>
+    <meta name="description" content="<%= contentData.data.seo_description %>" />
+    <meta name="keywords" content="<%= seo_keywords %>" />
+    <link rel="canonical" href="https://weyyak.com<%= url %>" />
+    <meta property="og:title" content="<%= contentData.data.seo_title %> on weyyak" />
+    <meta property="og:description" content="<%= contentData.data.seo_description %>" />
+    <meta property="og:image" content="<%= contentData.data.imagery.thumbnail %>?d=600×315" />
+    <meta property="og:url" content="https://weyyak.com<%= url %>" />
+    <meta name="twitter:title" content="<%= contentData.data.seo_title %> on weyyak">
+    <meta name="twitter:description" content="<%= contentData.data.seo_description %>" />
+    <meta name="twitter:image" content="<%= contentData.data.imagery.thumbnail %>?d=280x150" />
+    <meta name="twitter:card" content="summary">
+
+    <title>
+        <%= contentData.data.seo_title %> on weyyak
+    </title>
+
+    <%- include('../partials/style'); %>
+
+</head>
+
+<body>
+    <div class='app-body ltr' dir="ltr">
+        <%- include('../partials/header'); %>
+            <div class="movie-details">
+                <div class="movie-image-big-screens movie-thumb">
+                    <!-- <a class="router-link" href="/${state.lang}/player/${state.content_type}/${state.id}/${state.friendly_url}"> -->
+                    <div class=" image-thumbnail video-details-thumbnail-item">
+                        <div class="carousel-image image-container">
+                            <img src='<%= contentData.data.imagery.thumbnail %>?d=350x350'
+                                alt="<%= contentData.data.seo_title %>" />
+                        </div>
+                    </div>
+                    <!-- </a> -->
+                </div>
+                <div class="movie-info">
+                    <div class="dropdown-bottom dropdown-overview" aria-hidden="false">
+                        <div class="dropdown-bottom-left">
+                            <div class="dropdown-info">
+                                <h1 class="title-info video-info">
+                                    <%= contentData.data.seo_title %>
+                                </h1>
+                                <div class="dropdown-extra-info">
+                                    <div class="rating">
+                                        <span class="ic-star"></span>
+                                        <span class="">4.6</span>
+                                    </div>
+                                    <div class="age-rating">
+                                        <%= contentData.data.age_rating %>
+                                    </div>
+                                </div>
+                                <div class="dropdown-description">
+                                    <p class="synopsis">
+                                        <%= contentData.data.synopsis %>
+                                    </p>
+                                </div>
+                                <div class="dropdown-actors-genres">
+                                    <div class="label" translate="starring">Starring:</div>
+                                    <% contentData.data.cast.map(function(cast) { %>
+                                        <p>
+                                            <%= cast %>,
+                                        </p>
+                                        <% }); %>
+                                </div>
+                                <div class="dropdown-actors-genres">
+                                    <div class="label" translate="genres">Genres:</div>
+                                    <% contentData.data.genres.map(function(cast) { %>
+                                        <p>
+                                            <%= cast %>,
+                                        </p>
+                                        <% }); %>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button tabindex="0" class="btn playlist-btn">
+                                    <img class="icon"
+                                        src="https://webqa.weyyak.com/static/media/playlist_plus.788279ff.svg"
+                                        alt="Playlist" />
+                                    <span>Playlist</span>
+                                </button>
+                                <button tabindex="0" class="btn share-btn">
+                                    <img class="icon" src="https://webqa.weyyak.com/static/media/share.b3fb2c61.svg"
+                                        alt="Share" />
+                                    <span>Share</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% if(isSeries){ %>
+                <div>
+                    <div class="title-info" style="text-align: center;  font-weight: bold;">Episode list</div>
+                    <% contentData.data.seasons[0].episodes.map(function(item,index) { %>
+                        <a href=<%=EpisodeURLsData[index] %>>
+                            <img src='<%= item.imagery.thumbnail %>?d=150x150'
+                                alt="<%= item.title %>-<%= item.episode_number %>" />
+                        </a>
+                        <% }); %>
+                </div>
+                <% } %>
+                    <div class="title-info" style="text-align: center;  font-weight: bold;">Related content</div>
+                    <hr>
+                    <div class="Related-content">
+                        <% relatedData.map(function(item) { %>
+                            <a href="/<%= language %>/<%= item.content_type %>/<%= item.id %>/<%= item.friendly_url %>">
+                                <img src='<%= item.imagery.thumbnail %>?d=150x150' alt="<%= item.seo_title %>" />
+                            </a>
+                            <% }); %>
+                    </div>
+                    <%- include('../partials/footer'); %>
+    </div>
+</body>
+
+</html>
+
+
+<!-- REF EJS -->
+
+<!-- 
+  <% if(true){ %>
+    <h1>foo</h1>
+  <% } else{ %>  
+    <h1>bar</h1>
+ <% } %> -->

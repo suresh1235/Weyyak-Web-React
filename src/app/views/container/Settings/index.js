@@ -16,7 +16,7 @@ import * as constants from "../../../AppConfig/constants";
 import * as actionTypes from "app/store/action/";
 import * as common from "app/utility/common";
 import withTracker from "core/GoogleAnalytics/";
-import { isUserLoggedIn,isUserSubscribed } from "app/utility/common";
+import { isUserLoggedIn, isUserSubscribed } from "app/utility/common";
 import Spinner from "core/components/Spinner";
 import oResourceBundle from "app/i18n/";
 import "./index.scss";
@@ -50,47 +50,55 @@ class Settings extends BaseContainer {
           <div className="title">{oResourceBundle.settings}</div>
           {isUserLoggedIn()
             ? this.getSettingsItem(oResourceBundle.my_account, userIdentifier, () =>
-                common.fnNavTo.call(
-                  this,
-                  `/${this.props.locale}/${constants.MY_ACCOUNT}`
-                )
+              common.fnNavTo.call(
+                this,
+                `/${this.props.locale}/${constants.MY_ACCOUNT}`
               )
+            )
             : null}
           {ENABLE_SUBSCRIPTION && isUserLoggedIn()
             ? this.getSettingsItem(
-                oResourceBundle.my_subscripton,
-                oResourceBundle.manage_your_plans,
-                () =>
-                  common.fnNavTo.call(
-                    this,
-                    `/${this.props.locale}/${constants.MY_SUBSCRIPTION}/`
-                  )
-              )
+              oResourceBundle.my_subscripton,
+              oResourceBundle.manage_your_plans,
+              () =>
+                common.fnNavTo.call(
+                  this,
+                  `/${this.props.locale}/${constants.MY_SUBSCRIPTION}/`
+                )
+            )
             : null}
           {isUserLoggedIn()
             ? this.getSettingsItem(
-                oResourceBundle.devices,
-                oResourceBundle.manage_your_devices,
-                () =>this.props.isUserSubscribed?
-                   common.fnNavTo.call(
-                    this,
-                    `/${this.props.locale}/${constants.DEVICE_MANAGEMENT}/`
-                  ):(
-                    common.fnNavTo.call(
-                    this,
-                    `/${this.props.locale}/${constants.DEVICE_DESCRIPTION}/`))
-              )
+              oResourceBundle.devices,
+              oResourceBundle.manage_your_devices,
+              () => 
+                common.fnNavTo.call(
+                  this,
+                  `/${this.props.locale}/${constants.DEVICE_MANAGEMENT}/`
+                ) 
+            )
             : null}
           {isUserLoggedIn()
             ? this.getSettingsItem(
-                oResourceBundle.my_activity,
-                oResourceBundle.my_activity,
-                () =>
-                  common.fnNavTo.call(
-                    this,
-                    `/${this.props.locale}/${constants.MY_ACTIVITY}`
-                  )
-              )
+              oResourceBundle.my_activity,
+              oResourceBundle.my_activity,
+              () =>
+                common.fnNavTo.call(
+                  this,
+                  `/${this.props.locale}/${constants.MY_ACTIVITY}`
+                )
+            )
+            : null}
+          {isUserLoggedIn()
+            ? this.getSettingsItem(
+              oResourceBundle.Cookies,
+              oResourceBundle.ManageYourCookies,
+              () =>
+                common.getGDPRCookie('cookies_accepted') ? common.fnNavTo.call(
+                  this,
+                  `/${this.props.locale}/${constants.MANAGE_COOKIES}`
+                ) : ""
+            )
             : null}
           {this.getSettingsItem(
             oResourceBundle.privacy,
@@ -98,8 +106,7 @@ class Settings extends BaseContainer {
             () =>
               common.fnNavTo.call(
                 this,
-                `/${this.props.locale}/${constants.PRIVACY_POLICY}${
-                  this.props.locale
+                `/${this.props.locale}/${constants.PRIVACY_POLICY}${this.props.locale
                 }`
               )
           )}
@@ -109,25 +116,29 @@ class Settings extends BaseContainer {
             () =>
               common.fnNavTo.call(
                 this,
-                `/${this.props.locale}/${constants.TERMS_OF_USE}${
-                  this.props.locale
+                `/${this.props.locale}/${constants.TERMS_OF_USE}${this.props.locale
                 }`
               )
           )}
           {isUserLoggedIn()
             ? this.getSettingsItem(
-                oResourceBundle.sign_out,
-                oResourceBundle.sign_out_of_your_account,
-                () => {
-                  common.deleteCookie(constants.COOKIE_USER_OBJECT);
-                  common.deleteCookie(constants.COOKIE_USER_TOKEN);
-                  this.props.fnForLogOut();
-                  common.fnNavTo.call(this, `/${this.props.locale}`, true);
-                }
-              )
+              oResourceBundle.sign_out,
+              oResourceBundle.sign_out_of_your_account,
+              () => {
+                common.deleteCookie(constants.COOKIE_USER_OBJECT);
+                common.deleteCookie(constants.COOKIE_USER_TOKEN);
+                common.DeleteGDPRCookie('GDPR_Cookies');
+                common.DeleteGDPRCookie('cookies_accepted');
+                localStorage.removeItem("Ramadan")
+                sessionStorage.removeItem("subscribedUser")
+                sessionStorage.removeItem("notSubscribedUser")
+                this.props.fnForLogOut();
+                common.fnNavTo.call(this, `/${this.props.locale}`, true);
+              }
+            )
             : null}
         </div>
-        {this.props.loading ? <Spinner /> : null}
+        {/* {this.props.loading ? <Spinner /> : null} */}
       </div>
     );
   }

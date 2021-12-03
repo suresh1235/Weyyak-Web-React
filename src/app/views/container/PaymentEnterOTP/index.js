@@ -13,14 +13,15 @@ import * as actionTypes from "app/store/action/";
 import * as common from "app/utility/common";
 import * as CONSTANTS from "app/AppConfig/constants";
 import BaseContainer from "core/BaseContainer/";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import oResourceBundle from "app/i18n/";
-import {sendEvents} from "core/GoogleAnalytics/";
+import { sendEvents } from "core/GoogleAnalytics/";
 import Button from "../../../../core/components/Button/";
 import Spinner from "core/components/Spinner";
 import Input from "core/components/Input/";
-import {toast} from "core/components/Toaster/";
+import { toast } from "core/components/Toaster/";
 import withTracker from "core/GoogleAnalytics/";
+import { CleverTap_CustomEvents,CleverTap_UserEvents } from 'core/CleverTap'
 
 import "./index.scss";
 
@@ -38,36 +39,36 @@ class PaymentEnterOTP extends BaseContainer {
       transactionDone: false,
       errorOccured: false,
       otp: "",
-      shortCode:this.props.id,
+      shortCode: this.props.id,
       activateResend: false,
       timerValue: CONSTANTS.RESEND_CODE_TIME,
       timerText: this.formatText(CONSTANTS.RESEND_CODE_TIME),
       operator:
-      props.oSelectedPlan && props.oSelectedPlan.payment_providers[0].name
+        props.oSelectedPlan && props.oSelectedPlan.payment_providers[0].name
     };
     if (props.oSelectedPlan && props.oSelectedPlan.isTpay) {
       const code = CONSTANTS.TPAY_OPERATOR_SHORT_CODES[props.sCountryCode];
 
-     if(code){
-      const key = Object.keys(code).find(
-        ele =>
-         ele.toLowerCase() === props.oSelectedPlan.payment_providers[0].name.toLowerCase()
-      );
-      if(key) {
-        this.state.shortCode = code[key];
+      if (code) {
+        const key = Object.keys(code).find(
+          ele =>
+            ele.toLowerCase() === props.oSelectedPlan.payment_providers[0].name.toLowerCase()
+        );
+        if (key) {
+          this.state.shortCode = code[key];
+        }
+        else {
+          this.state.shortCode = "";
+        }
       }
-      else {
-        this.state.shortCode = "";
-      }
-    }
     }
     this.oUserObject = {};
     this.oUserToken = {};
     this.resendInterval = -1;
   }
-    
-  componentDidMount() {
-    if (!this.props.oEtisalatSession && !this.props.oTpaySession) {
+
+  async componentDidMount() {
+    if (!this.props.oEtisalatSession && !this.props.oTpaySession && !this.props.oZainSession) {
       common.fnNavTo.call(this, `/${this.props.locale}/`);
     }
     this.startTimer();
@@ -124,7 +125,7 @@ class PaymentEnterOTP extends BaseContainer {
       CONSTANTS.SUBSCRIPTION_PAY_ACTION,
       this.props.oSelectedPlan.title,
       this.props.oSelectedPlan.shortCode
-      
+
     );
     if (this.props.oSelectedPlan.isEtisalat) {
       const data = {
@@ -151,18 +152,31 @@ class PaymentEnterOTP extends BaseContainer {
           .subscriptionContractId,
         order_id: this.props.oTpaySession.order_id,
         pin_code: this.state.otp,
-        shortCode:this.props.oSelectedPlan.shortCode
+        shortCode: this.props.oSelectedPlan.shortCode
       };
 
-     this.props.tpayVerify(
+      this.props.tpayVerify(
         data,
         this.etisalatVerifySuccess.bind(this),
-        this.tpayVerifyError.bind(this)      
+        this.tpayVerifyError.bind(this)
+      );
+    }
+
+    if (this.props.oSelectedPlan.is_MW_Zain) {
+      const data = {
+        order_id: this.props.oZainSession.order_id,
+        pin_code: Number(this.state.otp),
+      };
+
+      this.props.ZainVerify(
+        data,
+        this.etisalatVerifySuccess.bind(this),
+        this.zainVerifyError.bind(this)
       );
     }
   }
 
-  etisalatVerifySuccess() {
+  async etisalatVerifySuccess() {
     this.setState({
       transactionDone: true
     });
@@ -173,11 +187,50 @@ class PaymentEnterOTP extends BaseContainer {
     if (this.props.oSelectedPlan.isTpay) {
       paymentOperator = CONSTANTS.PAYMENT_OPERATOR_TPAY;
     }
+    if (this.props.oSelectedPlan.is_MW_Zain) {
+      paymentOperator = CONSTANTS.PAYMENT_OPERATOR_MW_ZAIN;
+    }
+
     sendEvents(
-      CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_CATEGORY,
-      CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_ACTION,
+      this.props.oSelectedPlan.no_of_free_trial_days == 0 ? CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_CATEGORY : CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_TRIAL_CATEGORY,
+      this.props.oSelectedPlan.no_of_free_trial_days == 0 ? CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_ACTION : CONSTANTS.SUBSCRIPTION_PAYMENT_COMPLETED_ACTION,
       paymentOperator
     );
+
+    const allPlans = await common.userSubscriptionPlan(true, this.props.locale);
+
+    let activePlans = [];
+
+    for (let plan of allPlans) {
+        if (plan.state === CONSTANTS.ACTIVE_PLAN_TEXT) {
+            activePlans.push(plan);
+        }
+    }
+
+    if (activePlans) {
+      //CleverTap Events
+      CleverTap_CustomEvents("subscription_success", {
+        "payment mode": activePlans[0].payment_provider,
+        "pack_type": activePlans[0].subscription_plan.title,
+        "subscription_start_date": activePlans[0].subscription_start,
+        "subscription_expiry_date": activePlans[0].subscription_end,
+        "subscription_country": this.props.sCountryCode ? this.props.sCountryCode : localStorage.getItem('country'),
+      })
+    }
+    
+    let userData = {}
+    userData.userId = common.getUserId()
+    CleverTap_UserEvents("ProfileEvent", userData)
+    
+
+  }
+
+  subscriptionfailure(){
+     CleverTap_CustomEvents("subscription_failure", {
+      "payment mode": this.props.oSelectedPlan ? this.props.oSelectedPlan.payment_providers[0].name : "",
+      "pack_type": this.props.oSelectedPlan ? this.props.oSelectedPlan.title : "",
+      "subscription_country": this.props.sCountryCode ? this.props.sCountryCode : localStorage.getItem('country'),
+      })
   }
 
   etisalatVerifyError(response) {
@@ -207,7 +260,7 @@ class PaymentEnterOTP extends BaseContainer {
           message = oResourceBundle.something_went_wrong;
       }
     }
- 
+
     common.showToast(
       CONSTANTS.GENERIC_TOAST_ID,
       message,
@@ -234,6 +287,8 @@ class PaymentEnterOTP extends BaseContainer {
       CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_ACTION,
       paymentOperator
     );
+
+    this.subscriptionfailure()
   }
 
 
@@ -243,7 +298,7 @@ class PaymentEnterOTP extends BaseContainer {
     if (response && response.error_code) {
       switch (response.response_code) {
         case CONSTANTS.ERROR_CODE_TPAY_ZERO:
-          message = oResourceBundle.wait_two_minutes  
+          message = oResourceBundle.wait_two_minutes
           break;
         case CONSTANTS.ERROR_CODE_TPAY_INVALID_PIN:
           message = oResourceBundle.invalid_pin;
@@ -252,59 +307,108 @@ class PaymentEnterOTP extends BaseContainer {
           message = oResourceBundle.verification_sms_not_sent;
           break;
         case CONSTANTS.ERROR_CODE_TPAY_SUBSCRIPTION_VERIFIED:
-          message = oResourceBundle.subscription_verified  
+          message = oResourceBundle.subscription_verified
           break;
         case CONSTANTS.ERROR_CODE_TPAY_LIMIT_EXCEEDED:
           message = oResourceBundle.code_limit_exceeded;
           break;
         case CONSTANTS.ERROR_CODE_TPAY_PIN_LIMIT_EXCEEDED:
           message = oResourceBundle.max_attempt_reached;
-          break;  
+          break;
+        default:
+          goToNextScreen = true;
+          message = response.error_msg;
+      }
+    }
+    else {
+      switch (response.payment_status_code) {
+        case CONSTANTS.ERROR_CODE_TPAY_PAYMENT_STATUS:
+          message = oResourceBundle.already_subscribed;
+          break;
+        case CONSTANTS.ERROR_CODE_TPAY_ZERO:
+          message = oResourceBundle.wait_two_minutes
+          break;
         default:
           goToNextScreen = true;
           message = oResourceBundle.payment_error;
       }
-   }
-   else {
-     switch(response.payment_status_code){
-      case CONSTANTS.ERROR_CODE_TPAY_PAYMENT_STATUS:
-        message = oResourceBundle.already_subscribed;
-        break;
-      case CONSTANTS.ERROR_CODE_TPAY_ZERO:
-        message = oResourceBundle.wait_two_minutes  
-        break;
-      default:
-        goToNextScreen = true;
-        message = oResourceBundle.payment_error;
-     }
-   }
+    }
 
 
     common.showToast(
-        CONSTANTS.GENERIC_TOAST_ID,
-        message,
-        toast.POSITION.BOTTOM_CENTER
-      );
-      if (goToNextScreen) {
-        this.setState({
-          transactionDone: true,
-          errorOccured: true
-        });
+      CONSTANTS.GENERIC_TOAST_ID,
+      message,
+      toast.POSITION.BOTTOM_CENTER
+    );
+    if (goToNextScreen) {
+      this.setState({
+        transactionDone: true,
+        errorOccured: true
+      });
+    }
+    let paymentOperator = "";
+    if (this.props.oSelectedPlan.isEtisalat) {
+      paymentOperator = CONSTANTS.PAYMENT_OPERATOR_ETISALAT;
+    }
+    if (this.props.oSelectedPlan.isTpay) {
+      paymentOperator = CONSTANTS.PAYMENT_OPERATOR_TPAY;
+    }
+
+    sendEvents(
+      CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_CATEGORY,
+      CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_ACTION,
+      paymentOperator
+    );
+
+    this.subscriptionfailure()
+
+  }
+
+  zainVerifyError(response) {
+
+    let message = oResourceBundle.payment_error;
+    let goToNextScreen = false;
+    if (response && response.data && response.data.error_code) {
+      if (response.data.error_code == 111 || response.data.error_code == 112 || response.data.error_code == 113) {
+        message = response.data.error_msg
+      } else {
+        goToNextScreen = true;
+        message = oResourceBundle.something_went_wrong;
       }
-      let paymentOperator = "";
-      if (this.props.oSelectedPlan.isEtisalat) {
-        paymentOperator = CONSTANTS.PAYMENT_OPERATOR_ETISALAT;
-      }
-      if (this.props.oSelectedPlan.isTpay) {
-        paymentOperator = CONSTANTS.PAYMENT_OPERATOR_TPAY;
-      }
-    
-      sendEvents(
-        CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_CATEGORY,
-        CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_ACTION,
-        paymentOperator
-      );
-    }       
+    }
+
+
+    common.showToast(
+      CONSTANTS.GENERIC_TOAST_ID,
+      message,
+      toast.POSITION.BOTTOM_CENTER
+    );
+    if (goToNextScreen) {
+      this.setState({
+        transactionDone: true,
+        errorOccured: true
+      });
+    }
+    let paymentOperator = "";
+    if (this.props.oSelectedPlan.isEtisalat) {
+      paymentOperator = CONSTANTS.PAYMENT_OPERATOR_ETISALAT;
+    }
+    if (this.props.oSelectedPlan.isTpay) {
+      paymentOperator = CONSTANTS.PAYMENT_OPERATOR_TPAY;
+    }
+    if (this.props.oSelectedPlan.is_MW_Zain) {
+      paymentOperator = CONSTANTS.PAYMENT_OPERATOR_MW_ZAIN;
+    }
+
+    sendEvents(
+      CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_CATEGORY,
+      CONSTANTS.SUBSCRIPTION_PAYMENT_FAILED_ACTION,
+      paymentOperator
+    );
+
+    this.subscriptionfailure()
+
+  }
 
   handleExitButton() {
     this.props.history.push(`/${this.props.locale}/${CONSTANTS.PLANS}`);
@@ -338,6 +442,24 @@ class PaymentEnterOTP extends BaseContainer {
             .subscriptionContractId
         };
         this.props.tpayResendOTP(
+          data,
+          this.otpSent.bind(this),
+          this.otpError.bind(this)
+        );
+      }
+    }
+
+    if (this.props.oSelectedPlan.is_MW_Zain) {
+
+      let mobileNUmber = this.props.location.state.mobile_number
+
+      if (this.state.activateResend) {
+        this.startTimer();
+        const data = {
+          mobile: mobileNUmber,
+          service_id: this.props.oZainSession.service_id
+        };
+        this.props.ZainResendOTP(
           data,
           this.otpSent.bind(this),
           this.otpError.bind(this)
@@ -391,21 +513,23 @@ class PaymentEnterOTP extends BaseContainer {
     let sendDisabled = true;
     if (this.props.oSelectedPlan) {
       const planDuration =
-        this.props.oSelectedPlan.billing_frequency == 7 ? oResourceBundle.week : this.props.oSelectedPlan.billing_frequency == 30 ? oResourceBundle.month: oResourceBundle.year;
+        this.props.oSelectedPlan.billing_frequency == 7 ? oResourceBundle.week : this.props.oSelectedPlan.billing_frequency == 30 ? oResourceBundle.month : oResourceBundle.year;
 
-        // common.getBillingText(
-        //   this.props.oSelectedPlan.billing_frequency,]
-        //   this.props.oSelectedPlan.billing_cycle_type
-        // );
-      const text = 
-        this.props.oSelectedPlan.country === "BH"? oResourceBundle.free_for4 : oResourceBundle.free_for3;
+      // common.getBillingText(
+      //   this.props.oSelectedPlan.billing_frequency,]
+      //   this.props.oSelectedPlan.billing_cycle_type
+      // );
+      const text =
+        this.props.oSelectedPlan.country === "BH" ? oResourceBundle.free_for4 : (this.props.oSelectedPlan.country != "EG" ? oResourceBundle.free_for3 : "")
       const planPrice =
         this.props.oSelectedPlan.currency +
         " " +
         this.props.oSelectedPlan.price;
+
+      const planPrice1 = this.props.oSelectedPlan.price + " " + this.state.operator == "WE" ? oResourceBundle.egyptian_pounds : this.props.oSelectedPlan.currency;
       title =
         oResourceBundle.enjoy_weyyak_experience1 +
-        planPrice +
+        (this.state.operator == "WE" ? planPrice1 : planPrice) +
         oResourceBundle.enjoy_weyyak_experience2 +
         planDuration;
       const trialPeriod =
@@ -418,24 +542,27 @@ class PaymentEnterOTP extends BaseContainer {
         oResourceBundle.free_for1 +
         trialPeriod +
         oResourceBundle.free_for2 +
-        planPrice +
+        (this.state.operator == "WE" ? planPrice1 : planPrice) +
         text +
         planDuration;
- 
+
       if (this.props.oSelectedPlan.isTpay) {
-        if (this.state.otp.length >= 4 && this.state.otp.length <= 12)
-          {
-             sendDisabled = false;
-          }
+        if (this.state.otp.length >= 4 && this.state.otp.length <= 12) {
+          sendDisabled = false;
         }
+      }
       if (this.props.oSelectedPlan.isEtisalat) {
-        if (this.state.otp.length >= 4 && this.state.otp.length <= 12)
-        {
-           sendDisabled = false;
+        if (this.state.otp.length >= 4 && this.state.otp.length <= 12) {
+          sendDisabled = false;
+        }
+      }
+      if (this.props.oSelectedPlan.is_MW_Zain) {
+        if (this.state.otp.length >= 4 && this.state.otp.length <= 12) {
+          sendDisabled = false;
         }
       }
 
-    
+
     }
     return (
       <React.Fragment>
@@ -478,38 +605,58 @@ class PaymentEnterOTP extends BaseContainer {
               </div>
             }
             <div className="conditions-container">
-              <div className="free-for">{trialText}</div>
+              {this.props.sCountryCode!='IQ' ?
+              <div className="free-for">
+                {trialText}
+              </div>
+              :""}
               <div className="by-clicking">
                 {oResourceBundle.by_clicking_subscribe}
               </div>
               <br />
               <div className="by-clicking1">
-                {oResourceBundle.clicking_subscribe_condition1}
+                  {this.props.locale === "ar" && this.props.oSelectedPlan && this.props.oSelectedPlan.is_MW_Zain ? oResourceBundle.ZainText1  : oResourceBundle.clicking_subscribe_condition1}
               </div>
+              {
+              this.props.locale === "ar" && this.props.oSelectedPlan && this.props.oSelectedPlan.is_MW_Zain ?
+              <div>
+                <div className="by-clicking2">{oResourceBundle.ZainText2}</div>
+                <div className="by-clicking2">{oResourceBundle.ZainText3}</div>
+              </div> :
               <div className="by-clicking2">
-                {this.props.oSelectedPlan &&
-                  CONSTANTS.WEEKLY_PLAN_DAYS ===
-                    this.props.oSelectedPlan.billing_frequency &&
-                  oResourceBundle.clicking_subscribe_condition2_weekly}
-                {this.props.oSelectedPlan &&
-                  CONSTANTS.MONTHLY_PLAN_DAYS ===
-                    this.props.oSelectedPlan.billing_frequency &&
-                  oResourceBundle.clicking_subscribe_condition2_monthly}
-              </div>
-              <div className="by-clicking3">
-              {(this.props.oSelectedPlan && this.props.oSelectedPlan.isTpay)?(          
-            
-              (this.props.oSelectedPlan &&
-              CONSTANTS.WEEKLY_PLAN_DAYS ===
+              {this.props.oSelectedPlan &&
+                CONSTANTS.WEEKLY_PLAN_DAYS ===
                 this.props.oSelectedPlan.billing_frequency &&
-              oResourceBundle.clicking_subscribe_condition3_weekly)? (oResourceBundle.clicking_subscribe_condition3_weekly + this.state.shortCode):(oResourceBundle.clicking_subscribe_condition3_monthly+ this.state.shortCode)
-           
-            ):(
-              (( this.props.oSelectedPlan && CONSTANTS.WEEKLY_PLAN_DAYS ===
-                this.props.oSelectedPlan.billing_frequency))?(oResourceBundle.clicking_subscribe_condition4_weekly):this.props.oSelectedPlan&&this.props.oSelectedPlan.billing_frequency== 30?(oResourceBundle.clicking_subscribe_condition4_monthly):(oResourceBundle.clicking_subscribe_condition4_yearly)
+                oResourceBundle.clicking_subscribe_condition2_weekly}
+              {this.props.oSelectedPlan &&
+                CONSTANTS.MONTHLY_PLAN_DAYS ===
+                this.props.oSelectedPlan.billing_frequency &&
+                oResourceBundle.clicking_subscribe_condition2_monthly}
+            </div>
+            }
+              <div className="by-clicking3">
+                {(this.props.oSelectedPlan && this.props.oSelectedPlan.isTpay) ? (
 
-            )}
-                
+                  (this.props.oSelectedPlan &&
+                    CONSTANTS.WEEKLY_PLAN_DAYS ===
+                    this.props.oSelectedPlan.billing_frequency &&
+                    oResourceBundle.clicking_subscribe_condition3_weekly) ?
+                    (oResourceBundle.clicking_subscribe_condition3_weekly + this.state.shortCode + " " +
+                      (this.state.operator == "WE" ? oResourceBundle.for_free : "")) :
+                    (oResourceBundle.clicking_subscribe_condition3_monthly + this.state.shortCode + " " +
+                      (this.state.operator == "WE" ? oResourceBundle.for_free : ""))
+
+                ) :(this.props.oSelectedPlan && this.props.oSelectedPlan.is_MW_Zain) ? (
+                  this.props.locale === "en"  ? ((this.props.oSelectedPlan &&
+                    CONSTANTS.WEEKLY_PLAN_DAYS ===
+                    this.props.oSelectedPlan.billing_frequency &&
+                    oResourceBundle.clicking_subscribe_condition6_weekly) ? (oResourceBundle.clicking_subscribe_condition6_weekly + this.state.shortCode) : (oResourceBundle.clicking_subscribe_condition6_monthly + this.state.shortCode)) : (oResourceBundle.ZainText4)
+                ):(
+                    ((this.props.oSelectedPlan && CONSTANTS.WEEKLY_PLAN_DAYS ===
+                      this.props.oSelectedPlan.billing_frequency)) ? (oResourceBundle.clicking_subscribe_condition4_weekly) : this.props.oSelectedPlan && this.props.oSelectedPlan.billing_frequency == 30 ? (oResourceBundle.clicking_subscribe_condition4_monthly) : (oResourceBundle.clicking_subscribe_condition4_yearly)
+
+                  )}
+
                 {/* {this.props.oSelectedPlan &&
                   CONSTANTS.WEEKLY_PLAN_DAYS ===
                     this.props.oSelectedPlan.billing_frequency &&
@@ -519,6 +666,17 @@ class PaymentEnterOTP extends BaseContainer {
                     this.props.oSelectedPlan.billing_frequency &&
                   oResourceBundle.clicking_subscribe_condition3_monthly ? (oResourceBundle.clicking_subscribe_condition3_weekly+this.state.shortCode):""}  */}
               </div>
+              {
+              this.props.locale === "ar" && this.props.oSelectedPlan && this.props.oSelectedPlan.is_MW_Zain ?
+              <div>
+                <div className="by-subclicking3">{oResourceBundle.ZainText5}</div>
+                <div className="by-subclicking3">{oResourceBundle.ZainText6}</div>
+              </div> :""
+            }
+            { this.props.oSelectedPlan && this.props.oSelectedPlan.is_MW_Zain && this.props.locale === "ar" ?
+              <div className="by-clicking3">
+                {oResourceBundle.ZainText7}<a className="link" href="https://weyyak.com/ar/static/term-ar">انقر هنا</a>
+              </div> : ""}
               <br />
               <div className="by-clicking4">
                 {oResourceBundle.clicking_subscribe_condition4}
@@ -540,8 +698,8 @@ class PaymentEnterOTP extends BaseContainer {
                   {oResourceBundle.etisalat_payment_success3}
                 </div>
               ) : (
-                <div>{oResourceBundle.payment_failed}</div>
-              )}
+                  <div>{oResourceBundle.payment_failed}</div>
+                )}
             </div>
             <Button
               className="button"
@@ -553,7 +711,7 @@ class PaymentEnterOTP extends BaseContainer {
             </Button>
           </div>
         )
-        //this.state.errorOccured
+          //this.state.errorOccured
         }
       </React.Fragment>
     );
@@ -579,7 +737,14 @@ const mapDispatchToProps = dispatch => {
     },
     tpayVerify: (data, success, failure) => {
       dispatch(actionTypes.tpayVerify(data, success, failure));
-    }
+    },
+    ZainVerify: (data, success, failure) => {
+      dispatch(actionTypes.ZainVerify(data, success, failure));
+    },
+    ZainResendOTP: (data, success, failure) => {
+      dispatch(actionTypes.ZainResendOTP(data, success, failure));
+    },
+
   };
 };
 
@@ -593,6 +758,7 @@ const mapStateToProps = state => {
   return {
     locale: state.locale,
     oEtisalatSession: state.oEtisalatSession,
+    oZainSession: state.oZainSession,
     oTpaySession: state.oTpaySession,
     loading: state.loading,
     sCountryCode: state.sCountryCode,

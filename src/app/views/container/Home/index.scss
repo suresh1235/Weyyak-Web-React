@@ -118,6 +118,21 @@
     }
   }
 }
+
+.pageTitle {
+  margin: 20px;
+ font-size: 1.25em;
+ margin-left: 85px;
+ margin-right: 60px;
+ color: #818181;
+ font-family: "changa";
+ @media(max-width:768px){
+  margin-left: 30px;
+  margin-right: 20px;
+ }
+}
+
+
 /*Device width pixel lesser than 768*/
 @media only screen and (max-width: 768px) {
   .scroll-menu-arrow {
@@ -126,5 +141,3 @@
 }
 
 /*Device width pixel in between 360-450*/
-@media only screen and (max-width: 450px) {
-}

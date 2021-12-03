@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.5.0/adyen.css"
+        crossorigin="anonymous">
+    <!-- Adyen provides the SRI hash that you include as the integrity attribute. -->
+    <!-- Refer to our release notes to get the SRI hash for the specific version: https://docs.adyen.com/online-payments/release-notes -->
+
+    <script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.5.0/adyen.js"></script>
+
+    <style>
+        #loader {
+            border: 10px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 10px solid #ff6d02;
+            width: 25px;
+            height: 25px;
+            margin: auto;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <div class='app-body ltr' dir="ltr">
+        <div class="page-content" id="dropin_container">
+            <div id="loader"></div>
+        </div>
+    </div>
+
+    <script>
+
+        let Domain_Host = window.location.href
+        let PAYMENT_BASE_URL = "https://zpapi.weyyak.com";
+        let clientKey = "live_YO7JELVAHND47LHRWGULJZIMJEG2GH4Z";
+        let environment = "live";
+
+        if (Domain_Host.includes("webqa.weyyak.com") || Domain_Host.includes("goapi.weyyak.com") || Domain_Host.includes("localhost")) {
+            PAYMENT_BASE_URL = "https://zpapi.wyk.z5.com";
+            clientKey = "test_4NO324XJJZBIDCCZCGXNYP3L2QRL4E6Q"
+            environment = "test"
+
+        } else if (Domain_Host.includes("webuat.weyyak.com") || Domain_Host.includes("goapi-uat.weyyak.com")) {
+            PAYMENT_BASE_URL = "https://paymentapistg.weyyak.z5.com";
+            clientKey = "test_4NO324XJJZBIDCCZCGXNYP3L2QRL4E6Q"
+            environment = "test"
+
+        }
+
+
+        function Decrypt(value) {
+            var result = "";
+            var array = value.split("-");
+
+            for (var i = 0; i < array.length; i++) {
+                result += String.fromCharCode(array[i] - 10);
+            }
+            return result;
+        }
+
+        let payloadData = Decrypt(localStorage.getItem("payload"))
+
+        let payload = JSON.parse(payloadData)
+
+        let lang = payload.language == "EN" ? "en" : "ar"
+
+        let free_trial_days = payload.no_of_free_trial_days
+
+        let PaymentMethod_URL = `${PAYMENT_BASE_URL}/payment/v1/adyen/preparecall`
+
+        fetch(PaymentMethod_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        })
+            .then(response => response.json())
+            .then(data => {
+                // console.log('Success:', data);
+                renderAdyenPaymentUI(data)
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+
+        function renderAdyenPaymentUI(data) {
+
+            document.getElementById("loader").remove();
+
+            const config = {
+                paymentMethodsConfiguration: {
+                    ideal: {
+                        showImage: true,
+                    },
+                    card: {
+                        hasHolderName: true,
+                        holderNameRequired: true,
+                        name: "Credit or debit card",
+                        amount: {
+                            value: data.payment_info.value, // 10€ in minor units
+                            currency: data.payment_info.currency,
+                        },
+                    },
+                },
+                locale: "en_US",
+                showPayButton: true,
+                clientKey: clientKey,
+                environment: environment,
+            };
+
+            let checkout = new AdyenCheckout({
+                ...config,
+                paymentMethodsResponse: data,
+                // onAdditionalDetails: this.onAdditionalDetails,
+                onSubmit: (state, dropin) => {
+                    onPayButtonClick(state, dropin, data)
+                },
+            });
+
+            checkout.create('dropin').mount("#dropin_container");
+
+        }
+
+        function onPayButtonClick(state, dropin, methodData) {
+
+            let CallBackpayload = {
+                "order_id": methodData.order_id,
+                "state_data": state.data
+            }
+
+            let PayButton_URL = `${PAYMENT_BASE_URL}/payment/v1/adyen/callback`
+
+            fetch(PayButton_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(CallBackpayload),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // console.log('Success:', data);
+                    data.no_of_free_trial_days = free_trial_days
+                    data.order_id = methodData.order_id
+                    localStorage.setItem("subinfo", JSON.stringify(data))
+                    window.parent.location.href = `/${lang}/transactionstatus/completed`;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    localStorage.setItem("subinfo", JSON.stringify(error))
+                    window.parent.location.href =  `/${lang}/transactionstatus/completed`;
+                });
+
+        }
+
+    </script>
+</body>
+
+</html>

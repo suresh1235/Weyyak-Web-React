@@ -9,21 +9,33 @@
  */
 
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import ClampLines from "react-clamp-lines";
 import * as actionTypes from "app/store/action/";
 import PlayerControls from "core/components/PlayerControls/";
 import {
   PLAYER_CONTROLS_DURATION,
   DEFAULT_VOLUME,
-  COOKIES_TIMEOUT_NOT_REMEMBER
+  COOKIES_TIMEOUT_NOT_REMEMBER,
+  EPISODE,
+  PLAY_MOVIE,
+  PLAY_EPISODE,
+  PAUSE_MOVIE,
+  PAUSE_EPISODE,
+  PLAY_LIVETV,
+  PAUSE_LIVETV,
+  VIDEO_CATEGORY,
+  VIDEO_TRAILERS_CATEGORY,
+  VIDEO_TRAILER_STOP
+
 } from "app/AppConfig/constants";
 import {
   exitFullscreen,
   enterFullScreen,
   setCookie,
   getCookie,
-  getAdType
+  getAdType,
+  isGoogleAdsEnable
 } from "app/utility/common";
 import "./videojs/video";
 import Logger from "core/Logger";
@@ -31,11 +43,15 @@ import PopUp from "core/components/PopUp";
 import facebook from "app/resources/assets/video-content/fb.svg";
 import twitter from "app/resources/assets/video-content/twitter.svg";
 import Button from "core/components/Button";
-import {FacebookShareButton, TwitterShareButton} from "react-share";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
 import QualitySelector from "core/components/QualitySelector";
 import oResourceBundle from "app/i18n/";
-import {isMobile, isIOS} from "react-device-detect";
-
+import { isMobile, isIOS } from "react-device-detect";
+import { DMPEvents, DmpADEvents } from "core/GoogleAds";
+import Dialog from "core/components/Dialog";
+import * as CONSTANTS from "app/AppConfig/constants";
+import { sendEvents } from "core/GoogleAnalytics/";
+import { CleverTap_CustomEvents } from 'core/CleverTap'
 import "react-circular-progressbar/dist/styles.css";
 import "./index.scss";
 
@@ -46,6 +62,7 @@ class VideoPlayer extends React.Component {
     super(props);
     this.player = window.zplayer;
     this.state = {
+      pauseplaybtn: false,
       paused: true,
       muted: false,
       duration: 1,
@@ -56,8 +73,11 @@ class VideoPlayer extends React.Component {
       currentTime: 0,
       fullScreen: false,
       adPaused: false,
+      videoAdData: '',
+      isAdFullScreen: false,
       adInProgress: false,
-      isLiveTv:false
+      isLiveTv: false,
+      showCancelDialog: false
     };
     this.listener = {
       playPauseClick: this.onPlayPauseClick.bind(this),
@@ -75,16 +95,79 @@ class VideoPlayer extends React.Component {
 
   componentDidMount() {
     const playerConfig = this.createPlayerConfig(this.props.videoInfo.urlInfo);
-    if(this.props.videoInfo && this.props.videoInfo.urlInfo &&this.props.videoInfo.urlInfo.url_video.includes('weyyak-live.')){
-            this.setState({isLiveTv:true})
-    
+    if (this.props.videoInfo && this.props.videoInfo.urlInfo && this.props.videoInfo.urlInfo.url_video.includes('weyyak-live.')) {
+      this.setState({ isLiveTv: true })
+
     }
     this.player.setup(playerConfig, this.onPlayerReady.bind(this));
+
     if (getCookie("muted") === "true") {
       // for UI
       this.mute();
     }
     this.volumeResetOnUserInteraction = false;
+
+    const { id, type, name } = this.props.params;
+
+    if (this.props.videoInfo && this.props.videoInfo.videoInfo.data.data) {
+      const { genres, title, episode_number, season_number, content_type } = this.props.videoInfo.videoInfo.data.data;
+
+      if(!this.props.isTrailer){
+
+
+      if (type !== EPISODE) {
+
+        sendEvents(
+          this.props.VIDEO_TYPE_CATEGORY,
+          content_type == "movie" ? PLAY_MOVIE : PLAY_LIVETV,
+          title ? title : id
+        );
+        sendEvents(
+          VIDEO_CATEGORY,
+          content_type == "movie" ? PLAY_MOVIE : PLAY_LIVETV,
+          title ? title : id
+        );
+
+      } else {
+        sendEvents(
+          this.props.VIDEO_TYPE_CATEGORY,
+          PLAY_EPISODE,
+          `${title ? title : id} | ${oResourceBundle.season
+          } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+        );
+        sendEvents(
+          VIDEO_CATEGORY,
+          PLAY_EPISODE,
+          `${title ? title : id} | ${oResourceBundle.season
+          } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+        );
+      }
+
+    }else{
+
+      let trailerNum = window.localStorage.getItem("tvideo")
+
+      let LableName = ""
+
+      if(trailerNum){
+        let [season_number,trailer_number] = trailerNum.split(":")
+
+      if(type == "movie" || type == "play"){
+       LableName = name ? `${name} | Trailer ${trailer_number}` : id
+      } else{
+       LableName = `${title ? title : id} | ${oResourceBundle.season} ${season_number} | Trailer ${trailer_number} ` 
+      }
+      }
+
+      // sendEvents(
+      //   VIDEO_TRAILERS_CATEGORY,
+      //   VIDEO_TRAILER_STOP,
+      //   LableName
+      // );
+    }
+
+    }
+
   }
 
   // destroy player on unmount
@@ -93,6 +176,7 @@ class VideoPlayer extends React.Component {
     this.cancelControlsTimer();
     this.destroyPlayer();
   }
+
 
   /**
    * Component Name - Player
@@ -124,6 +208,8 @@ class VideoPlayer extends React.Component {
       }
       setTimeout(() => this.initPlayer(), 0);
     }
+
+
   }
 
   initPlayer() {
@@ -154,6 +240,22 @@ class VideoPlayer extends React.Component {
     Logger.log(this.MODULE_NAME, "onPlayerReady");
     this.addMediaListeners();
     this.fireListener(this.props.onPlayerReady);
+
+    DMPEvents("VideoLoad", this.props)
+  }
+
+  fnLineItemId(AdResponse) {
+
+    let lineItemID = ""
+
+    if (AdResponse.adWrapperIds.length > 1) {
+      lineItemID = AdResponse.adWrapperIds[1]
+    } else if (AdResponse.adWrapperIds.length > 0) {
+      lineItemID = AdResponse.adWrapperIds[0]
+    } else {
+      lineItemID = AdResponse.adId
+    }
+    return parseInt(lineItemID)
   }
 
   adManagerLoaded() {
@@ -165,6 +267,7 @@ class VideoPlayer extends React.Component {
     if (this.player && window.google) {
       this.player.adManager.ima.addEventListener(
         window.google.ima.AdEvent.Type.STARTED,
+
         this.onAdStarted.bind(this)
       );
       this.player.adManager.ima.addEventListener(
@@ -178,6 +281,14 @@ class VideoPlayer extends React.Component {
         }
       );
       this.player.adManager.ima.addEventListener(
+        window.google.ima.AdEvent.Type.LOADED,
+        e => {
+          this.setState({
+            videoAdData: e.getAdData()
+          });
+        }
+      );
+      this.player.adManager.ima.addEventListener(
         window.google.ima.AdEvent.Type.RESUMED,
         e => {
           Logger.log(this.MODULE_NAME, "RESUMED");
@@ -187,12 +298,18 @@ class VideoPlayer extends React.Component {
           this.fireListener(this.props.onAdResumed, e);
         }
       );
+
+
       this.player.adManager.ima.addEventListener(
         window.google.ima.AdEvent.Type.CLICK,
         () => {
           Logger.log(this.MODULE_NAME, "CLICK");
+
+          DmpADEvents("VideoAdClick", this.props, this.state.videoAdData)
+
           this.player.adManager.ima.pauseAd();
         }
+
       );
       this.player.adManager.ima.addEventListener(
         window.google.ima.AdEvent.Type.COMPLETE,
@@ -226,13 +343,79 @@ class VideoPlayer extends React.Component {
           });
         }
       );
+
+
       this.player.adManager.ima.addEventListener(
-        window.google.ima.AdEvent.Type.AD_PROGRESS,
+        window.google.ima.AdEvent.Type.FIRST_QUARTILE,
         e => {
           this.fireListener(this.props.onAdProgress, e);
+
+          DmpADEvents("VideoAdProgress", this.props, this.state.videoAdData, 0.25)
+
         }
+
       );
+
+      this.player.adManager.ima.addEventListener(
+        window.google.ima.AdEvent.Type.MIDPOINT,
+        e => {
+          this.fireListener(this.props.onAdProgress, e);
+
+          DmpADEvents("VideoAdProgress", this.props, this.state.videoAdData, 0.50)
+
+        }
+
+      );
+
+      this.player.adManager.ima.addEventListener(
+        window.google.ima.AdEvent.Type.THIRD_QUARTILE,
+        e => {
+          this.fireListener(this.props.onAdProgress, e);
+
+          DmpADEvents("VideoAdProgress", this.props, this.state.videoAdData, 0.75)
+
+        }
+
+      );
+
+      this.player.adManager.ima.addEventListener(
+        window.google.ima.AdEvent.Type.COMPLETE,
+        e => {
+          this.fireListener(this.props.onAdProgress, e);
+
+          DmpADEvents("VideoAdProgress", this.props, this.state.videoAdData, 1)
+
+        }
+
+      );
+       //LOG Event Added
+       this.player.adManager.ima.addEventListener(
+        window.google.ima.AdEvent.Type.LOG,
+        e => {
+          let adData = e.getAdData();
+          if (adData['adError']) {
+            console.log('Non-fatal error occurred: ' + adData['adError'].getMessage());
+            console.log(adData);
+          }
+
+        }
+
+      );
+      //Ad data info added
+      this.player.adManager.ima.addEventListener(
+        window.google.ima.AdEvent.Type.LOADED,
+        e => {
+          let adData = e.getAdData();
+         console.log('Ad Video info', adData);
+
+        }
+
+      );
+      
+
     }
+
+
   }
 
   onAdLog(data) {
@@ -246,6 +429,28 @@ class VideoPlayer extends React.Component {
     }
     e.stopPropagation();
     e.preventDefault();
+  }
+
+  fullscreenchange(e) {
+    if (e.isTrusted != 'undefined' && e.isTrusted == true) {
+      if (!this.state.isAdFullScreen) {
+
+        this.setState({
+          isAdFullScreen: !this.state.isAdFullScreen
+        })
+
+        DmpADEvents("VideoAdEvent", this.props, this.state.videoAdData, "full screen on")
+
+      } else {
+
+        this.setState({
+          isAdFullScreen: !this.state.isAdFullScreen
+        })
+
+        DmpADEvents("VideoAdEvent", this.props, this.state.videoAdData, "full screen off")
+
+      }
+    }
   }
 
   addMediaListeners() {
@@ -266,6 +471,7 @@ class VideoPlayer extends React.Component {
       this.player.on("userinactive", this.props.onUserInactive.bind(this));
       this.player.on("admanagerloaded", this.adManagerLoaded.bind(this));
       this.player.on("adslog", this.onAdLog.bind(this));
+      this.player.on("fullscreenchange", this.fullscreenchange.bind(this));
     }
   }
 
@@ -287,6 +493,7 @@ class VideoPlayer extends React.Component {
       this.player.off("userinactive", this.props.onUserInactive);
       this.player.off("admanagerloaded", this.adManagerLoaded);
       this.player.off("adslog", this.onAdLog);
+      this.player.off("fullscreenchange", this.fullscreenchange.bind(this));
     }
   }
 
@@ -301,7 +508,6 @@ class VideoPlayer extends React.Component {
   createPlayerConfig(urlInfo) {
     Logger.log(this.MODULE_NAME, "createPlayerConfig:" + urlInfo.url_video);
     Logger.log(this.MODULE_NAME, "autoplay:" + this.props.autoplay);
-    // var playerSegsPerm = encodeURIComponent('&permutive=' + JSON.parse(localStorage._pdfps || '[]').slice(0,250).join(','));
     const config = {
       playerId: "zplayer",
       mediaObject: {
@@ -331,10 +537,10 @@ class VideoPlayer extends React.Component {
 
     if (this.props.ENABLE_VIDEO_ADVERTISEMENT && this.props.adUrl) {
       Logger.log(this.MODULE_NAME, "enabled ads:" + this.props.adUrl);
-      var playerSegsPerm = encodeURIComponent('&permutive=' + JSON.parse(localStorage._pdfps || '[]').slice(0,250).join(','));
+      // var playerSegsPerm = encodeURIComponent('&permutive=' + JSON.parse(localStorage._pdfps || '[]').slice(0, 250).join(','));
       config.adTagUrl = this.props.adUrl;
-      config.adTagUrl = config.adTagUrl.replace(/(cust_params[^&]+)/, '$1' + playerSegsPerm);
-      
+      // config.adTagUrl = config.adTagUrl.replace(/(cust_params[^&]+)/, '$1' + playerSegsPerm);
+
     }
     return config;
   }
@@ -357,11 +563,24 @@ class VideoPlayer extends React.Component {
       this.onWaiting();
       this.player.seek(this.startTime);
       this.startTime = 0;
+
+
+      let url = window.location.href
+      let isContinueWatching = url.includes("Continue-watching")
+
+
+      if (this.props.startTime != 0 && !isContinueWatching) {
+        // this.onPause()
+        this.player.pause()
+        this.setState({
+          showCancelDialog: true
+        })
+      }
     }
   }
 
   onFirstFrameLoaded() {
-    
+
     Logger.log(
       this.MODULE_NAME,
       "onFirstFrameLoaded: " + this.state.adInProgress
@@ -396,7 +615,7 @@ class VideoPlayer extends React.Component {
       this.props.fnUpdatePlayerQuality(this.player.getQualityLevels());
       this.startControlsTimer();
       this.fireListener(this.props.onFirstFrameLoaded);
-      if(this.state.isLiveTv && !isMobile)
+      if (this.state.isLiveTv && !isMobile)
         this.updateLiveTvQuality();
     }
 
@@ -421,12 +640,36 @@ class VideoPlayer extends React.Component {
     }
     this.checkStartTime();
     this.fireListener(this.props.onLoadedData);
+    // this.dmpevents(videoload)
   }
 
   onCanPlayThrough() {
     Logger.log(this.MODULE_NAME, "onCanPlayThrough");
+
     this.props.fnUpdateVideoPlaybackState(VIDEO_PLAYBACK_STATE.PLAYING);
     this.fireListener(this.props.onCanPlayThrough);
+
+
+    let progressValue = 0
+
+    let progressTime = ((this.player.currentTime() / this.state.duration) * 100)
+
+    if (progressTime >= 25 && progressTime < 50) {
+      progressValue = 0.25
+    } else if (progressTime >= 50 && progressTime < 75) {
+      progressValue = 0.50
+    } else if (progressTime >= 75 && progressTime < 98) {
+      progressValue = 0.75
+    } else if (progressTime >= 98) {
+      progressValue = 1
+    }
+
+    if (progressValue > 0) {
+
+      DMPEvents("VideoProgress", this.props, progressValue)
+
+    }
+
   }
 
   onCanPlay() {
@@ -441,9 +684,77 @@ class VideoPlayer extends React.Component {
       paused: true
     });
     this.fireListener(this.props.onPause);
+
+    DMPEvents("VideoEvent", this.props, "Pause")
+
+    const { id, type, name } = this.props.params;
+    const { genres, title, episode_number, season_number, content_type } = this.props.videoInfo.videoInfo.data.data;
+
+    if (!this.props.isTrailer && !this.state.adInProgress && this.state.pauseplaybtn) {
+      // CleverTap Events
+      if (type !== EPISODE) {
+        CleverTap_CustomEvents("content_paused", {
+          "content_type": type,
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres.join(),
+          "country": localStorage.getItem('country')
+        })
+
+
+        sendEvents(
+          this.props.VIDEO_TYPE_CATEGORY,
+          content_type == "movie" ? PAUSE_MOVIE : PAUSE_LIVETV,
+          title ? title : id
+        );
+        sendEvents(
+          VIDEO_CATEGORY,
+          content_type == "movie" ? PAUSE_MOVIE : PAUSE_LIVETV,
+          title ? title : id
+        );
+
+
+      } else {
+        CleverTap_CustomEvents("content_paused", {
+          "content_type": "series",
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres.join(),
+          "episode_number": this.props.videoInfo.videoInfo.data.data.episode_number,
+          "episode_name": title,
+          "country": localStorage.getItem('country')
+        })
+        sendEvents(
+          this.props.VIDEO_TYPE_CATEGORY,
+          PAUSE_EPISODE,
+          `${title ? title : id} | ${oResourceBundle.season
+          } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+        );
+        sendEvents(
+          VIDEO_CATEGORY,
+          PAUSE_EPISODE,
+          `${title ? title : id} | ${oResourceBundle.season
+          } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+        );
+      }
+
+      this.setState({
+        pauseplaybtn: false
+      })
+    }
   }
 
   onPlay() {
+    debugger;
+    if(this.state.showCancelDialog){
+
+      Logger.log(this.MODULE_NAME, "stopped");
+
+      this.player.pause();
+
+      return false;
+
+    }
     Logger.log(this.MODULE_NAME, "onPlay");
     this.setState({
       paused: false
@@ -453,6 +764,68 @@ class VideoPlayer extends React.Component {
       return;
     }
     this.fireListener(this.props.onPlay);
+
+    DMPEvents("VideoPlay", this.props)
+
+    const { id, type, name } = this.props.params;
+    const { genres, title, episode_number, season_number, content_type } = this.props.videoInfo.videoInfo.data.data;
+
+
+    if (!this.props.isTrailer && !this.state.adInProgress && this.state.pauseplaybtn) {
+      // CleverTap Events
+      if (type !== EPISODE) {
+        CleverTap_CustomEvents("content_resumed", {
+          "content_type": type,
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres.join(),
+          "country": localStorage.getItem('country')
+        })
+
+
+        sendEvents(
+          this.props.VIDEO_TYPE_CATEGORY,
+          content_type == "movie" ? PLAY_MOVIE : PLAY_LIVETV,
+          title ? title : id
+        );
+        sendEvents(
+          VIDEO_CATEGORY,
+          content_type == "movie" ? PLAY_MOVIE : PLAY_LIVETV,
+          title ? title : id
+        );
+
+
+      } else {
+        CleverTap_CustomEvents("content_resumed", {
+          "content_type": "series",
+          "content_name": title,
+          "language": this.props.locale,
+          "genre": genres.join(),
+          "episode_number": this.props.videoInfo.videoInfo.data.data.episode_number,
+          "episode_name": title,
+          "country": localStorage.getItem('country')
+        })
+
+        sendEvents(
+          this.props.VIDEO_TYPE_CATEGORY,
+          PLAY_EPISODE,
+          `${title ? title : id} | ${oResourceBundle.season
+          } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+        );
+        sendEvents(
+          VIDEO_CATEGORY,
+          PLAY_EPISODE,
+          `${title ? title : id} | ${oResourceBundle.season
+          } ${season_number} | ${oResourceBundle.episode} ${episode_number}`
+        );
+      }
+
+      this.setState({
+        pauseplaybtn: false
+      })
+
+    }
+
   }
 
   onEnded(event) {
@@ -461,9 +834,9 @@ class VideoPlayer extends React.Component {
       Logger.log(
         this.MODULE_NAME,
         "hasPostroll: " +
-          this.player.adManager.hasPostroll +
-          ", paused: " +
-          this.player.paused()
+        this.player.adManager.hasPostroll +
+        ", paused: " +
+        this.player.paused()
       );
       Logger.log(this.MODULE_NAME, "adInProgress: " + this.state.adInProgress);
       const currentTime = this.player.currentTime();
@@ -546,6 +919,7 @@ class VideoPlayer extends React.Component {
   }
 
   onAdComplete(event) {
+
     Logger.log(this.MODULE_NAME, "onAdComplete");
     this.setState({
       isVpaid: false
@@ -610,9 +984,16 @@ class VideoPlayer extends React.Component {
       adInProgress: true
     });
     this.fireListener(this.props.onAdStarted, event);
+
+    DmpADEvents("VideoAdPlay", this.props, this.state.videoAdData)
+
   }
 
   onPlayPauseClick(e) {
+    this.setState({
+      pauseplaybtn: true
+    })
+
     Logger.log(this.MODULE_NAME, "onPlayPauseClick");
     this.togglePlayback();
     this.fireListener(this.props.onPlayPauseClick, e);
@@ -642,6 +1023,9 @@ class VideoPlayer extends React.Component {
       volume: 0
     });
     setCookie("muted", true, COOKIES_TIMEOUT_NOT_REMEMBER);
+
+    DMPEvents("VideoEvent", this.props, "mute")
+
   }
 
   unmute() {
@@ -652,6 +1036,9 @@ class VideoPlayer extends React.Component {
       volume: this.volumeBeforeMute
     });
     setCookie("muted", false, COOKIES_TIMEOUT_NOT_REMEMBER);
+
+    DMPEvents("VideoEvent", this.props, "unmute")
+
   }
 
   onMuteClick(e) {
@@ -698,6 +1085,29 @@ class VideoPlayer extends React.Component {
       progress: percentage
     });
     this.fireListener(this.props.onProgressBarClick, event, progress);
+
+    let progressValue = 0
+
+    let progressTime = ((this.player.currentTime() / this.state.duration) * 100)
+
+    if (progressTime >= 25 && progressTime < 50) {
+      progressValue = 0.25
+    } else if (progressTime >= 50 && progressTime < 75) {
+      progressValue = 0.50
+    } else if (progressTime >= 75 && progressTime < 98) {
+      progressValue = 0.75
+    } else if (progressTime == 98) {
+      progressValue = 1
+    }
+
+    if (progressValue > 0) {
+
+      DMPEvents("VideoProgress", this.props, progressValue)
+
+    }
+
+
+
     event.preventDefault();
     event.stopPropagation();
   }
@@ -719,14 +1129,14 @@ class VideoPlayer extends React.Component {
   }
 
   updateLiveTvQuality() {
-   // console.log('Quality '+index)
+    // console.log('Quality '+index)
     //Logger.log(this.MODULE_NAME, "onQualityChanged: " + index);
     // if (index >= this.props.qualityLevels.length) {
     //   index = -1;
     // }
-    this.player.setCurrentQuality(this.props.qualityLevels.length-1);
+    this.player.setCurrentQuality(this.props.qualityLevels.length - 1);
     this.setState({
-      currentQualityLevel: this.props.qualityLevels.length-1
+      currentQualityLevel: this.props.qualityLevels.length - 1
     });
     //this.fireListener(this.props.onQualityChanged, index);
   }
@@ -776,7 +1186,8 @@ class VideoPlayer extends React.Component {
       (isIOS && event.target.className === "player-controls-container")
     ) {
       if (this.props.playerReady && !this.props.showNextEpisodeCounter) {
-        this.togglePlayback();      }
+        this.togglePlayback();
+      }
     }
 
     if (!this.state.adInProgress) {
@@ -786,6 +1197,11 @@ class VideoPlayer extends React.Component {
       Logger.log(this.MODULE_NAME, "target: " + event.target.className);
     } else {
       Logger.log(this.MODULE_NAME, "Ad in progress");
+
+
+
+      DMPEvents("VideoPlay", this.props)
+
     }
   }
 
@@ -836,21 +1252,32 @@ class VideoPlayer extends React.Component {
     Logger.log(
       this.MODULE_NAME,
       "onToggleFullScreen: " +
-        this.state.fullScreen +
-        ", " +
-        this.player.adManager.playerInterface.player.isFullscreen()
+      this.state.fullScreen +
+      ", " +
+      this.player.adManager.playerInterface.player.isFullscreen()
     );
+
     let fullscreen = false;
+
     if (
       !this.state.fullScreen ||
       (isIOS && !this.player.adManager.playerInterface.player.isFullscreen())
     ) {
       fullscreen = true;
+
+      DMPEvents("VideoEvent", this.props, "full screen on")
+
       if (!enterFullScreen(document.getElementById("video-container"))) {
         this.player.requestFullscreen();
+
+        DMPEvents("VideoEvent", this.props, "full screen on")
+
       }
     } else {
       fullscreen = false;
+
+      DMPEvents("VideoEvent", this.props, "full screen off")
+
       if (!exitFullscreen()) {
         this.player.exitFullscreen();
       }
@@ -859,6 +1286,8 @@ class VideoPlayer extends React.Component {
       fullScreen: !this.state.fullScreen
     });
     this.fireListener(this.props.onToggleFullScreen, fullscreen);
+
+
   }
 
   onFBShareButtonClick() {
@@ -877,17 +1306,42 @@ class VideoPlayer extends React.Component {
       this.player.adManager.ima.resumeAd();
     } else if (this.player) {
       this.fireListener(this.props.bigPlayIconClick);
+
+      DMPEvents("VideoEvent", this.props, "full screen on")
+
       this.player.play();
     }
   }
 
   fireListener(listener) {
     const normalArray = Array.from(arguments);
-    normalArray.shift();
+    normalArray.shift()
     if (listener && typeof listener === "function") {
       listener(...normalArray);
     }
   }
+
+  handleDialogResume() {
+    // this.onPlay()
+    this.player.play()
+    this.setState({
+      showCancelDialog: false
+    });
+
+  }
+
+  handleDialogRestart() {
+    this.setState({
+      showCancelDialog: false,
+    });
+
+    this.player.seek(0);
+    this.player.play();
+  }
+
+  // dmpEvents(events){
+
+  // }
 
   // wrap the player in a div with a `data-vjs-player` attribute
   // so videojs won't create additional wrapper in the DOM
@@ -906,12 +1360,205 @@ class VideoPlayer extends React.Component {
             "adPauseClickConsumer " + (this.state.adPaused ? "" : " gone")
           }
           onClick={this.resumeAd.bind(this)}
-          // onTouchStart={isIOS ? this.resumeAd.bind(this) : null}
+        // onTouchStart={isIOS ? this.resumeAd.bind(this) : null}
         />
         <div id="zplayerContainer" data-vjs-player />
         {this.props.ENABLE_CUSTOM_CONTROLS &&
           (
-            <div className="player-controls-container">
+            this.state.fullScreen ? this.props.showControls && (
+              <div className="player-controls-container">
+                <PlayerControls
+                  showHours={this.state.duration > 60 * 60}
+                  setControlsDragging={this.setControlsDragging.bind(this)}
+                  playerClick={this.playerClick.bind(this)}
+                  // onTouchStart={this.onTouchStart.bind(this)}
+                  onMouseOver={this.onMouseOverControls.bind(this)}
+                  onMouseOut={this.onMouseOutControls.bind(this)}
+                  currentTime={this.state.currentTime}
+                  listener={this.listener}
+                  paused={this.state.paused}
+                  muted={this.state.muted}
+                  volume={this.state.volume * 100}
+                  progress={this.state.progress}
+                  duration={this.state.duration}
+                  bufferedDuration={this.state.bufferedDuration}
+                  autoplay={true}
+                />
+                <div className="playback-details" aria-label={this.props.title}>
+                  {this.props.episodeNumber !== undefined && (
+                    <div className="episode-number">
+                      {this.props.episodeNumber}
+                    </div>
+                  )}
+                  {this.props.episodeNumber !== undefined &&
+                    this.props.title !== "" && (
+                      <div className="number-name-divider" />
+                    )}
+                  <ClampLines
+                    text={this.props.title + " "}
+                    lines={2}
+                    ellipsis="..."
+                    className="episode-name"
+                    moreText=""
+                    lessText=""
+                    innerElement="p"
+                  />
+                </div>
+                <div className="custom-controls-container">
+                  <div
+                    className="custom-controls"
+                    onMouseOver={this.onMouseOverControls.bind(this)}
+                    onMouseOut={this.onMouseOutControls.bind(this)}
+                  >
+                    {false && (
+                      <div
+                        className={
+                          "share-button-container" +
+                          (this.props.showSharePopup ? " open" : "")
+                        }
+                        onClick={this.onShareButtonClick.bind(this)}
+                        // onTouchStart={
+                        //   isIOS && !this.props.showSharePopup? this.onShareButtonClick.bind(this) : null
+                        // }
+                        tabIndex="0"
+                        aria-label="Share"
+                      >
+                        <div className="share-text">{oResourceBundle.share}</div>
+                        <div className="share-button custom-controls-button" />
+                        <PopUp
+                          ref="share-popup"
+                          show={this.props.showSharePopup}
+                        // onMouseOut={this.onPopupMouseOut.bind(this)}
+                        // onMouseOver={this.onPopUpMouseOver.bind(this)}
+                        >
+                          <FacebookShareButton url={window.location.href}>
+                            <Button
+                              className="fb-share-bn"
+                              icon={facebook}
+                              showIconAfter={true}
+                              onClick={this.onFBShareButtonClick.bind(this)}
+                            // onTouchStart={
+                            //   isIOS ? this.onFBShareButtonClick.bind(this) : null
+                            // }
+                            />
+                          </FacebookShareButton>
+                          <div className="icon-separator" />
+                          <TwitterShareButton url={window.location.href}>
+                            <Button
+                              className="twitter-share-bn"
+                              icon={twitter}
+                              showIconAfter={true}
+                              onClick={this.onTwitterShareButtonClick.bind(this)}
+                            // onTouchStart={
+                            //   isIOS
+                            //     ? this.onTwitterShareButtonClick.bind(this)
+                            //     : null
+                            // }
+                            />
+                          </TwitterShareButton>
+                        </PopUp>
+                      </div>
+                    )}
+                    {
+                      !this.props.isTrailer ?
+                        <div
+                          className="playlist-button-container"
+                          onClick={this.onAddRemovePlaylist.bind(this)}
+                          // onTouchStart={
+                          //   isIOS ? this.onAddRemovePlaylist.bind(this) : null
+                          // }
+                          tabIndex="0"
+                          aria-label="playlist"
+                        >
+                          {this.props.videoInfo.videoInfo.data.data.video_id !== "LIVE_drama" ?
+                            <div className="playlist-text">
+                              {oResourceBundle.playlist}
+                            </div> : ""}
+                          {this.props.videoInfo.videoInfo.data.data.video_id !== "LIVE_drama" ?
+                            <div
+                              className={
+                                "playlist-button custom-controls-button " +
+                                (this.props.isInPlaylist ? " inplaylist" : "")
+                              }
+                            /> : ""}
+                        </div> : ""
+                    }
+
+                    {this.props.qualityLevels &&
+                      this.props.qualityLevels.length > 0 && (
+                        <div
+                          className={
+                            "quality-button custom-controls-button" +
+                            (this.props.showQuality ? " show" : "")
+                          }
+                          onClick={this.props.onQualityClick}
+                          // onTouchStart={isIOS ? this.props.onQualityClick : null}
+                          tabIndex="0"
+                          aria-label="quality"
+                        >
+                          <div className="quality-text">
+                            {this.props.currentQuality}
+                          </div>
+                          {this.props.showQuality && (
+                            <QualitySelector
+                              onMouseOver={this.onMouseOverControls.bind(this)}
+                              onMouseOut={this.onMouseOutControls.bind(this)}
+                              currentQualityLevel={this.state.currentQualityLevel}
+                              onQualityChanged={this.onQualityChanged.bind(this)}
+                              className="quality-selector-container"
+                              addAuto={true}
+                              appendProgressive={true}
+                              appendHD={true}
+                              hdValue={this.props.hdValue}
+                              qualityLevels={(this.state.isLiveTv) ? (this.props.qualityLevels
+                                .map(quality => {
+                                  return quality.height;
+                                })
+                                .sort((a, b) => a - b)) : (this.props.qualityLevels
+                                  .map(quality => {
+                                    return quality.height;
+                                  })
+                                  .sort((a, b) => a - b).reverse())
+                                // .reverse()
+                              }
+                            />
+                          )}
+                        </div>
+                      )}
+                    {
+                      !this.props.isTrailer ?
+                        <div
+                          className="more-episodes-button-container"
+                          onClick={this.togglePlayerCarousel.bind(this)}
+                          // onTouchStart={
+                          //   isIOS ? this.togglePlayerCarousel.bind(this) : null
+                          // }
+                          tabIndex="0"
+                          aria-label={oResourceBundle.watch_more}
+                        >
+                          <div
+                            className={
+                              "more-episodes-button custom-controls-button" +
+                              (this.props.showPlayerCarousel ? " show" : "")
+                            }
+                          />
+                        </div> : ""
+                    }
+
+                    <div
+                      className="fullscreen-button-container"
+                      onClick={this.onToggleFullScreen.bind(this)}
+                      // onTouchStart={
+                      //   isIOS ? this.onToggleFullScreen.bind(this) : null
+                      // }
+                      tabIndex="0"
+                      aria-label="full screen"
+                    >
+                      <div className="fullscreen-button custom-controls-button" />
+                    </div>
+                  </div>
+                </div>
+              </div>) : <div className="player-controls-container">
               <PlayerControls
                 showHours={this.state.duration > 60 * 60}
                 setControlsDragging={this.setControlsDragging.bind(this)}
@@ -940,7 +1587,7 @@ class VideoPlayer extends React.Component {
                     <div className="number-name-divider" />
                   )}
                 <ClampLines
-                  text={this.props.title + " "}
+                  text={this.props.isTrailer ? `${oResourceBundle.trailer} | ${this.props.title} ` : this.props.title + " "}
                   lines={2}
                   ellipsis="..."
                   className="episode-name"
@@ -973,8 +1620,8 @@ class VideoPlayer extends React.Component {
                       <PopUp
                         ref="share-popup"
                         show={this.props.showSharePopup}
-                        // onMouseOut={this.onPopupMouseOut.bind(this)}
-                        // onMouseOver={this.onPopUpMouseOver.bind(this)}
+                      // onMouseOut={this.onPopupMouseOut.bind(this)}
+                      // onMouseOver={this.onPopUpMouseOver.bind(this)}
                       >
                         <FacebookShareButton url={window.location.href}>
                           <Button
@@ -982,9 +1629,9 @@ class VideoPlayer extends React.Component {
                             icon={facebook}
                             showIconAfter={true}
                             onClick={this.onFBShareButtonClick.bind(this)}
-                            // onTouchStart={
-                            //   isIOS ? this.onFBShareButtonClick.bind(this) : null
-                            // }
+                          // onTouchStart={
+                          //   isIOS ? this.onFBShareButtonClick.bind(this) : null
+                          // }
                           />
                         </FacebookShareButton>
                         <div className="icon-separator" />
@@ -994,37 +1641,41 @@ class VideoPlayer extends React.Component {
                             icon={twitter}
                             showIconAfter={true}
                             onClick={this.onTwitterShareButtonClick.bind(this)}
-                            // onTouchStart={
-                            //   isIOS
-                            //     ? this.onTwitterShareButtonClick.bind(this)
-                            //     : null
-                            // }
+                          // onTouchStart={
+                          //   isIOS
+                          //     ? this.onTwitterShareButtonClick.bind(this)
+                          //     : null
+                          // }
                           />
                         </TwitterShareButton>
                       </PopUp>
                     </div>
                   )}
-                  <div
-                    className="playlist-button-container"
-                    onClick={this.onAddRemovePlaylist.bind(this)}
-                    // onTouchStart={
-                    //   isIOS ? this.onAddRemovePlaylist.bind(this) : null
-                    // }
-                    tabIndex="0"
-                    aria-label="playlist"
-                  >
-                  {this.props.videoInfo.videoInfo.data.data.video_id !== "LIVE_drama"?
-                    <div className="playlist-text">
-                      {oResourceBundle.playlist}
-                    </div>:""}
-                    {this.props.videoInfo.videoInfo.data.data.video_id !== "LIVE_drama"?
-                    <div
-                      className={
-                        "playlist-button custom-controls-button " +
-                        (this.props.isInPlaylist ? " inplaylist" : "")
-                      }
-                    />:""}
-                  </div>
+                  {
+                    !this.props.isTrailer ?
+                      <div
+                        className="playlist-button-container"
+                        onClick={this.onAddRemovePlaylist.bind(this)}
+                        // onTouchStart={
+                        //   isIOS ? this.onAddRemovePlaylist.bind(this) : null
+                        // }
+                        tabIndex="0"
+                        aria-label="playlist"
+                      >
+                        {this.props.videoInfo.videoInfo.data.data.video_id !== "LIVE_drama" ?
+                          <div className="playlist-text">
+                            {oResourceBundle.playlist}
+                          </div> : ""}
+                        {this.props.videoInfo.videoInfo.data.data.video_id !== "LIVE_drama" ?
+                          <div
+                            className={
+                              "playlist-button custom-controls-button " +
+                              (this.props.isInPlaylist ? " inplaylist" : "")
+                            }
+                          /> : ""}
+                      </div> : ""
+                  }
+
                   {this.props.qualityLevels &&
                     this.props.qualityLevels.length > 0 && (
                       <div
@@ -1039,7 +1690,7 @@ class VideoPlayer extends React.Component {
                       >
                         <div className="quality-text">
                           {this.props.currentQuality}
-                        </div>                       
+                        </div>
                         {this.props.showQuality && (
                           <QualitySelector
                             onMouseOver={this.onMouseOverControls.bind(this)}
@@ -1051,37 +1702,41 @@ class VideoPlayer extends React.Component {
                             appendProgressive={true}
                             appendHD={true}
                             hdValue={this.props.hdValue}
-                            qualityLevels={ (this.state.isLiveTv)? (this.props.qualityLevels
+                            qualityLevels={(this.state.isLiveTv) ? (this.props.qualityLevels
                               .map(quality => {
                                 return quality.height;
                               })
-                              .sort((a, b) => a - b)): (this.props.qualityLevels
+                              .sort((a, b) => a - b)) : (this.props.qualityLevels
                                 .map(quality => {
                                   return quality.height;
                                 })
                                 .sort((a, b) => a - b).reverse())
-                             // .reverse()
+                              // .reverse()
                             }
                           />
                         )}
                       </div>
                     )}
-                  <div
-                    className="more-episodes-button-container"
-                    onClick={this.togglePlayerCarousel.bind(this)}
-                    // onTouchStart={
-                    //   isIOS ? this.togglePlayerCarousel.bind(this) : null
-                    // }
-                    tabIndex="0"
-                    aria-label={oResourceBundle.watch_more}
-                  >
-                    <div
-                      className={
-                        "more-episodes-button custom-controls-button" +
-                        (this.props.showPlayerCarousel ? " show" : "")
-                      }
-                    />
-                  </div>
+                  {
+                    !this.props.isTrailer ?
+                      <div
+                        className="more-episodes-button-container"
+                        onClick={this.togglePlayerCarousel.bind(this)}
+                        // onTouchStart={
+                        //   isIOS ? this.togglePlayerCarousel.bind(this) : null
+                        // }
+                        tabIndex="0"
+                        aria-label={oResourceBundle.watch_more}
+                      >
+                        <div
+                          className={
+                            "more-episodes-button custom-controls-button" +
+                            (this.props.showPlayerCarousel ? " show" : "")
+                          }
+                        />
+                      </div> : ""
+                  }
+
                   <div
                     className="fullscreen-button-container"
                     onClick={this.onToggleFullScreen.bind(this)}
@@ -1097,13 +1752,46 @@ class VideoPlayer extends React.Component {
               </div>
             </div>
           )}
-        {this.props.showPlayIcon && (
-          <div
-            className="play-icon"
-            onClick={this.bigPlayIconClick.bind(this)}
+        {
+          this.props.showPlayIcon && (
+            <div
+              className="play-icon"
+              onClick={this.bigPlayIconClick.bind(this)}
             // onTouchStart={isIOS ? this.bigPlayIconClick.bind(this) : null}
-          />
-        )}
+            />
+          )
+        }
+        {this.state.showCancelDialog ?
+          <Dialog
+            visible={true}
+            // onDialogClosed={this.onCancelDialogClosed.bind(this)}
+            duration={CONSTANTS.RATING_DIALOG_ANIMATION_DURATION}
+            showCloseButton={false}
+            closeOnEsc={true}
+            width={CONSTANTS.RATING_DIALOG_WIDTH}
+            height={CONSTANTS.SIGNOUTALL_DIALOG_HEIGHT}
+          >
+            <div className="dialog-content">
+              <div className="dialog-title">
+                {oResourceBundle.confirm_Resume_Restart_Alert}
+              </div>
+            </div>
+            <div className="actions">
+              <Button
+                className="dialog-ok-btn"
+                onClick={this.handleDialogResume.bind(this)}
+              >
+                {oResourceBundle.Resume}
+              </Button>
+              <Button
+                className="dialog-ok-btn"
+                onClick={this.handleDialogRestart.bind(this)}
+              >
+                {oResourceBundle.Restart}
+              </Button>
+            </div>
+          </Dialog> : ""
+        }
       </div>
     );
   }
@@ -1120,8 +1808,8 @@ const mapStateToProps = state => {
     locale: state.locale,
     loading: state.loading,
     videoInfo: state.videoInfo,
-    videoDetail:state.oVideoDetailContent,
-    pageContent:state.oPageContent,
+    videoDetail: state.oVideoDetailContent,
+    pageContent: state.oPageContent,
     videoPlaying: state.videoPlaying,
     videoPlaybackState: state.videoPlaybackState
   };

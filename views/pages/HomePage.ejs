@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charSet="UTF-8" />
+  <link rel="shortcut icon" href="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:title"
+    content=" Weyyak| Watch online movies, series, bollywood movies and shows in Arabic for free!" />
+  <meta property="og:description"
+    content="Watch weyyak and enjoy a variety of series, movies, bollywood movies, and shows in Arabic from India, Zee alwan, Egypt, Syria, the gulf, Zee aflam from your mobile, tablet, smart TV, website and more to come." />
+  <meta name="title" content=" Weyyak | Watch online movies, series, bollywood movies and shows in Arabic for free!">
+  </meta>
+  <meta name="description"
+    content="Watch weyyak and enjoy a variety of series, movies, bollywood movies, and shows in Arabic from India, Zee alwan, Egypt, Syria, the gulf, Zee aflam from your mobile, tablet, smart TV, website and more to come." />
+  <meta name="keywords"
+    content="Weyyak, Ramadan, Arabic Movies, Ramadan 2019, Syrian series, Indian Weyyak, Arabic Series, Egyptian Series, Egyptain Movies and Plays, Weyyak In French, مسلسلات سورية و عربية, مسلسلات مصرية, أفلام و مسرحيات مصرية, مسلسلات هندية و عالمية, مسلسلات هندية و عالمية, وياك بالفرنسي" />
+  <meta property="og:image" content="https://weyyak.com/favicon_512.png" />
+  <meta property="og:type" content="video.movie" />
+  <meta property="og:url" content="https://weyyak.com" />
+  <link rel="canonical" href="https://weyyak.com" />
+
+
+  <title>Weyyak | Watch online movies, series, bollywood movies and shows in Arabic for free!</title>
+
+  <%- include('../partials/style'); %>
+
+</head>
+
+<body>
+  <div class='app-body ltr' dir="ltr">
+    <%- include('../partials/header'); %>
+      <div class="homepagelist" style="margin-top: 100px;">
+        <% contentData.data.featured.playlists.map(function(item,index) { %>
+          <div style="font-weight: bold; color: white;">Featured Content</div>
+          <% item.content.map(function(subitem,index) { %>
+            <a href="/<%= language %>/<%= subitem.content_type %>/<%= subitem.id %>/<%= subitem.friendly_url %>">
+              <img src='<%= subitem.imagery.thumbnail %>?d=150x150' alt="<%= subitem.title %>" />
+            </a>
+            <% }); %>
+              <% }); %>
+      </div>
+      <div class="homepagelist" style="margin-top: 30px;">
+        <% contentData.data.playlists.map(function(item,index) { %>
+          <div style="font-weight: bold; color: white;">
+            <%= item.title %>
+          </div>
+          <% item.content.map(function(subitem,index) { %>
+            <a href="/<%= language %>/<%= subitem.content_type %>/<%= subitem.id %>/<%= subitem.friendly_url %>">
+              <img src='<%= subitem.imagery.thumbnail %>?d=150x150' alt="<%= subitem.title %>" />
+            </a>
+            <% }); %>
+              <% }); %>
+      </div>
+      <%- include('../partials/footer'); %>
+  </div>
+</body>
+
+</html>

@@ -45,7 +45,7 @@
     bottom: 0;
     background-color: black;
     color: white;
-    text-align: center;
+    // text-align: center;
     z-index: 2101;
     font-size: 0.7em;
   }
@@ -85,7 +85,7 @@
   .page-content {
     .geo-blocked,
     .home-content {
-      margin-top: $header-height;
+      padding-top: 120px;
       min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
       background-color: black;
     }

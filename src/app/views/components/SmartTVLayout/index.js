@@ -114,6 +114,20 @@ class SmartTvLayout extends React.PureComponent {
       desktopCarouselLeft = items[2].content;
       desktopCarouselRight = items[1].content;
     }
+    if (ADD_TRIAL_BANNER  && !this.checkContestBanner(desktopCarouselRight)) {
+      if (items) {
+        if (this.state.mobileView) {
+          const contestBanner = common.getTrialBannerData(CONSTANTS.CONTEST_BANNER_LANDSCAPE, this.props.isMENARegion, this.props.locale);
+          mobileCarousel.unshift(contestBanner);
+        } else {
+          const contestBanner = common.getTrialBannerData(CONSTANTS.CONTEST_BANNER_SQUARE, this.props.isMENARegion,this.props.locale);
+          desktopCarouselRight.unshift(contestBanner);
+          if (items[2] && items[2].content) {
+            desktopCarouselLeft = [...items[2].content];
+          }
+        }
+      }
+    }
     if (fromConstructor) {
       // this.setState({
       //   mobileCarousel: mobileCarousel,
@@ -135,6 +149,17 @@ class SmartTvLayout extends React.PureComponent {
         desktopCarouselRight: desktopCarouselRight
       });
     }
+  }
+
+  checkContestBanner(desktopCarouselRight){
+    let exists = false; 
+ 
+    desktopCarouselRight.forEach(item=>{
+        if(item.id ==  CONSTANTS.CONTEST_BANNER_CONTENT_TYPE){
+          exists = true;
+        }
+    })
+    return exists;
   }
 
   /**
@@ -394,7 +419,7 @@ class SmartTvLayout extends React.PureComponent {
                         history
                       )}
                     >
-                      {this.props.playListData[1].content.map((ele, i) => {
+                      {this.props.playListData[2].content.map((ele, i) => {
                             const digitalRights = (ele.content_type==='movie')? ele.movies[0].digitalRighttype:ele.seasons[0].digitalRighttype;
                             
                         return (

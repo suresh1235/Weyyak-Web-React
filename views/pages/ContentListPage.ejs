@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charSet="UTF-8" />
+        <link rel="shortcut icon" href="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="theme-color" content="#000000" />
+        <meta property="og:title"
+          content=" Weyyak| Watch online movies, series, bollywood movies and shows in Arabic for free!" />
+        <meta property="og:description"
+          content="Watch weyyak and enjoy a variety of series, movies, bollywood movies, and shows in Arabic from India, Zee alwan, Egypt, Syria, the gulf, Zee aflam from your mobile, tablet, smart TV, website and more to come."/>
+        <meta name="title" content= " Weyyak | Watch online movies, series, bollywood movies and shows in Arabic for free!"> </meta>
+        <meta name="description"
+          content="Watch weyyak and enjoy a variety of series, movies, bollywood movies, and shows in Arabic from India, Zee alwan, Egypt, Syria, the gulf, Zee aflam from your mobile, tablet, smart TV, website and more to come." />
+        <meta name="keywords"
+          content="Weyyak, Ramadan, Arabic Movies, Ramadan 2019, Syrian series, Indian Weyyak, Arabic Series, Egyptian Series, Egyptain Movies and Plays, Weyyak In French, مسلسلات سورية و عربية, مسلسلات مصرية, أفلام و مسرحيات مصرية, مسلسلات هندية و عالمية, مسلسلات هندية و عالمية, وياك بالفرنسي" />
+        <meta property="og:image" content="https://weyyak.com/favicon_512.png" />
+        <meta property="og:type" content="video.movie" />
+        <meta property="og:url" content="https://weyyak.com" />
+        <link rel="canonical" href="https://weyyak.com" />
+      
+        
+        <title>| Weyyak | Watch online movies, series, bollywood movies and shows in Arabic for free!</title>
+  
+        <%- include('../partials/style'); %>
+
+    </head>
+
+    <body>
+        <div class='app-body ltr' dir="ltr">
+            <%- include('../partials/header'); %>
+                                <div>
+                                    <div class="title-info" style="text-align: center;  font-weight: bold;">Episode list</div>
+                                    <% contentData.map(function(item,index) { %>
+                                        <!-- /en/series/232585/Ahla-Ayyam -->
+                                        <a href="/<%= language %>/<%= contentType %>/<%= item.id %>/<%= item.friendly_url %>">
+                                            <img  src="data:image/png;base64,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" alt="<%= item.title %>"/>
+                                        </a>
+                                    <% }); %>
+                                </div>
+            <%- include('../partials/footer'); %>
+        </div>
+    </body>
+
+  </html>
+
+
+
+  <!-- let FetchWeyyakContent =  (req,res,CONTENT_URL,PAGE_NAME) =>{
+
+    fetch(CONTENT_URL)
+  .then(response=> response.json())
+  .then(result=>{ 
+
+      let playerPageData = {
+        language:req.params.lang,
+        contentType:req.params.type,
+        url:req.url,
+        contentData:result,
+      }
+
+      res.render(`pages/${PAGE_NAME}`,playerPageData);
+
+  })
+} -->
+

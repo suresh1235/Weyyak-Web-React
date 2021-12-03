@@ -11,9 +11,9 @@
 import React from "react";
 import moment from "moment";
 import BaseContainer from "core/BaseContainer/";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import * as CONSTANTS from "../../../AppConfig/constants";
-import {fnNavTo, getCookie} from "app/utility/common";
+import { fnNavTo, getCookie } from "app/utility/common";
 import Button from "core/components/Button/";
 import oResourceBundle from "app/i18n/";
 import "./index.scss";
@@ -32,10 +32,11 @@ class CouponSuccess extends BaseContainer {
   }
 
   render() {
+    // console.log(this.props.oTransactionReference)
     return (
       <div className="coupons-succes-container">
         <div className="transaction-text">
-          <span>{oResourceBundle.promo_code_active}</span>
+          <span>{this.props.oTransactionReference ? ((this.props.oTransactionReference.coupon_type == "Voucher") ? oResourceBundle.gift_voucher_active : oResourceBundle.promo_code_active) : ""}</span>
           <br />
           <span>
             {this.props.oTransactionReference &&

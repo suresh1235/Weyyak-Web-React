@@ -75,6 +75,35 @@
       text-transform: uppercase;
     }
 
+    .resend-code {
+      font-size: 18px;
+      text-decoration-line: inherit;
+      margin-bottom: 50px;
+      cursor: pointer;
+      text-transform: uppercase;
+      text-align: center;
+    
+      .resend-text {
+        color: gray;
+        text-decoration: underline;
+        font-weight: 500;
+        cursor: pointer;
+    
+        &.active {
+          color: white;
+          cursor: pointer;
+        }
+      }
+    
+      .timer {
+        color: #5d5d5d;
+        margin: 0 5px;
+      }
+      @media(max-width: $mobile-view-threshold-px) {
+        font-size: 12px;
+      }
+    }
+
     .btn-verify {
       width: 280px;
       height: 46px;

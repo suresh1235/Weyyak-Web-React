@@ -76,9 +76,11 @@ class OTPInput extends React.Component {
         });
         let otp = "";
         for (let i = 0; i < this.props.numberOfFields; i++) {
-          if (i === index) {
+          if(index == 0){
+            otp = ""
+          }else if (i == index) {
             otp += event.target.value;
-          } else {
+          } else  {
             otp += this.state["otp" + i];
           }
         }

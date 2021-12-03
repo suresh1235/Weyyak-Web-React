@@ -10,8 +10,8 @@
 
 import * as actionTypes from "./action/actions";
 
-const initialState = { 
-  sCode:'',
+const initialState = {
+  sCode: '',
   locale: "ar",
   loading: true,
   bPageViewSent: false,
@@ -24,6 +24,7 @@ const initialState = {
   oVideoDetailContent: null,
   aRelatedVideosWithType: null,
   aUserPlayList: [],
+  aMyPlayList: [],
   aRelatedVideos: null,
   videoDetailLoading: true,
   videoInfo: null,
@@ -31,6 +32,7 @@ const initialState = {
   playerScreenVisible: false,
   qualityLevels: null,
   relatedVideos: null,
+  TrailerVideos: null,
   loginDetails: null,
   oUserResumablesObject: null,
   aResumableMedias: null,
@@ -50,9 +52,13 @@ const initialState = {
   aEnglishCountryList: [],
   oPaymentSession: null,
   oEtisalatSession: null,
+  oZainSession: null,
   oTransactionReference: null,
   sResumePagePath: "",
   aSubscriptionPlans: [],
+  aHeaderMenuContent:[],
+  aHeaderMenu:[],
+  aGDPRPaymentGatewaysList: [],
   oSelectedPlan: null,
   oUserPaymentDetails: null,
   oTokenDetails: null,
@@ -134,21 +140,21 @@ const reducer = (state = initialState, action) => {
         loading: false
       };
     case actionTypes.DISPLAY_PLAN_CONTENT:
-    
-      
-      if(state.oPlanContent){
-        state.oPlanContent.data.data.map((item)=>{
+
+
+      if (state.oPlanContent) {
+        state.oPlanContent.data.data.map((item) => {
           // action.payload.data.data.push(item);
         })
       }
-        return {
-          ...state,
-          oPlanContent: {
-            ...action.payload,
-          },
-          
-          loading: false
-        };
+      return {
+        ...state,
+        oPlanContent: {
+          ...action.payload,
+        },
+
+        loading: false
+      };
     case actionTypes.UPDATE_USER_PLAYLIST_PAGE_CONTENT:
       return {
         ...state,
@@ -176,7 +182,7 @@ const reducer = (state = initialState, action) => {
         }
       };
     case actionTypes.UPDATE_VIDEO_ITEM_VIDEO_CONTENT:
-    return {
+      return {
         ...state,
         oVideoDetailContent: action.payload.oVideoContent,
         aRelatedVideos: action.payload.aRelatedVideos,
@@ -211,11 +217,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         relatedVideos: action.payload.relatedVideos
       };
+    case actionTypes.UPDATE_TRAILER_VIDEOS:
+      return {
+        ...state,
+        TrailerVideos: action.payload.TrailerVideos
+      };
     case actionTypes.UPDATE_LOGIN_INFO:
       return {
         ...state,
         loginDetails: action.payload
       };
+    case actionTypes.UPDATE_APPLE_LOGIN_INFO:
+      return {
+        ...state,
+        loginDetails: action.payload
+      };
+
     case actionTypes.GET_TWITTER_TOKEN:
       return {
         ...state,
@@ -247,6 +264,11 @@ const reducer = (state = initialState, action) => {
         aUserPlayList: action.payload,
         videoDetailLoading: false,
         loading: false
+      };
+    case actionTypes.STORE_USER_PLAYLIST:
+      return {
+        ...state,
+        aMyPlayList: action.payload,
       };
     case actionTypes.UPDATE_ITEM_RATING:
       const newState = { ...state };
@@ -320,18 +342,23 @@ const reducer = (state = initialState, action) => {
         ...state,
         oTpaySession: action.payload
       };
-
+      case actionTypes.UPDATE_ZAIN_SESSION:
+        return {
+          ...state,
+          oZainSession: action.payload
+        };
+  
     case actionTypes.UPDATE_INFO_SESSION:
-        return {
-          ...state,
-          oInfoSession: action.payload
-        };
-    
+      return {
+        ...state,
+        oInfoSession: action.payload
+      };
+
     case actionTypes.UPDATE_TELUS_SESSION:
-        return {
-          ...state,
-          oTelusSession: action.payload
-        };
+      return {
+        ...state,
+        oTelusSession: action.payload
+      };
     case actionTypes.UPDATE_TRNSACTION_REFERENCE:
       return {
         ...state,
@@ -347,6 +374,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         aSubscriptionPlans: action.payload
       };
+    case actionTypes.UPDATE_HEADER_MENU_CONTETS:
+        return {
+          ...state,
+          aHeaderMenuContent: action.payload
+    };
+    case actionTypes.UPDATE_HEADER_MENU:
+        return {
+          ...state,
+          aHeaderMenu: action.payload
+    };
+    case actionTypes.UPDATE_GDPR_PAYMENTGATEWAY_LIST:
+      return {
+        ...state,
+        aGDPRPaymentGatewaysList: action.payload
+      };
+
     case actionTypes.UPDATE_USER_SUBSCRIPTON:
       return {
         ...state,

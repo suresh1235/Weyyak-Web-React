@@ -53,14 +53,15 @@ export default class LanguageButton extends React.Component {
   render() {
     //const btnIcon = (this.props.locale === "ar") ? (this.state.showTooltip ? enLangIcon : arLangIcon) : (this.state.showTooltip ? arLangIcon : enLangIcon);
     const btnIcon = (this.props.locale === "ar") ? enLangIcon : arLangIcon;
+    const btnText = (this.props.locale === "ar") ? "En" : 'عربي';
     return <div className="languagebtn-container">
       <Button
         onMouseOut={(e) => this.handleTooltipHide(e)}
         onMouseOver={(e) => this.handleTooltipShow(e)}
-        className="langButton"
-        icon={btnIcon}
+        className={this.props.className? this.props.className :"lanchange-btn"}
+        // icon={btnIcon}
         alt={oResourceBundle.language}
-        onClick={this.props.onLanguageButtonCLick}></Button>
+        onClick={this.props.onLanguageButtonCLick}>{btnText}</Button>
       {this.state.showTooltip ? <Tooltip parent="langButton" > {oResourceBundle.change_language} </Tooltip> : null}
     </div>
   }

@@ -1,0 +1,1449 @@
+@import "app/resources/styles/variables.scss";
+
+.cooking-main-container {
+    // .element-container {
+    //     display: flex;
+    //     border:1px solid grey;
+    //     border-radius: 25px;
+    //     //color:white;
+    //     Label{
+    //         color:white;
+    //         margin:25px 0px;
+    //         width: 120px;
+    //         padding: 0 0 0 32px;
+    //     }
+    //     input{
+    //         border:none !important;
+    //         padding:0px !important;
+    //         margin-right: 25px !important;
+    //     }
+    //     .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .phone-input {
+    //         padding: 0 10px 10px 32px;
+    //         border: 0 !important;
+    //         border-radius: 20px;
+    //     }
+    // }
+    .app-body[dir="rtl"] {
+        .myaccount-container {
+            font-family: "changa";
+
+            .form-myaccount {
+                .row {
+                    .left-column {
+                        //margin-left: 10px;
+                    }
+
+                    .inner-column {
+
+                        .change-password,
+                        .verify {
+                            right: auto;
+                            left: 0;
+                        }
+                    }
+                }
+            }
+
+            .checkbox-container {
+                .checkbox-text {
+                    margin-left: 0;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        
+
+        @media only screen and (max-width: 1024px) {
+            .myaccount-container {
+                .form-myaccount {
+                    .row {
+                        .left-column {
+                            margin: 0 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .myaccount-container .react-tel-input .flag-dropdown {
+            border-right: 2px solid #494949;
+            border-left: none;
+        }
+
+        .react-tel-input .selected-flag .flag {
+            margin-right: 5px;
+        }
+    }
+
+    .select-box-container .selected .btn .icon {
+        width: 20px;
+        top: 0px;
+    }
+
+    .myaccount-container {
+        background: $sign-up-background-color;
+        color: #4a4a4a;
+        display: flex;
+        justify-content: center;
+        min-height: calc(100vh - #{
+ $app-footer-height
+        }
+
+        - 60px);
+
+    .myaccount {
+        width: calc(100% - 25vw);
+        display: flex;
+        flex-direction: column;
+        font-family: "changa";
+
+        .overlay-title {
+            color: $my-background-color;
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+            margin: 30px 0;
+            //white-space: nowrap;
+            overflow: auto;
+            //order: 1;
+            -ms-overflow-style: none;
+            overflow: -moz-scrollbars-none;
+
+            @media only screen and (max-width: 745px) {
+                font-size: 20px;
+            }
+
+            ::-webkit-scrollbar {
+                width: 0 !important;
+                height: 0 !important;
+                display: none;
+            }
+        }
+
+        .my-account-action-buttons {
+            display: -ms-flexbox;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            order: 5;
+
+            .btn {
+                padding: 5px 10px;
+                border-radius: 5px;
+                height: $my-acc--btn-height;
+
+                @media only screen and (max-width: 745px) {
+                    margin-bottom: 10px;
+                    white-space: nowrap;
+                    font-size: 16px;
+                }
+            }
+
+            .btn-device-pair {
+                background: $primary-orange-color;
+                width: 400px;
+                height: 53px;
+                border-radius: 5px;
+            }
+        }
+
+        .my-account-buttons {
+            display: -ms-flexbox;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            border-top: 1px solid #929090;
+            order: 3;
+
+            .btn {
+                padding: 5px 10px;
+                border-radius: 5px;
+                height: $my-acc--btn-height;
+
+                @media only screen and (max-width: 745px) {
+                    margin-bottom: 10px;
+                    white-space: nowrap;
+                    font-size: 16px;
+                }
+            }
+
+            .btn-device-pair {
+                background: $primary-orange-color;
+            }
+
+            .btn-cancel {
+                color: #7f8080;
+                background-color: $my-background-color;
+
+                &:hover {
+                    background: $my-background-color;
+                }
+
+                @media only screen and (max-width: 745px) {
+                    font-size: 15px;
+                }
+            }
+
+            .btn-sign-out-all {
+                &:hover {
+                    background: rgba(158, 158, 158, 0.2);
+                }
+            }
+
+            @media only screen and (max-width: 745px) {
+                flex-direction: column;
+                order: 4;
+            }
+        }
+
+        .my-account-checkboxes {
+            //border-top: 1px solid #929090;
+            order: 4;
+
+            .checkbox-container {
+                @media only screen and (max-width: 745px) {
+                    margin: 10px 0;
+                }
+            }
+
+            @media only screen and (max-width: 745px) {
+                order: 3;
+            }
+        }
+
+        .rodal-dialog {
+            padding: 0;
+
+            @media only screen and (max-width: 745px) {
+                width: 90% !important;
+            }
+        }
+
+        .signout-dialog-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .content {
+                padding: 24px;
+                text-align: center;
+            }
+
+            .dialog-title {
+                color: $primary-orange-color;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 20px;
+                font-weight: 500;
+                letter-spacing: 0.005em;
+                margin-bottom: 10px;
+            }
+
+            .dialog-text {
+                color: #606060;
+            }
+
+            .actions {
+                display: flex;
+                height: $my-acc-dialog-btn-height;
+            }
+
+            .dialog-ok-btn {
+                border: 1px solid #606060;
+                width: 100%;
+                text-transform: none;
+                color: #606060;
+                padding: 0;
+                margin: 0 0 -17px;
+                border-radius: 0;
+                background: $my-background-color;
+                font-size: 16px;
+                height: $my-acc-dialog-btn-height;
+
+                &:hover {
+                    background: rgba(158, 158, 158, 0.2);
+                }
+            }
+        }
+
+        .email-conaitner {
+            position: relative;
+        }
+    }
+
+    .contact-us {
+        color: #5d5d5d;
+        font-size: 18px;
+
+        @media only screen and (max-width: 745px) {
+            font-size: 16px;
+        }
+
+        .contact-us-link {
+            color: #5d5d5d;
+            text-decoration: underline;
+            margin: 0 3px;
+
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+
+        &:visited {
+            color: #5d5d5d;
+        }
+    }
+
+    .form-myaccount {
+        //border-top: 1px solid #929090;
+        padding-bottom: 10px;
+        order: 2;
+
+        .row {
+            display: flex;
+            flex-direction: column;
+
+            .left-column,
+            .right-column {
+                flex-basis: 50%;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                .label {
+                    height: 19px;
+                    color: #5d5d5d;
+                    font-size: 18px;
+                    margin: 20px 0 5px;
+
+                    @media only screen and (max-width: 745px) {
+                        font-size: 16px;
+                    }
+                }
+
+                @media only screen and (max-width: 745px) {
+                    flex-direction: column;
+                }
+            }
+
+            .inner-column {
+                flex-basis: 100%;
+                margin: 5px 0;
+
+                .select-box {
+                    .select-box-scroll {
+                        padding: 0 20px;
+                    }
+                }
+
+                .mobile-input-container,
+                .password-container {
+                    position: relative;
+                }
+
+                .react-datepicker-wrapper,
+                .react-datepicker__input-container {
+                    width: 100%;
+                }
+
+                .change-password,
+                .verify {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    padding: 15px;
+                    font-size: 14px;
+                    font-weight: 400;
+                    font-style: normal;
+                    font-stretch: normal;
+                    letter-spacing: normal;
+                    color: #5d5d5d;
+                    text-decoration: underline;
+                    text-align: center;
+                    white-space: nowrap;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+
+                    &.enabled {
+                        cursor: pointer;
+                    }
+                }
+
+                .verify {
+                    visibility: hidden;
+
+                    &.show {
+                        visibility: visible;
+                        cursor: pointer;
+                    }
+                }
+
+                .change-password {
+                    @extend .change-password;
+                }
+
+                .error-text {
+                    color: #dc3545;
+                    font-size: 14px;
+                }
+
+                input {
+                    width: 100%;
+                    height: $my-acc--btn-height;
+                    padding: 0 10px;
+                    // color: #646464;
+                    font-size: 16px;
+                    margin: 0;
+                    border-radius: 5px;
+                    border: 2px solid #4a4a4a;
+                    background: black;
+                    color: #ffffff;
+
+                    &.mobile-input {
+                        display: none;
+                    }
+
+                    &.error {
+                        background-color: #dc3545;
+                        color: #fff;
+
+                        &::placeholder {
+                            /* Chrome, Firefox, Opera, Safari 10.1+ */
+                            color: #fff;
+                            opacity: 1;
+                            /* Firefox */
+                        }
+
+                        &:-ms-input-placeholder {
+                            /* Internet Explorer 10-11 */
+                            color: #fff;
+                        }
+
+                        &::-ms-input-placeholder {
+                            /* Microsoft Edge */
+                            color: #fff;
+                        }
+                    }
+
+                    &[type="date"] {
+                        background: url("https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png") 99% 50% no-repeat;
+                    }
+
+                    &[type="date"]::-webkit-inner-spin-button {
+                        display: none;
+                    }
+
+                    &[type="date"]::-webkit-calendar-picker-indicator {
+                        opacity: 0;
+                    }
+                }
+
+                .phone-input {
+                    padding: 0 10px;
+                    border-radius: 5px;
+                    border: 2px solid #4a4a4a;
+
+                    input {
+                        border: none;
+                        background-color: transparent;
+                    }
+                }
+
+                .select-box-container {
+                    width: 100%;
+                    margin: 0;
+                    border: 2px solid #4a4a4a;
+                    border-radius: 5px;
+
+                    .select-box {
+                        width: 100%;
+                        background: black;
+                    }
+
+                    .selected {
+                        border-radius: 5px;
+                        line-height: $my-acc--btn-height;
+                        height: $my-acc--btn-height;
+                        color: white;
+                        background: black;
+                    }
+
+                    select-box .select-box-elements {
+                        top: $my-acc--btn-height;
+                    }
+                }
+            }
+        }
+    }
+
+    .mange-account-btn,
+    .mange-devices-btn,
+    .my-account-btn {
+        border: 2px solid transparent;
+        text-transform: uppercase;
+
+        &.selected {
+            border-radius: 5px;
+            border: 2px solid #ff6d02;
+            color: #ff6d02;
+        }
+
+        &:hover {
+            background: transparent;
+        }
+
+        @media screen and (max-width: 745px) {
+            font-size: 16px;
+        }
+    }
+
+    .change-password-link {
+        text-decoration: underline;
+        cursor: pointer;
+        color: #4470ca;
+    }
+
+    .react-tel-input .flag-dropdown {
+        background-color: #000000;
+        border: 2px solid #494949;
+        border-radius: 3px 3px;
+        border-right: none;
+        border-left: 2px solid #494949;
+    }
+
+    .react-tel-input .flag-dropdown:hover .selected-flag {
+        background-color: #000;
+    }
+}
+
+.thankyou-text {
+    color: #fff !important;
+    text-align: center;
+    font-size: 21px;
+    font-family: 'Changa';
+    padding: 40px 0 40px 0;
+}
+
+/*Device width pixel lesser than 1024*/
+@media only screen and (max-width: 1024px) {
+    .myaccount-container {
+        .myaccount {
+            width: calc(100% - 15vw);
+        }
+
+        .form-myaccount {
+            .row {
+                flex-direction: column;
+
+                .left-column {
+                    margin-right: 0;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+.myaccount-container .myaccount .my-account-action-buttons .btn-device-pair {
+    background: #EE7623;
+    width: 208px;
+    height: 46px;
+    border-radius: 31px;
+}
+
+.my-account-action-buttons .btn .btn-device-pair {
+    .span {
+        color: #ffff;
+        cursor: default;
+        font-family: 'changa';
+        font-size: 20px;
+    }
+}
+
+.checkbox-container .checkbox-text {
+    margin: 0 10px;
+    /* color: #5d5d5d;
+     */
+    cursor: pointer;
+    color: #ffff;
+    font-size: 20px;
+}
+
+.checkbox-container .checkbox {
+    position: relative;
+    margin: 10px 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+.myaccount-container .form-myaccount .row .inner-column {
+    margin-bottom: 20px;
+}
+
+.myaccount-container .form-myaccount .row .inner-column input {
+    width: 100%;
+    // width: 856px;
+    height: 75px;
+    padding: 0 10px 0px 130px;
+    font-size: 20px;
+    margin: 0;
+    border: 1px solid #707070;
+    border-radius: 20px;
+    background: black;
+    color: #ffffff;
+
+    &::placeholder {
+        color: #ffff;
+    }
+}
+
+.myaccount-container .form-myaccount .row .inner-column .phone-input {
+    padding: 0 10px 10px 32px;
+    border: 1px solid #707070;
+    border-radius: 20px;
+}
+
+.phone-input-container .phone-input {
+    height: 75px;
+    width: 100%;
+    display: flex;
+    color: white;
+}
+
+.myaccount-container .form-myaccount .row .inner-column .select-box-container .select-box {
+    width: 100%;
+    background: transparent;
+}
+
+.custom-radio {
+    width: 100%;
+    height: 75px;
+    padding: 0 10px;
+    font-size: 16px;
+    margin: 0;
+    border: 1px solid #707070;
+    border-radius: 20px;
+    background: black;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+
+.phone-input-container .phone-input .country-code-container .country-code-input {
+    line-height: 70px;
+    min-width: 40px;
+}
+
+.phone-input-container .phone-input .down-arrow {
+    width: 25px;
+    height: 75px;
+    // background: url(/static/media/phone-down-arrow.61ba3516.svg) center no-repeat;
+    border: none;
+    z-index: 1;
+    transform: scale(0.7);
+    top: 0;
+    margin: 0;
+
+    &::placeholder {
+        color: #ffff;
+    }
+}
+
+.myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+    // border-radius: 31px;
+    line-height: 75px;
+    height: 75px;
+    color: white;
+    background: transparent;
+    font-size: 20px;
+    padding-left: 32px;
+}
+
+.myaccount-container .form-myaccount .row .inner-column .select-box-container {
+    width: 100%;
+    margin: 0;
+    border: 1px solid #707070;
+    border-radius: 20px;
+}
+
+.cooking-contest-container {
+    width: calc(100% - 120px);
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-bottom: 0;
+    background-color: #000;
+    margin-bottom: 180px;
+    position: relative;
+
+    .cookingcontest-banner img {
+        // height: 760px;
+        width: 100%;
+    }
+
+    .cookiking-contest-banner-sticker img {
+        position: absolute;
+        left: 0;
+        bottom: -137px;
+        overflow: hidden;
+        right: 0;
+        margin: 0 auto;
+        width: 848px;
+        height: 300px;
+        z-index: 1;
+    }
+}
+
+.cookingcontest-text {
+    color: white;
+    text-align: center;
+    font-family: 'changa';
+
+    .cooking-contest-heading {
+        h1 {
+            color: #FFFFFF;
+            font-size: 50px;
+            font-weight: 'Bold';
+            margin-bottom: 0;
+        }
+
+        .hightlighted-text span{
+            font-size:26px;
+        }
+
+        .cookingcontest-txtspacing {
+            line-height: 27px;
+            padding-bottom: 15px;
+            padding-top: 10px;
+        }
+
+        span {
+            font-size: 20px;
+        }
+    }
+}
+
+.my-account-checkboxes .checkbox-container {
+    display: flex;
+    align-items: normal;
+    flex-direction: row-reverse;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    margin: 16px 0;
+}
+
+.cookiking-mobile {
+    text-align: center;
+
+    & {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.cookiking-mobile-banner-sticker {
+    text-align: center;
+
+    & {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.myaccount-container {
+    margin-top: 30px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .cookiking-contest-banner-sticker img {
+        bottom: -103px !important;
+        width: 65% !important;
+        height: inherit !important;
+    }
+
+    .cooking-contest-container {
+        margin-bottom: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        width: inherit;
+    }
+
+    .rtl .cookiking-contest-banner-sticker img {
+        bottom: -92px !important;
+        width: 65% !important;
+        height: inherit !important;
+    }
+
+    .cookingcontest-text .cooking-contest-heading h1 {
+        font-size: 40px;
+        margin-top: 0;
+        line-height: 40px;
+        margin-bottom: 20px;
+    }
+
+    .cookingcontest-text .cooking-contest-heading .hightlighted-text {
+        font-size: 22px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .cookingcontest-text {
+        margin-top: 120px;
+    }
+   .thankyou-text {
+        color: #fff !important;
+        text-align: center;
+        font-size: 21px;
+        font-family: 'Changa';
+        padding: 90px 165px 45px 165px;
+    }
+}
+.cooking-check-boxes .checkbox-container .checkbox.selected {
+    background-color: #ffffff;
+}
+
+.custom-radio {
+    margin-bottom: 20px;
+    padding-left: 32px;
+
+    .gender-title {
+        margin-right: 40px;
+        font-size: 20px;
+    }
+}
+
+.radio {
+    margin: 0.5rem;
+    margin-right: 35px;
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+
+        +.radio-label {
+            &:before {
+                content: '';
+                background: transparent;
+                border-radius: 4px;
+                border: 1px solid #b4b4b4;
+                display: inline-block;
+                width: 21px;
+                height: 21px;
+                position: relative;
+                top: 5px;
+                margin-right: 1em;
+                vertical-align: top;
+                cursor: pointer;
+                text-align: center;
+                transition: all 250ms ease;
+            }
+        }
+
+        &:checked {
+            +.radio-label {
+                &:before {
+                    background-color: #ffffff;
+                }
+            }
+        }
+
+        &:focus {
+            +.radio-label {
+                &:before {
+                    outline: none;
+                    border-color: #ffffff;
+                }
+            }
+        }
+
+        &:disabled {
+            +.radio-label {
+                &:before {
+                    box-shadow: inset 0 0 0 4px #ffffff;
+                    border-color: darken(#ffffff, 25%);
+                    background: darken(#ffffff, 25%);
+                }
+            }
+        }
+
+        +.radio-label {
+            &:empty {
+                &:before {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+.rtl .myaccount-container .form-myaccount .row .inner-column input {
+    width: 100%;
+    height: 75px;
+    padding: 0 32px 10px 10px;
+}
+
+.rtl {
+    .myaccount-container .form-myaccount .row .inner-column .phone-input {
+        padding: 0 32px 10px 10px;
+    }
+
+    .myaccount-container .form-myaccount .row .inner-column .phone-input input {
+        border: none;
+        background-color: transparent;
+        padding-right: 8px;
+    }
+
+    .custom-radio {
+        margin-bottom: 20px;
+        padding-right: 32px;
+    }
+
+    .custom-radio .gender-title {
+        margin-right: 0px;
+        font-size: 20px;
+    }
+
+    .radio input[type="radio"]+.radio-label:before {
+        content: '';
+        margin-left: 1em;
+    }
+
+    .myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+        padding-right: 32px;
+    }
+    
+}
+
+@media only screen and (max-width:768px) {
+    .cookingcontest-text {
+        margin-top: 100px;
+    }
+
+    .cooking-contest-container {
+        .cookiking-contest-banner-sticker img {
+            bottom: -74px !important;
+            width: 63% !important;
+            height: inherit !important;
+        }
+
+        .cookingcontest-text .cooking-contest-heading h1 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+
+        .cooking-contest-container {
+            margin-bottom: 50px;
+        }
+
+        .cookingcontest-text .cooking-contest-heading .hightlighted-text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .cookingcontest-text .cooking-contest-heading span {
+            font-size: 16px;
+        }
+
+        .cookingcontest-text .cooking-contest-heading .cookingcontest-txtspacing {
+            line-height: 21px;
+            padding-bottom: 5px;
+            padding-top: 6px;
+        }
+
+        .cookingcontest-text {
+            padding: 0 45px 0 45px;
+        }
+
+        .myaccount-container .form-myaccount .row .inner-column input {
+            width: 100%;
+            height: 50px;
+            padding: 0 10px 0px 20px;
+            font-size: 16px;
+
+            &::placeholder {
+                color: #ffff;
+            }
+        }
+
+        .myaccount-container .form-myaccount .row .inner-column .phone-input {
+            padding: 0 10px 0px 20px;
+        }
+
+        .phone-input-container .phone-input {
+            height: 50px;
+        }
+
+        .phone-input-container .phone-input .country-code-container .country-code-input {
+            line-height: 48px;
+        }
+
+        .phone-input-container .phone-input .down-arrow {
+            width: 25px;
+            height: 50px;
+        }
+
+        .myaccount-container .form-myaccount .row .inner-column .phone-input input {
+            padding-left: 2px;
+        }
+
+        .custom-radio {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            height: 50px;
+        }
+
+        .custom-radio .gender-title {
+            margin-right: 40px;
+            font-size: 16px;
+        }
+
+        .radio {
+            margin: -0.5rem;
+            margin-right: 32px;
+        }
+
+        .radio input[type="radio"]+.radio-label:before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            margin-right: 7px;
+        }
+
+        .myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+            line-height: 50px;
+            height: 50px;
+            color: white;
+            background: transparent;
+            font-size: 16px;
+            padding-left: 20px;
+        }
+
+        .checkbox-container .checkbox-text {
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        .checkbox-container .checkbox {
+            margin: 2px 0;
+        }
+
+        .myaccount-container {
+            margin-top: 10px;
+        }
+
+        .myaccount-container .form-myaccount .row .inner-column {
+            margin-bottom: 4px;
+        }
+
+        .rtl .cookiking-contest-banner-sticker img {
+            bottom: -24px !important;
+            width: 65% !important;
+            height: inherit !important;
+        }
+
+        .rtl .myaccount-container .form-myaccount .row .inner-column input {
+            width: 100%;
+            height: 50px;
+            padding: 0 20px 10px 10px;
+        }
+
+        .rtl .myaccount-container .form-myaccount .row .inner-column .phone-input {
+            padding: 0 20px 10px 10px;
+        }
+
+        .rtl .custom-radio {
+            margin-bottom: 14px;
+            margin-top: 3px;
+            padding-right: 20px;
+        }
+
+        .rtl .myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+            padding-right: 20px;
+        }
+
+        .rtl .custom-radio .gender-title {
+            margin-right: 0px;
+            font-size: 16px;
+        }
+        .cooking-main-container .cookingcontest-txtspacing .hightlighted-text {
+            font-size: 16px;
+            font-weight: 700 !important;
+        }
+    }
+
+    .myaccount-container .form-myaccount .row .inner-column input {
+        padding: 0 0px 0px 21px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+    }
+
+    .myaccount-container .form-myaccount .row .inner-column .phone-input {
+        padding: 0 0px 0px 21px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+    }
+
+    .myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+        padding-left: 21px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+    }
+
+    .custom-radio {
+        padding-left: 21px;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .radio input[type="radio"]+.radio-label:before {
+        margin-right: 12px;
+    }
+
+    .rtl .radio input[type="radio"]+.radio-label:before {
+        margin-left: 10px;
+    }
+
+    .radio {
+        margin: 0.5rem;
+        margin-right: 35px;
+    }
+
+    .custom-radio .gender-title {
+        margin-right: 20px;
+        font-size: 16px;
+    }
+
+    .phone-input-container .phone-input .down-arrow {
+        height: 50px;
+    }
+
+    .phone-input-container .phone-input .country-code-container .country-code-input {
+        line-height: 50px;
+        min-width: 50px;
+    }
+
+    .myaccount-container .form-myaccount .row .inner-column {
+        margin-bottom: 10px;
+    }
+
+    .rtl .myaccount-container .form-myaccount .row .inner-column input {
+        padding: 0 21px 0px 10px !important;
+        height: 50px !important;
+        line-height: 50px;
+    }
+
+    .rtl .myaccount-container .form-myaccount .row .inner-column .phone-input {
+        padding: 0 21px 10px 10px;
+    }
+
+    .rtl .myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+        padding-right: 21px;
+    }
+
+    .rtl .custom-radio {
+        padding-right: 21px;
+    }
+
+    .rtl .custom-radio .gender-title {
+        font-size: 16px;
+    }
+
+    .checkbox-container .checkbox {
+        margin: 2px 0;
+    }
+
+    .checkbox-container .checkbox-text {
+        font-size: 16px;
+        line-height: 19px;
+    }
+
+    .myaccount-container .myaccount .my-account-checkboxes .checkbox-container {
+        margin: 10px 0;
+        margin-bottom: 30px;
+    }
+
+    .thankyou-text {
+        color: #fff !important;
+        text-align: center;
+        font-size: 21px;
+        font-family: 'Changa';
+        padding: 32px 18px 40px 18px;
+    }
+}
+
+@media only screen and (max-width:640px) {
+    .cooking-contest-container .cookiking-contest-banner-sticker img {
+        bottom: -34px !important;
+        width: 63% !important;
+        height: inherit !important;
+    }
+
+    .cookingcontest-text {
+        margin-top: 50px;
+    }
+
+    .cookingcontest-text .cooking-contest-heading h1 {
+        font-size: 20px;
+        margin-top: 0;
+        line-height: 20px;
+    }
+
+    .cookingcontest-text .cooking-contest-heading .hightlighted-text span{
+        font-size: 16px;
+        font-weight: 700;
+    }
+    .cooking-main-container .radio {
+        margin: 0.5rem;
+        margin-right: 20px;
+    }
+    .cooking-main-container .radio input[type="radio"] + .radio-label:before {
+        content: '';
+        top: 3px;
+    }
+    .cooking-main-container .custom-radio {
+        font-size: 14px;
+    }
+    .input-label-mobile .input-label {
+        left: 96px;
+        top: 12px;
+    }
+}
+
+@media only screen and (max-width:360px) {
+    .radio {
+        margin-right: 5px;
+    }
+}
+}
+
+.end-hightlighted-text{
+    font-size: 23px;
+    font-family: 'Changa';
+}
+.normal-text span{
+    font-size: 20px;
+    @media(max-width:768px){
+        font-size: 16px !important;
+        font-weight: normal;
+        // padding: 0 51px 0 51px;
+    }
+}
+.normal-middle-text{
+    font-size: 20px;
+    @media(max-width:768px){
+        font-size: 16px !important;
+        font-weight: normal;
+        padding: 0 51px 0 51px;
+    }
+}
+.end-hightlighted-text{
+    font-size: 23px;
+    @media(max-width:768px){
+        font-size: 17px !important;
+        font-weight: 700px;
+    }
+}
+.rtl .cooking-main-container .radio input[type="radio"] + .radio-label:before {
+content: '';
+margin-left: 1em;
+}
+
+span.input-label{
+    position: absolute;
+    left: 32px;
+    top: 22px;
+    font-size: 20px;
+    font-family: 'changa';
+    color: #FFFFFF;   
+}
+.input-label-mobile{
+    .input-label{
+     left: 105px;
+     top:20px;
+    }
+}
+.input-label-email{
+    .input-label{
+        top:19px;
+    }
+}
+.cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-mobile input {
+    padding-left: 90px;
+}
+.cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-email input {
+    padding-left: 100px;
+}
+.cooking-main-container .myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+    margin-left: auto;
+}
+.select-box-container .selected {
+   padding-right: 30px;
+}
+.cooking-main-container .myaccount-container .form-myaccount .row .inner-column input {
+    color: #797777;
+}
+
+.myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+    color: #797777 !important;
+}
+.rtl span.input-label {
+    position: absolute;
+    left: inherit;
+    top: 22px;
+    font-size: 20px;
+    font-family: 'changa';
+    color: #FFFFFF;
+    right: 32px;
+}
+.rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+    margin-left: inherit;
+    margin-right: auto;
+}
+.rtl .input-label-mobile .input-label {
+    top: 20px;
+    right: 112px;
+}
+.rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column input {
+    padding: 0 150px 0px 0px;
+}
+.rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-mobile input {
+    padding-right: 90px;
+}
+.rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-email input {
+    padding-right: 170px;
+}
+.rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .phone-input {
+    padding: 0 32px 10px 32px;
+}
+.rtl .cooking-main-container .custom-radio {
+padding-right: 32px;
+}
+.rtl .cooking-main-container .custom-radio .gender-title {
+    margin-right: 0px;
+}
+@media(max-width:768px){
+    span.input-label {
+        left: 21px;
+        top: 14px;
+        font-size: 16px;
+        font-family: 'changa';
+        color: #FFFFFF;
+    }
+    .input-label-mobile .input-label {
+        left: 96px;
+        top: 10px;
+    }
+    .input-label-email .input-label {
+        top: 10px;
+    }
+    .select-box-container .selected {
+        padding-right: 15px;
+    }
+    .cooking-main-container .myaccount-container .form-myaccount .row .input-label-fname .input{
+        padding: 0 0px 0px 109px !important;
+    }
+    .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-mobile input {
+        padding-left: 70px;
+    }
+    .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-email input {
+        padding-left: 70px;
+    }
+    .rtl span.input-label {
+        top: 13px;
+        font-size: 16px;
+        font-family: 'changa';
+        color: #FFFFFF;
+        right: 21px;
+    }
+    .rtl .cooking-main-container .custom-radio {
+        padding-right: 21px;
+    }
+    .rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .phone-input {
+        padding: 0 21px 10px 0px;
+    }
+    .rtl .input-label-mobile .input-label {
+        top: 12px;
+       right: 97px;
+    }
+    .rtl .cooking-main-container .myaccount-container .form-myaccount .row .input-label-fname .input {
+        padding: 0 120px 0px 0px !important;
+    }
+    .rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-mobile input {
+        padding-right: 65px;
+    }
+    .rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-email input {
+        padding-right: 145px;
+    }
+    .cooking-main-container .radio {
+        margin: 0.5rem;
+        margin-right: 21px;
+    }
+    .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .select-box-container .selected {
+      overflow: hidden;
+    }
+    .rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-mobile input {
+        padding-left: 0;
+    }
+    .rtl .cooking-main-container .myaccount-container .form-myaccount .row .inner-column .input-label-email input {
+        padding-left: 0px;
+    }
+}
+@media(max-width:320px){
+    .cooking-main-container .radio {
+        margin-right: 0;
+    }
+    .cooking-main-container .custom-radio {
+        font-size:13px;
+    }
+    .cooking-main-container .radio input[type="radio"] + .radio-label:before {
+        content: '';
+        top:1px;
+    }
+    .cooking-main-container .radio input[type="radio"] + .radio-label:before {
+        margin-right: 7px;
+    }
+    .cooking-main-container .cooking-contest-container .cookiking-contest-banner-sticker img {
+        bottom: -26px !important;
+    }
+}
+@media(max-width:360px){
+    .cooking-main-container .radio {
+        margin-right: 0;
+    }
+    .cooking-main-container .custom-radio {
+        font-size:13px;
+    }
+    .cooking-main-container .radio input[type="radio"] + .radio-label:before {
+        content: '';
+        top:1px;
+    }
+    .cooking-main-container .radio input[type="radio"] + .radio-label:before {
+        margin-right: 7px;
+    }
+}
+.contest-thankyou{
+     color:#ffff;
+     text-align: center;
+     font-family: 'changa';
+     padding-bottom: 40px;
+     .thankyou-text1{
+        font-size: 18px;
+        color: #E9E3E3;
+        opacity: 0.76;
+        padding: 0 40px;
+        @media(max-width:768px){
+            font-size: 20px;
+        }
+     }
+}

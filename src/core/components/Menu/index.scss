@@ -8,18 +8,23 @@
  * of L&T.
  */
 @import "app/resources/styles/variables.scss";
-
+$app-menu-width: 456px;
 .sidemenu {
   height: 100%;
   width: $app-menu-width;
   position: fixed;
-  z-index: 2100; // Added because ad container has index of 1000
+  z-index: 999; // Added because ad container has index of 1000
   top: 0;
   left: -$app-menu-width;
   background-color: #111;
-  overflow-x: hidden;
+  overflow: hidden;
+  overflow-y: auto;
   transition: all 0.2s;
   padding-top: 60px;
+  @media(max-width:765px){
+    // width: 100%;
+    
+  }
 
   &.show {
     left: 0px;

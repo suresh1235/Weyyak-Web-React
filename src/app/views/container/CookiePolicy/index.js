@@ -45,7 +45,7 @@ class Cookie extends BaseContainer {
     return (
       <React.Fragment>
         <div className="privacy-overlay">
-          <Button className="close-btn" icon={icon} onClick={() => this.handleCloseButton()}></Button>
+          {/* <Button className="close-btn" icon={icon} onClick={() => this.handleCloseButton()}></Button> */}
           <div className="privacy-overlay-container">
             <div className="static-page">
               <div className="overlay-title">{oResourceBundle.cookie_policy}</div>

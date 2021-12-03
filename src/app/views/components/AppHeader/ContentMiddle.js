@@ -8,10 +8,12 @@
  * of L&T.
  */
 
-
 import React from 'react';
 //import appLogo from 'app/resources/assets/header/logo-01.svg';
 import './index.scss';
+// import logo from '../../../resources/assets/weyyak-logo.svg';
+import logo from '../../../resources/assets/weyyak-logo.png';
+
 
 /**
    * Component Name - HeaderContentMiddle
@@ -21,8 +23,10 @@ import './index.scss';
    */
 
 const headerContentMiddle = React.memo((props) => (
-  <div className="logo-container" onClick={() => props.onLogoClick()}>
-    <img className="logo" src="https://contents-uat.weyyak.z5.com/resources/assets/header/logo-01.svg" alt="Weyyak logo" />
-  </div>
+	<div className="logo-container" onClick={() => props.onLogoClick()}>
+		{/* <img className="logo" src="https://contents-uat.weyyak.z5.com/resources/assets/header/logo-01.svg" alt="Weyyak logo" /> */}
+		<img className="logo" src={logo} alt="Weyyak logo" />
+
+	</div>
 ));
 export default headerContentMiddle;
