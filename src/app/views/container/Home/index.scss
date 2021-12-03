@@ -1,0 +1,130 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+
+//  Slick CSS Start
+
+.slick-list,.slick-slider,.slick-track{position:relative;display:block}.slick-loading .slick-slide,.slick-loading .slick-track{visibility:hidden}.slick-slider{box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-khtml-user-select:none;-ms-touch-action:pan-y;touch-action:pan-y;-webkit-tap-highlight-color:transparent}.slick-list{overflow:hidden;margin:0;padding:0}.slick-list:focus{outline:0}.slick-list.dragging{cursor:pointer;cursor:hand}.slick-slider .slick-list,.slick-slider .slick-track{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.slick-track{top:0;left:0}.slick-track:after,.slick-track:before{display:table;content:''}.slick-track:after{clear:both}.slick-slide{display:none;float:left;height:100%;min-height:1px}[dir=rtl] .slick-slide{float:right}.slick-slide img{display:block}.slick-slide.slick-loading img{display:none}.slick-slide.dragging img{pointer-events:none}.slick-initialized .slick-slide{display:block}.slick-vertical .slick-slide{display:block;height:auto;border:1px solid transparent}.slick-arrow.slick-hidden{display:none}/*# sourceMappingURL=slick.min.css.map */
+
+.slick-slider {
+  position: relative;
+  img {
+    width: 100%;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  .slick-prev {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    font-size: 0;
+    height: 97%;
+    width: 48px;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-image: url("~app/resources/assets/thumbnail/ic-left-arrow.png");
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    cursor: pointer;
+  }
+  .slick-next {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9;
+    font-size: 0;
+    height: 97%;
+    width: 48px;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-image: url("~app/resources/assets/thumbnail/ic-right-arrow.png");
+    background-repeat: no-repeat;
+    background-position: 18px center;
+    cursor: pointer;
+  }
+  .lag_rus, .lag_eng {
+    position: absolute;
+    bottom: 25px;
+    width: 100% !important;
+    text-align: center;
+    font-size: 20px !important;
+    color: #ffffff;
+    line-height: 20px !important;
+    height: inherit !important;
+    display: none;
+    padding: 6px;
+  }
+  .column1 {
+    position: relative;
+  }
+}
+.rtl .lag_rus {
+  display: block;
+  width: 211px;
+  height: 69px;
+  // opacity: -1;
+  color: #ffffff;
+  font-family: "Changa";
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 35px;
+}
+.ltr .lag_eng  {
+  display: block;
+  width: 211px;
+  height: 69px;
+  // opacity: -1;
+  color: #ffffff;
+  font-family: "Changa";
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 35px;
+  // font-family: "changa";
+  // width: 177px;
+}
+
+// Slick CSS End
+ 
+.home-content {
+  background-color:#000000;
+  .carousel-item {
+    .desription {
+      white-space: normal;
+    }
+  }
+  .bucket-item-container {
+    padding: 0.05px; //to prevent collapsing margin
+    &:last-child {
+      //  margin-bottom: 50px;
+    }
+    .column {
+      float: left;
+      width: 226px;
+      padding: 50px;
+    }
+    
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  }
+}
+/*Device width pixel lesser than 768*/
+@media only screen and (max-width: 768px) {
+  .scroll-menu-arrow {
+    display: none;
+  }
+}
+
+/*Device width pixel in between 360-450*/
+@media only screen and (max-width: 450px) {
+}

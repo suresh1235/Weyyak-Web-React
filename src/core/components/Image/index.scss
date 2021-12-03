@@ -1,0 +1,10 @@
+.default-image {
+  background: transparent;
+}
+.carousel-image .has-fallback {
+  position: absolute;
+}
+.carousel-image > img:nth-child(2) {
+  width: 100%;
+  height: 100%;
+}

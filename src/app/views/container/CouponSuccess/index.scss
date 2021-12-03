@@ -1,0 +1,52 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+@import "app/resources/styles/variables.scss";
+
+.coupons-succes-container {
+  background: #000;
+  color: #4a4a4a;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
+  @media only screen and (max-width: $mobile-view-threshold-px) {
+    min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+  }
+
+  .transaction-text {
+    width: 80%;
+    color: #ffffff;
+    font-size: 22px;
+    line-height: 29px;
+    text-align: center;
+    margin: 100px 0;
+    @media only screen and (max-width: $mobile-view-threshold-px) {
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+
+  .done {
+    background: #ff6d02;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 18px;
+    width: 400px;
+    height: 53px;
+    border-radius: 5px;
+    margin-bottom: 70px;
+    @media only screen and (max-width: $mobile-view-threshold-px) {
+      width: 258px;
+      height: 42px;
+      font-size: 16px;
+    }
+  }
+}

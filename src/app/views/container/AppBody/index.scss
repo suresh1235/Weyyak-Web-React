@@ -1,0 +1,168 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+@import "app/resources/styles/variables.scss";
+
+.app-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  justify-content: flex-end;
+
+  .bold {
+    font-weight: bold;
+  }
+  .underline {
+    text-decoration: underline;
+  }
+  .italic {
+    font-style: italic;
+  }
+
+  .full-error-message,
+  .geo-blocked {
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+    font-weight: 400;
+    background-color: black;
+    width: 100vw;
+    font-size: 18px;
+    position: relative;
+    align-items: center;
+  }
+
+  .cookies-policy-container {
+    position: fixed;
+    width: 100vw;
+    bottom: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+    z-index: 2101;
+    font-size: 0.7em;
+  }
+
+  .cookies-ok {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: $primary-orange-color;
+    font-size: 1em;
+    width: 55px;
+    height: 30px;
+  }
+
+  .cookies-text {
+    a {
+      text-decoration-color: white;
+      color: white;
+
+      &:hover {
+        color: #5a90e8;
+        text-decoration-color: #5a90e8;
+      }
+    }
+  }
+
+  .full-error-message {
+    margin-top: $header-height;
+    min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
+    @media only screen and (max-width: 745px) {
+      margin-top: $header-height-mobile;
+      min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+    }
+  }
+
+  .page-content {
+    .geo-blocked,
+    .home-content {
+      margin-top: $header-height;
+      min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
+      background-color: black;
+    }
+
+    .google-ad {
+      margin: 20px 0;
+      height: auto !important;
+    }
+  }
+
+  &.rtl {
+    .cookies-ok {
+      left: 5%;
+      right: unset;
+    }
+  }
+}
+
+.Toastify__toast--success {
+  background: $primary-orange-color !important;
+  text-align: center;
+}
+
+.Toastify__toast-container {
+  width: 580px;
+  margin-left: -290px;
+  text-align: center;
+}
+
+.Toastify__toast-container--bottom-center {
+  bottom: 5em;
+}
+/*Device width pixel lesser than 745*/
+@media only screen and (max-width: 745px) {
+  .Toastify__toast-container {
+    width: 90%;
+    margin: 0 5%;
+  }
+
+  .Toastify__toast-container--bottom-center {
+    left: 0;
+  }
+
+  .app-body {
+    .page-content {
+      .home-content {
+        margin-top: $header-height-mobile;
+        min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+        background-color: black;
+      }
+
+      .full-error-message,
+      .geo-blocked {
+        margin-top: $header-height-mobile;
+        min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+        font-size: 14px;
+      }
+    }
+
+    .cookies-ok {
+      position: unset;
+      margin: 0 auto;
+    }
+
+    .cookies-text {
+      position: relative;
+      margin-bottom: 25px;
+
+      a {
+        .link-style {
+          color: white;
+
+          &:hover {
+            color: #5a90e8;
+          }
+        }
+      }
+    }
+  }
+}

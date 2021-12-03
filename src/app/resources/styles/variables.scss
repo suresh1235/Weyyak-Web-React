@@ -1,0 +1,246 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+ $mobile-view-threshold: 745;
+ $mobile-view-threshold-px: 745px;
+ $mobile-view-threshold-login-px: 1024px;
+ $desktop-view-threhold-px: 1240px;
+ /* colors */
+ $primary-orange-color: #ff740f;
+ $bucket-header-margin-left-mobile: 20px;
+ $app-content-margin-left: 60px;
+ $app-content-margin-right: 60px;
+ $select-hover-color: #ff6d02;
+ $primary-background-color: #000;
+ $input-border-color: #4a4a4a;
+ $primary-text-color: #fff;
+ $info-button-selected-color: $primary-orange-color;
+ $info-container-text-color: #fff;
+ $light-grey-text: #929090;
+ $select-text-color: #b9b9b9;
+ $select-border-color: #fff;
+ $select-background-color: #000;
+ $carousel-selected-dot-color: #f9710b;
+ $header-background-color: #ff6d02;
+ $app-menu-item-color: #929090;
+ $scroll-background-color: #232323;
+ $scroll-thumb-color: #383838;
+ $z5-text-color: #929090;
+ $menu-item-color: #f1f1f1;
+ $static-menu-item-color: rgb(72, 72, 72);
+ $tabIndexFocusBackground: rgba(120, 120, 120, 120);
+ /*Menu */
+ $app-menu-width: 330px;
+ /*Footer */
+ $app-footer-height: 185px;
+ $app-footer-color: #929090;
+ $app-footer-top-left-link: #929090;
+ $app-header-searchinput-placeholder: #fff;
+ /* Header */
+ $header-height: 60px;
+ $header-height-mobile: 50px;
+ $header-mobile-margin-top: 50px;
+ $header-sign-in-button: 0.8em;
+ $header-search-input: 1em;
+ /* Home Bucket item */
+ $bucket-item-margin-bottom: 28px;
+ $bucket-item-header-margin: 20px;
+ $bucket-item-header-margin-left: 60px;
+ $bucket-item-header-margin-right: 60px;
+ $bucket-item-swiper-margin-left: 60px;
+ $bucket-item-swiper-margin-right: 60px;
+ $bucket-item-font-size: 1.25em;
+ /* Grid */
+ $grid-listing-filters-mobile-width: 100%;
+ $grid-listing-filters-mobile-container-width: 100%;
+ $grid-section-title-font-size: 1.563em;
+ $grid-listing-filter-item-font-size: 1em;
+ $grid-thumbnail-zoom: 1.015;
+ $carousel-item-width-min-320: 50%;
+ $carousel-item-width-min-768: 33.333%;
+ $carousel-item-width-min-1024: 25%;
+ $carousel-item-width-min-1280: 20%;
+ $carousel-item-width-min-1920: 16.666%;
+ $grid-margin-left-right-320: 50px;
+ $grid-margin-left-right-768: 60px;
+ $grid-text-highlight-color: $primary-orange-color;
+ $grid-dropdown-text-color: #9993a0;
+ $grid-dropdown-background-color: #ebebeb;
+ $grid-dropdown-element-hover-color: #ff6d02;
+ /* image thumbnail */
+ $default-thumbnail-en: "~app/resources/assets/thumbnail/placeholder_carousel_ar.png";
+ $default-thumbnail-ar: "~app/resources/assets/thumbnail/placeholder_carousel_ar.png";
+ $rating-star-image: "~app/resources/assets/thumbnail/ic-star.svg";
+ $rating-icon: "~app/resources/assets/login/star-icon.svg";
+ $rating-icon-unfocused: "~app/resources/assets/login/star-icon-unfocused.svg";
+ $play-icon: "~app/resources/assets/login/play-icon.svg";
+ $play-icon-unfocused: "~app/resources/assets/login/play-icon-unfocused.svg";
+ $cross-icon: "~app/resources/assets/login/cross-icon.svg";
+ $phone-down-arrow: "~app/resources/assets/login/phone-down-arrow.svg";
+ $cross-icon-mobile: "~app/resources/assets/login/cross-mobile.svg";
+ $tick-mark: "~app/resources/assets/tick.svg";
+ $right-arrow: "~app/resources/assets/thumbnail/ic-right-arrow.png";
+ $left-arrow: "~app/resources/assets/thumbnail/ic-left-arrow.png";
+ $credit_card1: "~app/resources/assets/plans/card1.png";
+ $credit_card2: "~app/resources/assets/plans/card2.png";
+ $etisalat: "~app/resources/assets/plans/etisalat.png";
+ $infomedia-ee: "~app/resources/assets/plans/infomedia/infomedia_ee.png";
+ $infomedia-o2: "~app/resources/assets/plans/infomedia/infomedia_o2.png";
+ $infomedia-three: "~app/resources/assets/plans/infomedia/infomedia_three.png";
+ $infomedia-vodafone: "~app/resources/assets/plans/infomedia/infomedia_vodafone.png";
+ $tpay: "~app/resources/assets/plans/tpay.png";
+ $tpay-avea: "~app/resources/assets/plans/tpay/avea.png";
+ $tpay-du: "~app/resources/assets/plans/tpay/du.png";
+ $tpay-etisalat: "~app/resources/assets/plans/tpay/etisalat.png";
+ $tpay-inwi: "~app/resources/assets/plans/tpay/inwi.png";
+ $tpay-jawwal: "~app/resources/assets/plans/tpay/jawwal.png";
+ $tpay-libya: "~app/resources/assets/plans/tpay/libyan.png";
+ $tpay-mobily: "~app/resources/assets/plans/tpay/mobily.png";
+ $tpay-ooredoo: "~app/resources/assets/plans/tpay/ooredoo.png";
+ $tpay-orange: "~app/resources/assets/plans/tpay/orange.png";
+ $tpay-stc: "~app/resources/assets/plans/tpay/stc.png";
+ $tpay-tunisie-telecom: "~app/resources/assets/plans/tpay/tunisie_telecom.png";
+ $tpay-turkcell: "~app/resources/assets/plans/tpay/turkcell.png";
+ $tpay-umniah: "~app/resources/assets/plans/tpay/umniah.png";
+ $tpay-viva: "~app/resources/assets/plans/tpay/viva.png";
+ $tpay-vodafone: "~app/resources/assets/plans/tpay/vodafone.png";
+ $tpay-wataneya: "~app/resources/assets/plans/tpay/wataniah.png";
+ $tpay-we: "~app/resources/assets/plans/tpay/we.svg";
+ $telus:"~app/resources/assets/plans/telus.svg";
+ $tpay-zain: "~app/resources/assets/plans/tpay/zain.png";
+ $logo: "~app/resources/assets/header/logo-01.svg";
+ $subscrition-image-1: "~app/resources/assets/subscribe/subscribe-image-1.png";
+ $subscrition-image-2: "~app/resources/assets/subscribe/subscribe-image-2.png";
+ $no-ads: "~app/resources/assets/subscribe/no_ads.svg";
+ $hd-content: "~app/resources/assets/subscribe/hd_content.svg";
+ $exclusive-content: "~app/resources/assets/subscribe/exclusive_content.svg";
+ $downloads: "~app/resources/assets/subscribe/downloads.svg";
+ $no-ads1: "~app/resources/assets/subscribe/no_ads1.svg";
+ $hd-content1: "~app/resources/assets/subscribe/hd_content1.svg";
+ $exclusive-content1: "~app/resources/assets/subscribe/exclusive_content1.svg";
+ $downloads1: "~app/resources/assets/subscribe/downloads1.svg";
+ $smart-tv: "~app/resources/assets/subscribe/smarttv.png";
+ $smart-tv1: "~app/resources/assets/subscribe/smarttv1.png";
+ $thumbnail-zoom: 1.04;
+ $thumbnail-zoom: 1.04;
+ $thumbnail-rating-font-size: 0.713em;
+ /* language button */
+ $language-button-font-size: 0.875em;
+ $header-veritcal-separator-background-color: #fff;
+ /* Menu */
+ $menu-menuitem-background-color: $primary-orange-color;
+ /* Scroll */
+ $scoll-box-shadow-color: rgba(0, 0, 0, 0.3);
+ /* Smart TV Layout */
+ $smart-tv-grid-margin: 4px;
+ $play-icon-height: 50px;
+ $play-icon-width: 50px;
+ $play-carouel-icon-height: 90px;
+ $play-carouel-icon-width: 90px;
+ /* Smart TV Banner */
+ $smart-tv-banner-bullet-background-color: #fff;
+ $smart-tv-banner-bullet-active-color: #f9710b;
+ /* Video player */
+ $player-controls-height: 80px;
+ $player-controls-height-mobile: 50px;
+ $progress-highlight-color: $primary-orange-color;
+ $player-hover-color: $primary-orange-color;
+ $progress-background-color: #161616;
+ $progress-buffer-color: rgba(255, 255, 255, 0.5);
+ $progress-edge-color: #666666;
+ $volume-background-color: #ebebeb;
+ $controls-background-color: #fff;
+ $duration-font-color: #010101;
+ $player-overlay-text-color: #ffffff;
+ $related-content-header-color: #ffffff;
+ $related-content-header-height: 10px;
+ $player-carousel-bottom: 12.5%;
+ $player-carousel-margin-left: 12%;
+ $player-carousel-margin-right: 10%;
+ $player-carousel-active-margin-right: 40%;
+ $player-carousel-info-width: 30%;
+ $player-carousel-info-background-color: #000000;
+ $player-carousel-info-text-color: #ffffff;
+ $controls-font-color: #a1a1a1;
+ $player-episode-number-font-color: #929090;
+ $related-video-background-color-mobile: #000;
+ $radio-button-unchecked-color: #383838;
+ $radio-button-checked-color: #fff;
+ $quality-text-color: #ebebeb;
+ $quality-hd-color: #f00;
+ $current-time-hover-background: rgba(255, 255, 255, 0.8);
+ /* Video info */
+ $carousel-border-size: 1.5px;
+ $on-image-desc-text-color: #fff;
+ $video-info-background: #000;
+ /* Video overview */
+ $video-info-content-margin-right: 60px;
+ $video-info-dropdown-bottom-padding-top: 50px;
+ $genre-text-color: rgba(193, 193, 193, 0.7);
+ /* Login */
+ $login-container-background-color: black;
+ $lightPrimary: $primary-orange-color;
+ $button-background-color: $primary-orange-color;
+ $button-disabled-background-color: #555555;
+ $button-disabled-text-color: #838383;
+ $top-container-background-color: #000000;
+ $bottom-container-background-color: #0d0d0d;
+ $login-button-unselected-color: #414141;
+ $login-or-create-text-color: #4e4e4e;
+ $sign-in-text-color: #ebebeb;
+ $use-weyyak-text-color: #4a4a4a;
+ $input-text-color: #4e4e4e;
+ $input-background-color: #fff;
+ $error-text-color: #ff0000;
+ $remember-me-text-color: #989898;
+ $change-password-text-color: #4e4e4e;
+ $or-text-color: #4e4e4e;
+ $or-background-color: #fff;
+ $facebook-color: #4968a2;
+ $facebook-color-mobile: #3e4e8d;
+ $twitter-color: #36b9ff;
+ $twitter-color-mobile: #25afff;
+ $create-account-background-color: #232323;
+ /* Sign-up */
+ $input-border-bottom-color: #979797;
+ $expand-bacground-color: #242424;
+ $sign-up-background-color: #000;
+ $next-button-color: #fff;
+ $sign-up-label-color: #ffffff;
+ $checkbox-text-color: #4a4a4a;
+ /* Forgot Password */
+ $background-forgot-password-screen: black;
+ /* my-activity */
+ $button-focused-color: $primary-orange-color;
+ $button-unfocused-color: #ebebeb;
+ $button-unfocused-text-color: #888888;
+ /* My Account */
+ $my-acc-dialog-btn-height: 36px;
+ $my-acc--btn-height: 50px;
+ $my-background-color: #fff;
+ 
+ /* About, Privacy and Terms */
+ $overlay-color: #fff;
+ $overlay-title-color: $primary-orange-color;
+ $overlay-title-background-color: #fff;
+ $static-content-background-color: #fff;
+ $static-content-color: #6c6c6c;
+ 
+ /* My Subscription */
+ $subscription-container-background-color: black;
+ $subscription-container-color: #fff;
+ $subscription-container-table-border-color: #dddddd;
+ 
+ /* Contact US */
+ $contact-container-background-color: black;
+ $contact-container-color: #fff;
+ $contact-container-title-color: #5d5d5d;
+ $contact-container-input-color: #fff;
+ $contact-container-button-color: #ff6d02;
+ 

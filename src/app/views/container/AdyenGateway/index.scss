@@ -1,0 +1,246 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary informFation of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+/* .app-body[dir="rtl"] {
+  .checkout-container {
+    .chckt-form-label__text {
+      float: right;
+    }
+    .chckt-form-label__text.js-chckt-card-label {
+      float: right;
+    }
+    .chckt-form-label__text.js-chckt-cvc-field-label {
+      float: right;
+    }
+    .chckt-form-label.chckt-form-label--exp-date {
+      width: 60%;
+    }
+    .chckt-form-label.chckt-form-label--cvc {
+      width: 21%;
+      @media only screen and (max-width: 400px) {
+        width: 25%;
+      }
+    }
+  }
+} */
+.checkout-container {
+  display: flex;
+  justify-content: center;
+  background: #000;
+  color: #ffffff;
+  min-height: calc(90vh - 165px);
+
+  .checkout {
+    width: calc(100% - 25vw);
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+
+    .choose-payment {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    @media only screen and (max-width: 745px) {
+      width: 95%;
+    }
+  }
+
+  .chckt-button-container {
+    text-align: center;
+
+    .chckt-button--submit {
+      float: none;
+      padding: 0;
+      width: 247px;
+      height: 37px;
+      border-radius: 5px;
+      background-color: #ff6d02;
+
+      &.chckt-button--disabled {
+        background-color: #262626;
+      }
+    }
+  }
+
+  .chckt-pm__details {
+    /* border-radius: 0 0 8px 8px; */
+    background-color: #262626;
+    padding: 20px;
+  }
+
+  .chckt-pm.chckt-pm-card {
+    border-radius: 0 0 8px 8px;
+    background-color: #262626;
+    border: none;
+
+    &:hover {
+      .chckt-pm__header {
+        background: #383838;
+      }
+    }
+  }
+
+  .chckt-form-label__text {
+    font-size: 12px;
+    color: #707070;
+    line-height: 35px;
+    margin-right: 5px;
+
+    &.js-chckt-card-label {
+      width: 25%;
+    }
+  }
+
+  .chckt-form-label {
+    .chckt-checkbox {
+      margin-top: 11px;
+    }
+  }
+
+  .chckt-form-label--cvc {
+    width: 100%;
+  }
+
+  .chckt-form-label__text.js-chckt-cvc-field-label {
+    font-size: 12px;
+    float: left;
+  }
+
+  .selected-plan-details {
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #ff6d02;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      // background-color: #ffffff;
+      border-radius: 50%;
+      margin: 10px;
+    }
+    .selected-paln-title {
+      display: flex;
+    }
+  }
+
+  .chckt-sdk {
+    margin: 0 15px;
+    width: calc(100% - 30px);
+    @media only screen and (max-width: 745px) {
+      margin: 0;
+      width: 100%;
+    }
+  }
+
+  .chckt-pm__header {
+    display: flex;
+    background: #383838;
+
+    &:hover {
+      background: #383838;
+    }
+  }
+
+  .chckt-pm__details {
+    display: flex;
+  }
+
+  .chckt-input-field {
+    background: #262626;
+    border-radius: 8px;
+    border: 1px solid #4f4e4e;
+  }
+
+  .chckt-button__loading-icon > div {
+    &.circle1,
+    .circle2,
+    .circle3 {
+      background-color: #fa6d02;
+    }
+  }
+
+  .js-chckt-pm--selected .js-chckt-pm__name {
+    color: #ffffff;
+  }
+  .js-chckt-pm--selected .js-chckt-pm__header {
+    background-color: transparent;    
+}
+
+  .js-chckt-pm--selected .js-chckt-pm__details {
+    display: block;
+    background-color: transparent;
+  }
+
+  .chckt-pm__details.js-chckt-pm__details {
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .chckt-pm.js-chckt-pm--selected {
+    .chckt-pm__details.js-chckt-pm__details {
+      height: auto;
+      padding: 20px;
+      margin: 0;
+    }
+  }
+
+  .chckt-pm:hover {
+    .chckt-pm__header {
+      background: #383838;
+    }
+  }
+
+  .chckt-more-pm-button__text {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .chckt-more-pm-button {
+    background: #383838;
+    border: none;
+
+    &:hover {
+      .chckt-more-pm-button__icon {
+        color: #fff;
+      }
+      color: #fff;
+    }
+  }
+
+  .chckt-pm:first-child {
+    border: none;
+    border-radius: 0;
+  }
+
+  .chckt-pm:first-child .chckt-pm__header {
+    border-radius: 0;
+  }
+
+  .chckt-pm.js-chckt-pm {
+    border: none;
+    border-bottom: 1px solid #525252;
+  }
+
+  .chckt-checkbox, span.chckt-form-label__text.chckt-form-label__text--dark {
+    display: none;
+  }
+
+  .powered-by-adyen {
+    color: #5d5d5d;
+    font-size: 18px;
+    line-height: 69px;
+    margin: 0 15px;
+  }
+}

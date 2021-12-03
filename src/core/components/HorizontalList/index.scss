@@ -1,0 +1,49 @@
+.app-body[dir="rtl"] {
+  .arrow-prev {
+    .arrow-btn {
+      transform: rotate(270deg);
+    }
+  }
+  .arrow-next {
+    .arrow-btn {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.arrow-prev {
+  height: 227px;
+  position: relative;
+  top: -2px;
+  display: flex;
+  align-items: center;
+  .arrow-btn {
+    transform: rotate(90deg);
+    height: 60px;
+    .icon {
+      width: 40px;
+      height: 20px;
+    }
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+.arrow-next {
+  height: 227px;
+  position: relative;
+  top: -3px;
+  display: flex;
+  align-items: center;
+  .arrow-btn {
+    height: 60px;
+    transform: rotate(270deg);
+    .icon {
+      width: 40px;
+      height: 20px;
+    }
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

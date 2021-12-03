@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <sitemap>
+      <loc>https://weyyak.z5.com/sitemap/generic-ar.xml</loc>
+      <lastmod>2019-04-24T18:26:50+05:30</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://weyyak.z5.com/sitemap/generic-en.xml</loc>
+      <lastmod>2019-04-24T18:26:50+05:30</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://weyyak.z5.com/sitemap/sitemap_Movie-ar.xml</loc>
+      <lastmod>2019-04-24T18:26:50+05:30</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://weyyak.z5.com/sitemap/sitemap_Movie-en.xml</loc>
+      <lastmod>2019-04-24T18:26:50+05:30</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://weyyak.z5.com/sitemap/sitemap_series-ar.xml</loc>
+      <lastmod>2019-04-24T18:26:50+05:30</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://weyyak.z5.com/sitemap/sitemap_series-en.xml</loc>
+      <lastmod>2019-04-24T18:26:50+05:30</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://weyyak.z5.com/sitemap/sitemap_shows-ar.xml</loc>
+      <lastmod>2019-04-24T18:26:50+05:30</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://weyyak.z5.com/sitemap/sitemap_shows-en.xml</loc>
+      <lastmod>2019-04-24T18:26:50+05:30</lastmod>
+   </sitemap>
+   </sitemapindex>

@@ -1,0 +1,155 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+@import "app/resources/styles/variables.scss";
+@font-face {
+  font-family: "Droid Sans";
+  font-display: swap;
+  src: url("~app/resources/fonts/DroidSans.woff2") format("woff2"), url("~app/resources/fonts/DroidSans.woff") format("woff"), url("~app/resources/fonts/DroidSans.ttf") format("truetype");
+}
+@font-face {
+  font-family: DroidSans-Bold;
+  font-display: swap;
+  src: url("~app/resources/fonts/DroidSans-Bold.woff2") format("woff2"), url("~app/resources/fonts/DroidSans-Bold.woff") format("woff"), url("~app/resources/fonts/DroidSans-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Neo Sans Arabic";
+  font-display: swap;
+  src: url("~app/resources/fonts/NeoSansArabic-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: NeoSansArabic-Bold;
+  font-display: swap;
+  src: url("~app/resources/fonts/NeoSansArabic-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: DroidKufi-Regular;
+  font-display: swap;
+  src: url("~app/resources/fonts/DroidKufi-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: DroidKufi-Bold;
+  font-display: swap;
+  src: url("~app/resources/fonts/DroidKufi-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "changa";
+  font-display: swap;
+  src: url("~app/resources/fonts/Changa-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: changa-Regular;
+  font-display: swap;
+  src: url("~app/resources/fonts/Changa-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: changa-medium;
+  font-display: swap;
+  src: url("~app/resources/fonts/Changa-Medium.ttf") format("truetype");
+}
+
+#root,
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-width: 300px;
+  font-family: "Droid Sans", Roboto, sans-serif;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+
+  a,
+  html,
+  md-bottom-sheet .md-subheader,
+  select {
+    font-family: DroidKufi-Regular, Roboto, sans-serif;
+    // &:focus {
+    //   background: $tabIndexFocusBackground;
+    // }
+  }
+
+  button,
+  input,
+  textarea {
+    font-family: "Neo Sans Arabic";
+  }
+
+  .app-body[dir="rtl"] {
+    font-family: DroidKufi-Regular, Roboto, sans-serif;
+
+    a,
+    html,
+    md-bottom-sheet .md-subheader,
+    p,
+    select {
+      font-family: DroidKufi-Regular, Roboto, sans-serif;
+    }
+  }
+}
+
+.scroll-bar {
+  &::-webkit-scrollbar {
+    width: 18px;
+    max-height: 300px;
+    background-color: $scroll-background-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px $scoll-box-shadow-color;
+    box-shadow: inset 0 0 6px $scoll-box-shadow-color;
+    border-radius: 10px;
+    background-color: $scroll-background-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: $scroll-thumb-color;
+    border: 4px solid $scroll-background-color;
+  }
+}
+
+body {
+  @extend .scroll-bar;
+}
+
+.app-body {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  *,
+  :after,
+  :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 0;
+    font-weight: 400;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.gone {
+  display: none;
+}
+
+.invisible, .hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+/*Device width pixel lesser than 745*/
+@media only screen and (max-width: 745px) {}
+/*Device width pixel in between 360-450*/
+@media only screen and (max-width: 450px) {}

@@ -1,0 +1,44 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+@import "app/resources/styles/variables.scss";
+
+.transaction-details {
+  background: #000;
+  color: #4a4a4a;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
+
+  @media only screen and (max-width: $mobile-view-threshold-px) {
+    min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+  }
+
+  .transaction-text {
+    color: #ffffff;
+    font-size: 22px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 100px;
+  }
+  .actions {
+    margin: 10px;
+  }
+  .go-to-home,
+  .try-again {
+    background: #ff6d02;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+  }
+}

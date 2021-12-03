@@ -1,0 +1,74 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .first-row {
+    .swiper-pagination-bullets {
+      bottom: 10px;
+    }
+  }
+}
+.smart-tv-banner {
+  margin-bottom: 4px;
+
+  .first-row {
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 4px;
+    width: 100%;
+    justify-content: center;
+
+    .swiper-touch-container {
+      width: 100%;
+      background-color:#000000;
+    }
+  }
+
+  .swiper-container {
+    margin-top: 0;
+    overflow: hidden;
+    max-width: 80%;
+    margin: 0 10%;
+    //max-height: calc(100vh - 60px);
+    @media (max-width: $mobile-view-threshold-px) {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .customized-swiper-pagination {
+      .swiper-pagination-bullet {
+        margin: 0 4px;
+        width: 28px;
+        height: 3px;
+        padding: 0;
+        border-radius: 0;
+        background-color: $smart-tv-banner-bullet-background-color;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: $smart-tv-banner-bullet-active-color;
+        opacity: 1;
+      }
+    }
+    .subscribe-thumbnail {
+      cursor: pointer;
+    }
+
+    .image-thumbnail {
+      .image-container {
+        text-align: center;
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius:5px;
+        }
+      }
+    }
+  }
+  @media (max-width: $mobile-view-threshold-px) {
+    width: 100%;
+    overflow: hidden;
+    justify-content: center;
+  }
+}

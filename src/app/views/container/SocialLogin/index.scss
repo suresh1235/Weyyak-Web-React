@@ -1,0 +1,91 @@
+@import "app/resources/styles/variables.scss";
+
+.social-login-container {
+  width: 399px;
+
+  .login-facebook,
+  .login-twitter {
+    display: block;
+    min-width: 250px;
+    width: 100%;
+    height: 55px;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 5px;
+    text-align: left;
+    cursor: pointer;
+
+    .button-container {
+      min-width: 300px;
+      width: 100%;
+      height: 100%;
+      padding: 0 15px;
+      position: relative;
+      display: flex;
+
+      .facebook-icon {
+        margin-top: 13px;
+        width: 30px;
+        height: 30px;
+        background-color: #ffffff;
+      }
+
+      .twitter-icon {
+        margin-top: 14px;
+        width: 30px;
+        height: 27px;
+      }
+    }
+
+    .social-login-text {
+      width: 80%;
+      display: inline-block;
+      height: 55px;
+      line-height: 55px;
+      text-align: center;
+      @media(max-width: $mobile-view-threshold-login-px) {
+        margin: 0 30px;
+        white-space: nowrap;
+      }
+      @media(max-width: $mobile-view-threshold-px) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .login-facebook {
+    margin-top: 20px;
+    margin-bottom: 28px;
+    background-color: $facebook-color-mobile;
+    @media(max-width: $mobile-view-threshold-login-px) {
+      margin-bottom: 10px;
+    }
+  }
+
+  .login-twitter {
+    margin-top: 50px;
+    background-color: $twitter-color-mobile;
+    @media(max-width: $mobile-view-threshold-login-px) {
+      margin-top: 0;
+    }
+  }
+  @media(max-width: $mobile-view-threshold-login-px) {
+    width: 100%;
+  }
+}
+
+.app-body[dir="rtl"] {
+  .signup-container {
+    .sign-up {
+      .login-facebook,
+      .login-twitter {
+        .social-login-text {
+          margin: 0 40px 0 0;
+          @media(max-width: $mobile-view-threshold-login-px) {
+            margin: 0 20px 0 0;
+          }
+        }
+      }
+    }
+  }
+}

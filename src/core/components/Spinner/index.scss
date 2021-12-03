@@ -1,0 +1,69 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes spinner-delay {
+  0% {
+    transform: scale(0.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
+  }
+}
+
+/* Standard syntax */
+@keyframes spinner-delay {
+  0% {
+    transform: scale(0.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
+  }
+}
+.spinner-container {
+  position: fixed;
+  z-index: 999;
+  background-color: rgba(2, 2, 2, 0.57);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.spinner {
+  z-index: 999;
+  width: 70px;
+  text-align: center;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  .bounce1 {
+    animation-delay: -0.32s;
+  }
+  .bounce2 {
+    animation-delay: -0.16s;
+  }
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #ff6d02;
+  border-radius: 100%;
+  display: inline-block;
+  animation: spinner-delay 1.4s infinite ease-in-out both;
+}

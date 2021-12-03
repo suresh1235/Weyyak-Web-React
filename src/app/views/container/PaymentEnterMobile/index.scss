@@ -1,0 +1,238 @@
+@import "app/resources/styles/variables.scss";
+
+.rtl {
+  .pound_english {
+    display: none !important;
+  }
+  .pound_arabic {
+    display: block !important;
+  }
+}
+.ltr {
+  .pound_english {
+    display: block !important;
+  }
+  .pound_arabic {
+    display: none !important;
+  }
+}
+
+.app-body[dir="rtl"] {
+  .enter-mobile-container {
+    .enter-mobile2 {
+      text-align: right;
+    }
+
+    .input-container {
+      .mobile-input-container {
+        flex-direction: row-reverse;
+
+        .input {
+          margin-right: 0;
+          margin-left: 3%;
+        }
+
+        .country-code {
+          text-align: left;
+        }
+      }
+    }
+
+    .conditions-container {
+      text-align: right;
+    }
+  }
+}
+
+.enter-mobile-container {
+  width: 100%;
+  min-height: 76vh;
+  padding: 0 10%;
+  text-align: center;
+  background: $primary-background-color;
+  color: $primary-text-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "changa";
+  @media(max-width: $mobile-view-threshold-px) {}
+
+  .margin-collapse {
+    height: 1px;
+  }
+  .mobile-number input {
+    width: 98%;
+  }
+  .error-message {
+    color: #bd0000;
+    font-style: normal;
+    padding: 4px;
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-weight: 400;
+    height: 17px;
+    font-size: 12px;
+    position: relative;
+    align-items: baseline;
+    text-align: left;
+    width: 100%;
+  }
+
+  .enjoy_weyyak_experience {
+    margin-top: 70px;
+    font-size: 20px;
+    line-height: 21px;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 16px;
+    }
+
+ }
+
+  .enter-mobile2 {
+    margin-top: 60px;
+    padding: 0 10px;
+    line-height: 21px;
+    font-size: 18px;
+    text-align: left;
+    width: 100%;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 12px;
+    }
+  }
+
+  .input-container {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    font-size: 18px;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 16px;
+    }
+
+    .mobile-input-container {
+      display: flex;
+      width: 75%;
+
+      .input {
+        height: 54px;
+        border-radius: 5px;
+        border: 2px solid $input-border-color;
+        margin-right: 3%;
+        font-size: 18px;
+        @media(max-width: $mobile-view-threshold-px) {
+          height: 42px;
+          font-size: 16px;
+        }
+      }
+
+      .country-code {
+        width: 18%;
+        min-width: 45px;
+        text-align: right;
+      }
+
+      .mobile-number {
+        min-width: 0;
+        flex-grow: 1;
+        float: right;
+      }
+    }
+
+    .send-button {
+      width: 23%;
+      height: 54px;
+      border-radius: 5px;
+      background-color: #ff6d02;
+      min-width: 75px;
+      @media(max-width: $mobile-view-threshold-px) {
+        height: 42px;
+      }
+
+      span {
+        font-size: 18px;
+        @media(max-width: $mobile-view-threshold-px) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .exit {
+    width: 32px;
+    height: 22px;
+    font-size: 18px;
+    text-decoration: underline;
+    margin-top: 40px;
+    cursor: pointer;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 16px;
+    }
+  }
+  .exit-etisalat {
+    width: 32px;
+    height: 22px;
+    font-size: 18px;
+    text-decoration: underline;
+    margin-top: -65px;
+    cursor: pointer;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 16px;
+    }
+  }
+
+  .conditions-container {
+    width: 100%;
+    margin: 40px 0 80px;
+    color: #555555;
+    text-align: left;
+    font-size: 15px;
+    line-height: 23px;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .by-clicking,
+    .free-for {
+      font-weight: 700;
+    }
+    .link{
+     color:#555555;  
+    }
+  }
+  .etisalat-container {
+    width: 100%;
+    margin: 40px 0 80px;
+    color: #555555;
+    text-align: left;
+    font-size: 15px;
+    line-height: 23px;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .by-clicking,
+    .free-for-en {
+      font-weight: 700;
+      margin-top: -44px;
+      margin-left: -505px;
+    }
+    .free-for-ar {
+      font-weight: 700;
+      margin-top:-44px;
+      margin-right:-505px;
+      position: relative;
+      left: 117px;
+    }
+    .link{
+     color:#555555;  
+    }
+  }
+  .free_for_et{
+    font-weight: 700;
+    color: #555555;
+    position: relative;
+    top: 63px;
+  }
+}

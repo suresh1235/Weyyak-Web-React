@@ -1,0 +1,173 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+ @import "app/resources/styles/variables.scss";
+
+ .headerContent {
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   width: calc(99% / 3);
+   height: inherit;
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+   -webkit-box-align: center;
+   -ms-flex-align: center;
+   align-items: center;
+ }
+ .header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: 99;
+   background-color: transparent !important;
+   height: inherit !important;
+ 
+   .install_app {
+     height: 90px;
+     padding: 5px 16px;
+     display: flex;
+     justify-content: space-between;
+     background-color: #ffffff;
+ 
+     .closeicon {
+       display: inline-block;
+       width: 20px;
+       
+ 
+         img {
+           position: relative;
+           top: 26px;
+         }
+     }
+     .alert_logo {
+       display: inline-block;
+       margin-right: 10px;
+         img {
+           position: relative;
+           top: 8px;
+         }
+     }
+     .alert_content {
+       display: inline-block;
+       flex-grow: 1;
+ 
+       p {
+         margin: 0;
+       }
+       .alert_title {
+         color: #26292d;
+         font-size: 15px;
+       }
+       .alert_sbtitle {
+         color: #93939a;
+         font-size: 11px;
+       }
+       .alert_star {
+         height: 20px;
+           img {
+             display: inline-block;
+             margin-right: 2px;
+           }
+       }
+       .get_app {
+         color: #93939a;
+         font-size: 13px;
+       }
+       .get_app_play {
+         color: #93939a;
+         font-size: 13px;
+       }
+     }
+     .alert_view {
+         // display: inline-block;
+         a {
+         color: #4593fc;
+         font-size: 18px;
+         text-decoration: none;
+         position: relative;
+         top: 20px;
+       }
+       
+     }
+     
+   }
+ }
+ .header_bottom {
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-pack: space-between;
+   -ms-flex-pack: space-between;
+   justify-content: space-between;
+   height: $header-height;
+   background-color: rgb(255, 121, 0);
+   .contentLeft {
+     @extend .headerContent;
+   }
+   .contentMiddle {
+     @extend .headerContent;
+     text-align: center;
+     .logo {
+       width: 150px;
+       height: 39px;
+     }
+   }
+   .contentRight {
+     @extend .headerContent;
+     text-align: end;
+   }
+ }
+ 
+ .vertical-separator {
+   display: inline-block;
+   height: 32px;
+   width: 2px;
+   margin: -10px 0;
+   background: #fff;
+ }
+ @media only screen and (max-width: 745px) {
+   .app-body .page-content .home-content {
+       margin-top: 149px !important;
+   }
+ }
+ .ar, .en{
+   display: none;
+ }
+ .rtl .ar{
+   display: block;
+ }
+ 
+ .ltr .en{
+   display: block;
+ }
+ .eninstall, .arinstall {
+   display: none;
+ }
+ .rtl .arinstall{
+   display: block !important;
+ }
+ 
+ .ltr .eninstall{
+   display: block !important;
+ }
+ .rtl .header .install_app .alert_content {
+   padding-right: 5px;
+   display: inline-block;
+   flex-grow: 1;
+ }
+ .rtl .header .install_app .alert_content .alert_star {
+   height: 10px;
+ }
+ .rtl .header .install_app .alert_content .alert_star img {
+   position: relative;
+   top:-9px;
+ 
+ }

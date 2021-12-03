@@ -1,0 +1,53 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+}
+
+.email-verification-success-container {
+  background: black;
+  color: #fff;
+  min-height: calc(100vh - #{$header-height} - #{$app-footer-height});
+  
+  .email-verification-success-content {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 4%;
+    padding-top: 5%;
+    p {
+      text-align: center;
+      padding-bottom: 18px;
+    }
+    .email-row {
+      padding-bottom: 40px;
+      strong {
+        font-weight: 700;
+      }
+    }
+  }
+  @media(max-width: $mobile-view-threshold-px){
+    min-height: calc(100vh - 60px - 175px);
+    .email-verification-success-content {
+        width: 80%;
+        margin: auto;
+    }
+    
+  }
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 16%;
+    .btn-done {
+      width: 280px;
+      height: 46px;
+      border-radius: 5px;
+      background-color: #ff740f;
+    }
+    @media(max-width: $mobile-view-threshold-px){
+      flex-direction: column;
+      .btn{
+        width: auto;
+        margin: 10px;
+      }
+    }
+  }
+}

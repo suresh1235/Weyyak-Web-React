@@ -1,0 +1,59 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+
+$tooltip-color: rgba(98, 98, 98, 0.87);
+$tooltip-text-color: #fff;
+
+.app-body[dir="rtl"] {
+  .dynamic-class {
+    right: auto;
+    left: 30px;
+  }
+}
+.dynamic-class {
+  position: absolute;
+  bottom: 1%;
+  right: 50px;
+}
+
+.tooltip-box {
+  /* min-width: 100px;
+  max-width: 210px; */
+  width: auto;
+  position: absolute;
+  &::after {
+    position: absolute;
+  }
+  @media (max-width: 745px) {
+    display: none;
+  }
+}
+
+.tooltip-data {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  &::after {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.tooltip-message {
+  background: $tooltip-color;
+  border-radius: 5px;
+  color: $tooltip-text-color;
+  font-size: 0.65rem;
+  line-height: 1.4;
+  padding: 6px;
+  text-align: center;
+  white-space: nowrap;
+}

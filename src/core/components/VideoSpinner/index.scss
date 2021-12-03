@@ -1,0 +1,72 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+
+$colors: #ee7623, #051c2c, #ee7623, #051c2c;
+$d: 175.6449737548828;
+
+.video-container {
+  .video-spinner {
+    width: 66px;
+    height: 66px;
+    position: absolute;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    svg {
+      display: block;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+
+      left: 0;
+      top: 0;
+      position: absolute;
+
+      transform: rotate(-90deg);
+
+      @for $i from 1 through 4 {
+        &:nth-child(#{$i}) circle {
+          stroke: nth($colors, $i);
+          stroke-dasharray: 1, 300;
+          stroke-dashoffset: 0;
+
+          animation: strokeanim 3s calc(0.2s * (#{$i})) ease infinite;
+          transform-origin: center center;
+        }
+      }
+    }
+
+    // animation: contanim 2s linear infinite;
+  }
+}
+@keyframes strokeanim {
+  0% {
+    stroke-dasharray: 1, 300;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 120, 300;
+    stroke-dashoffset: -$d / 3;
+  }
+  100% {
+    stroke-dasharray: 120, 300;
+    stroke-dashoffset: -$d;
+  }
+}
+
+@keyframes contanim {
+  100% {
+    transform: rotate(360deg);
+  }
+}

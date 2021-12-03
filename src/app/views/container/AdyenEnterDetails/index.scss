@@ -1,0 +1,158 @@
+@import "app/resources/styles/variables.scss";
+.app-body[dir="rtl"] {
+  .select-plan-container {
+    .plan-selection {
+      // margin-right: 15%;
+    }
+    .plan-selection-big {
+      // margin-right: 16%;
+    }
+    .select-container-text {
+      // padding-right: 15%;
+    }
+  }
+}
+.select-plan-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0d0d0d;
+  padding-bottom: 144px;
+  min-height: 100vh;
+  padding-top: 30px;
+  .select-container-text {
+    color: #ffffff;
+    padding-top: 50px;
+    margin: 0 12%;
+  }
+  .plan-selection {
+    width: 80%;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 16px;
+    border: 2px solid #ff6d02;
+    border-radius: 8px;
+    background-color: #ff6d02;
+    padding: 15px;
+    margin: 0 10%;
+    margin-top: 8px;
+    display: flex;
+  }
+  .plan-selection-big {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 76%;
+    margin: 0 12%;
+    height: auto;
+    border-radius: 0 0 8px 8px;
+    background-color: #262626;
+  }
+  .select-container-billing {
+    padding: 5px 0 0 10px;
+    color: white;
+    font-size: 14px;
+    border-radius: 0 0 8px 8px;
+    background-color: #262626;
+    background: transparent;
+    .select-container-billing-info {
+      margin: 10px;
+    }
+    .row {
+      display: flex;
+      justify-content: flex-start;
+      .left-column,
+      .right-column {
+        flex-basis: 50%;
+        .error-text {
+          margin: 0px 10px 0 10px;
+          font-size: 12px;
+          color: red;
+        }
+        input {
+          width: 90%;
+          margin: 10px 10px 0 10px;
+          color: #d5d5d5;
+          font-size: 14px;
+        }
+        .label {
+          margin: 10px;
+        }
+        .inner-column {
+          //margin-bottom: 10px;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      @media only screen and (max-width: 745px) {
+        flex-direction: column;
+      }
+    }
+    .adyen-enter-detailss {
+      margin: 20px 15px;
+    }
+  }
+  .input {
+    background: transparent;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    color: #ffffff;
+  }
+  .labelname {
+    color: #707070;
+  }
+  .adyen {
+    color: #707070;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 15px;
+    input[type="radio"]:after {
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      top: -1px;
+      left: 0px;
+      position: relative;
+      background-color: #fa6d02;
+      content: "";
+      display: inline-block;
+      visibility: visible;
+      border: solid 1px #fa6d02;
+      box-sizing: content-box;
+    }
+  }
+  .pay-option {
+    margin-top: 30px;
+    text-align: center;
+    .pay-btn {
+      width: 247px;
+      border-radius: 5px;
+      background-color: #ff6d02;
+      font-size: 14px;
+    }
+  }
+  .radio-div {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: solid 2px #807979;
+    margin: 0 5px;
+    &.selected {
+      background: #fff;
+      border-color: #fff;
+    }
+  }
+  .radio {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: solid 2px #807979;
+    margin: 0 5px;
+    display: inline-block;
+    &.selected {
+      background: #ff6d02;
+      border-color: #ff6d02;
+    }
+  }
+
+}

@@ -1,0 +1,26 @@
+@import "videojs/video-js.min.css";
+@import "videojs/video-js.ima.css";
+
+.desktop {
+  #zplayer_ima-mute-div,
+  #zplayer_ima-slider-div {
+    display: none !important;
+  }
+}
+
+.mobile {
+  #zplayer_ima-controls-div {
+    display: none !important;
+  }
+
+  #zplayer_ima-mute-div,
+  #zplayer_ima-slider-div {
+    display: none !important;
+  }
+}
+
+.vpaid {
+  #zplayer_ima-controls-div {
+    display: block !important;
+  }
+}

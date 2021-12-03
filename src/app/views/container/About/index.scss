@@ -1,0 +1,127 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .about-overlay {
+    .close-btn {
+      right: auto;
+      left: 20px;
+    }
+  }
+}
+.about-overlay {
+  width: 100%;
+  min-height: calc(100vh - 50px - 186px);
+  background: url("~app/resources/assets/login/overlay-bg.jpg") no-repeat;
+  background-size: cover;
+  color: $overlay-title-color;
+  position: relative;
+
+  .close-btn {
+    position: absolute;
+    top: 27px;
+    right: 28px;
+    width: 30px;
+    height: 30px;
+    @media (max-width: $mobile-view-threshold-px) {
+      &hover {
+        background-color: $primary-orange-color;
+      }
+    }
+    .icon {
+      top: 0;
+    }
+  }
+
+  .about-overlay-container {
+    width: 100%;
+    padding: 70px 0;
+
+    .static-page {
+      padding: 0 70px;
+
+      @media (max-width: $mobile-view-threshold-px) {
+        padding: 0 10px;
+      }
+
+      .overlay-title {
+        color: $overlay-title-color;
+        max-width: 1300px;
+        font-size: 26px;
+        width: 100%;
+        margin: 0 auto !important;
+        background-color: $overlay-title-background-color;
+        padding: 60px 0 0;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .static-content {
+        max-width: 1300px;
+        width: 100%;
+        margin: 0 auto;
+        background-color: $static-content-background-color;
+        color: $static-content-color;
+        padding: 60px;
+        text-align: justify;
+        @media (max-width: $mobile-view-threshold-px) {
+          padding: 15px;
+        }
+
+        p:nth-child(odd) {
+          font-weight: bold;
+        }
+      }
+
+      &.arabic {
+        direction: rtl;
+      }
+    }
+  }
+
+  .overlays-close {
+    position: fixed;
+    top: 65px;
+    right: 15px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      top: 50%;
+      left: 0;
+      margin-top: -1px;
+      background: white;
+    }
+    &::before {
+      transform: rotate(45deg);
+    }
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+//fade in and fade out when changing views
+.overlays.ng-enter {
+  transition: 0.3s ease-in-out all;
+  opacity: 0;
+}
+
+.overlays.arabic {
+  .overlays-close {
+    position: fixed;
+    right: auto;
+    left: 15px;
+  }
+}
+
+.overlays.ng-enter.ng-enter-active {
+  opacity: 1;
+}

@@ -1,0 +1,35 @@
+/* The actual popup */
+.popup-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
+  visibility: visible;
+  width: auto;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 0;
+  position: absolute;
+  will-change: transform;
+  z-index: 1;
+  border: solid 1px grey;
+  &::after {
+    background: #000;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 10px;
+    height: 10px;
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    margin-top: -5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent #ff740e #ff740e transparent;
+  }
+}

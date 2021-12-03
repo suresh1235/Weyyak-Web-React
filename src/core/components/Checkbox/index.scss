@@ -1,0 +1,52 @@
+@import "app/resources/styles/variables.scss";
+
+.checkbox-container {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  margin: 16px 0;
+  .checkbox-text {
+    margin: 0 10px;
+    color: #5d5d5d;
+    cursor: pointer;
+  }
+  .checkbox {
+    position: relative;
+    margin: 10px 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #5a5a5a;
+    cursor: pointer;
+    input[type="checkbox"] {
+      visibility: hidden;
+      width: 325px;
+      padding: 0 20px;
+      font-size: 20px;
+      color: #646464;
+      border: none;
+      background-color: #fff;
+    }
+    &.selected {
+      border: none;
+      background: $primary-orange-color;
+      .checkbox-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 18px;
+        height: 18px;
+        background: url($tick-mark) center no-repeat;
+      }
+    }
+  }
+}

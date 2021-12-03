@@ -1,0 +1,222 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .change-pass-container {
+    .change-pass {
+      .change-pass-form {
+        .change-pass-field {
+          img {
+            right: auto;
+            left: 15px;
+          }
+        }
+
+        .forgot-pass {
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+.change-pass-container {
+  background: $sign-up-background-color;
+  color: #4a4a4a;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - #{$app-footer-height} - 50px);
+  font-family: "changa";
+
+  .change-pass {
+    width: calc(100% - 50vw);
+    margin-bottom: 40px;
+    @media screen and (max-width: 745px) {
+      width: calc(100% - 20vw);
+    }
+
+    .overlay-title {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 400;
+      margin: 50px 0;
+      text-align: center;
+    }
+    .insert-password {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .confirm-password {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .change-pass-form {
+      .forgot-pass {
+        display: none;
+        color: #4470ca;
+        text-align: right;
+
+        span {
+          cursor: pointer;
+        }
+      }
+
+      .label {
+        height: 21px;
+        color: #4a4a4a;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .change-pass-field {
+        position: relative;
+        background: #000;
+        border-radius: 5px;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        margin: 5px 0 20px;
+        border-radius: 3px;
+        border: 2px solid #4a4a4a;
+        @media screen and (max-width: 745px) {
+          padding: 0 10px;
+        }
+
+        input {
+          max-width: 376px;
+          width: 100%;
+          height: 44px;
+          line-height: 44px;
+        }
+
+        img {
+          position: absolute;
+          right: 15px;
+        }
+
+        &.new {
+          margin-bottom: 0;
+        }
+      }
+
+      .newpass-error {
+        color: #bd0000;
+        font-style: normal;
+        padding: 4px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-weight: 400;
+        height: 18px;
+        font-size: 12px;
+        position: relative;
+        align-items: baseline;
+      }
+
+      .change-pass-checkout {
+        margin: 40px 0;
+      }
+
+      .checkbox-text {
+        color: #4e4e4e;
+      }
+
+      .checkbox-inner {
+        border: 1px solid #fff;
+      }
+
+      .change-pass-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        @media screen and (max-width: 745px) {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .btn-cancel,
+        .btn-change-pass {
+          border-radius: 5px;
+          height: 45px;
+          flex-basis: 50%;
+          padding: 10px;
+          width: 248px;
+          @media screen and (max-width: 745px) {
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 85%;
+          }
+        }
+
+        .btn-change-pass {
+          background: #ff740f;
+          color: #fff;
+        }
+
+        .btn-cancel {
+          background-color: #414141;
+          color: #9b9b9b;
+        }
+      }
+    }
+  }
+
+  .rodal-dialog {
+    padding: 0;
+    @media screen and (max-width: 745px) {
+      width: 85%!important;
+      height: 190px!important;
+    }
+  }
+
+  .signout-dialog-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .content {
+      padding: 24px;
+      text-align: center;
+    }
+
+    .dialog-title {
+      color: $primary-orange-color;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.005em;
+      margin-bottom: 10px;
+    }
+
+    .dialog-text {
+      color: #606060;
+    }
+
+    .actions {
+      display: flex;
+      height: $my-acc-dialog-btn-height;
+    }
+
+    .dialog-ok-btn {
+      border-top: 1px solid #606060;
+      border-bottom: 1px solid #606060;
+      width: 100%;
+      text-transform: none;
+      color: #606060;
+      padding: 0;
+      margin: 0 0 -17px;
+      border-radius: 0;
+      background: $my-background-color;
+      font-size: 14px;
+      height: $my-acc-dialog-btn-height;
+
+      &:hover {
+        background: rgba(158,158,158,0.2);
+      }
+    }
+  }
+}

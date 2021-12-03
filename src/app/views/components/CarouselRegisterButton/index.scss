@@ -1,0 +1,31 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .carousel-subscribe-button-container {
+    .subscribe-register-button {}
+  }
+}
+
+.carousel-subscribe-button-container {
+  position: absolute;
+  width: 100%;
+  bottom: 30px;
+  display: flex;
+
+  .subscribe-register-button {
+    margin: 0 auto;
+    border-radius: 8px;
+    background-color: #ff6d02;
+    color: #fff;
+    font-size: 16px;
+  }
+}

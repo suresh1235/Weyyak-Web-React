@@ -1,0 +1,299 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .video-info {
+    .image-thumbnail {
+      .on-image-desc {
+        top: calc(100% - 165px);
+      }
+    }
+    .close {
+      right: auto;
+      left: 10px;
+    }
+    .dropdown-image {
+      img {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        right: auto;
+        left: 0;
+      }
+    }
+    .dropdown-bottom {
+      .swiper-container {
+        margin-right: $video-info-content-margin-right;
+      }
+      .right-arrow {
+        right: auto;
+        left: 0px;
+        transform: scale(-1);
+      }
+      .left-arrow {
+        transform: scale(-1);
+      }
+      .dropdown-bottom-left {
+        margin-right: 60px;
+      }
+    }
+  }
+}
+.video-info {
+  position: relative;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  height: 0;
+  color: $info-container-text-color;
+  opacity: 0;
+  -webkit-transition: height 0.3s ease, opacity 0.3s ease;
+  -o-transition: height 0.3s ease, opacity 0.3s ease;
+  transition: height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+  background-size: cover;
+  width: calc(100% - #{$app-content-margin-left * 2});
+  margin-left: $app-content-margin-left;
+  margin-right: $app-content-margin-right;
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+  .left-arrow,
+  .right-arrow {
+    top: 220px;
+    height: 29px;
+    width: 62px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+  }
+  .left-arrow {
+    background-image: url("~app/resources/assets/thumbnail/ic-left-arrow.png");
+  }
+  .right-arrow {
+    right: 0px;
+    background-image: url("~app/resources/assets/thumbnail/ic-right-arrow.png");
+  }
+  .image-thumbnail {
+    .overlay-color {
+      display: none;
+    }
+    .on-image-desc {
+      top: calc(100% - 155px);
+      left: 5px;
+    }
+    .play-button {
+      top: 25%;
+    }
+  }
+  .pagination-dots {
+    display: flex;
+    justify-content: flex-end;
+    bottom: 0px;
+    position: absolute;
+    z-index: 5;
+    span {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: end;
+      align-items: flex-end;
+      width: 18px;
+      margin: 0 4px;
+      border-bottom: $carousel-border-size solid $select-border-color;
+      width: 26px;
+      opacity: 0.5;
+      color: $select-border-color;
+      background: transparent;
+      border-radius: 0;
+      &.swiper-pagination-bullet-active {
+        border-bottom: $carousel-border-size solid $carousel-selected-dot-color;
+        opacity: 1;
+        color: $carousel-selected-dot-color;
+      }
+    }
+  }
+  &.show {
+    min-height: 465px;
+    height: auto;
+    opacity: 1;
+    margin-top: 2px;
+    z-index: 1;
+  }
+  .no-padding {
+    padding: 0;
+  }
+  .router-link {
+    color: $on-image-desc-text-color;
+    text-decoration: none;
+  }
+  .on-image-desc {
+    font-size: 25px;
+    color: $on-image-desc-text-color;
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 20;
+    width: 35px;
+    height: 35px;
+    background-image: url("~app/resources/assets/info/ic-close.svg");
+    cursor: pointer;
+  }
+  .dropdown-helper {
+    width: 100%;
+    min-height: 600px;
+    height: auto;
+    position: absolute;
+    z-index: -1;
+    background-color: $video-info-background;
+  }
+  .dropdown-top {
+    height: 87px;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-pack: justify;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 0 60px;
+    position: relative;
+    z-index: 20;
+    margin-top: 15px;
+    .dropdown-top-left {
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: flex;
+      -ms-flex-direction: column;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: column;
+      -ms-flex-pack: justify;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      -ms-flex-item-align: end;
+      align-self: flex-end;
+      .ga-title {
+        margin: 0;
+        font-size: 1.563em;
+        font-weight: 700;
+      }
+    }
+    .dropdown-top-right {
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: flex;
+      -ms-flex-direction: row;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      flex-direction: row;
+      -ms-flex-align: end;
+      -webkit-box-align: end;
+      align-items: flex-end;
+      -ms-flex-pack: justify;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      /* width: 36vw; */
+      .select-container {
+        select {
+          height: 36px;
+          width: 200px;
+          background: transparent;
+          color: $select-text-color;
+          background-color: $select-background-color;
+          font-size: 1.063em;
+          padding-left: 10px;
+          border: 1px solid $select-border-color;
+          z-index: 30;
+          -webkit-appearance: none;
+          &::-ms-expand {
+            display: none;
+          }
+          &:hover {
+            color: $select-hover-color;
+          }
+        }
+        .select_season {
+          width: 140px;
+        }
+      }
+      .dropdown-top-right .series-options {
+        display: -ms-flexbox;
+        display: -webkit-box;
+        display: flex;
+        -ms-flex-direction: row;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-direction: row;
+        -ms-flex-align: end;
+        -webkit-box-align: end;
+        align-items: flex-end;
+        -ms-flex-pack: justify;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+      }
+      .episode-btn,
+      .overview-btn {
+        height: 49px;
+        padding: 25px 0px;
+        margin-top: 4px;
+        font-size: 1.125em;
+        &.selected {
+          border-bottom: solid 2px $info-button-selected-color;
+        }
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+    .align-right {
+      justify-content: flex-end;
+    }
+  }
+  .dropdown-image {
+    img {
+      position: absolute;
+      right: 0;
+      height: 100%;
+      z-index: -1;
+      background-size: cover;
+      background: center no-repeat;
+    }
+  }
+  .dropdown-bottom {
+    margin: 10px 0px 1px 0px;
+    .swiper-container {
+      width: calc(100vw - 270px);
+      height: 280px;
+      padding: 0px 3px 0px 3px;
+      margin-left: 70px;
+      overflow: hidden;
+      .image-thumbnail {
+        .description {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 745px) {
+  .video-info {
+    display: none;
+  }
+}

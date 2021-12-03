@@ -1,0 +1,89 @@
+{
+	"total": 13,
+	"per_page": 50,
+	"current_page": 1,
+	"last_page": 1,
+	"next_page_url": null,
+	"prev_page_url": null,
+	"from": 1,
+	"to": 13,
+	"data": [{
+		"id": 62,
+		"friendly_url": "home",
+		"seo_description": "",
+		"title": "Home",
+		"type": "Home"
+	}, {
+		"id": 88,
+		"friendly_url": "indian-series",
+		"seo_description": "",
+		"title": "Indian Series",
+		"type": "VOD"
+	}, {
+		"id": 63,
+		"friendly_url": "bollywood",
+		"seo_description": "",
+		"title": "Bollywood",
+		"type": "VOD"
+	}, {
+		"id": 86,
+		"friendly_url": "egyptian-series",
+		"seo_description": "",
+		"title": "Egyptian Series",
+		"type": "VOD"
+	}, {
+		"id": 99,
+		"friendly_url": "arabic-series",
+		"seo_description": "",
+		"title": "Arabic Series",
+		"type": "VOD"
+	}, {
+		"id": 100,
+		"friendly_url": "arabic-movies",
+		"seo_description": "",
+		"title": "Arabic Movies",
+		"type": "VOD"
+	}, {
+		"id": 101,
+		"friendly_url": "plays",
+		"seo_description": "",
+		"title": "Plays",
+		"type": "VOD"
+	}, {
+		"id": 109,
+		"friendly_url": "weyyak-au-maroc",
+		"seo_description": "",
+		"title": "Weyyak au Maroc ",
+		"type": "Home"
+	}, {
+		"id": 104,
+		"friendly_url": "old-is-gold",
+		"seo_description": "",
+		"title": "Old is Gold",
+		"type": "VOD"
+	}, {
+		"id": 108,
+		"friendly_url": "egyptian-elites",
+		"seo_description": "",
+		"title": "Egyptian Elites",
+		"type": "VOD"
+	}, {
+		"id": 111,
+		"friendly_url": "ramadan-2018",
+		"seo_description": "",
+		"title": "Ramadan 2018",
+		"type": "Home"
+	}, {
+		"id": 64,
+		"friendly_url": "shows",
+		"seo_description": "",
+		"title": "Shows",
+		"type": "VOD"
+	}, {
+		"id": 66,
+		"friendly_url": "my-playlist",
+		"seo_description": "",
+		"title": "My Playlist",
+		"type": "Favourites"
+	}]
+}

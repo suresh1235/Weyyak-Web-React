@@ -1,0 +1,126 @@
+@import "app/resources/styles/variables.scss";
+
+.phone-input-container {
+  width: 100%;
+  .phone-input {
+    height: 53px;
+    width: 100%;
+    display: flex;
+    color: white;
+
+    .country-code-container {
+      width: 65px;;
+      display: flex;
+      cursor: pointer;
+
+      .country-code-input {
+        line-height: 53px;
+        min-width: 40px;
+      }
+    }
+
+    .down-arrow {
+      width: 25px;
+      height: 53px;
+      background: url($phone-down-arrow) center no-repeat;
+      border: none;
+      z-index: 1;
+      transform: scale(0.7);
+      top: 0;
+      margin: 0;
+    }
+
+    .number-input {}
+
+  }
+  .country-dropdown {
+    list-style: none;
+    position: absolute;
+    z-index: 2;
+    padding: 0;
+    margin: 0;
+    box-shadow: 1px 2px 10px rgba(0,0,0,.35);
+    background-color: #fff;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+
+
+    .country-item {
+      display: block;
+      color: black;
+      padding: 7px 10px;
+      border-bottom: 1px solid #bbb;
+      cursor: pointer;
+      .country-code {
+        display: inline-block;
+        width: 60px;
+      }
+      .country-name {
+        display: inline-block;
+      }
+    }
+  }
+}
+// .react-tel-input {
+//   input[type=tel] {
+//     width: 100%;
+//     border: none;
+//     border-bottom: 1px solid $input-border-bottom-color;
+//     padding-left: 58px !important;
+//     border-radius: 0;
+//     caret-color: white;
+//   }
+//
+//   .flag-dropdown {
+//     background-color: transparent;
+//     border: none;
+//
+//     .selected-flag {
+//       .arrow {
+//         width: 14px;
+//         height: 9px;
+//         background: url($phone-down-arrow) center no-repeat;
+//         border: none;
+//         transform: scale(0.7);
+//         top: 0;
+//         margin: 0;
+//       }
+//     }
+//
+//     &.open-dropdown,
+//     &:hover {
+//       .selected-flag {
+//         width: 50px;
+//         background-color: transparent;
+//       }
+//     }
+//   }
+//
+//   .flag {
+//     transform: scale(1.4);
+//   }
+//
+//   .country-list {
+//     margin-top: 0;
+//     @media(max-width: $mobile-view-threshold-px) {
+//       width: 200px;
+//     }
+//   }
+// }
+//
+// .rtl {
+//   .react-tel-input {
+//     input[type=tel] {
+//       padding-left: 0 !important;
+//       padding-right: 58px !important;
+//     }
+//
+//     .selected-flag {
+//       .arrow {
+//         left: 0;
+//         right: 20px;
+//       }
+//     }
+//   }
+// }

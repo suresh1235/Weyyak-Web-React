@@ -1,0 +1,16 @@
+@import "app/resources/styles/variables.scss";
+
+.form {
+  width: 100%;
+
+  .row {
+    position: relative;
+
+    .label {
+      height: 19px;
+      color: #5d5d5d;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+  }
+}

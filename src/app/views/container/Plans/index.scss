@@ -1,0 +1,873 @@
+@import "app/resources/styles/variables.scss";
+
+.rtl {
+  .pound_english {
+    display: none !important;
+  }
+  .pound_arabic {
+    display: block !important;
+  }
+}
+.ltr {
+  .pound_english {
+    display: block !important;
+  }
+  .pound_arabic {
+    display: none !important;
+  }
+}
+.app-body[dir="rtl"] {
+  .plans-container {
+    .cards-container {
+      .adyen-container,
+      .coupon-container,
+      .etisalat-container,
+      .tpay-container {
+        .plans-header {
+          .text {
+            float: right;
+            margin-left: 10px;
+            margin-right: 0;
+          }
+
+          .image1,
+          .image2 {
+            float: right;
+          }
+
+          .arrow {
+            float: left;
+            transform: scaleX(-1);
+          }
+
+          &.open {
+            .arrow {
+              transform: scaleX(-1) rotate(90deg);
+            }
+          }
+        }
+      }
+
+      .plans {
+        .plan-row {
+          .plan-name,
+          .radio-div {
+            float: right;
+          }
+
+          .plan-name {
+            margin-left: 0;
+            margin-right: 10px;
+            @media only screen and (max-width: $mobile-view-threshold-px) {
+              margin-left: 0;
+              margin-right: 5px;
+            }
+          }
+
+          .trial_period {
+            float: left;
+          }
+        }
+      }
+
+      .coupon-container {
+        .coupon-error {
+          text-align: right;
+        }
+      }
+    }
+  }
+}
+
+.plans-container {
+  width: 100%;
+  min-height: calc(100vh - 245px);
+  background: black;
+  color: white;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "changa";
+  @media only screen and (max-width: $mobile-view-threshold-px) {
+    min-height: calc(100vh - 235px);
+  }
+
+  .plans-text-container {
+    width: 700px;
+    margin-top: 70px;
+    font-size: 20px;
+    line-height: 29px;
+    @media only screen and (max-width: $mobile-view-threshold-px) {
+      width: 90%;
+      font-size: 18px;
+    }
+  }
+  .icons-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    width: 65%;
+    justify-content: center;
+    margin-bottom: 40px;
+    font-family: "changa";
+
+    .container {
+      width: 25%;
+    }
+
+    .icon {
+      height: 39px;
+      margin: 0;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .text {
+      margin-top: 15px;
+      font-size: 16px;
+      color:grey;
+      @media only screen and (max-width: $mobile-view-threshold-px) {
+        font-size: 14px;
+      }
+    }
+
+    .no-ads {
+      .icon {
+        background-image: url("#{$no-ads1}");
+      }
+    }
+
+    .smart-tv {
+      .icon {
+        background-image: url("#{$smart-tv1}");
+      }
+    }
+
+    .exclusive-content {
+      .icon {
+        background-image: url("#{$exclusive-content1}");
+      }
+    }
+
+    .downloads {
+      .icon {
+        background-image: url("#{$downloads1}");
+      }
+    }
+
+    .hd-content {
+      .icon {
+        background-image: url("#{$hd-content1}");
+      }
+    }
+  }
+  .plans_content {
+    // width: 730px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: "changa";
+
+    .plans_title {
+      font-size: 24px;
+      line-height: 30px;
+      font-weight: 600;
+      margin-bottom: 24px;
+
+    }
+    
+    .cards-container {
+      width: 700px;
+      margin: 20px 0 15px 0;
+    }
+    
+    .brder {
+      padding: 8px 0;
+      font-size: 14px;
+      border-top: 1px solid #414141;
+      border-bottom: 1px solid #414141;
+    }
+
+    .svod_text {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    .for_arabic {
+      display: none !important;
+      font-size: 14px !important;
+      letter-spacing: 1px;
+    }
+    .for_english {
+      display: inline-block !important;
+    }
+    .svod_ul_ar {
+      .left_svod {
+        text-align: right !important;
+        
+        .mo_icon {
+          margin-right: 0px !important;
+          margin-left: 8px !important;
+
+          img {
+            margin-right: 0 !important;
+            margin-left: 4px !important;
+          }
+        }
+      }
+      .right_svod {
+        flex: inherit !important;
+
+        .displblock_ar {
+          display: block;
+          margin-bottom: 4px;
+        }
+      }
+      .brder {
+        text-align: right;
+      }
+      .for_arabic {
+        display: inline-block !important;
+      }
+      .for_english {
+        display: none !important;
+      }
+
+    }
+    
+ 
+
+    .svod_ul {
+      margin: 0;
+      padding: 0;
+      margin-bottom: 30px;
+
+      li {
+        list-style: none;
+        background-color: #1f1f1f;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        padding: 24px;
+        text-align: left;
+        position: relative;
+
+          .li_flex {
+            display: flex;
+          }
+          .left_svod {
+            flex: 1;
+            text-align: left;
+            
+            .mo_icon {
+              position: relative;
+              top: 5px;
+              margin-right: 8px;
+
+                img {
+                  margin-right: 5px;
+                }
+            }
+            .marT15 {
+              margin-top: 15px;
+              display: inline-block;
+            }
+          }
+          .right_svod {
+            flex: 1;
+            margin-bottom: 15px;
+            text-align: right;
+            
+            span{
+              margin-left: 5px;
+              font-size: 20px;
+    font-weight: bold;
+              &:first-child{
+                font-weight: normal;
+                margin-right: 5px;
+                font-size: 12px;
+                margin-left: 0;
+              }
+              &:last-child{
+                margin-left: 0;
+              }
+            }
+           
+          }
+          .explore_btn {
+            // text-align: right;
+            margin-top: 25px;
+
+            button {
+              background-color: #ff740f;
+              min-width: 53px;
+              // width: 65px;
+              // height: 23px;
+              border-radius: 5px;
+              font-size: 12px;
+              text-transform: capitalize;
+              border: 0;
+              color: #ffffff;              
+              padding: 5px 10px;
+            }
+          }
+          .cards-container {
+            width: inherit;
+          }
+          .arrow_down1 {
+            border: 0;
+            background-color: transparent;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 5px;
+            margin: auto;
+
+            .arrow_down {
+              width: 0; 
+              height: 0; 
+              border-left: 10px solid transparent;
+              border-right: 10px solid transparent;            
+              border-top: 10px solid #ff740f;
+            }
+            
+            .arrow_top {
+              width: 0; 
+              height: 0; 
+              border-left: 10px solid transparent;
+              border-right: 10px solid transparent;            
+              border-bottom: 10px solid #ff740f;
+            }
+         }
+          
+      }
+    }
+
+  }
+
+  .cards-container {
+    width: 700px;
+    margin: 70px 0;
+    @media only screen and (max-width: $mobile-view-threshold-px) {
+      width: 100% !important;
+    }
+
+    .plans-header {
+      cursor: pointer;
+
+      &.brdertpbtm {
+        border-top: 1px solid #414141;
+        border-bottom: 1px solid #414141;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
+    .adyen-container {
+      .plans-header {
+        height: 90px;
+        border-bottom: 1px solid #414141;
+
+        div {
+          line-height: 90px;
+          display: inline-block;
+        }
+
+        .text {
+          height: 90px;
+          line-height: 90px;
+          margin-right: 10px;
+          float: left;
+        }
+
+        .image1 {
+          width: 135px;
+          max-width: 135px;
+          height: 90px;
+          background: url($credit_card1) no-repeat center;
+          float: right;
+          @media only screen and (max-width: $mobile-view-threshold-px) {
+            width: 30%;
+            background-size: 90%;
+          }
+        }
+
+        .image2 {
+          width: 69px;
+          max-width: 69px;
+          height: 90px;
+          background: url($credit_card2) no-repeat center;
+          float: right;
+          @media only screen and (max-width: $mobile-view-threshold-px) {
+            width: 10%;
+            background-size: 90%;
+          }
+        }
+      }
+    }
+
+    .etisalat-container {
+      .plans-header {
+        height: 90px;
+        border-bottom: 1px solid #414141;
+
+        div {
+          line-height: 90px;
+          display: inline-block;
+        }
+
+        .image1 {
+          width: 133px;
+          height: 90px;
+          background: url($etisalat) no-repeat center;
+          float: left;
+        }
+      }
+    }
+
+    .telus-container {
+      .plans-header {
+        height: 90px;
+        border-bottom: 1px solid #414141;
+        
+        div {
+          line-height: 90px;
+          display: inline-block;
+        }
+        .image1 {
+          width: 146px;
+          height: 90px;
+          background: url($telus) no-repeat center;
+          float: left;
+        }
+
+      }
+    }
+
+    .info-container {
+      .plans-header {
+        height: 90px;
+        border-bottom: 1px solid #414141;
+
+        div {
+          line-height: 90px;
+          display: inline-block;
+        }
+
+
+        .image1 {
+          width: 50px;
+          height: 80px;
+          background: url($infomedia-ee) no-repeat center;
+          float: left;
+          background-size: 55px;
+        }
+        .image2 {
+          width: 50px;
+          height: 80px;
+          background: url($infomedia-o2) no-repeat center;
+          float: left;
+          background-size: 55px;
+        }
+        .image3 {
+          width: 50px;
+          height: 80px;
+          background: url($infomedia-three) no-repeat center;
+          float: left;
+          background-size: 55px;
+        }
+        .image4 {
+          width: 90px;
+          height: 80px;
+          background: url($infomedia-vodafone) no-repeat center;
+          float: left;
+          background-size: 90px;
+
+        }
+
+        &.info-ee {
+          .image1 {
+            width: 50px;
+            height: 80px;
+            background: url($infomedia-ee) no-repeat center;
+            float: left;
+            background-size: 55px;
+          }
+        }
+
+        &.info-o2{
+         .image1 {
+            width: 50px;
+            height: 80px;
+            background: url($infomedia-o2) no-repeat center;
+            float: left;
+            background-size: 55px;
+        }
+       }
+
+       &.info-three{
+
+        .image1 {
+          width: 50px;
+          height: 80px;
+          background: url($infomedia-three) no-repeat center;
+          float: left;
+          background-size: 55px;
+        }
+       }
+
+        .text {
+          float: left;
+          font-size: 14px;
+          margin: 0 3px;
+        }
+      }
+    }
+
+
+    .tpay-container {
+      .plans-header {
+        height: 90px;
+        border-bottom: 1px solid #414141;
+
+        div {
+          line-height: 90px;
+          display: inline-block;
+        }
+
+        .image1 {
+          height: 90px;
+          float: left;
+        }
+
+        &.tpay-avea {
+          .image1 {
+            width: 103px;
+            background: url($tpay-avea) no-repeat center;
+          }
+        }
+
+        &.tpay-Du {
+          .image1 {
+            width: 55px;
+            background: url($tpay-du) no-repeat center;
+          }
+        }
+
+        &.tpay-Tpay_Etisalat {
+          .image1 {
+            width: 110px;
+            background: url($tpay-etisalat) no-repeat center;
+          }
+        }
+
+        &.tpay-inwi {
+          .image1 {
+            width: 129px;
+            background: url($tpay-inwi) no-repeat center;
+          }
+        }
+
+        &.tpay-Jawwal {
+          .image1 {
+            width: 94px;
+            background: url($tpay-jawwal) no-repeat center;
+          }
+        }
+
+        &.tpay-Libyan {
+          .image1 {
+            width: 170px;
+            background: url($tpay-libya) no-repeat center;
+          }
+        }
+
+        &.tpay-mobily {
+          .image1 {
+            width: 112px;
+            background: url($tpay-mobily) no-repeat center;
+          }
+        }
+
+        &.tpay-Ooredoo {
+          .image1 {
+            width: 116px;
+            background: url($tpay-ooredoo) no-repeat center;
+          }
+        }
+
+        &.tpay-Orange {
+          .image1 {
+            width: 51px;
+            background: url($tpay-orange) no-repeat center;
+          }
+        }
+
+        &.tpay-STC {
+          .image1 {
+            width: 55px;
+            height: 80px;
+            background: url($tpay-stc) no-repeat center;
+            float : left;
+            background-size: 55px;
+          }
+        }
+
+        &.tpay-tunisie-telecom {
+          .image1 {
+            width: 64px;
+            background: url($tpay-tunisie-telecom) no-repeat center;
+          }
+        }
+
+        &.tpay-turkcell {
+          .image1 {
+            width: 134px;
+            background: url($tpay-turkcell) no-repeat center;
+          }
+        }
+
+        &.tpay-Umniah {
+          .image1 {
+            width: 106px;
+            background: url($tpay-umniah) no-repeat center;
+          }
+        }
+
+        &.tpay-viva {
+          .image1 {
+            width: 123px;
+            background: url($tpay-viva) no-repeat center;
+          }
+        }
+
+        &.tpay-Tpay_Vodafone {
+          .image1 {
+            width: 121px;
+            background: url($tpay-vodafone) no-repeat center;
+          }
+        }
+
+        &.tpay-Wataniah {
+          .image1 {
+            width: 147px;
+            background: url($tpay-wataneya) no-repeat center;
+          }
+        }
+        
+        &.tpay-WE {
+          .image1 {
+            width: 147px;
+            float:left;
+            margin-left:-48px;
+            background: url($tpay-we) no-repeat center;
+          }
+        }
+
+        
+        &.tpay-wataneya {
+          .image1 {
+            width: 147px;
+            background: url($tpay-wataneya) no-repeat center;
+          }
+        }
+
+
+        &.tpay-Zain {
+          .image1 {
+            width: 100px;
+            background: url($tpay-zain) no-repeat center;
+          }
+        }
+      }
+    }
+
+    .plans-header {
+      .arrow {
+        width: 20px;
+        height: 20px;
+        background: url($right-arrow) no-repeat center;
+        float: right;
+        margin-top: 40px;
+      }
+
+      &.open {
+        .arrow {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .plans {
+      width: 100%;
+      line-height: 60px;
+      border-radius: 0 0 5px 5px;
+      background-color: #1f1f1f;
+      color: #ffffff;
+      font-family: "changa";
+      font-size: 18px;
+      cursor: pointer;
+      @media only screen and (max-width: $mobile-view-threshold-px) {
+        font-size: 14px;
+      }
+
+      .plan-row {
+        display: block;
+        height: 60px;
+        padding: 0 30px;
+        @media only screen and (max-width: $mobile-view-threshold-px) {
+          padding: 0 5px;
+        }
+
+        .radio-div {
+          display: inline-block;
+          float: left;
+          margin-top: 23px;
+          width: 12px;
+          height: 12px;
+          border-radius: 6px;
+          border: 1px solid #919191;
+        }
+
+        .plan-name {
+          display: inline-block;
+          margin-left: 10px;
+          float: left;
+          @media only screen and (max-width: $mobile-view-threshold-px) {
+            margin-left: 5px;
+          }
+        }
+
+        .trial_period {
+          float: right;
+          color: #6c6c6c;
+          @media only screen and (max-width: $mobile-view-threshold-px) {
+            font-size: 9px;
+          }
+        }
+
+        .plans-separator {
+          width: 100%;
+          height: 1px;
+          border: 1px solid #414141;
+        }
+
+        &.selected {
+          .radio-div {
+            border: 1px solid $primary-orange-color;
+            background: $primary-orange-color;
+          }
+        }
+      }
+    }
+
+    .coupon-container {
+      .plans-header {
+        height: 90px;
+        border-bottom: 1px solid #414141;
+
+        div {
+          line-height: 90px;
+          display: inline-block;
+        }
+
+        .image1 {
+          width: 67px;
+          height: 90px;
+          background: url($logo) no-repeat center;
+          float: left;
+        }
+
+        .text {
+          float: left;
+          font-size: 14px;
+          margin: 0 3px;
+        }
+      }
+    }
+
+    .coupon-input-outer-container {
+      height: 68px;
+      border-radius: 5px;
+      background-color: #1f1f1f;
+
+      .coupon-input-container {
+        display: flex;
+        padding: 13px;
+
+        .have-promo {
+          line-height: 36px;
+          min-width: 75px;
+          font-size: 14px;
+          @media only screen and (max-width: $mobile-view-threshold-px) {
+            width: 75px;
+            font-size: 12px;
+            line-height: 18px;
+            text-align: left;
+          }
+        }
+
+        .coupon-input {
+          flex: 1;
+          min-width: 10px;
+          height: 36px;
+          border-radius: 8px;
+          border: 1px solid #4b4b4b;
+          font-size: 14px;
+        }
+
+        .apply-button {
+          min-width: 53px;
+          width: 65px;
+          height: 23px;
+          margin-top: 8px;
+          border-radius: 5px;
+          background-color: #434343;
+          font-size: 14px;
+          text-transform: capitalize;
+          padding: 0;
+          cursor: auto;
+
+          span {
+            line-height: 23px;
+          }
+
+          &.enabled {
+            cursor: pointer;
+            background: $primary-orange-color;
+          }
+        }
+      }
+
+      .coupon-error {
+        margin-top: 5px;
+        font-size: 14px;
+        color: red;
+        text-align: left;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .plans-container .plans_content {
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+  }
+  .plans-container .plans_content .svod_ul li .left_svod .marT15 {
+    font-size: 13px;
+  }
+  .plans-container .plans_content .svod_ul li .right_svod span:first-child {
+    display: block;
+    font-size: 11px;
+  }
+  .plans-container .plans_content .for_english {
+    font-size: 14px !important;
+  }
+  .plans-container .plans_content .svod_ul li .right_svod span {
+    font-size: 25px;
+  }
+}

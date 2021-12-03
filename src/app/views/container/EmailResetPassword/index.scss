@@ -1,0 +1,209 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .reset-password-email {
+    .close-btn {
+      right: auto;
+      left: 20px;
+    }
+    .forgot-password-container{
+      .email-input{
+        img {
+          right: auto;
+          left: 15px;
+        }
+      }
+    }
+    .forgot-password-container .forgot-password-buttons .forgot-button{
+      font-size: 16px;
+      &.highlight{
+        margin-right: 0;
+        margin-left: 10px;
+      }
+    }
+
+    .forgot-password-container{
+      .sms-code-input img,.new-password-input img{
+        right: auto;
+        left: 15px;
+      }
+    }
+  }
+}
+.reset-password-email {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //text-align: center;
+  align-items: center;
+  background-color: $background-forgot-password-screen;
+  background-size: cover;
+  padding: 70px 0;
+  color: #fff;
+  position: relative;
+  min-height: calc( 100vh - #{$app-footer-height} - #{$header-height});
+  font-family: "changa";
+  .close-btn {
+    display: flex;
+    position: absolute;
+    right: 22px;
+    top: 14px;
+    background: transparent;
+  }
+  .forgot-password-container {
+    //width: calc( 100% - 25vw );
+    width: 30%;
+    min-width: 376px;
+    .resend-sms-code{
+      font-size: 18px;
+      height: 65px;
+      line-height: 65px;
+      width: 100%;
+      white-space: nowrap;
+      color: #4e4e4e;
+      text-decoration: underline;
+      cursor: pointer;
+      text-align: center;
+    }
+    .forgot-password-title {
+      font-size: 24px;
+      height: 65px;
+      line-height: 65px;
+      width: 100%;
+      white-space: nowrap;
+      color: #4e4e4e;
+      p {
+        margin: 0;
+        text-align: center;
+        color: #fff;
+      }
+    }
+
+    .description {
+      width: 100%;
+      //text-align: center;
+      height: auto;
+      line-height: 28px;
+      margin-top: 36px;
+      font-size: 20px;
+      margin-bottom: 26px;
+      color: #4e4e4e;
+      p {
+        margin: 0;
+      }
+    }
+
+    .description.informative {
+      font-size: 20px;
+      max-width: 880px;
+      text-align: center;
+
+      p {
+        padding-bottom: 25px;
+      }
+    }
+
+    .new-password-input {
+      position: relative;
+      margin: 10px 0;
+      img {
+        position: absolute;
+        right: 15px;
+        top: 14px;
+      }
+      input {
+        margin: 0;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 37px 0 20px;
+        color: #646464;
+        background-color: #000000;
+        border-radius: 5px;
+        caret-color: #646464;
+        border: 2px solid #4a4a4a;
+      }
+    }
+
+    .forgot-password-buttons {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: row;
+      .forgot-button {
+        text-transform: none;
+        width: 100%;
+        height: 46px;
+        margin: 0 0 10px;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        color: #9b9b9b;
+        background-color: #414141;
+      }
+
+      .highlight {
+        background-color: $lightPrimary;
+        color: #ffffff;
+        margin-right: 10px;
+      }
+      @media screen and (max-width: 745px) {
+        flex-direction: column;
+      }
+    }
+
+    .forgot-password-buttons.informative {
+      margin-top: 93px;
+    }
+
+    @media (max-width: 745px) {
+      .forgot-password-title {
+        font-size: 20px;
+        margin-top: 20px;
+      }
+
+      .description {
+        font-size: 18px;
+      }
+
+      .email-input {
+        font-size: 18px;
+      }
+
+      .forgot-password-buttons {
+        .forgot-button {
+          font-size: 16px;
+        }
+      }
+
+      .forgot-password-buttons.informative {
+        margin-top: 50px;
+      }
+    }
+    @media screen and (max-width: 745px) {
+      width: calc(100% - 20vw);
+      min-width: auto;
+    }
+  }
+  @media screen and (max-width: 745px) {
+    padding: 0;
+    min-height: calc( 100vh - #{$app-footer-height} - #{$header-height-mobile});
+  }
+}
+
+.forgot-password.arabic {
+  .forgot-password-container {
+    .description {
+      text-align: right;
+    }
+
+    .description.informative {
+      text-align: center;
+    }
+
+    .email-input {
+      background-position: calc(0% + 11px) 13px;
+      text-align: right;
+      padding: 0 20px 0 37px;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+[0103/142103.271:ERROR:exception_handler_server.cc(524)] ConnectNamedPipe: The pipe is being closed. (0xE8)
+[0108/100446.694:ERROR:exception_handler_server.cc(524)] ConnectNamedPipe: The pipe is being closed. (0xE8)
+[0124/131400.570:ERROR:exception_handler_server.cc(524)] ConnectNamedPipe: The pipe is being closed. (0xE8)
+[0125/085021.377:ERROR:exception_handler_server.cc(524)] ConnectNamedPipe: The pipe is being closed. (0xE8)
+[0927/104911.344:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
+[0930/160708.456:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
+[0706/193247.924:ERROR:settings.cc(320)] Settings magic is not 1129342067

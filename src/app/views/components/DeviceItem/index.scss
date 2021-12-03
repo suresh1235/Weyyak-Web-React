@@ -1,0 +1,42 @@
+.device-item {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: 10px 0;
+  color: #888;
+  background: #fff;
+  height: 50px;
+  border-radius: 5px;
+  padding: 5px 20px;
+  border: 2px solid #4a4a4a;
+  background: black;
+  .device-item-name {
+    font-size: 18px;
+  }
+  .device-item-status--signout {
+    .sign-out-btn{
+      font-size: 16px;
+      color: #888888;
+      &:hover{
+        background-color: rgba(158,158,158,0.2);
+      }
+    }
+  }
+  .device-item-status--inactive {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fe0000;
+    width: 75px;
+    .status-inactive {
+      height: 10px;
+      width: 10px;
+      background: red;
+      border-radius: 50%;
+      margin-top: 1px;
+    }
+  }        
+}

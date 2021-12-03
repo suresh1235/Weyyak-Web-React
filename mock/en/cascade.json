@@ -1,0 +1,2226 @@
+{
+	"data": {
+		"id": 62,
+		"friendly_url": "home",
+		"seo_description": "",
+		"title": "Home",
+		"type": "Home",
+		"featured": {
+			"id": 18,
+			"type": "Layout A - Smart TV",
+			"playlists": [{
+				"id": 31,
+				"playlist_type": "red_playlist",
+				"content": [{
+					"id": 221528,
+					"video_id": null,
+					"friendly_url": "Al-Rehla",
+					"content_type": "series",
+					"synopsis": "The series revolves around a group of people who are on board in flight 710 from Beirut to Cairo. The passengers of the flight are mentally unstable, their stories will meet at some point in a suspense thriller",
+					"title": "Al Rehla",
+					"cast": ["Basel Khayyat", "hanan Motawei", "Reham Abdel Ghafour", "Mai Selim", "Ehab Fahmy"],
+					"genres": ["Drama", "Social"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257192,
+						"season_number": 1,
+						"dubbed": false,
+						"title": "Al Rehla",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-05-15T15:46:12+0000"
+				}, {
+					"id": 221538,
+					"video_id": null,
+					"friendly_url": "A'brat-Share'a",
+					"content_type": "series",
+					"synopsis": "Souad Abdualla is coming back this Ramadan as a selfish woman. She does not care about her son and daughter dreams, and interests. Until when she will keep getting what she wants? ",
+					"title": "A'brat Share'a",
+					"cast": ["Dawood Hussain", "Soaad Abdualla ", "Heba Al Durrey ", "Fatma Saffey "],
+					"genres": ["Drama"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257218,
+						"season_number": 1,
+						"dubbed": false,
+						"title": "A'brat Share'a",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-05-16T15:59:57+0000"
+				}, {
+					"id": 221571,
+					"video_id": null,
+					"friendly_url": "Sakan-Talebat",
+					"content_type": "series",
+					"synopsis": "It\u2019s a story set in a girl\u2019s hostel, where girls from different cities reside together while trying their luck in having a future in Mumbai. An incident occurs that brings out their \u2018fear of the unknown\u2019 & their life changes forever.",
+					"title": "Sakan Talebat",
+					"cast": ["Rachana Mistry", "", "Sushma Kolhe", "Purneima Day", "Prajakta Avinash Wadaye", "Vaishanavi Ranta Prashant", "Mugdha Vivek Paranjape", "Ashwini Phatak", "Deepashrei Yashwant Ameya", "Amruta Phadke"],
+					"genres": ["Horror", "Drama", "Thriller"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257447,
+						"season_number": 1,
+						"dubbed": false,
+						"title": "Sakan Talebat",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-10-04T07:28:01+0000"
+				}, {
+					"id": 221684,
+					"video_id": null,
+					"friendly_url": "Al-Waq-Waq",
+					"content_type": "series",
+					"synopsis": "A series of comedic events that gathers a group of people on an Island and have to adapt in order to survive, and make their final decision in choosing the leader of the Island.",
+					"title": "Al Waq Waq",
+					"cast": ["Bassem Yakhour", "Shokran Mortga"],
+					"genres": ["Drama", "Comedy"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257462,
+						"season_number": 1,
+						"dubbed": false,
+						"title": "Al Waq Waq",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-11-07T13:05:10+0000"
+				}, {
+					"id": 221692,
+					"video_id": null,
+					"friendly_url": "Qadary-Bela-Lawn-2",
+					"content_type": "series",
+					"synopsis": "The story of a girl named Ganga, who becomes a widow on the same day as her marriage when her husband and her father, with whom she was very close, are killed in a riot on the bank of river Ganges in Varanasi",
+					"title": "Qadary Bela Lawn 2",
+					"cast": ["Shakti Anand", "Aditi Sharma ", "Vishal Vashishtha "],
+					"genres": ["Drama"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257471,
+						"season_number": 2,
+						"dubbed": false,
+						"title": "Qadary Bela Lawn 2",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-12-31T08:52:54+0000"
+				}, {
+					"id": 221693,
+					"video_id": null,
+					"friendly_url": "Meshwar-Omri",
+					"content_type": "series",
+					"synopsis": "Meshwar Omri is the story of Kalpana who struggles to fulfil the dreams and aspirations set by her mother, Kamla, a domestic worker who does everything she can to provide a decent life for her.",
+					"title": "Meshwar Omri ",
+					"cast": ["Shilpa Shirodkar", "Rachana Parulkar ", "Ashish Chaudhary "],
+					"genres": ["Drama", "Social"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257472,
+						"season_number": 1,
+						"dubbed": true,
+						"title": "Meshawar Omri ",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2019-01-13T14:05:04+0000"
+				}, {
+					"id": 221694,
+					"video_id": null,
+					"friendly_url": "Qadary-w-Nasibi",
+					"content_type": "series",
+					"synopsis": "The story revolves around the 5 daughters of Justice LN Thakur, who are very different from each other but share an unbreakable bond and always stand by one another in all ups and downs",
+					"title": "Qadary w Nasibi",
+					"cast": ["Amir Ali", "Sukriti Kandpal", "Sara Khan "],
+					"genres": ["Comedy"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221694_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221694_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221694_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221694_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221694_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257473,
+						"season_number": 1,
+						"dubbed": false,
+						"title": "Qadary w Nasibi (Webisodes)",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2019-01-17T13:10:31+0000"
+				}]
+			}, {
+				"id": 73,
+				"playlist_type": "green_playlist",
+				"content": [{
+					"id": 221432,
+					"video_id": null,
+					"friendly_url": "Jodha-Akbar-4",
+					"content_type": "series",
+					"synopsis": "Jodha Akbar is back with Season 4 only on Weyyak. This season of the historic drama focuses on the problems between Jodah And Jalal and how they face it!",
+					"title": "Jodha Akbar 4",
+					"cast": ["Rajat Tokas", "Ravi Bahatia"],
+					"genres": ["Drama", "Social"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221432_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221432_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221432_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221432_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221432_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257077,
+						"season_number": 4,
+						"dubbed": false,
+						"title": "Jodah Akbar ",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-01-17T07:26:19+0000"
+				}, {
+					"id": 221539,
+					"video_id": null,
+					"friendly_url": "La'net-Karma",
+					"content_type": "series",
+					"synopsis": "Haifa Wehbe, a professional scammer falls in love with one of her victims. Will she surrender to her love or will her mind conquer?",
+					"title": "La'net Karma",
+					"cast": ["Haifa Wehbe", "Zaki Fateen", "Noreen karem"],
+					"genres": ["Drama", "Thriller"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257219,
+						"season_number": 1,
+						"dubbed": false,
+						"title": "La'net Karma",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-05-16T16:18:53+0000"
+				}, {
+					"id": 221690,
+					"video_id": null,
+					"friendly_url": "Ghomoud-Al-Hob-2",
+					"content_type": "series",
+					"synopsis": "The story revolves around the lives of Twinkle, Yuvraj and Konj, who at various points in their lives experience variety of emotions including love, betrayal, jealousy, hatred and obsession",
+					"title": "Ghomoud Al Hob 2",
+					"cast": ["Naman Shaw", "Jasmin Bhasin", "Vaishnavi Mahant"],
+					"genres": ["Romance"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257469,
+						"season_number": 2,
+						"dubbed": false,
+						"title": "Ghomoud Al Hob 2",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-12-16T14:11:52+0000"
+				}]
+			}, {
+				"id": 159,
+				"playlist_type": "black_playlist",
+				"content": [{
+					"id": 221687,
+					"video_id": null,
+					"friendly_url": "Ohboka-W-Akthar",
+					"content_type": "series",
+					"synopsis": "A story of 2 young lovers Raj & Avni, belonging to very traditional Indian families with a lot of rich family values. Problems arise when they find out their families are rivals and they must make a choice between their love and the pride of the family.",
+					"title": "Ohboka W Akthar",
+					"cast": ["Mishkat Varma", "Kanchi Singh"],
+					"genres": ["Action Adventure"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257464,
+						"season_number": 1,
+						"dubbed": true,
+						"title": "Ohboka W Akthar",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-11-26T07:40:02+0000"
+				}, {
+					"id": 221689,
+					"video_id": null,
+					"friendly_url": "Maral",
+					"content_type": "series",
+					"synopsis": "Turkish series revolves around Maral. A girl gets a job in the most important shops of the city. Life puts her in front of two options, either the love of her life partner or the job of her dreams.\r\n",
+					"title": "Maral ",
+					"cast": ["Hazal Kaya ", "Aras Bulut  ", "Reha Ozcan "],
+					"genres": ["Drama", "Romance"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257467,
+						"season_number": 1,
+						"dubbed": false,
+						"title": "Maral",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-12-12T13:19:51+0000"
+				}, {
+					"id": 221691,
+					"video_id": null,
+					"friendly_url": "Al-Bait-Al-Kbeer",
+					"content_type": "series",
+					"synopsis": "Al Bait Al Kbeer is a series about the suffering of the women in the south of Egypt and the problems they face because of the dominant behaviour of the male along with the other social issues.",
+					"title": "Al Bait Al Kbeer",
+					"cast": ["Lucy", "", "Sawsan Badr", "Mondher Rayahneh", "Leqaa Sweidan", "Tarek Sabri", "Ahmed Bedier"],
+					"genres": ["Drama", "Thriller"],
+					"imagery": {
+						"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_overlay.jpg",
+						"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_poster.jpg",
+						"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_cover.jpg",
+						"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_cover_mob.jpg",
+						"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_poster_featured.jpg"
+					},
+					"seasons": [{
+						"id": 257470,
+						"season_number": 1,
+						"dubbed": false,
+						"title": "Al Bait Al Kbeer",
+						"insertedAt": null,
+						"geoblock": false
+					}],
+					"insertedAt": "2018-12-20T13:07:38+0000"
+				}]
+			}]
+		},
+		"playlists": [{
+			"id": 160,
+			"title": "Newly Added",
+			"content": [{
+				"id": 221688,
+				"friendly_url": "SNL-Arabia",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "It's the Arabic version of the famous show Saturday night live. celebrity hosts join to perform comedic sketches, satirical and digital shorts.",
+				"title": "SNL Arabia",
+				"cast": ["Khalid Mansour", "", "Shadi Alfons", "Noor Qadry", "Tony Maher", "Mahmoud El Lethy", "Islam Ibrahim", "Mirna Gameel", "Ahmed Sultan", "Nancy Salah"],
+				"genres": ["Comedy", "TV Specific"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257465,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "SNL Arabia",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-11-29T14:14:05+0000"
+			}, {
+				"id": 221689,
+				"friendly_url": "Maral",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Turkish series revolves around Maral. A girl gets a job in the most important shops of the city. Life puts her in front of two options, either the love of her life partner or the job of her dreams.\r\n",
+				"title": "Maral ",
+				"cast": ["Hazal Kaya ", "Aras Bulut  ", "Reha Ozcan "],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257467,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Maral",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-12-12T13:19:51+0000"
+			}, {
+				"id": 221691,
+				"friendly_url": "Al-Bait-Al-Kbeer",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Al Bait Al Kbeer is a series about the suffering of the women in the south of Egypt and the problems they face because of the dominant behaviour of the male along with the other social issues.",
+				"title": "Al Bait Al Kbeer",
+				"cast": ["Lucy", "", "Sawsan Badr", "Mondher Rayahneh", "Leqaa Sweidan", "Tarek Sabri", "Ahmed Bedier"],
+				"genres": ["Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257470,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Al Bait Al Kbeer",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-12-20T13:07:38+0000"
+			}]
+		}, {
+			"id": 84,
+			"title": "New Indian Releases ",
+			"content": [{
+				"id": 232376,
+				"friendly_url": "Anjaana-Anjaani",
+				"video_id": "AFD645060",
+				"content_type": "movie",
+				"synopsis": "Anjaana Anjaani is a story about 2 Suicidal strangers who meet & make a plan about committing suicide on New Year\u2019s Eve. In the interim, both of them fulfil their personal wishes and eventually fall in love.\r\n",
+				"length": "0",
+				"title": "Anjaana Anjaani",
+				"cast": ["Ranbir Kapoor", "Priyanka Chopra"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_poster_featured.jpg"
+				},
+				"insertedAt": "2018-11-15T12:52:54+0000"
+			}, {
+				"id": 232378,
+				"friendly_url": "Bareily-Ki-Barfi",
+				"video_id": "AFD644868",
+				"content_type": "movie",
+				"synopsis": "Set in the small town of Bareily, Bitti is a free spirited young girl who lives life by her own terms and refuses to to be pressured into being married. Her life changes when she meets 2 boys, Chirag & Pritam.",
+				"length": "0",
+				"title": "Bareily Ki Barfi",
+				"cast": ["Ayushmann Khurrana", "Kriti Sanon", "Rajkumar Rao"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_poster_featured.jpg"
+				},
+				"insertedAt": "2018-11-15T13:01:57+0000"
+			}, {
+				"id": 232379,
+				"friendly_url": "Mom",
+				"video_id": "AFD644917",
+				"content_type": "movie",
+				"synopsis": "Devki, is a biology teacher. Arya, her stepdaughter studies in the same school but they share a frosty relationship. When Arya is involved in an unfortunate incident, Devki faces tough obstacles to get justice for her stepdaughter.",
+				"length": "0",
+				"title": "Mom",
+				"cast": ["Akshay Khanna", "Sridevi", "Sajal Ali", "Nawazuddin Siddiqui"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_poster_featured.jpg"
+				},
+				"insertedAt": "2018-12-13T13:01:28+0000"
+			}, {
+				"id": 232380,
+				"friendly_url": "-Besharam",
+				"video_id": "AFD643200",
+				"content_type": "movie",
+				"synopsis": "Besharam is a story about Babli a small time car thief. His life changes when he falls in love with a woman whose car he has stolen",
+				"length": "0",
+				"title": "Besharam",
+				"cast": ["Ranbir Kapoor", "Pallavi Sharda", "Rishi Kapoor"],
+				"genres": ["Comedy"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232380_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232380_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232380_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232380_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232380_poster_featured.jpg"
+				},
+				"insertedAt": "2018-12-13T13:07:44+0000"
+			}, {
+				"id": 232381,
+				"friendly_url": "Haseena-Parkar",
+				"video_id": "AFD644980",
+				"content_type": "movie",
+				"synopsis": "The story is based on the life of Haseena Parkar, the sister of a Gangster in the underworld. Although being innocent herself, she faces a lot of hardships as a result of her brothers actions. Will she turn into another version of her brother or maintain ",
+				"length": "0",
+				"title": "Haseena Parkar",
+				"cast": ["Shraddha Kapoor", "Siddhant Kapoor", "Ankur Bhatia", "Feroz Ali Khan"],
+				"genres": ["Drama", "Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_poster_featured.jpg"
+				},
+				"insertedAt": "2018-12-13T13:09:04+0000"
+			}, {
+				"id": 232382,
+				"friendly_url": "Tamanchey",
+				"video_id": "AFD643975",
+				"content_type": "movie",
+				"synopsis": "Tamanchey is an aggressive, passionate acidic love story between two criminals whilst on the run from the law.",
+				"length": "0",
+				"title": "Tamanchey",
+				"cast": ["Nikhil Dwivedi", "Richa Chaddha"],
+				"genres": ["Action Adventure", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232382_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232382_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232382_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232382_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232382_poster_featured.jpg"
+				},
+				"insertedAt": "2018-12-13T13:55:06+0000"
+			}, {
+				"id": 221571,
+				"friendly_url": "Sakan-Talebat",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "It\u2019s a story set in a girl\u2019s hostel, where girls from different cities reside together while trying their luck in having a future in Mumbai. An incident occurs that brings out their \u2018fear of the unknown\u2019 & their life changes forever.",
+				"title": "Sakan Talebat",
+				"cast": ["Rachana Mistry", "", "Sushma Kolhe", "Purneima Day", "Prajakta Avinash Wadaye", "Vaishanavi Ranta Prashant", "Mugdha Vivek Paranjape", "Ashwini Phatak", "Deepashrei Yashwant Ameya", "Amruta Phadke"],
+				"genres": ["Horror", "Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257447,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Sakan Talebat",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-10-04T07:28:01+0000"
+			}, {
+				"id": 221687,
+				"friendly_url": "Ohboka-W-Akthar",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "A story of 2 young lovers Raj & Avni, belonging to very traditional Indian families with a lot of rich family values. Problems arise when they find out their families are rivals and they must make a choice between their love and the pride of the family.",
+				"title": "Ohboka W Akthar",
+				"cast": ["Mishkat Varma", "Kanchi Singh"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257464,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Ohboka W Akthar",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-11-26T07:40:02+0000"
+			}, {
+				"id": 221690,
+				"friendly_url": "Ghomoud-Al-Hob-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The story revolves around the lives of Twinkle, Yuvraj and Konj, who at various points in their lives experience variety of emotions including love, betrayal, jealousy, hatred and obsession",
+				"title": "Ghomoud Al Hob 2",
+				"cast": ["Naman Shaw", "Jasmin Bhasin", "Vaishnavi Mahant"],
+				"genres": ["Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257469,
+					"season_number": 2,
+					"dubbed": false,
+					"title": "Ghomoud Al Hob 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-12-16T14:11:52+0000"
+			}, {
+				"id": 221692,
+				"friendly_url": "Qadary-Bela-Lawn-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The story of a girl named Ganga, who becomes a widow on the same day as her marriage when her husband and her father, with whom she was very close, are killed in a riot on the bank of river Ganges in Varanasi",
+				"title": "Qadary Bela Lawn 2",
+				"cast": ["Shakti Anand", "Aditi Sharma ", "Vishal Vashishtha "],
+				"genres": ["Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257471,
+					"season_number": 2,
+					"dubbed": false,
+					"title": "Qadary Bela Lawn 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-12-31T08:52:54+0000"
+			}, {
+				"id": 221693,
+				"friendly_url": "Meshwar-Omri",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Meshwar Omri is the story of Kalpana who struggles to fulfil the dreams and aspirations set by her mother, Kamla, a domestic worker who does everything she can to provide a decent life for her.",
+				"title": "Meshwar Omri ",
+				"cast": ["Shilpa Shirodkar", "Rachana Parulkar ", "Ashish Chaudhary "],
+				"genres": ["Drama", "Social"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257472,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Meshawar Omri ",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2019-01-13T14:05:04+0000"
+			}]
+		}, {
+			"id": 157,
+			"title": "2018 Releases",
+			"content": [{
+				"id": 232375,
+				"friendly_url": "Toilet-:-Ek-Prem-Katha-",
+				"video_id": "AFD644956R",
+				"content_type": "movie",
+				"synopsis": "A woman threatens to leave her husband unless he installs a toilet in their home. To win back her love and respect, he heads out on a journey to fight against the backward society",
+				"length": "0",
+				"title": "Toilet : Ek Prem Katha ",
+				"cast": ["Akshay Kumar", "", "Bhumi Pednekar", "Sudhir Pandey"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_poster_featured.jpg"
+				},
+				"insertedAt": "2018-10-11T13:12:48+0000"
+			}, {
+				"id": 221478,
+				"friendly_url": "Noqta-Ala-Al-Sater",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "A woman's struggle in this male dominated society that will leave her to embark on a quest of eternal marital bliss.",
+				"title": "Noqta Ala Al Sater",
+				"cast": ["Mohit Malik ", "Neha Marda", "Siddharth Arora", "Snigdha Srivastava"],
+				"genres": ["Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257159,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Noqta Ala Al Sater",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-03-29T13:53:07+0000"
+			}, {
+				"id": 221526,
+				"friendly_url": "Al-Sultana-Radiya-3",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Sham-ud-din Itutmish demands the death of Yaqut by his children. The one who succeeds will be crowned as the next ruler. Find out what are the consequences of this competition and more in the Season 3 of Sultana Radia.",
+				"title": "Al Sultana Radiya 3",
+				"cast": ["Saurabh Pandey", "Pankhuri Awasthy"],
+				"genres": ["Drama", "Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221526_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221526_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221526_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221526_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221526_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257195,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Al Sultana Radiya 3",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:37:05+0000"
+			}, {
+				"id": 221527,
+				"friendly_url": "Ard-Al-Nifaq",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Mohamed Henedi plays the main role in Ard Al Nifaq. The story is about Masoud, whose life completely changes when he meets Dr. Madi, who sells him pills that give him a new personality with every pill. How many characters will he play?",
+				"title": "Ard Al Nifaq",
+				"cast": ["Mohamed Henedi", "", "Hana Sheha", "Dalal Abdel Aziz", "Mohamed Tharwat", "Nagwa Fouad"],
+				"genres": ["Comedy", "Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221527_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221527_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221527_cover.png",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221527_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221527_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257212,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Ard Al Nifaq",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:45:07+0000"
+			}, {
+				"id": 221528,
+				"friendly_url": "Al-Rehla",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The series revolves around a group of people who are on board in flight 710 from Beirut to Cairo. The passengers of the flight are mentally unstable, their stories will meet at some point in a suspense thriller",
+				"title": "Al Rehla",
+				"cast": ["Basel Khayyat", "hanan Motawei", "Reham Abdel Ghafour", "Mai Selim", "Ehab Fahmy"],
+				"genres": ["Drama", "Social"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221528_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257192,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Al Rehla",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:46:12+0000"
+			}, {
+				"id": 221530,
+				"friendly_url": "Begusarai",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Begusarai is a village dominated by Phulan Thakur and his family, in Thakur\u2019s land the bullets speak louder than words. Will Thakur\u2019s sons keep their domination and reserve this legacy that their family fought to get?  ",
+				"title": "Begusarai",
+				"cast": ["Shweta Tiwari", "Shivangi Joshi", "Vishal Aditya Singh", "Sartaj Gill", "Sulbha Arya", "Narendra Jha"],
+				"genres": ["Drama", "Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257211,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Begusarai",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:57:30+0000"
+			}, {
+				"id": 221532,
+				"friendly_url": "Nesr-Al-Sae'ed",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "A war starts in the upper Egypt where Mohammed Ramadan who plays the role of Zain tries to arrest Hitler \u201cMohammed Ragab\u201d who sells drugs around the country. Will Zain manage to take control in Upper Egypt?",
+				"title": "Nesr Al Sae'ed",
+				"cast": ["Mohamed Ramadan", "", "Dorra", "Sayed Ragab", "Aicha Ben Ahmed", "Wafaa Amer", "Dina", "Aida Reyad"],
+				"genres": ["Action Adventure", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221532_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221532_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221532_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221532_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221532_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257213,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Nesr Al Sae'ed",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T16:18:56+0000"
+			}, {
+				"id": 221533,
+				"friendly_url": "Abo-Omar-Almasry",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The story revolves around an Egyptian lawyer, he with the help of a group of lawyers establish an organization that provides solutions to the unfortunate citizens However, this organization quickly provokes the anger of a group of men in authority",
+				"title": "Abo Omar Almasry",
+				"cast": ["Ahmed Ezz", "Amal Boushousha", "Ahmed Al Awdy", "Arwa Gouda", "Mahmoud Hegazy"],
+				"genres": ["Drama", "Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221533_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221533_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221533_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221533_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221533_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257215,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Abo Omar Almasry",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T16:30:42+0000"
+			}, {
+				"id": 221534,
+				"friendly_url": "Ladayna-Aqwal-Okhra",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Legal advisor Amira hits a young man in an accident and takes him to the hospital, only to discover later that the hospital staff denies the arrival of the injured man.",
+				"title": "Ladayna Aqwal Okhra",
+				"cast": ["youssra", "Shereen Reda", "Nagla Badr", "Ahmed Hatem", "Salma Abo Daif", "Mohamed Al Sharnobi"],
+				"genres": ["Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221534_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221534_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221534_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221534_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221534_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257216,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Ladayna Aqwal Okhra",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T16:37:53+0000"
+			}, {
+				"id": 221538,
+				"friendly_url": "A'brat-Share'a",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Souad Abdualla is coming back this Ramadan as a selfish woman. She does not care about her son and daughter dreams, and interests. Until when she will keep getting what she wants? ",
+				"title": "A'brat Share'a",
+				"cast": ["Dawood Hussain", "Soaad Abdualla ", "Heba Al Durrey ", "Fatma Saffey "],
+				"genres": ["Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221538_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257218,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "A'brat Share'a",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-16T15:59:57+0000"
+			}, {
+				"id": 221544,
+				"friendly_url": "Al-Gharib",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Rasheed Assaf in the series Al Gharib plays the role of an officer, where injustice leads him to the jail. He then decides to get his revenge; will he get out and accomplish his plans?",
+				"title": "Al Gharib",
+				"cast": ["Rasheed Assaf ", "Muna Wasef", "Zuhair Ramadan", "Rana Shmeis ", "Walaa Azzam", "Talal Mardeine", "Marah Jaber"],
+				"genres": ["Drama", "Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221544_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221544_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221544_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221544_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221544_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257308,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Al Gharib",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-06-24T15:01:00+0000"
+			}]
+		}, {
+			"id": 98,
+			"title": "Top Picks For You",
+			"content": [{
+				"id": 232302,
+				"friendly_url": "Half-Girlfriend",
+				"video_id": "AFD644835",
+				"content_type": "movie",
+				"synopsis": "Madhav meets a girl named Riya and they both fall in love. After struggling to convince her to be his girlfriend, she finally agrees to be his \"Half Girlfriend\"",
+				"length": "0",
+				"title": "Half Girlfriend",
+				"cast": ["Arjun Kapoor", "Shraddha Kapoor"],
+				"genres": ["Romance", "Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_poster_featured.jpg"
+				},
+				"insertedAt": "2018-02-15T11:50:37+0000"
+			}, {
+				"id": 220565,
+				"friendly_url": "Farq-Tawqeet",
+				"video_id": "39",
+				"content_type": "series",
+				"synopsis": "An attack leaves Yassen badly hurt. The police investigate everyone around him and discover that each one has a different motive and agenda. Nothing is as it seems as Yassen\u00b4s health improves.  ",
+				"title": "Farq Tawqeet",
+				"cast": ["Tamer Hosny", "Nichol Saba", "Baiomy Foad", "Zafer Al Abdeen", "Sherry Adel", "Mohammed Mamdouh"],
+				"genres": ["Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256755_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256755_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256755_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256755_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220565_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256755,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Farq Tawqeet",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 220570,
+				"friendly_url": "Segn-Al-Nisaa",
+				"video_id": "44",
+				"content_type": "series",
+				"synopsis": "The real life story of three women who end up in prison during a turbulent time that changed the destiny of an entire nation. ",
+				"title": "Segn Al Nisaa",
+				"cast": ["", "Nillie Kreem", "Dora", "Ahmed Dawood", "Salwa Khatab", "Reham Hagag"],
+				"genres": ["Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256760_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256760_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256760_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220570_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220570_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256760,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Segn Al Nisaa",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 220592,
+				"friendly_url": "Maraya-2011",
+				"video_id": "66",
+				"content_type": "series",
+				"synopsis": "Get ready to laugh with a new Season of Maraya.",
+				"title": "Maraya 2011",
+				"cast": ["Yasser ", "", "Salma Al-Masri", "Rahaf Shoqeir", "Sabah Al-Jazaari ", "Hasan Dakak"],
+				"genres": ["Special Interest", "Social", "Comedy"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220592_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220592_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220592_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220592_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220592_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256782,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Maraya2011",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 220667,
+				"friendly_url": "Souf-taht-Hareer",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The series puts the spot light on the problems the young adult in the Arab community face nowadays especially with Customs and traditions\r\n",
+				"title": "Souf taht Hareer",
+				"cast": ["Abdullah Al Baroni", "Latifa Almajern", "Hamad Ashknani"],
+				"genres": ["Drama", "Children Family"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220667_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220667_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220667_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220667_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220667_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256883,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Souf taht Hareer",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-05-23T13:40:58+0000"
+			}, {
+				"id": 221122,
+				"friendly_url": "Al-Malik-W-Al-Malika",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Al Malik W Al Malika is the story of the Royal Family of Ameerkot. To cope with the loss of a fortune faced, the head of the Royal family marries the daughter of the state's biggest moneylender ",
+				"title": "Al Malik W Al Malika",
+				"cast": ["Siddhant Karnick", "", "Drashti Dhami", "Sartaj Gill", "Priya Tandon"],
+				"genres": ["Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221122_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221122_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221122_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221122_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221122_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257012,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Al Malik W Al Malika",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-10-29T08:02:28+0000"
+			}, {
+				"id": 221431,
+				"friendly_url": "Asrar-Banaty",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Weyyak presents Asrar Banaty the story of Balraj Asthana, who believes he can control the behavior of everyone in the house. However, each of his daughter carries her own secret which will be revealed with time. How will he handle this?",
+				"title": "Asrar Banaty",
+				"cast": ["Additi Gupta", "Kiran Karmarkar", "Sanjeeda Sheikh", "Abhinav Shukla"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257076,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Asrar Banaty",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-01-15T08:08:12+0000"
+			}, {
+				"id": 221543,
+				"friendly_url": "Hob-Mashrot-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Hob Mashrot is about a young married couple, Jay & Aditi they land in the same office where they have to keep their marriage a secret. And they are suffering in their life . ",
+				"title": "Hob Mashrot 2",
+				"cast": ["Suyash Tilak   ", "Suruchi Adarkar ", "Subodh Bhave", "Rajan Bhise", "Neha Joshi"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221543_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221543_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221543_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221543_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221543_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257307,
+					"season_number": 2,
+					"dubbed": true,
+					"title": "Hob Mashrot 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-06-19T08:45:12+0000"
+			}, {
+				"id": 221562,
+				"friendly_url": "Ibn-Halal",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Ibn Halal is a story about a man who comes from Upper Egypt to live in Cairo, but he finds that the life there is very difficult. His life will get worse when he is accused of a crime that he did not commit. Hebesha keeps trying to prove his innocence.",
+				"title": "Ibn Halal",
+				"cast": ["Mohamed Ramadan", "", "Hala Fakher", "Wafaa Amer", "Mahmoud Elgendy", "Sarah Salama"],
+				"genres": ["Action Adventure", "Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221562_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221562_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221562_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221562_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221562_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257439,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Ibn Halal",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-09-12T15:16:16+0000"
+			}]
+		}, {
+			"id": 85,
+			"title": "Weyyak Exclusive",
+			"content": [{
+				"id": 220668,
+				"friendly_url": "Fidya-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Fidya displays the immense power of a woman in love who can go to any length to protect her husband and relationship from evil intentions\r\n",
+				"title": "Fidya 2",
+				"cast": ["Sharad Malhotra", "Divyanka Tripathi", "Kamya Panjabi"],
+				"genres": ["Drama", "Children Family"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220668_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220668_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220668_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220668_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220668_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256884,
+					"season_number": 2,
+					"dubbed": true,
+					"title": "Fidya 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-05-23T13:44:13+0000"
+			}, {
+				"id": 220669,
+				"friendly_url": "Qadary-w-Nasibi",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The story revolves around the 5 daughters of Justice LN Thakur, who are very different from each other but share an unbreakable bond and always stand by one another in all ups and downs.\r\n",
+				"title": "Qadary w Nasibi (Webisodes)",
+				"cast": ["Amir Ali", "Sukriti Kandpal", "Sara Khan "],
+				"genres": ["Drama", "Children Family"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220669_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220669_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220669_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220669_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220669_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256885,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Qadary w Nasibi",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-05-23T13:57:54+0000"
+			}, {
+				"id": 220670,
+				"friendly_url": "Dayman-Aal-Bal",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Ami an average 14-Year-Old girl living with her mom who had to take care of her and her sister and how Ami became mature as a young girl.\r\n",
+				"title": "Dayman \u0650Aal Bal",
+				"cast": ["Gautami Kapoor", "Ulka Gupta", "Reem Sheikh"],
+				"genres": ["Drama", "Children Family"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220670_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220670_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220670_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220670_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220670_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256886,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Dayman Aal Bal",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-05-23T14:04:27+0000"
+			}, {
+				"id": 220671,
+				"friendly_url": "Fil-Intizar",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Jassi, the girl next door is a happily married housewife whose husband moves to another country for a job. She is left behind with her mother in law, who loves her dearly and brother in law who is more of a friend. \r\n",
+				"title": "Fil Intizar",
+				"cast": ["Geeta Udeshi", "Sonali Nikam", "Arpit Kapoor"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220671_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220671_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220671_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220671_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220671_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256887,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Fil Intizar",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-05-23T14:06:44+0000"
+			}, {
+				"id": 221413,
+				"friendly_url": "Fidya-3",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The flashbacks of the pervious life are haunting Fidya. Sindoora is aware of her mental state and is taking full advantage of it. However, Fidya finds an angel in disguise who is willing to help her in defeating Sindoora. ",
+				"title": "Fidya 3",
+				"cast": ["Sharad Malhotra", "Divya", "Kamya Panjabi"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221413_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221413_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221413_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221413_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221413_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257058,
+					"season_number": 3,
+					"dubbed": true,
+					"title": "Fidya 3",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-12-20T07:58:36+0000"
+			}, {
+				"id": 221431,
+				"friendly_url": "Asrar-Banaty",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Weyyak presents Asrar Banaty the story of Balraj Asthana, who believes he can control the behavior of everyone in the house. However, each of his daughter carries her own secret which will be revealed with time. How will he handle this?",
+				"title": "Asrar Banaty",
+				"cast": ["Additi Gupta", "Kiran Karmarkar", "Sanjeeda Sheikh", "Abhinav Shukla"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221431_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257076,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Asrar Banaty",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-01-15T08:08:12+0000"
+			}, {
+				"id": 221478,
+				"friendly_url": "Noqta-Ala-Al-Sater",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "A woman's struggle in this male dominated society that will leave her to embark on a quest of eternal marital bliss.",
+				"title": "Noqta Ala Al Sater",
+				"cast": ["Mohit Malik ", "Neha Marda", "Siddharth Arora", "Snigdha Srivastava"],
+				"genres": ["Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221478_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257159,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Noqta Ala Al Sater",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-03-29T13:53:07+0000"
+			}, {
+				"id": 221525,
+				"friendly_url": "Fidya-S4",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "After Sindoora\u2019s defeat, Fidya & Amar can finally lead a happy life. However, will Bharat be able to get over the guilt of killing his own mother? And what happens to his relationship with Aditi? Find out in this season of Fidya exclusively on Weyyak",
+				"title": "Fidya 4",
+				"cast": ["Sharad Malhotra", "Divya"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257194,
+					"season_number": 4,
+					"dubbed": true,
+					"title": "Fidya 4",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:18:18+0000"
+			}, {
+				"id": 221529,
+				"friendly_url": "Okhte-Hitler-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "8 years have gone since Indira\u2019s death, but not must has changed. Rishi who has not yet accepted this fact, must convince his daughter that her stepmom is her real mom. What happens when Indira\u2019s look alike enters the life of Sharma family?",
+				"title": "Okhte Hitler 2",
+				"cast": ["Rati Pandey ", "Sumit Vats"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257193,
+					"season_number": 2,
+					"dubbed": true,
+					"title": "Okhte Hitler 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:56:15+0000"
+			}, {
+				"id": 221530,
+				"friendly_url": "Begusarai",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Begusarai is a village dominated by Phulan Thakur and his family, in Thakur\u2019s land the bullets speak louder than words. Will Thakur\u2019s sons keep their domination and reserve this legacy that their family fought to get?  ",
+				"title": "Begusarai",
+				"cast": ["Shweta Tiwari", "Shivangi Joshi", "Vishal Aditya Singh", "Sartaj Gill", "Sulbha Arya", "Narendra Jha"],
+				"genres": ["Drama", "Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221530_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257211,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Begusarai",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:57:30+0000"
+			}, {
+				"id": 221571,
+				"friendly_url": "Sakan-Talebat",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "It\u2019s a story set in a girl\u2019s hostel, where girls from different cities reside together while trying their luck in having a future in Mumbai. An incident occurs that brings out their \u2018fear of the unknown\u2019 & their life changes forever.",
+				"title": "Sakan Talebat",
+				"cast": ["Rachana Mistry", "", "Sushma Kolhe", "Purneima Day", "Prajakta Avinash Wadaye", "Vaishanavi Ranta Prashant", "Mugdha Vivek Paranjape", "Ashwini Phatak", "Deepashrei Yashwant Ameya", "Amruta Phadke"],
+				"genres": ["Horror", "Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221571_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257447,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Sakan Talebat",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-10-04T07:28:01+0000"
+			}, {
+				"id": 221687,
+				"friendly_url": "Ohboka-W-Akthar",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "A story of 2 young lovers Raj & Avni, belonging to very traditional Indian families with a lot of rich family values. Problems arise when they find out their families are rivals and they must make a choice between their love and the pride of the family.",
+				"title": "Ohboka W Akthar",
+				"cast": ["Mishkat Varma", "Kanchi Singh"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221687_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257464,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Ohboka W Akthar",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-11-26T07:40:02+0000"
+			}]
+		}, {
+			"id": 96,
+			"title": "Zee Alwan On Weyyak",
+			"content": [{
+				"id": 220663,
+				"friendly_url": "Al-Herbaya",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "After losing the love of her life, Asaliya has given up hope on everything and everybody in her life. Where will fate take her next? \r\n",
+				"title": "Al Herbaya",
+				"cast": ["Khalid Kamal", "Haifa Wahby", "Rehab Algamal", "Dina", "Amro Waked", "Faroq Al Feshawy"],
+				"genres": ["Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220663_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220663_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220663_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220663_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220663_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256879,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Al Herbaya",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-05-23T13:09:47+0000"
+			}, {
+				"id": 221684,
+				"friendly_url": "Al-Waq-Waq",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "A series of comedic events that gathers a group of people on an Island and have to adapt in order to survive, and make their final decision in choosing the leader of the Island.",
+				"title": "Al Waq Waq",
+				"cast": ["Bassem Yakhour", "Shokran Mortga"],
+				"genres": ["Drama", "Comedy"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221684_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257462,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Al Waq Waq",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-11-07T13:05:10+0000"
+			}, {
+				"id": 221688,
+				"friendly_url": "SNL-Arabia",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "It's the Arabic version of the famous show Saturday night live. celebrity hosts join to perform comedic sketches, satirical and digital shorts.",
+				"title": "SNL Arabia",
+				"cast": ["Khalid Mansour", "", "Shadi Alfons", "Noor Qadry", "Tony Maher", "Mahmoud El Lethy", "Islam Ibrahim", "Mirna Gameel", "Ahmed Sultan", "Nancy Salah"],
+				"genres": ["Comedy", "TV Specific"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221688_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257465,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "SNL Arabia",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-11-29T14:14:05+0000"
+			}, {
+				"id": 221689,
+				"friendly_url": "Maral",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Turkish series revolves around Maral. A girl gets a job in the most important shops of the city. Life puts her in front of two options, either the love of her life partner or the job of her dreams.\r\n",
+				"title": "Maral ",
+				"cast": ["Hazal Kaya ", "Aras Bulut  ", "Reha Ozcan "],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221689_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257467,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Maral",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-12-12T13:19:51+0000"
+			}, {
+				"id": 221690,
+				"friendly_url": "Ghomoud-Al-Hob-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The story revolves around the lives of Twinkle, Yuvraj and Konj, who at various points in their lives experience variety of emotions including love, betrayal, jealousy, hatred and obsession",
+				"title": "Ghomoud Al Hob 2",
+				"cast": ["Naman Shaw", "Jasmin Bhasin", "Vaishnavi Mahant"],
+				"genres": ["Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221690_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257469,
+					"season_number": 2,
+					"dubbed": false,
+					"title": "Ghomoud Al Hob 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-12-16T14:11:52+0000"
+			}, {
+				"id": 221691,
+				"friendly_url": "Al-Bait-Al-Kbeer",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Al Bait Al Kbeer is a series about the suffering of the women in the south of Egypt and the problems they face because of the dominant behaviour of the male along with the other social issues.",
+				"title": "Al Bait Al Kbeer",
+				"cast": ["Lucy", "", "Sawsan Badr", "Mondher Rayahneh", "Leqaa Sweidan", "Tarek Sabri", "Ahmed Bedier"],
+				"genres": ["Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221691_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257470,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Al Bait Al Kbeer",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-12-20T13:07:38+0000"
+			}, {
+				"id": 221692,
+				"friendly_url": "Qadary-Bela-Lawn-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The story of a girl named Ganga, who becomes a widow on the same day as her marriage when her husband and her father, with whom she was very close, are killed in a riot on the bank of river Ganges in Varanasi",
+				"title": "Qadary Bela Lawn 2",
+				"cast": ["Shakti Anand", "Aditi Sharma ", "Vishal Vashishtha "],
+				"genres": ["Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221692_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257471,
+					"season_number": 2,
+					"dubbed": false,
+					"title": "Qadary Bela Lawn 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-12-31T08:52:54+0000"
+			}, {
+				"id": 221693,
+				"friendly_url": "Meshwar-Omri",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Meshwar Omri is the story of Kalpana who struggles to fulfil the dreams and aspirations set by her mother, Kamla, a domestic worker who does everything she can to provide a decent life for her.",
+				"title": "Meshwar Omri ",
+				"cast": ["Shilpa Shirodkar", "Rachana Parulkar ", "Ashish Chaudhary "],
+				"genres": ["Drama", "Social"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221693_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257472,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Meshawar Omri ",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2019-01-13T14:05:04+0000"
+			}]
+		}, {
+			"id": 97,
+			"title": "Zee Aflam On Weyyak",
+			"content": [{
+				"id": 232302,
+				"friendly_url": "Half-Girlfriend",
+				"video_id": "AFD644835",
+				"content_type": "movie",
+				"synopsis": "Madhav meets a girl named Riya and they both fall in love. After struggling to convince her to be his girlfriend, she finally agrees to be his \"Half Girlfriend\"",
+				"length": "0",
+				"title": "Half Girlfriend",
+				"cast": ["Arjun Kapoor", "Shraddha Kapoor"],
+				"genres": ["Romance", "Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232302_poster_featured.jpg"
+				},
+				"insertedAt": "2018-02-15T11:50:37+0000"
+			}, {
+				"id": 232305,
+				"friendly_url": "Tanu-Weds-Manu-Returns",
+				"video_id": "AFD644270R",
+				"content_type": "movie",
+				"synopsis": "Tanu and Manu's marriage collapses. Just then Manu meets Tanu's lookalike Kusum and the rollercoaster begins.",
+				"length": "0",
+				"title": "Tanu Weds Manu Returns",
+				"cast": ["R. Madhavan ", "Kangana Ranaut", "Jimmy Shergill"],
+				"genres": ["Romance", "Entertainment"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232305_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232305_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232305_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232305_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232305_poster_featured.jpg"
+				},
+				"insertedAt": "2018-02-15T12:36:43+0000"
+			}, {
+				"id": 232375,
+				"friendly_url": "Toilet-:-Ek-Prem-Katha-",
+				"video_id": "AFD644956R",
+				"content_type": "movie",
+				"synopsis": "A woman threatens to leave her husband unless he installs a toilet in their home. To win back her love and respect, he heads out on a journey to fight against the backward society",
+				"length": "0",
+				"title": "Toilet : Ek Prem Katha ",
+				"cast": ["Akshay Kumar", "", "Bhumi Pednekar", "Sudhir Pandey"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232375_poster_featured.jpg"
+				},
+				"insertedAt": "2018-10-11T13:12:48+0000"
+			}, {
+				"id": 232376,
+				"friendly_url": "Anjaana-Anjaani",
+				"video_id": "AFD645060",
+				"content_type": "movie",
+				"synopsis": "Anjaana Anjaani is a story about 2 Suicidal strangers who meet & make a plan about committing suicide on New Year\u2019s Eve. In the interim, both of them fulfil their personal wishes and eventually fall in love.\r\n",
+				"length": "0",
+				"title": "Anjaana Anjaani",
+				"cast": ["Ranbir Kapoor", "Priyanka Chopra"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232376_poster_featured.jpg"
+				},
+				"insertedAt": "2018-11-15T12:52:54+0000"
+			}, {
+				"id": 232377,
+				"friendly_url": "Qarib-Qarib-Single",
+				"video_id": "AFD645044",
+				"content_type": "movie",
+				"synopsis": "The story revolves around Jaya, a widow who meets a boy \u2013 Yogi through an online dating website. They decide to journey around the country to meet Yogi\u2019s 3 ex-girlfriend.",
+				"length": "0",
+				"title": "Qarib Qarib Single",
+				"cast": ["Irrfan Khan", "Parvathy"],
+				"genres": ["Drama", "Comedy"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232377_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232377_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232377_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232377_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232377_poster_featured.jpg"
+				},
+				"insertedAt": "2018-11-15T12:58:39+0000"
+			}, {
+				"id": 232378,
+				"friendly_url": "Bareily-Ki-Barfi",
+				"video_id": "AFD644868",
+				"content_type": "movie",
+				"synopsis": "Set in the small town of Bareily, Bitti is a free spirited young girl who lives life by her own terms and refuses to to be pressured into being married. Her life changes when she meets 2 boys, Chirag & Pritam.",
+				"length": "0",
+				"title": "Bareily Ki Barfi",
+				"cast": ["Ayushmann Khurrana", "Kriti Sanon", "Rajkumar Rao"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232378_poster_featured.jpg"
+				},
+				"insertedAt": "2018-11-15T13:01:57+0000"
+			}, {
+				"id": 232379,
+				"friendly_url": "Mom",
+				"video_id": "AFD644917",
+				"content_type": "movie",
+				"synopsis": "Devki, is a biology teacher. Arya, her stepdaughter studies in the same school but they share a frosty relationship. When Arya is involved in an unfortunate incident, Devki faces tough obstacles to get justice for her stepdaughter.",
+				"length": "0",
+				"title": "Mom",
+				"cast": ["Akshay Khanna", "Sridevi", "Sajal Ali", "Nawazuddin Siddiqui"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232379_poster_featured.jpg"
+				},
+				"insertedAt": "2018-12-13T13:01:28+0000"
+			}, {
+				"id": 232381,
+				"friendly_url": "Haseena-Parkar",
+				"video_id": "AFD644980",
+				"content_type": "movie",
+				"synopsis": "The story is based on the life of Haseena Parkar, the sister of a Gangster in the underworld. Although being innocent herself, she faces a lot of hardships as a result of her brothers actions. Will she turn into another version of her brother or maintain ",
+				"length": "0",
+				"title": "Haseena Parkar",
+				"cast": ["Shraddha Kapoor", "Siddhant Kapoor", "Ankur Bhatia", "Feroz Ali Khan"],
+				"genres": ["Drama", "Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/movies\/Movie_232381_poster_featured.jpg"
+				},
+				"insertedAt": "2018-12-13T13:09:04+0000"
+			}]
+		}, {
+			"id": 68,
+			"title": "Lifestyle",
+			"content": [{
+				"id": 220620,
+				"friendly_url": "Hot-on-the-Trail",
+				"video_id": "95",
+				"content_type": "series",
+				"synopsis": "With Hot on the Trail, you are no longer hungry!",
+				"title": "Hot on the Trail",
+				"cast": ["Sunny Savage"],
+				"genres": ["Entertainment", "Health", "Healing & Reiki"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256813_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256813_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256813_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256813_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220620_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256813,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Hot on the Trail",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 220625,
+				"friendly_url": "Fun-to-Grown-On",
+				"video_id": "100",
+				"content_type": "series",
+				"synopsis": "Fun to Grow On helps you stop the insanity with great new ideas for games and activities that will get your kids off the couch.",
+				"title": " Fun to Grown On",
+				"cast": ["Melissa Odom"],
+				"genres": ["Entertainment", "Sports", "Mind & Body"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256818_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256818_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256818_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256818_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220625_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256818,
+					"season_number": 1,
+					"dubbed": true,
+					"title": " Fun to Grown On",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 220626,
+				"friendly_url": "Rock-Your-Yoga",
+				"video_id": "101",
+				"content_type": "series",
+				"synopsis": "Sadie gives up tips and tools to help you do Yoga practice and make it a lifestyle.",
+				"title": "Rock Your Yoga",
+				"cast": ["Sadie Nardini"],
+				"genres": ["Entertainment", "Meditation & Relaxation", "Mind & Body"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256819_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256819_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256819_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256819_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220626_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256819,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Rock Your Yoga",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 220629,
+				"friendly_url": "Genesis-Of-Healing",
+				"video_id": "104",
+				"content_type": "series",
+				"synopsis": "The Genesis of Healing takes us on a trip back in time for fascinating look into the origins of hostilic and natural remedies.",
+				"title": "Genesis Of Healing",
+				"cast": ["Alastair Greener"],
+				"genres": ["Documentary", "LifeStyle", "Mind & Body"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256822_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256822_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256822_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256822_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220629_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256822,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Genesis Of Healing",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 220631,
+				"friendly_url": "Nirmala\u00b4s-Spice-World",
+				"video_id": "106",
+				"content_type": "series",
+				"synopsis": "Spice master Nirmala Narine shows you how to create different ethnic recipes using common spices.",
+				"title": "Nirmala\u00b4s Spice World",
+				"cast": ["Nermala"],
+				"genres": ["Special Interest", "LifeStyle", "Food"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256824_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256824_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256824_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256824_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220631_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256824,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Nirmala\u00b4s Spice World",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 220632,
+				"friendly_url": "Peggy-K\u00b4s-Kitchen-Cures",
+				"video_id": "107",
+				"content_type": "series",
+				"synopsis": "Peggy Kotssopoulos whis up healthy and delicious dishes that are both good\u2026 and good for you!",
+				"title": "Peggy K\u00b4s Kitchen Cures",
+				"cast": ["Peggy Kotsopoulos"],
+				"genres": ["LifeStyle", "Health", "Entertainment"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256825_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256825_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256825_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/seasons\/Season_256825_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_220632_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256825,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Peggy K\u00b4s Kitchen Cures",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-02-01T00:00:00+0000"
+			}, {
+				"id": 221081,
+				"friendly_url": "Fed-Up-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "If you are Fed Up with your unhealthy lifestyle; it is time to break the routine and start fresh with Andrea.",
+				"title": "Fed Up 2",
+				"cast": ["Andrea Beaman", ""],
+				"genres": ["Entertainment"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221081_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221081_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221081_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221081_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221081_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 256976,
+					"season_number": 2,
+					"dubbed": true,
+					"title": "Fed Up 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-07-17T14:32:10+0000"
+			}, {
+				"id": 221137,
+				"friendly_url": "Mother's-Care",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Aditi Gowitrikar shares her healthy recipes and takes care of women during and after their pregnancy. ",
+				"title": "Mother's Care ",
+				"cast": ["Aditi Gowitrikar", ""],
+				"genres": ["TV Specific", "LifeStyle"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221137_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221137_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221137_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221137_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221137_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257025,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Mother's Care ",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2017-11-01T11:41:52+0000"
+			}]
+		}, {
+			"id": 158,
+			"title": "Ramadan2018",
+			"content": [{
+				"id": 221453,
+				"friendly_url": "Ribat-Al-Hob-6",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The season 6 of Ribat Al Hob takes a 20 years Leap. Mazhien and Rana are now settled in Canada with their family, but Purvi and Arjun\u2019s marriage did not stand the test of time.",
+				"title": "Ribat Al Hob 6",
+				"cast": ["Hiten Tejwani", "Anita Lokhande", "Rithvik Dhanjani", "Asha Negi"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221453_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221453_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221453_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221453_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221453_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257095,
+					"season_number": 6,
+					"dubbed": true,
+					"title": "Ribat Al Hob 6",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-02-15T14:19:09+0000"
+			}, {
+				"id": 221525,
+				"friendly_url": "Fidya-S4",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "After Sindoora\u2019s defeat, Fidya & Amar can finally lead a happy life. However, will Bharat be able to get over the guilt of killing his own mother? And what happens to his relationship with Aditi? Find out in this season of Fidya exclusively on Weyyak",
+				"title": "Fidya 4",
+				"cast": ["Sharad Malhotra", "Divya"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221525_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257194,
+					"season_number": 4,
+					"dubbed": true,
+					"title": "Fidya 4",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:18:18+0000"
+			}, {
+				"id": 221529,
+				"friendly_url": "Okhte-Hitler-2",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "8 years have gone since Indira\u2019s death, but not must has changed. Rishi who has not yet accepted this fact, must convince his daughter that her stepmom is her real mom. What happens when Indira\u2019s look alike enters the life of Sharma family?",
+				"title": "Okhte Hitler 2",
+				"cast": ["Rati Pandey ", "Sumit Vats"],
+				"genres": ["Drama", "Romance"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221529_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257193,
+					"season_number": 2,
+					"dubbed": true,
+					"title": "Okhte Hitler 2",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T15:56:15+0000"
+			}, {
+				"id": 221531,
+				"friendly_url": "Azmi-W-Ashgan",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Azmi and Ashgan, who form a gang to fraud and scam people, are exposed to funny situations while they are followed by an officer who aims to uncover their crimes.",
+				"title": "Azmi W Ashgan",
+				"cast": ["Hassan Raddad", "Emy Samir Ghanem", "Nisreen Tafesh", "Bayomey Fouad", "Samir Ghanem"],
+				"genres": ["Comedy"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221531_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221531_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221531_cover.png",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221531_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221531_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257214,
+					"season_number": 1,
+					"dubbed": true,
+					"title": "Azmi W Ashgan ",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-15T16:16:06+0000"
+			}, {
+				"id": 221539,
+				"friendly_url": "La'net-Karma",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Haifa Wehbe, a professional scammer falls in love with one of her victims. Will she surrender to her love or will her mind conquer?",
+				"title": "La'net Karma",
+				"cast": ["Haifa Wehbe", "Zaki Fateen", "Noreen karem"],
+				"genres": ["Drama", "Thriller"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221539_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257219,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "La'net Karma",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-16T16:18:53+0000"
+			}, {
+				"id": 221540,
+				"friendly_url": "Amr-Waqe'a",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "Amr Wake\u2019a revolves around a police officer, who has been delegated a mission to disrupt a terrorist attack before it has been executed",
+				"title": "Amr Waqe'a",
+				"cast": ["Karim Fahmy", "Nagla Bader", "Reem Moustafa", "Dina Foad"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221540_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221540_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221540_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221540_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221540_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257304,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Amr Waqe\u2019a",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-05-17T09:23:38+0000"
+			}, {
+				"id": 221547,
+				"friendly_url": "Rahim",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "The series follows the story of Rahim, a businessman who works in money laundry. After being released from jail, he found out that his men took over all his possessions thus begins his journey to take revenge",
+				"title": "Rahim",
+				"cast": ["Yasser Galal", "Noor", "Mohamed Reyad", "Donia", "Dina", "Hassan Hosny"],
+				"genres": ["Action Adventure"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221547_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221547_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221547_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221547_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221547_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257311,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Rahim",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-07-10T09:19:04+0000"
+			}, {
+				"id": 221561,
+				"friendly_url": "Hareem-Al-Shaweesh",
+				"video_id": null,
+				"content_type": "series",
+				"synopsis": "In the series Hareem Shaweesh, the Shaweesh Fikre had three wives to fulfill his wish of having a son. Also the series will talk about power and control in a comical way.",
+				"title": "Hareem Al Shaweesh",
+				"cast": ["Zuhair Ramadan", "Jeni Esber ", "Radwan Oqailey ", "Ali Kareem ", "Abeer Shams Deen ", "Ghada Bshoor "],
+				"genres": ["Comedy", "Drama"],
+				"imagery": {
+					"banner": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221561_overlay.jpg",
+					"thumbnail": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221561_poster.jpg",
+					"backdrop": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221561_cover.jpg",
+					"mobile_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221561_cover_mob.jpg",
+					"featured_img": "http:\/\/zoe.tvappagency.com\/uploads\/series\/Series_221561_poster_featured.jpg"
+				},
+				"seasons": [{
+					"id": 257438,
+					"season_number": 1,
+					"dubbed": false,
+					"title": "Hareem Al Shaweesh",
+					"insertedAt": null,
+					"geoblock": false
+				}],
+				"insertedAt": "2018-09-06T13:15:32+0000"
+			}]
+		}]
+	}
+}

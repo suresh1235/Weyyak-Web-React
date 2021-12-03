@@ -1,0 +1,54 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {}
+
+.reset-password-success-container {
+  background: black;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
+
+  .password-success {
+    width: calc(100% - 30vw);
+    text-align: center;
+    h2 {
+      color: $primary-orange-color;
+    }
+  }
+
+  .rectangle-box {
+    height: 1px;
+    background-color: #d7d7d7;
+    opacity: 0.2;
+  }
+
+  .description {
+    color: #838383;
+    font-size: 18px;
+    margin-top: 50px;
+    margin-bottom: 118px;
+  }
+
+  .btn-return-to-login {
+    .return-button {
+      height: 50px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      background-color: #ff740f;
+      padding: 0 50px;
+      @media screen and (max-width: 745px) {
+        width: 100%;
+        padding: 0;
+      }
+    }
+  }
+  @media screen and (max-width: 745px) {
+    .description {
+      color: #838383;
+      font-size: 12px;
+    }
+    min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+  }
+}

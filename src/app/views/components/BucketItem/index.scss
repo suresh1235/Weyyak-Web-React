@@ -1,0 +1,205 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .bucketItem {
+    .bucket-container {
+      .swiper-container {
+        .swiper-button-next,
+        .swiper-button-prev {
+          transform: scale(-1);
+        }
+      }
+    }
+  }
+
+  .image-thumbnail {
+    &.thumnail-hover:hover {
+      .carousel-bottom-overlay {
+        flex-direction: row-reverse;
+      }
+    }
+
+    &.selected {
+      .carousel-bottom-overlay {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+}
+
+.disable-click {
+  pointer-events: none;
+}
+
+.bucketItem {
+  .bucketItem--header {
+    margin: $bucket-item-header-margin;
+    font-size: $bucket-item-font-size;
+    margin-left: $bucket-item-header-margin-left;
+    margin-right: $bucket-item-header-margin-left;
+    color:white;
+    font-family: "changa";
+  }
+
+  .bucket-container {
+    //margin-bottom: $bucket-item-margin-bottom;
+    .image-thumbnail {
+      .overlay-color {
+        bottom: 0;
+        // color:white;
+        // font-family: "changa";
+      }
+    }
+
+    .swiper-container {
+      width: calc(100% - (#{$bucket-item-swiper-margin-left * 2}));
+      font-size: $bucket-item-font-size;
+      overflow: visible;
+      margin: 0 $bucket-item-swiper-margin-left;
+
+      .swiper-button-next {
+        background-image: url("~app/resources/assets/thumbnail/ic-right-arrow.png");
+        background-position: left 10% center;
+      }
+
+      .swiper-button-prev {
+        background-image: url("~app/resources/assets/thumbnail/ic-left-arrow.png");
+        background-position: right 10% center;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        background-size: 20%;
+        top: 22px;
+        width: 10vw;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .image-thumbnail {
+      .carousel-image {
+        img {
+          display: block;
+          width: 100%;
+          opacity: 1;
+          border-radius: 5px;
+          transition: opacity 0.3s ease;
+
+          &:first-child {
+            position: absolute;
+          }
+        }
+      }
+
+      .carousel-default-image {
+        img {
+          width: 100%;
+          opacity: 1;
+          border-radius: 5px;
+          transition: opacity 0.3s ease;
+          display: block;
+        }
+      }
+
+      .play-button {
+        top: 50%;
+      }
+    }
+
+    &.sliding {
+      .swiper-button-next,
+      .swiper-button-prev {
+        display: none;
+      }
+    }
+  }
+}
+
+.ltr {
+  .bucketItem {
+    .bucket-container {
+      .swiper-container {
+        .swiper-button-next {
+          right: -10.3vw;
+        }
+
+        .swiper-button-prev {
+          left: -10.3vw;
+        }
+      }
+    }
+  }
+}
+
+.rtl {
+  .bucket-container {
+    .swiper-container {
+      .swiper-button-next {
+        left: -10.3vw;
+      }
+
+      .swiper-button-prev {
+        right: -10.3vw;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1280px) {
+  .bucketItem {
+    .bucket-container {
+      .swiper-container {
+        width: calc(100% - (#{$bucket-item-swiper-margin-left}) * 2);
+
+        .swiper-button-prev {
+          background-position: right 15% center;
+        }
+
+        .swiper-button-next {
+          background-position: left 15% center;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 745px) {
+  .bucketItem {
+    .bucketItem--header {
+      margin: $bucket-item-header-margin;
+      // color:white;
+    }
+
+    .bucket-container {
+      .swiper-container {
+        width: calc(90%);
+        margin: 0 4px;
+
+        .swiper-button-prev {
+          display: block;
+          background-position: right 20% center;
+          display: none;
+        }
+
+        .swiper-button-next {
+          display: block;
+          background-position: left 20% center;
+          display: none;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 320px) {
+  .bucketItem {
+    .bucket-container {
+      .swiper-container {
+        margin: 0;
+
+        .swiper-button-next,
+        .swiper-button-prev {
+          display: none;
+        }
+      }
+    }
+  }
+}

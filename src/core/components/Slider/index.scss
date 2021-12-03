@@ -1,0 +1,77 @@
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+.bucketItem {
+  .Horizontal-menu {
+    width: 100%;
+  }
+  .slick-slider {
+    // width: 100% !important;
+    .slick-arrow {
+      z-index: 1;
+      background-image: url("~app/resources/assets/thumbnail/ic-down-arrow.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .slick-list {
+      overflow: visible;
+
+      .slick-track {
+        margin: 0;
+      }
+      .slick-slide {
+        position: relative;
+        border: 2px solid transparent;
+        border-top-width: 0;
+        border-bottom-width: 0;
+        font-size: 18px;
+        color: #fff;
+        background-color: transparent;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        display: table-cell;
+        vertical-align: middle;
+        float: none;
+        min-width: 241px;
+        // opacity: 0.5;
+
+        &.moving,
+        &.slick-active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    content: none;
+  }
+  .slick-arrow {
+    height: 27px;
+    width: 50px;
+    &.slick-prev {
+      transform: translateY(-50%) rotate(90deg) scale(1.2);
+    }
+    &.slick-next {
+      transform: translateY(-50%) rotate(-90deg) scale(1.2);
+    }
+  }
+  .slick-slide {
+    width: auto;
+  }
+  &.slider-length {
+    width: 48vw;
+    margin-left: 0;
+  }
+}
+$class-slider-length: slider-length- !default;
+
+@media screen and (min-width: 745px) {
+  .slick-prev {
+    left: -50px !important;
+  }
+  .slick-next {
+    right: -50px !important;
+    left: unset !important;
+  }
+}

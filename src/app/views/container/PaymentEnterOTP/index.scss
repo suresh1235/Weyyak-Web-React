@@ -1,0 +1,199 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .enter-otp-container {
+    .enter-mobile2 {
+      text-align: right;
+    }
+
+    .resend-code {
+      text-align: right;
+    }
+
+    .conditions-container {
+      text-align: right;
+    }
+  }
+}
+
+.enter-otp-container {
+  width: 100%;
+  min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
+  padding: 0 10%;
+  text-align: center;
+  background: $primary-background-color;
+  color: $primary-text-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "changa";
+  @media(max-width: $mobile-view-threshold-px) {
+    min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+  }
+
+  .margin-collapse {
+    height: 1px;
+  }
+
+  .enjoy_weyyak_experience {
+    margin-top: 70px;
+    font-size: 20px;
+    line-height: 21px;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 16px;
+    }
+  }
+
+  .enter-mobile2 {
+    margin-top: 60px;
+    padding: 0 10px;
+    line-height: 21px;
+    font-size: 18px;
+    text-align: left;
+    width: 100%;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 12px;
+    }
+  }
+
+  .input-container {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+
+    .input {
+      width: 100%;
+      height: 54px;
+      border-radius: 5px;
+      border: 2px solid $input-border-color;
+      padding: 0 20px;
+      font-size: 18px;
+      @media(max-width: $mobile-view-threshold-px) {
+        font-size: 16px;
+      }
+
+      &::placeholder {
+        color: #5d5d5d;
+      }
+    }
+
+    .country-code {
+      width: 17%;
+      min-width: 60px;
+    }
+
+    .mobile-number {
+      width: 52%;
+    }
+  }
+
+  .resend-code {
+    width: 100%;
+    height: 18px;
+    margin: 10px 0;
+    padding: 0 10px;
+    font-size: 14px;
+    text-align: left;
+
+    .resend-text {
+      color: #ffffff;
+      text-decoration: underline;
+
+      &.active {
+        cursor: pointer;
+      }
+    }
+
+    .timer {
+      color: #5d5d5d;
+      margin: 0 5px;
+    }
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 12px;
+    }
+  }
+
+  .subscribe-button {
+    width: 400px;
+    height: 54px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #ff6d02;
+    min-width: 75px;
+    @media(max-width: $mobile-view-threshold-px) {
+      width: 258px;
+      height: 42px;
+    }
+
+    span {
+      font-size: 18px;
+      @media(max-width: $mobile-view-threshold-px) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .exit {
+    height: 22px;
+    font-size: 18px;
+    text-decoration: underline;
+    margin-top: 40px;
+    cursor: pointer;
+  }
+
+  .conditions-container {
+    width: 100%;
+    margin: 90px 0 80px;
+    color: #555555;
+    text-align: left;
+    font-size: 15px;
+    line-height: 23px;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .by-clicking,
+    .free-for {
+      font-weight: 700;
+    }
+  }
+}
+
+.transaction-done-container {
+  width: 100%;
+  min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
+  padding: 0 10px;
+  text-align: center;
+  background: $primary-background-color;
+  color: $primary-text-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media(max-width: $mobile-view-threshold-px) {
+    min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+  }
+
+  .message {
+    margin-top: 70px;
+    font-size: 22px;
+    line-height: 29px;
+    @media(max-width: $mobile-view-threshold-px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  .button {
+    margin: 100px 0;
+    width: 400px;
+    height: 53px;
+    border-radius: 5px;
+    background-color: #ff6d02;
+    font-size: 18px;
+    @media(max-width: $mobile-view-threshold-px) {
+      width: 250px;
+      font-size: 16px;
+    }
+  }
+}

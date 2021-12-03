@@ -1,0 +1,66 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .settings-container {
+    .settings {
+      .arrow{
+        right: auto;
+        left: 0;
+        transform: rotate(180deg);
+        font-family: "changa";
+      }
+    }
+  }
+  @media only screen and (max-width: 1024px) {
+    .settings-container {
+
+    }
+  }
+}
+
+.settings-container {
+  background: $sign-up-background-color;
+  color: #4a4a4a;
+  display: flex;
+  font-family: "changa";
+  justify-content: center;
+  min-height: calc(100vh - #{$app-footer-height} - 60px);
+
+  .settings {
+    width: calc(100% - 25vw);
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0 60px 0;
+    .title{
+      margin-top: 40px;
+      margin-bottom: 20px;
+      color: #ffffff;
+      font-size: 24px;
+      text-align: center
+    }
+    .setting-item{
+      padding: 10px 0;
+      border-bottom: 1px solid #303030;
+      position: relative;
+      cursor: pointer;
+    }
+    .setting-item-title{
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .setting-item-desc{
+      font-size: 16px;
+    }
+    .arrow{
+      background: url('~app/resources/assets/arrow-seeting.svg');
+      width: 11px;
+      height: 18px;
+      position: absolute;
+      top: 50%;
+      right: 0;
+    }
+  }
+  @media only screen and (max-width: 745px) {
+    min-height: calc(100vh - 175px - 60px);
+  }
+}

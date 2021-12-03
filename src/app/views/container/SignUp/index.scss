@@ -1,0 +1,350 @@
+@import "app/resources/styles/variables.scss";
+
+.signup-container {
+  background: $sign-up-background-color;
+  min-height: 76vh;
+  display: flex;
+  justify-content: center;
+  font-family: "changa";
+
+  .sign-up {
+    width: 85%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    @media(max-width: $mobile-view-threshold-login-px) {
+      width: 100%;
+    }
+
+    .overlay-title {
+      color: $sign-in-text-color;
+      font-size: 20px;
+      margin: 70px 0 30px;
+      text-transform: uppercase;
+      @media(max-width: $mobile-view-threshold-login-px) {
+        margin-top: 70px;
+      }
+    }
+
+    .register-container {
+      display: flex;
+      @media(max-width: $mobile-view-threshold-login-px) {
+        width: 80%;
+        max-width: 400px;
+        display: block;
+      }
+
+      .input-container {
+        margin-top: 20px;
+        @media(max-width: $mobile-view-threshold-login-px) {
+          min-height: 250px;
+        }
+
+        .email-button,
+        .mobile-button {
+          margin: 0;
+          border-radius: 5px;
+          background-color: $login-button-unselected-color;
+          color: $next-button-color;
+          font-size: 19px;
+          width: 400px;
+          height: 53px;
+
+          &.expand {
+            background-color: $lightPrimary;
+          }
+          @media(max-width: $mobile-view-threshold-login-px) {
+            min-width: 250px;
+            width: 100%;
+          }
+          @media(max-width: $mobile-view-threshold-px) {
+            font-size: 16px;
+          }
+        }
+
+        .email-expand,
+        .mobile-expand {
+          width: 400px;
+          background-color: $expand-bacground-color;
+          padding: 10px 14px;
+          @media(max-width: $mobile-view-threshold-login-px) {
+            width: 100%;
+          }
+        }
+
+        .checkbox-container {
+          margin-top: 0;
+        }
+      }
+    }
+
+    .or-container {
+      width: 400px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: 30px 0;
+      @media(max-width: $mobile-view-threshold-login-px) {
+        width: 80%;
+        height: 1px;
+        margin: 25px auto;
+      }
+
+      &.second {
+        width: 120px;
+        margin: 25px auto;
+        @media(max-width: $mobile-view-threshold-login-px) {
+          height: 1px;
+          width: 80%;
+        }
+
+        .or-text {
+          display: none;
+          @media(max-width: $mobile-view-threshold-login-px) {
+            display: block;
+          }
+        }
+
+        .or-line {
+          width: 0;
+          height: 167px;
+          border: 0.5px solid #414141;
+          @media(max-width: $mobile-view-threshold-login-px) {
+            height: 1px;
+            width: 80%;
+          }
+        }
+      }
+
+      .or-line {
+        width: 399px;
+        height: 1px;
+        border: 1px solid #414141;
+      }
+
+      .or-text {
+        width: 50px;
+        line-height: 0;
+        text-align: center;
+        font-size: 16px;
+        color: #656565;
+      }
+    }
+
+    .redirection-container {
+      height: 48px;
+      font-size: 18px;
+      color: #9e9e9e;
+      display: flex;
+      justify-content: center;
+      margin: 80px 0;
+      flex-direction: column;
+      align-items: center;
+      @media(max-width: $mobile-view-threshold-login-px) {
+        margin: 40px 0;
+      }
+
+      .redirection-name {
+        color: #9e9e9e;
+        text-decoration-line: inherit;
+      }
+    }
+
+    .subscribe-checkbox-wrapper {
+      width: 100%;
+      padding: 0 3px;
+
+      .checkbox {
+        margin: 0;
+
+        .input {
+          width: 28px;
+          height: 28px;
+        }
+
+        .checkbox-text {
+          font-size: 16px;
+          margin-left: 15px;
+          color: #5d5d5d;
+          line-height: 25px;
+          @media(max-width: $mobile-view-threshold-px) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .register-button {
+      margin: 0 0 10px;
+      border-radius: 5px;
+      background-color: $login-button-unselected-color;
+      color: $next-button-color;
+      font-size: 19px;
+      width: 100%;
+      height: 42px;
+      cursor: default;
+
+      &.enable {
+        background-color: $lightPrimary;
+        cursor: pointer;
+      }
+      @media(max-width: $mobile-view-threshold-px) {
+        font-size: 16px;
+      }
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+
+      .row {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        position: relative;
+
+        .phone-input {
+          border-bottom: 1px solid $input-border-bottom-color;
+        }
+
+        input {
+          -webkit-box-shadow: 0 0 0 30px $expand-bacground-color inset !important;
+          -webkit-text-fill-color: white !important;
+          outline: none;
+          background-color: transparent !important;
+          height: 53px;
+          border-bottom: 1px solid $input-border-bottom-color;
+          font-size: 18px;
+          position: relative;
+
+          &.email,
+          &.password {
+            width: 100%;
+          }
+
+          @media(max-width: $mobile-view-threshold-px) {
+            font-size: 16px;
+          }
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:hover {
+          -webkit-box-shadow: 0 0 0 30px $expand-bacground-color inset !important;
+          -webkit-text-fill-color: white !important;
+          // background-color: transparent !important;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          outline: none;
+        }
+
+        .react-tel-input {
+          input[type=tel] {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid $input-border-bottom-color;
+            border-radius: 0;
+            caret-color: white;
+          }
+
+          .flag-dropdown {
+            background-color: transparent;
+            border: none;
+
+            .selected-flag {
+              .arrow {
+                width: 14px;
+                height: 9px;
+                background: url($phone-down-arrow) center no-repeat;
+                border: none;
+                transform: scale(0.7);
+                top: 0;
+                margin: 0;
+              }
+            }
+
+            &.open-dropdown,
+            &:hover {
+              .selected-flag {
+                width: 50px;
+                background-color: transparent;
+              }
+            }
+          }
+
+          .flag {
+            transform: scale(1.4);
+          }
+
+          .country-list {
+            margin-top: 0;
+            @media(max-width: $mobile-view-threshold-login-px) {
+              width: 200px;
+            }
+          }
+        }
+      }
+
+      .error-message {
+        color: #bd0000;
+        font-style: normal;
+        padding: 4px;
+        margin-top: 0;
+        margin-bottom: 6px;
+        font-weight: 400;
+        height: 17px;
+        font-size: 12px;
+        position: relative;
+        align-items: baseline;
+        text-align: left;
+        width: 100%;
+      }
+    }
+
+    .social-login-container {
+      margin-top: 0;
+      @media(max-width: $mobile-view-threshold-login-px) {
+        margin-top: 27px;
+      }
+
+      .social-login-text {
+        font-size: 18px;
+        @media(max-width: $mobile-view-threshold-px) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .rodal-dialog {
+    padding: 0;
+
+    .rating-dialog-content {
+      .dialog-title {
+        text-align: center;
+        word-wrap: break-word;
+        color: #606060;
+        font-size: 22px;
+        letter-spacing: 0.005em;
+      }
+
+      .dialog-ok-btn {
+        border: 1px solid #606060;
+        border-bottom: none;
+        width: 100%;
+        text-transform: none;
+        color: #606060 !important;
+        padding: 0;
+        margin: 0 0 -17px !important;
+        border-radius: 0;
+
+        &:hover {
+          background: $primary-orange-color;
+          color: white;
+        }
+      }
+    }
+  }
+}

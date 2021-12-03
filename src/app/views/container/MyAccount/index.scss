@@ -1,0 +1,494 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .myaccount-container {
+    font-family: "changa";
+    .form-myaccount {
+      .row {
+        .left-column {
+          //margin-left: 10px;
+        }
+
+        .inner-column {
+          .change-password,
+          .verify {
+            right: auto;
+            left: 0;
+          }
+        }
+      }
+    }
+
+    .checkbox-container {
+      .checkbox-text {
+        margin-left: 0;
+        margin-right: 10px;
+      }
+    }
+  }
+  @media only screen and (max-width: 1024px) {
+    .myaccount-container {
+      .form-myaccount {
+        .row {
+          .left-column {
+            margin: 0 0 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .myaccount-container .react-tel-input .flag-dropdown {
+    border-right: 2px solid #494949;
+    border-left: none;
+  }
+
+  .react-tel-input .selected-flag .flag {
+    margin-right: 5px;
+  }
+}
+
+.myaccount-container {
+  background: $sign-up-background-color;
+  color: #4a4a4a;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - #{$app-footer-height} - 60px);
+
+  .myaccount {
+    width: calc(100% - 25vw);
+    display: flex;
+    flex-direction: column;
+    font-family: "changa";
+
+    .overlay-title {
+      color: $my-background-color;
+      font-size: 24px;
+      font-weight: 400;
+      text-align: center;
+      margin: 30px 0;
+      //white-space: nowrap;
+      overflow: auto;
+      //order: 1;
+      -ms-overflow-style: none;
+      overflow: -moz-scrollbars-none;
+
+      @media only screen and (max-width: 745px) {
+        font-size: 20px;
+      }
+
+      ::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0!important;
+        display: none;
+      }
+    }
+
+    .my-account-action-buttons {
+      display: -ms-flexbox;
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+      margin-bottom: 30px;
+      order: 5;
+
+      .btn {
+        padding: 5px 10px;
+        border-radius: 5px;
+        height: $my-acc--btn-height;
+        @media only screen and (max-width: 745px) {
+          margin-bottom: 10px;
+          white-space: nowrap;
+          font-size: 16px;
+        }
+      }
+
+      .btn-device-pair {
+        background: $primary-orange-color;
+        width: 400px;
+        height: 53px;
+        border-radius: 5px;
+      }
+    }
+
+    .my-account-buttons {
+      display: -ms-flexbox;
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+      border-top: 1px solid #929090;
+      order: 3;
+
+      .btn {
+        padding: 5px 10px;
+        border-radius: 5px;
+        height: $my-acc--btn-height;
+        @media only screen and (max-width: 745px) {
+          margin-bottom: 10px;
+          white-space: nowrap;
+          font-size: 16px;
+        }
+      }
+
+      .btn-device-pair {
+        background: $primary-orange-color;
+      }
+
+      .btn-cancel {
+        color: #7f8080;
+        background-color: $my-background-color;
+
+        &:hover {
+          background: $my-background-color;
+        }
+        @media only screen and (max-width: 745px) {
+          font-size: 15px;
+        }
+      }
+
+      .btn-sign-out-all {
+        &:hover {
+          background: rgba(158,158,158,0.2);
+        }
+      }
+      @media only screen and (max-width: 745px) {
+        flex-direction: column;
+        order: 4;
+      }
+    }
+
+    .my-account-checkboxes {
+      //border-top: 1px solid #929090;
+      order: 4;
+
+      .checkbox-container {
+        @media only screen and (max-width: 745px) {
+          margin: 10px 0;
+        }
+      }
+      @media only screen and (max-width: 745px) {
+        order: 3;
+      }
+    }
+
+    .rodal-dialog {
+      padding: 0;
+      @media only screen and (max-width: 745px) {
+        width: 90%!important;
+      }
+    }
+
+    .signout-dialog-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .content {
+        padding: 24px;
+        text-align: center;
+      }
+
+      .dialog-title {
+        color: $primary-orange-color;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.005em;
+        margin-bottom: 10px;
+      }
+
+      .dialog-text {
+        color: #606060;
+      }
+
+      .actions {
+        display: flex;
+        height: $my-acc-dialog-btn-height;
+      }
+
+      .dialog-ok-btn {
+        border: 1px solid #606060;
+        width: 100%;
+        text-transform: none;
+        color: #606060;
+        padding: 0;
+        margin: 0 0 -17px;
+        border-radius: 0;
+        background: $my-background-color;
+        font-size: 16px;
+        height: $my-acc-dialog-btn-height;
+
+        &:hover {
+          background: rgba(158,158,158,0.2);
+        }
+      }
+    }
+
+    .email-conaitner {
+      position: relative;
+    }
+  }
+
+  .contact-us {
+    color: #5d5d5d;
+    font-size: 18px;
+    @media only screen and (max-width: 745px) {
+      font-size: 16px;
+    }
+
+    .contact-us-link {
+      color: #5d5d5d;
+      text-decoration: underline;
+      margin: 0 3px;
+
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+
+    &:visited {
+      color: #5d5d5d;
+    }
+  }
+
+  .form-myaccount {
+    //border-top: 1px solid #929090;
+    padding-bottom: 10px;
+    order: 2;
+
+    .row {
+      display: flex;
+      flex-direction: column;
+
+      .left-column,
+      .right-column {
+        flex-basis: 50%;
+        display: flex;
+        flex-direction: column;
+
+        .label {
+          height: 19px;
+          color: #5d5d5d;
+          font-size: 18px;
+          margin: 20px 0 5px;
+          @media only screen and (max-width: 745px) {
+            font-size: 16px;
+          }
+        }
+        @media only screen and (max-width: 745px) {
+          flex-direction: column;
+        }
+      }
+
+      .inner-column {
+        flex-basis: 100%;
+        margin: 5px 0;
+
+        .select-box {
+          .select-box-scroll {
+            padding: 0 20px;
+          }
+        }
+
+        .mobile-input-container,
+        .password-container {
+          position: relative;
+        }
+
+        .react-datepicker-wrapper,
+        .react-datepicker__input-container {
+          width: 100%;
+        }
+
+        .change-password,
+        .verify {
+          position: absolute;
+          right: 0;
+          top: 0;
+          padding: 15px;
+          font-size: 14px;
+          font-weight: 400;
+          font-style: normal;
+          font-stretch: normal;
+          letter-spacing: normal;
+          color: #5d5d5d;
+          text-decoration: underline;
+          text-align: center;
+          white-space: nowrap;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+
+          &.enabled {
+            cursor: pointer;
+          }
+        }
+
+        .verify {
+          visibility: hidden;
+
+          &.show {
+            visibility: visible;
+            cursor: pointer;
+          }
+        }
+
+        .change-password {
+          @extend .change-password;
+        }
+
+        .error-text {
+          color: #dc3545;
+          font-size: 14px;
+        }
+
+        input {
+          width: 100%;
+          height: $my-acc--btn-height;
+          padding: 0 10px;
+          color: #646464;
+          font-size: 16px;
+          margin: 0;
+          border-radius: 5px;
+          border: 2px solid #4a4a4a;
+          background: black;
+          color: #ffffff;
+
+          &.mobile-input {
+            display: none;
+          }
+
+          &.error {
+            background-color: #dc3545;
+            color: #fff;
+
+            &::placeholder {
+              /* Chrome, Firefox, Opera, Safari 10.1+ */
+              color: #fff;
+              opacity: 1;
+              /* Firefox */
+            }
+
+            &:-ms-input-placeholder {
+              /* Internet Explorer 10-11 */
+              color: #fff;
+            }
+
+            &::-ms-input-placeholder {
+              /* Microsoft Edge */
+              color: #fff;
+            }
+          }
+
+          &[type="date"] {
+            background: url("https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png") 99% 50% no-repeat;
+          }
+
+          &[type="date"]::-webkit-inner-spin-button {
+            display: none;
+          }
+
+          &[type="date"]::-webkit-calendar-picker-indicator {
+            opacity: 0;
+          }
+        }
+
+        .phone-input {
+          padding: 0 10px;
+          border-radius: 5px;
+          border: 2px solid #4a4a4a;
+
+          input {
+            border: none;
+            background-color: transparent;
+          }
+        }
+
+        .select-box-container {
+          width: 100%;
+          margin: 0;
+          border: 2px solid #4a4a4a;
+          border-radius: 5px;
+
+          .select-box {
+            width: 100%;
+            background: black;
+          }
+
+          .selected {
+            border-radius: 5px;
+            line-height: $my-acc--btn-height;
+            height: $my-acc--btn-height;
+            color: white;
+            background: black;
+          }
+
+          select-box .select-box-elements {
+            top: $my-acc--btn-height;
+          }
+        }
+      }
+    }
+  }
+
+  .mange-account-btn,
+  .mange-devices-btn,
+  .my-account-btn {
+    border: 2px solid transparent;
+    text-transform: uppercase;
+
+    &.selected {
+      border-radius: 5px;
+      border: 2px solid #ff6d02;
+      color: #ff6d02;
+    }
+
+    &:hover {
+      background: transparent;
+    }
+    @media screen and (max-width: 745px) {
+      font-size: 16px;
+    }
+  }
+
+  .change-password-link {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #4470ca;
+  }
+
+  .react-tel-input .flag-dropdown {
+    background-color: #000000;
+    border: 2px solid #494949;
+    border-radius: 3px 3px;
+    border-right: none;
+    border-left: 2px solid #494949;
+  }
+
+  .react-tel-input .flag-dropdown:hover .selected-flag {
+    background-color: #000;
+  }
+}
+/*Device width pixel lesser than 1024*/
+@media only screen and (max-width: 1024px) {
+  .myaccount-container {
+    .myaccount {
+      width: calc(100% - 15vw);
+    }
+
+    .form-myaccount {
+      .row {
+        flex-direction: column;
+
+        .left-column {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

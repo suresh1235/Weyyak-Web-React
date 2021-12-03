@@ -1,0 +1,85 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {}
+
+.mobile-verification-container {
+  background: black;
+  color: #fff;
+  min-height: calc(100vh - #{$header-height} - #{$app-footer-height});
+
+  .desktop-icon {
+    display: flex;
+    margin: 35px auto 10px;
+  }
+
+  .mobile-verification-input {
+    margin: 0 auto;
+    width: 330px;
+    height: 65px;
+
+    .password-hide-wrapper {
+      position: relative;
+      float: left;
+
+      .input {
+        width: 71px;
+        height: 65px;
+        border-radius: 5px;
+        border: 2px solid #4a4a4a;
+        text-align: center;
+      }
+
+      .password-hide-design {
+        width: 23px;
+        height: 21px;
+        background: white;
+        position: absolute;
+        left: 30px;
+        top: 22px;
+        border-radius: 16px;
+        pointer-events: none;
+        display: none;
+      }
+    }
+  }
+
+  .mobile-verification-content {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 4%;
+    padding-top: 5%;
+
+    p {
+      text-align: center;
+      padding-bottom: 18px;
+    }
+    @media(max-width: $mobile-view-threshold-px) {
+      width: 80%;
+      margin: auto;
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    padding-bottom: 16%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    width: 100%;
+
+    .resend-link {
+      font-size: 18px;
+      text-decoration-line: inherit;
+      margin-bottom: 50px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .btn-verify {
+      width: 280px;
+      height: 46px;
+      border-radius: 5px;
+      background-color: #ff740f;
+    }
+  }
+}

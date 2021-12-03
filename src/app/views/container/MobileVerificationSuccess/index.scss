@@ -1,0 +1,49 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+}
+
+.mobile-verification-success-container {
+  background: black;
+  color: #fff;
+  min-height: calc(100vh - #{$header-height} - #{$app-footer-height});
+  .desktop-icon{
+    display: flex;
+    margin: 35px auto 10px;
+  }
+  .mobile-verification-content {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 4%;
+    padding-top: 5%;
+    p {
+      text-align: center;
+      padding-bottom: 18px;
+    }
+    @media(max-width: $mobile-view-threshold-px){
+      width: 80%;
+      margin: auto;
+    }
+  }
+  .btn-container {
+    display: flex;
+    padding-bottom: 16%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+
+    .btn-done {
+      width: 280px;
+      height: 46px;
+      border-radius: 5px;
+      background-color: #ff740f;
+    }
+    @media(max-width: $mobile-view-threshold-px){
+      flex-direction: column;
+      .btn{
+        width: auto;
+        margin: 10px;
+      }
+    }
+  }
+}

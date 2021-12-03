@@ -1,0 +1,113 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {
+  .subscribe-to-watch-ad-adcontainer {
+    font-family: "Droid Sans Arabic";
+
+    .subscribe-back {
+      margin: 40px 40px 0 0;
+
+      .back-button {
+        transform: rotate(0deg);
+      }
+    }
+  }
+}
+
+.subscribe-to-watch-ad-adcontainer {
+  min-height: calc(100vh - 245px);
+  background: #000;
+  color: #ffffff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Droid Sans";
+
+  .subscribe-back {
+    position: absolute;
+    margin: 40px 0 0 40px;
+
+    .back-button {
+      height: 37px;
+      padding: 0;
+      transform: rotate(180deg);
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .back-text {
+      height: 37px;
+      line-height: 37px;
+      font-size: 18px;
+      margin: 5px;
+
+      &:hover {
+        background: transparent;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .subscribe-to-watch-container-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 245px);
+
+    .subscribe-title {
+      color: #ffffff;
+      font-size: 21px;
+      @media only screen and (max-width: $mobile-view-threshold-px) {
+        font-size: 16px;
+      }
+    }
+    @media only screen and (max-width: $mobile-view-threshold-px) {
+      min-height: calc(100vh - 235px);
+    }
+
+    .subscribe-to-watch-container-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      margin-top: 20px;
+
+      .subscribe-btn {
+        width: 137px;
+        height: 53px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        color: #ff6d02;
+        font-size: 16px;
+      }
+
+      .or-text {
+        margin: 0 15px;
+      }
+
+      .continue-btn {
+        width: 137px;
+        height: 53px;
+        border-radius: 5px;
+        background-color: #ff6d02;
+        color: #ffffff;
+        font-size: 16px;
+      }
+    }
+  }
+  @media only screen and (max-width: $mobile-view-threshold-px) {
+    min-height: calc(100vh - 235px);
+  }
+}

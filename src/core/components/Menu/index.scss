@@ -1,0 +1,45 @@
+/*
+ * Copyright (C) 2014-2018 L&T Technology Services, All Rights Reserved.
+ *
+ * This source code and any compilation or derivative thereof is the
+ * proprietary information of L&T and is confidential in nature.
+ * Under no circumstances is this software to be exposed to or placed under
+ * an Open Source License of any type without the expressed written permission
+ * of L&T.
+ */
+@import "app/resources/styles/variables.scss";
+
+.sidemenu {
+  height: 100%;
+  width: $app-menu-width;
+  position: fixed;
+  z-index: 2100; // Added because ad container has index of 1000
+  top: 0;
+  left: -$app-menu-width;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: all 0.2s;
+  padding-top: 60px;
+
+  &.show {
+    left: 0px;
+  }
+  span {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+    &:hover {
+      color: #f1f1f1;
+      cursor: pointer;
+    }
+  }
+  .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+}

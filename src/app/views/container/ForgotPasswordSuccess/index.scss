@@ -1,0 +1,57 @@
+@import "app/resources/styles/variables.scss";
+
+.app-body[dir="rtl"] {}
+
+.forgot-password-success-container {
+  background: black;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - #{$app-footer-height} - #{$header-height});
+  font-family: "changa";
+  font-size: 20px;
+
+  @media screen and (max-width: $mobile-view-threshold-px) {
+    font-size: 16px;
+  }
+
+  .password-success {
+    width: calc(100% - 30vw);
+    text-align: center;
+
+    h2 {
+      margin-top: 100px;
+      @media screen and (max-width: $mobile-view-threshold-px) {
+          margin-top: 50px;
+      }
+    }
+  }
+
+  .description {
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .note {
+    color: #838383;
+    margin-bottom: 100px;
+  }
+
+  .btn-return-to-login {
+    .return-button {
+      height: 50px;
+      border-radius: 5px;
+      margin-bottom: 50px;
+      background-color: #ff740f;
+      padding: 0 50px;
+      @media screen and (max-width: $mobile-view-threshold-px) {
+        width: 100%;
+        padding: 0;
+      }
+    }
+  }
+  @media screen and (max-width: $mobile-view-threshold-px) {
+    min-height: calc(100vh - #{$app-footer-height} - #{$header-height-mobile});
+  }
+}
